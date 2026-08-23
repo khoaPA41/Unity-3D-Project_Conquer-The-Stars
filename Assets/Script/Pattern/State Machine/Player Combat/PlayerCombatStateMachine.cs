@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using ConquerTheStars.Pattern.StateMachine.Base;
+using TMPro;
 using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
@@ -22,13 +24,17 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public string AnimationName { get; set; }
         public State PlayerIdleState { get; private set; }
         public State PlayerAttackState { get; private set; }
+        public State PlayerGetHitState { get; private set; }
 
         public Vector3 PlayerStartPosition { get; set; }
+
+        public event Action AttackDealDamage = delegate { }; // This event will attend when enemy play get hit animation
 
         public bool IsFinished { get; set; }
         private void Awake()
         {
             PlayerIdleState = new PlayerCombatIdleState(this);
+            PlayerGetHitState = new PlayerCombatGetHitState(this);
 
         }
 
@@ -45,6 +51,12 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public void SwitchAttackState(int index)
         {
             SwitchState(new PlayerCombatAttackState(this, index));
+        }
+
+        public void CallDealDamageEvent()
+        {
+            Debug.Log("Call event");
+            AttackDealDamage?.Invoke();
         }
     }
 }

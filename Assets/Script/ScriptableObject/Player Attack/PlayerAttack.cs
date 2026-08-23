@@ -7,5 +7,5 @@ public class PlayerAttack : ScriptableObject
     public List<string> AttackName;
     public List<string> AttackInformation;
     public List<Sprite> AttackIcon;
-    // public string AttackName;
+    public List<float> AttackDamage;
 }

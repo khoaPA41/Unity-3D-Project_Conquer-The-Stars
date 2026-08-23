@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,6 @@ public class BattleInputReader : MonoBehaviour, PlayerBattleInput.IPlayerActions
     public event Action NextTargetAction = delegate { };
     public event Action PreviousTargetAction = delegate { };
     public event Action EnterTargetAction = delegate { };
-
 
     private PlayerBattleInput inputActions;
 

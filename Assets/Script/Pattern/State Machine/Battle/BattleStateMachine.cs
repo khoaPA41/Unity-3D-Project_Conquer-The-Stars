@@ -25,7 +25,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         // State
         public State BattleSetup { get; private set; }
         public State StartTurn { get; private set; }
+        public State PlayerTurn { get; private set; }
+        public State PlayerSelectSkillTurn { get; private set; }
+        public State PlayerSelectTargetTurn { get; private set; }
         public State Playerexecuted { get; private set; }
+        public State EnemyTurn { get; private set; }
+        public State EnemyExecuted { get; private set; }
         public State Resolve { get; private set; }
 
         public PlayerCombatStateMachine PlayerCombatStateMachine { get; set; }
@@ -40,7 +45,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             Cursor.lockState = CursorLockMode.None;
             BattleSetup = new SetupState(this);
             StartTurn = new StartTurnState(this);
+            PlayerTurn = new PlayerTurnState(this);
+            PlayerSelectSkillTurn = new PlayerSelectSkillState(this);
+            PlayerSelectTargetTurn = new PlayerSelectTargetState(this);
             Playerexecuted = new PlayerExecutionState(this);
+            EnemyTurn = new EnemyTurnState(this);
+            EnemyExecuted = new EnemyExecutionState(this);
             Resolve = new ResolveState(this);
             SwitchState(BattleSetup);
         }

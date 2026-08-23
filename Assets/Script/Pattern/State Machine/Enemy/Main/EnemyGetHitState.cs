@@ -2,25 +2,24 @@ using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Enemy
 {
-    public class EnemyAttackState : EnemyBaseState
+    public class EnemyGetHitState : EnemyBaseState
     {
-        private readonly int AttackAnimationHash = Animator.StringToHash("Attack");
-        private readonly string AttackTagHash = "Attack";
-
+        private readonly int GetHitAnimationHash = Animator.StringToHash("GetHit");
+        private readonly string GetHitTag = "GetHit";
         private float normalizedTime;
         private float prevTime;
-        public EnemyAttackState(EnemyStateMachine enemyStateMachine) : base(enemyStateMachine)
+        public EnemyGetHitState(EnemyStateMachine enemyStateMachine) : base(enemyStateMachine)
         {
         }
 
         public override void Enter()
         {
-            enemyStateMachine.Animator.CrossFadeInFixedTime(AttackAnimationHash, enemyStateMachine.AnimationCrossFade);
+            enemyStateMachine.Animator.CrossFadeInFixedTime(GetHitAnimationHash, enemyStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
         {
-            normalizedTime = NormalizedTime(enemyStateMachine.Animator, AttackTagHash);
+            normalizedTime = NormalizedTime(enemyStateMachine.Animator, GetHitTag);
             if (normalizedTime > prevTime && normalizedTime >= .9)
             {
                 enemyStateMachine.IsFinished = true;

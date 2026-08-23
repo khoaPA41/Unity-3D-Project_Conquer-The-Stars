@@ -32,11 +32,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 case CharacterType.Player:
                     battleStateMachine.PlayerCombatStateMachine = battleStateMachine.CurrentTurn.GetComponent<PlayerCombatStateMachine>();
-                    battleStateMachine.SwitchState(new SelectActionState(battleStateMachine));
+                    battleStateMachine.SwitchState(battleStateMachine.PlayerTurn);
                     break;
                 case CharacterType.Enemy:
                     battleStateMachine.EnemyStateMachine = battleStateMachine.CurrentTurn.GetComponent<EnemyStateMachine>();
-                    battleStateMachine.SwitchState(new EnemyExecutionState(battleStateMachine));
+                    battleStateMachine.SwitchState(battleStateMachine.EnemyTurn);
                     break;
             }
         }

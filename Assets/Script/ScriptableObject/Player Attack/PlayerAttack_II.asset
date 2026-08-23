@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b135d2d18aa98a9409e7dae0495cf540, type: 3}
   m_Name: PlayerAttack_II
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  AttackName: Healing
-  AttackInformation: Healing and lost turn
-  AttackIcon: {fileID: -6023549882342398761, guid: 9c044b65d406d284b9c8ea8bc3f175b4, type: 3}
+  AttackName: []
+  AttackInformation: []
+  AttackIcon:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  AttackDamage:
+  - 20
+  - 40
+  - 50

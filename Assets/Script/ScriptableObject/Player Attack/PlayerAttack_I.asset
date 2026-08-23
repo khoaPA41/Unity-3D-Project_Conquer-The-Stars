@@ -24,3 +24,7 @@ MonoBehaviour:
   - {fileID: 6261351050061560207, guid: f44b98033fea7fd49a11e74c04588f88, type: 3}
   - {fileID: 5615235957270881684, guid: ccbc94a337f597a419c201a10e0d5037, type: 3}
   - {fileID: 8844608367674281984, guid: 789fd6477aaa88547b60a807891d2929, type: 3}
+  AttackDamage:
+  - 20
+  - 0
+  - 40

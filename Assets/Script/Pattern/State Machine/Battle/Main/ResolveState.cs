@@ -1,4 +1,5 @@
 using System.Linq;
+using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Stats;
 using UnityEngine;
 
@@ -14,8 +15,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             isFinished = false;
-            GetTargetDealDamage();
-            CheckCurrentCharacter();
+            // GetTargetDealDamage();
             isFinished = true;
 
         }
@@ -25,6 +25,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (isFinished)
             {
                 isFinished = false;
+                CheckCurrentCharacter();
                 battleStateMachine.SwitchStartTurn();
             }
         }
@@ -34,18 +35,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.CurrentTurn = null;
             battleStateMachine.PlayerCombatStateMachine = null;
             battleStateMachine.EnemyStateMachine = null;
-        }
-
-        private void GetTargetDealDamage()
-        {
-            if (battleStateMachine.CurrentTurn.characterType == CharacterType.Player)
-            {
-                battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>().TakeDamage(20f);
-            }
-            else if (battleStateMachine.CurrentTurn.characterType == CharacterType.Enemy)
-            {
-                battleStateMachine.EnemyTargeter.currentTarget.GetComponent<CharacterStatsManagers>().TakeDamage(20f);
-            }
         }
 
         private void CheckCurrentCharacter()

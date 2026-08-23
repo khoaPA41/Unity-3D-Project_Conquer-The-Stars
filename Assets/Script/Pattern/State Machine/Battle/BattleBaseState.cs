@@ -12,12 +12,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             this.battleStateMachine = battleStateMachine;
         }
 
-        protected void PlayerExecutedAction(int index)
-        {
-            battleStateMachine.AttackIndexSelected = index;
-            battleStateMachine.SwitchPlayerExecuted();
-        }
-
         protected void SelectedTarget()
         {
 
