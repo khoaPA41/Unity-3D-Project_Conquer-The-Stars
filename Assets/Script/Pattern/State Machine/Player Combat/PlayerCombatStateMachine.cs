@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ConquerTheStars.Pattern.StateMachine.Base;
+using ConquerTheStars.Stats;
 using TMPro;
 using UnityEngine;
 
@@ -15,9 +16,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: Header("Animator")]
         [field: SerializeField] public Animator Animator { get; private set; }
         [field: SerializeField] public float AnimationCrossFade { get; private set; }
+        [field: SerializeField] public float AnimationAttackSpeed { get; private set; }
+
 
         [field: Header("Attack Data")]
         [field: SerializeField] public PlayerAttack AttackData { get; private set; }
+
+        [field: Header("Status")]
+        [field: SerializeField] public CharacterStatsManagers CharacterStatsManagers { get; private set; }
 
         public Target Target { get; set; }
 
@@ -25,17 +31,19 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public State PlayerIdleState { get; private set; }
         public State PlayerAttackState { get; private set; }
         public State PlayerGetHitState { get; private set; }
+        public State PlayerDodgeState { get; private set; }
 
         public Vector3 PlayerStartPosition { get; set; }
 
         public event Action AttackDealDamage = delegate { }; // This event will attend when enemy play get hit animation
+        private readonly int attackSpeedParams = Animator.StringToHash("Attack"); // This event will attend when enemy play get hit animation
 
         public bool IsFinished { get; set; }
         private void Awake()
         {
             PlayerIdleState = new PlayerCombatIdleState(this);
             PlayerGetHitState = new PlayerCombatGetHitState(this);
-
+            PlayerDodgeState = new PlayerCombatDodgeState(this);
         }
 
         private void OnEnable()
@@ -53,10 +61,24 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             SwitchState(new PlayerCombatAttackState(this, index));
         }
 
+        public void SwitchDodgeState()
+        {
+            SwitchState(PlayerDodgeState);
+        }
+
         public void CallDealDamageEvent()
         {
-            Debug.Log("Call event");
             AttackDealDamage?.Invoke();
+        }
+
+        public void ReturnAttackSpeed()
+        {
+            Animator.SetFloat(attackSpeedParams, 1.5f);
+        }
+
+        public void SetAttackSpeed()
+        {
+            Animator.SetFloat(attackSpeedParams, .3f);
         }
     }
 }

@@ -1762,6 +1762,7 @@ GameObject:
   - component: {fileID: 5885340852337738895}
   - component: {fileID: -6692468754761527920}
   - component: {fileID: 5474354374937421046}
+  - component: {fileID: 4619605247933079161}
   m_Layer: 0
   m_Name: Biomech_Mutant_II
   m_TagString: Untagged
@@ -1798,10 +1799,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c1997619a8e0144815bbbedd401c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.Enemy.EnemyStateMachine
-  <CharacterController>k__BackingField: {fileID: 0}
+  <CharacterController>k__BackingField: {fileID: 4619605247933079161}
   <Speed>k__BackingField: 10
   <Animator>k__BackingField: {fileID: 6042459200081680747, guid: 42a37e6b405d1714bab2f5ddcf6003fc, type: 3}
   <AnimationCrossFade>k__BackingField: 0.1
+  <AttackData>k__BackingField: {fileID: 0}
 --- !u!95 &6810730790409754458
 Animator:
   serializedVersion: 7
@@ -1811,7 +1813,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5647374070758838785}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 655a837a2979acd49b85d1a0401fc0aa, type: 3}
+  m_Avatar: {fileID: 9000000, guid: f7ee1e48c34ddf442bb575cab7b8def5, type: 3}
   m_Controller: {fileID: 9100000, guid: 7beab47d331734540a2af95266c621c0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1873,6 +1875,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9313481435f13348b9c646b4beaa9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+--- !u!143 &4619605247933079161
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647374070758838785}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!1 &5946183987302591400
 GameObject:
   m_ObjectHideFlags: 0

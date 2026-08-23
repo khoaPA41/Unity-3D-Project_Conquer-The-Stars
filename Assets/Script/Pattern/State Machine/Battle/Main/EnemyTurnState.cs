@@ -28,6 +28,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private IEnumerator Wait()
         {
+            battleStateMachine.EnemyStateMachine.SwitchIdle(); // Change Enemy State
             yield return new WaitForSecondsRealtime(3f);
             battleStateMachine.SwitchState(battleStateMachine.EnemyExecuted);
         }

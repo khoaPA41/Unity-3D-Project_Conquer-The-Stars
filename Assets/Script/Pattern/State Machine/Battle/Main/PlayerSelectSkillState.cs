@@ -22,7 +22,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-
             battleStateMachine.PlayerExecuteAction -= PlayerExecutedAction; // Event click button
 
             UIManagers.Instance.DisappearSkillSelection();

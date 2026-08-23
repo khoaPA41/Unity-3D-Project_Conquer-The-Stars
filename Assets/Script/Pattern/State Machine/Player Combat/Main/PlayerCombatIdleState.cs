@@ -12,8 +12,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
-            // Debug.Log("Idle");
-            // playerCombatStateMachine.PlayerStartPosition = playerCombatStateMachine.transform.position;
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(CombatIdleAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 

@@ -2087,6 +2087,7 @@ GameObject:
   - component: {fileID: 4100300716556319957}
   - component: {fileID: 8012070513579947379}
   - component: {fileID: -7914153550810431556}
+  - component: {fileID: 9120890348055135393}
   m_Layer: 0
   m_Name: Biomech_Mutant_I
   m_TagString: Untagged
@@ -2123,10 +2124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c1997619a8e0144815bbbedd401c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.Enemy.EnemyStateMachine
-  <CharacterController>k__BackingField: {fileID: 0}
+  <CharacterController>k__BackingField: {fileID: 9120890348055135393}
   <Speed>k__BackingField: 10
   <Animator>k__BackingField: {fileID: 6042459200081680747}
   <AnimationCrossFade>k__BackingField: 0.1
+  <AttackData>k__BackingField: {fileID: 0}
 --- !u!95 &6042459200081680747
 Animator:
   serializedVersion: 7
@@ -2198,6 +2200,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9313481435f13348b9c646b4beaa9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+--- !u!143 &9120890348055135393
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893584617159484733}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!1 &7992223188089545962
 GameObject:
   m_ObjectHideFlags: 0

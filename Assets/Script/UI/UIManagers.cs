@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,8 +18,13 @@ public class UIManagers : MonoBehaviour
     [Header("Skill UI")]
     [SerializeField] private List<SkillSelectionElement> skillSelection;
 
+    [field: Header("Skill Frame Action")]
+    [field: SerializeField] public SkillActionFrame SkillActionFrame { get; set; }
+
+
     [SerializeField] private Animator skilLSelectionPanelAnimator;
     [SerializeField] private float timeToFill;
+
 
 
     void Awake()
@@ -73,4 +79,17 @@ public class UIManagers : MonoBehaviour
         }
         healthFill.fillAmount = targetHealth;
     }
+
+    public void ActiveActionFrame()
+    {
+        SkillActionFrame.gameObject.SetActive(true);
+    }
+
+    public void PausePerfectFrame()
+    {
+        SkillActionFrame.PauseActionFrame();
+        SkillActionFrame.CallPausedAction();
+    }
+
+    public float GetActionFrameValue() => SkillActionFrame.ActionFrameValue;
 }

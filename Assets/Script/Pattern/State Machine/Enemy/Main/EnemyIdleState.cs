@@ -11,13 +11,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public override void Enter()
         {
-            // Debug.Log("Enemy Idle");
-
             enemyStateMachine.Animator.CrossFadeInFixedTime(IdleAnimationHash, enemyStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
         {
+            MoveBack(deltaTime);
         }
 
         public override void Exit()

@@ -18,10 +18,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         [field: SerializeField] public PlayerAttack AttackData { get; private set; }
 
 
-        public bool IsFinished { get; set; }
+        public Target Target { get; set; }
+        public bool IsFinished { get; set; } // Detect animation done 
+
+        /*State*/
         public State IdleState { get; private set; }
         public State AttackState { get; private set; }
         public State GethitState { get; private set; }
+
+        public Vector3 EnemyStartPosition { get; set; } // Root pos
 
         public event Action AttackDealDamage = delegate { }; // This event will attend when enemy play get hit animation
         private void Start()
@@ -30,6 +35,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
             AttackState = new EnemyAttackState(this);
             GethitState = new EnemyGetHitState(this);
             SwitchState(IdleState);
+        }
+
+        private void OnEnable()
+        {
+            EnemyStartPosition = transform.position;
         }
 
         public void SwitchIdle()
@@ -44,10 +54,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public void CallDealDamageEvent()
         {
-            Debug.Log("Call event");
             AttackDealDamage?.Invoke();
         }
     }
-
-
 }

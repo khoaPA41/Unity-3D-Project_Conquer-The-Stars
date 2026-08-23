@@ -9,30 +9,42 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         private float normalizedTime;
         private float prevTime;
+        private bool isActiveAnimation;
         public EnemyAttackState(EnemyStateMachine enemyStateMachine) : base(enemyStateMachine)
         {
         }
 
         public override void Enter()
         {
-            enemyStateMachine.Animator.CrossFadeInFixedTime(AttackAnimationHash, enemyStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
         {
-            normalizedTime = NormalizedTime(enemyStateMachine.Animator, AttackTagHash);
-            if (normalizedTime > prevTime && normalizedTime >= .9)
+            if (isActiveAnimation)
             {
-                enemyStateMachine.IsFinished = true;
-                enemyStateMachine.SwitchIdle();
+                normalizedTime = NormalizedTime(enemyStateMachine.Animator, AttackTagHash);
+                if (normalizedTime > prevTime && normalizedTime >= .9)
+                {
+                    enemyStateMachine.IsFinished = true;
+                    enemyStateMachine.SwitchIdle();
+                }
+                prevTime = normalizedTime;
+                return;
             }
 
-            prevTime = normalizedTime;
+            if (MoveToTarget(deltaTime))
+            {
+                if (!isActiveAnimation)
+                {
+                    isActiveAnimation = true;
+                    enemyStateMachine.Animator.CrossFadeInFixedTime(AttackAnimationHash, enemyStateMachine.AnimationCrossFade);
+                }
+            }
         }
 
         public override void Exit()
         {
-            enemyStateMachine.IsFinished = false;
+            isActiveAnimation = false;
         }
     }
 }

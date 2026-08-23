@@ -39,6 +39,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void CheckCurrentCharacter()
         {
+            Debug.Log("Enqueue: " + battleStateMachine.CurrentTurn);
+
             battleStateMachine.CharacterStats.Enqueue(battleStateMachine.CurrentTurn);
         }
     }

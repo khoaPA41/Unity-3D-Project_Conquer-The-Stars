@@ -21,6 +21,8 @@ namespace ConquerTheStars.Stats
         public CharacterType characterType;
         public float CurrentHealth;
 
+        private bool immortal;
+
         private void Awake()
         {
             maxHealth = new StatsManagers(baseStatsData.Health);
@@ -32,14 +34,23 @@ namespace ConquerTheStars.Stats
             CurrentHealth = maxHealth.GetFinalValue();
         }
 
-        public void TakeDamage(float damage)
+        public bool TakeDamage(float damage)
         {
+            if (immortal) return false;
+
             var finalDamage = Mathf.Max(damage - defense.GetFinalValue(), 0f);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f); ;
             if (CurrentHealth <= 0)
             {
                 Debug.Log("Die");
             }
+
+            return true;
+        }
+
+        public void SetImmortal(bool state)
+        {
+            immortal = state;
         }
 
     }

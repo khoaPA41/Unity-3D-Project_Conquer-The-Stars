@@ -24,6 +24,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             normalizeTime = NormalizedTime(playerCombatStateMachine.Animator, GetHitAnimationTag);
             if (normalizeTime > prevTime && normalizeTime > .8f)
             {
+                playerCombatStateMachine.IsFinished = true;
                 playerCombatStateMachine.ReturnIdle();
             }
             prevTime = normalizeTime;
@@ -31,6 +32,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Exit()
         {
+            playerCombatStateMachine.IsFinished = false;
         }
     }
 }

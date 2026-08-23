@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using UnityEngine;
@@ -13,7 +14,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            EnterTarget();
+            battleStateMachine.InputReader.EnterTargetAction += PlayerDodge;
+            battleStateMachine.EnemyStateMachine.IsFinished = false;
+
+            battleStateMachine.StartCoroutine(WaitToEndAttack());
         }
 
         public override void Tick(float deltaTime)
@@ -22,31 +26,37 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-        }
-
-        private void EnterTarget()
-        {
-            battleStateMachine.StartCoroutine(WaitToEndAttack());
+            battleStateMachine.InputReader.EnterTargetAction -= PlayerDodge;
         }
 
         private IEnumerator WaitToEndAttack()
         {
-            // battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.currentTarget; // Get Current Target form select Target state
+            battleStateMachine.EnemyStateMachine.Target = battleStateMachine.EnemyTargeter.currentTarget; // Get Current Target form select Target state
             battleStateMachine.EnemyStateMachine.AttackDealDamage += EnemyDealDamage; // Subscribe animation event 
             battleStateMachine.EnemyStateMachine.SwitchAttackState();
 
-            yield return new WaitUntil(() => battleStateMachine.EnemyStateMachine.IsFinished = true);
-            battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= EnemyDealDamage; // Subscribe animation event 
+            yield return new WaitUntil(() => battleStateMachine.EnemyStateMachine.IsFinished == true); // Wait until atk animation done
+            battleStateMachine.EnemyStateMachine.AttackDealDamage -= EnemyDealDamage; // UnSubscribe animation event 
             battleStateMachine.SwitchResolve();
         }
         private void EnemyDealDamage()
         {
-            var target = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>();
-            var enemyStatsManager = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<CharacterStatsManagers>();
+            var target = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>(); // Get StateMachine from target
+            var playerStatsManager = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<CharacterStatsManagers>(); // Get CharacterStatsManagers from target
             if (target != null)
             {
-                target.SwitchState(target.PlayerGetHitState);
-                enemyStatsManager.TakeDamage(30);
+                if (playerStatsManager.TakeDamage(30)) // take damage
+                {
+                    target.SwitchState(target.PlayerGetHitState); // Switch target state to get hit
+                }
+            }
+        }
+
+        private void PlayerDodge()
+        {
+            foreach (var character in battleStateMachine.CharacterStats.Where(character => character.characterType == CharacterType.Player))
+            {
+                character.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
             }
         }
 

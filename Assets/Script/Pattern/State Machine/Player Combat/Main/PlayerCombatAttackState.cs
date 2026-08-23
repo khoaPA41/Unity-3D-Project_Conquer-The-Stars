@@ -3,11 +3,15 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatAttackState : PlayerCombatBaseState
     {
-        private readonly string AttackAnimationTagHash = "Attack";
+        private readonly int AttackSpeedParams = Animator.StringToHash("AttackSpeed");
+
+        private readonly string AttackAnimationTag = "Attack";
+
         private readonly int attackIndex;
 
         private bool isActiveAnimation;
         private float normalizedTime;
+        private float prevTime;
         public PlayerCombatAttackState(PlayerCombatStateMachine playerCombatStateMachine, int index) : base(playerCombatStateMachine)
         {
             attackIndex = index;
@@ -15,20 +19,21 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
-            // Debug.Log("Attack");
-
+            UIManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
         }
 
         public override void Tick(float deltaTime)
         {
             if (isActiveAnimation)
             {
-                normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, AttackAnimationTagHash);
-                if (normalizedTime >= .9)
+                normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, AttackAnimationTag);
+
+                if (normalizedTime > prevTime && normalizedTime >= .9)
                 {
                     playerCombatStateMachine.IsFinished = true;
                     playerCombatStateMachine.ReturnIdle();
                 }
+                prevTime = normalizedTime;
                 return;
             }
 
@@ -38,15 +43,15 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
                 if (!isActiveAnimation)
                 {
                     isActiveAnimation = true;
+                    UIManagers.Instance.ActiveActionFrame();
                     playerCombatStateMachine.Animator.CrossFadeInFixedTime(playerCombatStateMachine.AttackData.AttackName[attackIndex], playerCombatStateMachine.AnimationCrossFade);
                 }
-                return;
             }
         }
 
         public override void Exit()
         {
-            // playerCombatStateMachine.IsFinished = false;
+            UIManagers.Instance.SkillActionFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
         }
     }
 }
