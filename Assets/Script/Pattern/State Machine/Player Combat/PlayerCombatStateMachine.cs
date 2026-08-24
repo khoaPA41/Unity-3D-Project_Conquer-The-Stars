@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Stats;
 using TMPro;
@@ -25,6 +26,9 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: Header("Status")]
         [field: SerializeField] public CharacterStatsManagers CharacterStatsManagers { get; private set; }
 
+        [field: Header("PooledObject")]
+        [field: SerializeField] public PooledObject PooledObject { get; private set; }
+
         public Target Target { get; set; }
 
         public string AnimationName { get; set; }
@@ -32,6 +36,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public State PlayerAttackState { get; private set; }
         public State PlayerGetHitState { get; private set; }
         public State PlayerDodgeState { get; private set; }
+        public State PlayerDyingState { get; private set; }
 
         public Vector3 PlayerStartPosition { get; set; }
 
@@ -44,11 +49,18 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             PlayerIdleState = new PlayerCombatIdleState(this);
             PlayerGetHitState = new PlayerCombatGetHitState(this);
             PlayerDodgeState = new PlayerCombatDodgeState(this);
+            PlayerDyingState = new PlayerCombatDyingState(this);
         }
 
         private void OnEnable()
         {
             PlayerStartPosition = transform.position;
+            CharacterStatsManagers.IsDyingAction += SwitchDyingState;
+        }
+
+        private void OnDisable()
+        {
+            CharacterStatsManagers.IsDyingAction -= SwitchDyingState;
         }
 
         public void ReturnIdle()
@@ -64,6 +76,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public void SwitchDodgeState()
         {
             SwitchState(PlayerDodgeState);
+        }
+
+        public void SwitchDyingState()
+        {
+            SwitchState(PlayerDyingState);
         }
 
         public void CallDealDamageEvent()

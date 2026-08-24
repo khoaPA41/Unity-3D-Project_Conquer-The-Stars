@@ -1,5 +1,7 @@
 using System;
+using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
+using ConquerTheStars.Stats;
 using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Enemy
@@ -14,8 +16,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         [field: SerializeField] public Animator Animator { get; private set; }
         [field: SerializeField] public float AnimationCrossFade { get; private set; }
 
+        [field: Header("Status")]
+        [field: SerializeField] public CharacterStatsManagers CharacterStatsManagers { get; private set; }
+
         [field: Header("Attack Data")]
         [field: SerializeField] public PlayerAttack AttackData { get; private set; }
+
+        [field: Header("PooledObject")]
+        [field: SerializeField] public PooledObject PooledObject { get; private set; }
 
 
         public Target Target { get; set; }
@@ -25,6 +33,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         public State IdleState { get; private set; }
         public State AttackState { get; private set; }
         public State GethitState { get; private set; }
+        public State DyingState { get; private set; }
 
         public Vector3 EnemyStartPosition { get; set; } // Root pos
 
@@ -34,12 +43,20 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
             IdleState = new EnemyIdleState(this);
             AttackState = new EnemyAttackState(this);
             GethitState = new EnemyGetHitState(this);
+            DyingState = new EnemyDyingState(this);
             SwitchState(IdleState);
         }
 
         private void OnEnable()
         {
             EnemyStartPosition = transform.position;
+            CharacterStatsManagers.IsDyingAction += SwitchDyingState;
+        }
+
+        private void OnDisable()
+        {
+            EnemyStartPosition = transform.position;
+            CharacterStatsManagers.IsDyingAction -= SwitchDyingState;
         }
 
         public void SwitchIdle()
@@ -50,6 +67,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         public void SwitchAttackState()
         {
             SwitchState(AttackState);
+        }
+
+        public void SwitchDyingState()
+        {
+            Debug.Log("Dying");
+            SwitchState(DyingState);
         }
 
         public void CallDealDamageEvent()

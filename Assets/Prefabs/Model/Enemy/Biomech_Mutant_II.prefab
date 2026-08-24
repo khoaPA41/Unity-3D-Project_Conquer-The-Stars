@@ -1803,7 +1803,9 @@ MonoBehaviour:
   <Speed>k__BackingField: 10
   <Animator>k__BackingField: {fileID: 6042459200081680747, guid: 42a37e6b405d1714bab2f5ddcf6003fc, type: 3}
   <AnimationCrossFade>k__BackingField: 0.1
+  <CharacterStatsManagers>k__BackingField: {fileID: -6692468754761527920}
   <AttackData>k__BackingField: {fileID: 0}
+  <PooledObject>k__BackingField: {fileID: 5885340852337738895}
 --- !u!95 &6810730790409754458
 Animator:
   serializedVersion: 7

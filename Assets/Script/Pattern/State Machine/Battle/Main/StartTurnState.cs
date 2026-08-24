@@ -1,3 +1,4 @@
+using System.Linq;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
@@ -28,13 +29,21 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.CurrentTurn = battleStateMachine.CharacterStats.Dequeue();
 
+            if (battleStateMachine.CurrentTurn.IsDeath)
+            {
+                battleStateMachine.SwitchState(battleStateMachine.StartTurn);
+                return;
+            }
+
             switch (battleStateMachine.CurrentTurn.characterType)
             {
                 case CharacterType.Player:
+                    battleStateMachine.PlayerTargeter.RemoveTarget();
                     battleStateMachine.PlayerCombatStateMachine = battleStateMachine.CurrentTurn.GetComponent<PlayerCombatStateMachine>();
                     battleStateMachine.SwitchState(battleStateMachine.PlayerTurn);
                     break;
                 case CharacterType.Enemy:
+                    battleStateMachine.EnemyTargeter.RemoveTarget();
                     battleStateMachine.EnemyStateMachine = battleStateMachine.CurrentTurn.GetComponent<EnemyStateMachine>();
                     battleStateMachine.SwitchState(battleStateMachine.EnemyTurn);
                     break;

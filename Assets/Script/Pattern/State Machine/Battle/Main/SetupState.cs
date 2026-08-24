@@ -38,27 +38,29 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
         }
 
-        public void Initialize()
+        public void Initialize() // attach enemy & player list
         {
             enemyTeam = BattleInformationManagers.Instance.AreaInformation.enemyTeam;
             playerTeam = PlayerTeam.Instance.TeamNameList;
         }
 
-        private void SetupEnemyPosition()
+        private void SetupEnemyPosition() // Spawn enemy at target position - add to enemy team list and queue
         {
             for (int i = 0; i < enemyTeam.Count; i++)
             {
                 var enemy = ObjectPoolingManagers.Instance.GetPooledObject(enemyTeam[i], battleStateMachine.Area.enemyTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].enemyTransformList[i].position, new Vector3(0f, 90f, 0f));
                 characterInMatch.Add(enemy.GetComponent<CharacterStatsManagers>());
+                battleStateMachine.TeamController.AddEnemyTeam(enemy.GetComponent<CharacterStatsManagers>());
             }
         }
 
-        private void SetupPlayerPosition()
+        private void SetupPlayerPosition() // Spawn player at target position - add to player team list and queue
         {
             for (int i = 0; i < playerTeam.Count; i++)
             {
                 var player = ObjectPoolingManagers.Instance.GetPooledObject(playerTeam[i], battleStateMachine.Area.playerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].playerTransformList[i].position, new Vector3(0f, -90f, 0f));
                 characterInMatch.Add(player.GetComponent<CharacterStatsManagers>());
+                battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>());
             }
         }
 
@@ -80,7 +82,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             }
         }
 
-        private void SetupPlayerTarget()
+        private void SetupPlayerTarget() // Add all enemy to player target list
         {
             foreach (var enemy in characterInMatch.Where(enemy => enemy.characterType == CharacterType.Enemy))
             {
@@ -90,7 +92,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.PlayerTargeter.FirstSelected();
         }
 
-        private void SetupEnemyTarget()
+        private void SetupEnemyTarget() // Add all player to enemy target list
         {
             foreach (var player in characterInMatch.Where(player => player.characterType == CharacterType.Player))
             {

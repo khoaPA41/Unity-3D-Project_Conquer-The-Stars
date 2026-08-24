@@ -633,6 +633,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTeam
   enemyTeam:
   - Enemy_I
+  - Enemy_I
+  - Enemy_I
   AreaIndex: 0
 --- !u!1 &832575517
 GameObject:

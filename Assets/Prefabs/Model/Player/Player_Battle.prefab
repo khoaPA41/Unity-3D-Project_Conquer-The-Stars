@@ -1163,6 +1163,7 @@ MonoBehaviour:
   <AnimationAttackSpeed>k__BackingField: 0.5
   <AttackData>k__BackingField: {fileID: 11400000, guid: 45f3bb4ef3f239d43a912381cecb8178, type: 2}
   <CharacterStatsManagers>k__BackingField: {fileID: 5115756970071326048}
+  <PooledObject>k__BackingField: {fileID: 4132723855554449903}
 --- !u!95 &7871194670638967278
 Animator:
   serializedVersion: 7

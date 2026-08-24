@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ConquerTheStars.Stats
@@ -20,10 +21,23 @@ namespace ConquerTheStars.Stats
         public StatsManagers critical;
         public CharacterType characterType;
         public float CurrentHealth;
-
+        public bool IsDeath;
+        // { get; private set; }
+        public event Action IsDyingAction = delegate { };
         private bool immortal;
 
-        private void Awake()
+        // private void Awake()
+        // {
+        // maxHealth = new StatsManagers(baseStatsData.Health);
+        // attack = new StatsManagers(baseStatsData.AttackPower);
+        // speed = new StatsManagers(baseStatsData.Speed);
+        // defense = new StatsManagers(baseStatsData.Defense);
+        // critical = new StatsManagers(baseStatsData.Critical);
+        // characterType = baseStatsData.Type;
+        // CurrentHealth = maxHealth.GetFinalValue();
+        // }
+
+        private void OnEnable()
         {
             maxHealth = new StatsManagers(baseStatsData.Health);
             attack = new StatsManagers(baseStatsData.AttackPower);
@@ -32,6 +46,7 @@ namespace ConquerTheStars.Stats
             critical = new StatsManagers(baseStatsData.Critical);
             characterType = baseStatsData.Type;
             CurrentHealth = maxHealth.GetFinalValue();
+            IsDeath = false;
         }
 
         public bool TakeDamage(float damage)
@@ -39,12 +54,13 @@ namespace ConquerTheStars.Stats
             if (immortal) return false;
 
             var finalDamage = Mathf.Max(damage - defense.GetFinalValue(), 0f);
-            CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f); ;
+            CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
             if (CurrentHealth <= 0)
             {
-                Debug.Log("Die");
+                Debug.Log("Call Event");
+                // IsDeath = true;
+                IsDeath = true;
             }
-
             return true;
         }
 
@@ -53,5 +69,9 @@ namespace ConquerTheStars.Stats
             immortal = state;
         }
 
+        public void CallDyingEvent()
+        {
+            IsDyingAction?.Invoke();
+        }
     }
 }

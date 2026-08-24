@@ -16,6 +16,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             ///////////////
 
             /*Select Target*/
+            battleStateMachine.PlayerTargeter.FirstSelected();
             Selected();
             /*Choose Target*/
             battleStateMachine.InputReader.NextTargetAction += battleStateMachine.PlayerTargeter.ChooseNextTarget;

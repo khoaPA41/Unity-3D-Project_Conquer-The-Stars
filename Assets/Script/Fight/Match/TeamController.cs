@@ -1,0 +1,39 @@
+using System.Collections.Generic;
+using System.Linq;
+using ConquerTheStars.Stats;
+using UnityEngine;
+
+public class TeamController : MonoBehaviour
+{
+    public List<CharacterStatsManagers> PlayerTeam { get; private set; } = new();
+    public List<CharacterStatsManagers> EnemyTeam { get; private set; } = new();
+
+    private bool IsDeadTeam(List<CharacterStatsManagers> team)
+    {
+        return team.All(character => character.IsDeath);
+    }
+
+    public bool CheckBattleResult()
+    {
+        if (IsDeadTeam(PlayerTeam)) // Check player team
+        {
+            return true; // if all dead
+        }
+
+        if (IsDeadTeam(EnemyTeam)) // Check enemy team
+        {
+            return true; // if all dead
+        }
+        return false;
+    }
+
+    public void AddPlayerTeam(CharacterStatsManagers player)
+    {
+        PlayerTeam.Add(player);
+    }
+
+    public void AddEnemyTeam(CharacterStatsManagers enemy)
+    {
+        EnemyTeam.Add(enemy);
+    }
+}

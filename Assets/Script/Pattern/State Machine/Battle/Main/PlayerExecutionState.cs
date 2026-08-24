@@ -26,17 +26,20 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
+
         }
 
         private IEnumerator WaitToEndAttack()
         {
             battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.currentTarget; // Get Current Target form select Target state
-            battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage; // Subscribe animation event 
             battleStateMachine.PlayerCombatStateMachine.SwitchAttackState(battleStateMachine.AttackIndexSelected); // Switch Player combat atk state
+            battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage; // Subscribe animation event 
             battleStateMachine.InputReader.EnterTargetAction += UIManagers.Instance.PausePerfectFrame;
 
             yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true); // Wait until atk animation done
+            Debug.Log("End attack");
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= PlayerDealDamage; // UnSubscribe animation event 
+            battleStateMachine.InputReader.EnterTargetAction -= UIManagers.Instance.PausePerfectFrame;
             battleStateMachine.SwitchResolve();
         }
 
@@ -49,7 +52,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 if (enemyStatsManager.TakeDamage(battleStateMachine.PlayerCombatStateMachine.AttackData.AttackDamage[battleStateMachine.AttackIndexSelected]
                 * UIManagers.Instance.GetActionFrameValue())) // take damage
                 {
-                    Debug.Log(UIManagers.Instance.GetActionFrameValue());
                     target.SwitchState(target.GethitState); // Switch target state to get hit
                 }
             }

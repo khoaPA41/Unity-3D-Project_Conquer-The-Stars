@@ -1,5 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
+using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using UnityEngine;
 
@@ -8,6 +12,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
     public class ResolveState : BattleBaseState
     {
         private bool isFinished;
+        CharacterStatsManagers character;
         public ResolveState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
@@ -15,7 +20,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             isFinished = false;
-            // GetTargetDealDamage();
+            CheckCurrentCharacter();
+            CheckCurrentTurnList();
+            if (battleStateMachine.TeamController.CheckBattleResult()) // check if either one team list is dead, end battle
+            {
+                Debug.Log("Is finished battle!");
+                return;
+            }
             isFinished = true;
 
         }
@@ -25,7 +36,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (isFinished)
             {
                 isFinished = false;
-                CheckCurrentCharacter();
                 battleStateMachine.SwitchStartTurn();
             }
         }
@@ -39,9 +49,19 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void CheckCurrentCharacter()
         {
-            Debug.Log("Enqueue: " + battleStateMachine.CurrentTurn);
-
             battleStateMachine.CharacterStats.Enqueue(battleStateMachine.CurrentTurn);
+        }
+
+
+        private void CheckCurrentTurnList()
+        {
+            foreach (var character in battleStateMachine.CharacterStats)
+            {
+                if (character.IsDeath)
+                {
+                    character.CallDyingEvent();
+                }
+            }
         }
     }
 }

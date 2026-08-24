@@ -19,6 +19,12 @@ public class Targeter : MonoBehaviour
         currentTarget = targetAvaiable[0];
     }
 
+    public void RemoveTarget()
+    {
+        Debug.Log("Reset target");
+        targetAvaiable.RemoveAll(target => !target.gameObject.activeInHierarchy);
+    }
+
     public void ChooseNextTarget()
     {
         currentIndex++;

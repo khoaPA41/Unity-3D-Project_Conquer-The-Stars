@@ -22,7 +22,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
             normalizedTime = NormalizedTime(enemyStateMachine.Animator, GetHitTag);
             if (normalizedTime > prevTime && normalizedTime >= .9)
             {
-                enemyStateMachine.IsFinished = true;
+                // enemyStateMachine.IsFinished = true;
+                // CheckHealth();
                 enemyStateMachine.SwitchIdle();
             }
 
@@ -31,7 +32,17 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public override void Exit()
         {
-            enemyStateMachine.IsFinished = false;
+            // enemyStateMachine.IsFinished = false;
+        }
+
+        private void CheckHealth()
+        {
+            if (enemyStateMachine.CharacterStatsManagers.IsDeath)
+            {
+                enemyStateMachine.SwitchDyingState();
+                return;
+            }
+            enemyStateMachine.SwitchIdle();
         }
     }
 }

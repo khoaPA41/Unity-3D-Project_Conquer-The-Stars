@@ -37,7 +37,8 @@ public class SkillActionFrame : MonoBehaviour
         }
 
         var value = actionFrame.rectTransform.lossyScale.x;
-        ActionFrameValue = value >= 1.2f ? 0f : value;
+        ActionFrameValue = value >= 1.01f ? 0f : value;
+
         actionFrame.rectTransform.localScale = actionFrameLocalScaleRoot;
         perfectFrame.gameObject.SetActive(false);
 
