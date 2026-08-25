@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
@@ -9,11 +10,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            battleStateMachine.PlayerExecuteAction += PlayerExecutedAction; // Event click button
+            battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction += PlayerExecutedAction;
 
             /*Setup Skill Selection UI*/
-            UIManagers.Instance.SetupSkillSelectionUI(battleStateMachine.PlayerCombatStateMachine.AttackData.AttackIcon, battleStateMachine.PlayerCombatStateMachine.AttackData.AttackInformation);
-            UIManagers.Instance.AppearSkillSelection();
+            battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.AppearSkillUI();
         }
 
         public override void Tick(float deltaTime)
@@ -22,14 +22,18 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-            battleStateMachine.PlayerExecuteAction -= PlayerExecutedAction; // Event click button
-
-            UIManagers.Instance.DisappearSkillSelection();
+            battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction -= PlayerExecutedAction;
         }
 
         private void PlayerExecutedAction(int index)
         {
-            battleStateMachine.AttackIndexSelected = index;
+            battleStateMachine.StartCoroutine(WaitABit());
+        }
+
+        private IEnumerator WaitABit()
+        {
+            battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
+            yield return new WaitForSecondsRealtime(3f);
             battleStateMachine.SwitchState(battleStateMachine.PlayerSelectTargetTurn);
         }
     }

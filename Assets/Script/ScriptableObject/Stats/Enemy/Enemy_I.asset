@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatsData
   Type: 1
   Health: 100
-  AttackPower: 10
+  AttackPower: 35
   Speed: 10
   Defense: 10
   Critical: 10

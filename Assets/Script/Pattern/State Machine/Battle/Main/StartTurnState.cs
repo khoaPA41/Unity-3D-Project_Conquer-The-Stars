@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
@@ -14,7 +15,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            SwitchTurnByType();
+            // SwitchTurnByType();
+            battleStateMachine.StartCoroutine(WaitToSetup());
         }
 
         public override void Tick(float deltaTime)
@@ -48,6 +50,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                     battleStateMachine.SwitchState(battleStateMachine.EnemyTurn);
                     break;
             }
+        }
+
+        private IEnumerator WaitToSetup()
+        {
+            yield return new WaitForSecondsRealtime(2f);
+            SwitchTurnByType();
         }
     }
 }

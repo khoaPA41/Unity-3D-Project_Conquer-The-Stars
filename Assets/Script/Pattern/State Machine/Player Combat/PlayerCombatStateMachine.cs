@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using ConquerTheStars.Fight.Player;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Stats;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
@@ -29,10 +31,20 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: Header("PooledObject")]
         [field: SerializeField] public PooledObject PooledObject { get; private set; }
 
+        [field: Header("Setup UI")]
+        [field: SerializeField] public PlayerSetupSkillUI PlayerSetupSkillUI { get; private set; }
+
+        [field: Header("Camera")]
+        [field: SerializeField] public CinemachineCamera CinemachineCamera { get; private set; }
+        [field: SerializeField] public GameObject CameraGroup { get; private set; }
+        [field: SerializeField] public CinemachineTargetGroup CinemachineTargetGroup { get; private set; }
+
         public Target Target { get; set; }
 
         public string AnimationName { get; set; }
         public State PlayerIdleState { get; private set; }
+        public State PlayerCombatIdleState { get; private set; }
+
         public State PlayerAttackState { get; private set; }
         public State PlayerGetHitState { get; private set; }
         public State PlayerDodgeState { get; private set; }
@@ -44,23 +56,32 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private readonly int attackSpeedParams = Animator.StringToHash("Attack"); // This event will attend when enemy play get hit animation
 
         public bool IsFinished { get; set; }
+        public event Action<int> PlayerExecuteAction = delegate { };
+
+        public int AttackIndexSelected { get; set; }
+
         private void Awake()
         {
             PlayerIdleState = new PlayerCombatIdleState(this);
+            PlayerCombatIdleState = new PlayerCombatIdleCombatState(this);
             PlayerGetHitState = new PlayerCombatGetHitState(this);
             PlayerDodgeState = new PlayerCombatDodgeState(this);
             PlayerDyingState = new PlayerCombatDyingState(this);
+            PlayerAttackState = new PlayerCombatAttackState(this);
         }
 
         private void OnEnable()
         {
             PlayerStartPosition = transform.position;
             CharacterStatsManagers.IsDyingAction += SwitchDyingState;
+            PlayerExecuteAction += GetAttackIndex;
         }
 
         private void OnDisable()
         {
             CharacterStatsManagers.IsDyingAction -= SwitchDyingState;
+            PlayerExecuteAction -= GetAttackIndex;
+
         }
 
         public void ReturnIdle()
@@ -68,9 +89,9 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             SwitchState(PlayerIdleState);
         }
 
-        public void SwitchAttackState(int index)
+        public void SwitchAttackState()
         {
-            SwitchState(new PlayerCombatAttackState(this, index));
+            SwitchState(PlayerAttackState);
         }
 
         public void SwitchDodgeState()
@@ -96,6 +117,28 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public void SetAttackSpeed()
         {
             Animator.SetFloat(attackSpeedParams, .3f);
+        }
+
+        public void GetIndexAction(int actionIndex)
+        {
+            PlayerExecuteAction?.Invoke(actionIndex);
+        }
+
+        public void GetAttackIndex(int index)
+        {
+            AttackIndexSelected = index;
+        }
+
+        public void ActiveCamera()
+        {
+            // CinemachineCamera.gameObject.SetActive(true);
+            CameraGroup.SetActive(true);
+        }
+        public void InactiveCamera()
+        {
+            // CinemachineCamera.gameObject.SetActive(false);
+            CameraGroup.SetActive(false);
+
         }
     }
 }

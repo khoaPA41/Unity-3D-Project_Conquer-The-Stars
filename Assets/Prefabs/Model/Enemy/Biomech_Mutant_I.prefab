@@ -2190,6 +2190,7 @@ MonoBehaviour:
     baseValue: 0
   characterType: 0
   CurrentHealth: 0
+  IsDeath: 0
 --- !u!114 &-7914153550810431556
 MonoBehaviour:
   m_ObjectHideFlags: 0

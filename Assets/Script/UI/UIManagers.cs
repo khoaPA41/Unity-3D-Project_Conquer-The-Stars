@@ -49,12 +49,12 @@ public class UIManagers : MonoBehaviour
 
     public void AppearSkillSelection()
     {
-        skilLSelectionPanelAnimator.SetTrigger(AppearTrigger);
+        // skilLSelectionPanelAnimator.SetTrigger(AppearTrigger);
     }
 
     public void DisappearSkillSelection()
     {
-        skilLSelectionPanelAnimator.SetTrigger(DisappearTrigger);
+        // skilLSelectionPanelAnimator.SetTrigger(DisappearTrigger);
 
     }
 

@@ -57,8 +57,6 @@ namespace ConquerTheStars.Stats
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
             if (CurrentHealth <= 0)
             {
-                Debug.Log("Call Event");
-                // IsDeath = true;
                 IsDeath = true;
             }
             return true;

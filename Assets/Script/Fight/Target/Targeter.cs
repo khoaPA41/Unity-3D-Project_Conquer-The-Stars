@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Targeter : MonoBehaviour
@@ -8,6 +9,13 @@ public class Targeter : MonoBehaviour
     public Target currentTarget;
 
     public int currentIndex = 0;
+
+    public CinemachineTargetGroup cinemachineTargetGroup { get; private set; }
+
+    public void SetupTargetCamera(CinemachineTargetGroup cinemachineTargetGroup)
+    {
+        this.cinemachineTargetGroup = cinemachineTargetGroup;
+    }
 
     public void SetupTargetList(Target target)
     {
@@ -21,7 +29,6 @@ public class Targeter : MonoBehaviour
 
     public void RemoveTarget()
     {
-        Debug.Log("Reset target");
         targetAvaiable.RemoveAll(target => !target.gameObject.activeInHierarchy);
     }
 
@@ -42,6 +49,11 @@ public class Targeter : MonoBehaviour
     public void GetTarget()
     {
         Debug.Log("GET TARGET");
+
+        cinemachineTargetGroup.RemoveMember(currentTarget.transform);
+
         currentTarget = targetAvaiable[currentIndex];
+        if (cinemachineTargetGroup != null)
+            cinemachineTargetGroup.AddMember(currentTarget.transform, 1f, 2f);
     }
 }

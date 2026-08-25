@@ -12,10 +12,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            // Camera ///
-
             battleStateMachine.StartCoroutine(WaitBitTime());
-
         }
 
         public override void Tick(float deltaTime)
@@ -24,11 +21,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-
         }
 
         private IEnumerator WaitBitTime()
         {
+            battleStateMachine.PlayerTargeter.SetupTargetCamera(battleStateMachine.PlayerCombatStateMachine.CinemachineTargetGroup);
+            battleStateMachine.PlayerCombatStateMachine.ActiveCamera(); // Camera
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerIdleState); // Change Player State
 
             yield return new WaitForSecondsRealtime(2f);

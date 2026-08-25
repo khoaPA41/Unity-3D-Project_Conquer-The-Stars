@@ -39,9 +39,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public PlayerCombatStateMachine PlayerCombatStateMachine { get; set; }
         public EnemyStateMachine EnemyStateMachine { get; set; }
 
-        public event Action<int> PlayerExecuteAction = delegate { };
+        // public event Action<int> PlayerExecuteAction = delegate { };
 
-        public int AttackIndexSelected { get; set; }
+        // public int AttackIndexSelected { get; set; }
 
         void Start()
         {
@@ -58,10 +58,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             SwitchState(BattleSetup);
         }
 
-        public void ExecutionAction(int actionIndex)
-        {
-            PlayerExecuteAction?.Invoke(actionIndex);
-        }
+        // public void ExecutionAction(int actionIndex)
+        // {
+        //     PlayerExecuteAction?.Invoke(actionIndex);
+        // }
 
         public void SwitchPlayerExecuted()
         {

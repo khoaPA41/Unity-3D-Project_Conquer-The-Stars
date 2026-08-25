@@ -11,12 +11,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            /*Target Camera*/
-
-            ///////////////
-
+            /*Change Combat Idle State*/
+            battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerCombatIdleState); // Change Player State
             /*Select Target*/
             battleStateMachine.PlayerTargeter.FirstSelected();
+            battleStateMachine.PlayerTargeter.GetTarget();
             Selected();
             /*Choose Target*/
             battleStateMachine.InputReader.NextTargetAction += battleStateMachine.PlayerTargeter.ChooseNextTarget;
@@ -42,7 +41,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private Task WaitForConfirm()
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
-
             void OnConfirm()
             {
                 taskCompletionSource.TrySetResult(true);

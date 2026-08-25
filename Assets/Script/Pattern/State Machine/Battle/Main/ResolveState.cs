@@ -12,7 +12,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
     public class ResolveState : BattleBaseState
     {
         private bool isFinished;
-        CharacterStatsManagers character;
+        // CharacterStatsManagers character;
         public ResolveState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }

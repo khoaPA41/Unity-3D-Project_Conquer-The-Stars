@@ -17,6 +17,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             battleStateMachine.PlayerCombatStateMachine.IsFinished = false;
+            battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
             battleStateMachine.StartCoroutine(WaitToEndAttack());
         }
 
@@ -32,12 +33,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private IEnumerator WaitToEndAttack()
         {
             battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.currentTarget; // Get Current Target form select Target state
-            battleStateMachine.PlayerCombatStateMachine.SwitchAttackState(battleStateMachine.AttackIndexSelected); // Switch Player combat atk state
+            battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerAttackState); // Switch Player combat atk state
+            Debug.Log(battleStateMachine.PlayerCombatStateMachine.AttackIndexSelected);
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage; // Subscribe animation event 
             battleStateMachine.InputReader.EnterTargetAction += UIManagers.Instance.PausePerfectFrame;
 
             yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true); // Wait until atk animation done
-            Debug.Log("End attack");
+
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= PlayerDealDamage; // UnSubscribe animation event 
             battleStateMachine.InputReader.EnterTargetAction -= UIManagers.Instance.PausePerfectFrame;
             battleStateMachine.SwitchResolve();
@@ -49,8 +51,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             var enemyStatsManager = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>(); // Get CharacterStatsManagers from target
             if (target != null)
             {
-                if (enemyStatsManager.TakeDamage(battleStateMachine.PlayerCombatStateMachine.AttackData.AttackDamage[battleStateMachine.AttackIndexSelected]
-                * UIManagers.Instance.GetActionFrameValue())) // take damage
+                if (enemyStatsManager.TakeDamage(battleStateMachine.PlayerCombatStateMachine.AttackData.AttackDamage
+                [battleStateMachine.PlayerCombatStateMachine.AttackIndexSelected] * UIManagers.Instance.GetActionFrameValue())) // take damage
                 {
                     target.SwitchState(target.GethitState); // Switch target state to get hit
                 }
