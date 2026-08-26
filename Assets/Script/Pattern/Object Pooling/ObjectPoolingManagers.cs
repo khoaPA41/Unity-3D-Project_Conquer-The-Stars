@@ -23,10 +23,11 @@ namespace ConquerTheStars.Pattern.Object_Pooling
         private Dictionary<string, Stack<PooledObject>> pooledObjectDict;
         private List<GameObject> parentsObject;
 
-
+        public bool IsSetupFinished { get; private set; }
 
         void Awake()
         {
+            IsSetupFinished = false;
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
@@ -44,6 +45,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
                 parentsObject.Add(parent);
             }
             Setup();
+            IsSetupFinished = true;
         }
 
         private void Setup()
@@ -72,6 +74,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
         {
             if (String.IsNullOrEmpty(objectName) || !pooledObjectDict.ContainsKey(objectName))
             {
+                Debug.Log($"Đang tìm Pool có tên: '{objectName}'");
                 Debug.Log("Don't have object");
                 return null;
             }

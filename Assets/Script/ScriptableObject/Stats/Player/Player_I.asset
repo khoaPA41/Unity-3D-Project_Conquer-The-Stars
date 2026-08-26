@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f083737e81df71249bc9ea8e19f4dca2, type: 3}
   m_Name: Player_I
   m_EditorClassIdentifier: Assembly-CSharp::StatsData
+  Type: 0
   Health: 100
+  Mana: 100
   AttackPower: 40
   Speed: 15
   Defense: 10

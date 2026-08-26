@@ -7,6 +7,7 @@ public class StatsData : ScriptableObject
 {
     public CharacterType Type;
     public float Health;
+    public float Mana;
     public float AttackPower;
     public float Speed;
     public float Defense;

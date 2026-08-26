@@ -15,15 +15,20 @@ namespace ConquerTheStars.Stats
 
         [Header("Stats Infor")]
         public StatsManagers maxHealth;
+        public StatsManagers mana;
         public StatsManagers attack;
         public StatsManagers speed;
         public StatsManagers defense;
         public StatsManagers critical;
         public CharacterType characterType;
         public float CurrentHealth;
+        public float CurrentMana;
+
         public bool IsDeath;
         // { get; private set; }
         public event Action IsDyingAction = delegate { };
+
+        public event Action<float> HealthUpdateAction = delegate { };
         private bool immortal;
 
         // private void Awake()
@@ -39,13 +44,18 @@ namespace ConquerTheStars.Stats
 
         private void OnEnable()
         {
+            /*Setup Value*/
             maxHealth = new StatsManagers(baseStatsData.Health);
             attack = new StatsManagers(baseStatsData.AttackPower);
             speed = new StatsManagers(baseStatsData.Speed);
             defense = new StatsManagers(baseStatsData.Defense);
             critical = new StatsManagers(baseStatsData.Critical);
+            mana = new StatsManagers(baseStatsData.Mana);
+            /************************/
+
             characterType = baseStatsData.Type;
             CurrentHealth = maxHealth.GetFinalValue();
+            CurrentMana = mana.GetFinalValue();
             IsDeath = false;
         }
 
@@ -59,6 +69,7 @@ namespace ConquerTheStars.Stats
             {
                 IsDeath = true;
             }
+            HealthUpdateAction?.Invoke(CurrentHealth / maxHealth.GetFinalValue());
             return true;
         }
 

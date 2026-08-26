@@ -60,6 +60,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 if (character.IsDeath)
                 {
                     character.CallDyingEvent();
+                    if (character.characterType == CharacterType.Enemy)
+                    {
+                        battleStateMachine.PlayerTargeter.RemoveTarget(character.GetComponent<Target>());
+                    }
                 }
             }
         }

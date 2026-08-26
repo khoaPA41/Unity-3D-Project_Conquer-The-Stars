@@ -12,6 +12,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private bool isActiveAnimation;
         private float normalizedTime;
         private float prevTime;
+        string animationName;
         public PlayerCombatAttackState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
             // attackIndex = index;
@@ -21,6 +22,9 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             isActiveAnimation = false;
             UIManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
+            animationName = playerCombatStateMachine.AttackNameList == "Attack" ?
+            playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
+            playerCombatStateMachine.AttackData.SkillName[playerCombatStateMachine.AttackIndexSelected];
         }
 
         public override void Tick(float deltaTime)
@@ -44,8 +48,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
                 if (!isActiveAnimation)
                 {
                     isActiveAnimation = true;
-                    UIManagers.Instance.ActiveActionFrame();
-                    playerCombatStateMachine.Animator.CrossFadeInFixedTime(playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected], playerCombatStateMachine.AnimationCrossFade);
+                    // UIManagers.Instance.ActiveActionFrame();
+                    playerCombatStateMachine.Animator.CrossFadeInFixedTime(animationName, playerCombatStateMachine.AnimationCrossFade);
                 }
             }
         }

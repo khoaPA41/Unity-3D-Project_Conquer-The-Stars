@@ -13,18 +13,26 @@ MonoBehaviour:
   m_Name: PlayerAttack_I
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   AttackName:
-  - Attack_I
-  - Attack_II
-  - Attack_III
+  - Attack_Basic_I
+  - Attack_Basic_II
+  SkillName:
+  - Attack_Skill_I
+  - Attack_Skill_II
   AttackInformation:
-  - Basic Attack
-  - Healing
-  - Ultimate
+  - Basic Attack I
+  - Basic Attack II
+  SkillInformation:
+  - Skill I
+  - Skill II
   AttackIcon:
   - {fileID: 6261351050061560207, guid: f44b98033fea7fd49a11e74c04588f88, type: 3}
-  - {fileID: 5615235957270881684, guid: ccbc94a337f597a419c201a10e0d5037, type: 3}
-  - {fileID: 8844608367674281984, guid: 789fd6477aaa88547b60a807891d2929, type: 3}
+  - {fileID: 4449555704554067880, guid: aca52cfd2c79afd488b37769f73d40a7, type: 3}
+  SkillIcon:
+  - {fileID: -9092143245111717216, guid: e2cda185b60ed0d4abf6705387979dab, type: 3}
+  - {fileID: 7635691049991487112, guid: 8b4ca9c659cb2964fa74d0608b0cf65b, type: 3}
   AttackDamage:
+  - 20
+  - 40
+  SkillDamage:
+  - 50
   - 100
-  - 0
-  - 200

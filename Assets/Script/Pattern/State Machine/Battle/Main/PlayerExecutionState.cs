@@ -34,7 +34,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.currentTarget; // Get Current Target form select Target state
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerAttackState); // Switch Player combat atk state
-            Debug.Log(battleStateMachine.PlayerCombatStateMachine.AttackIndexSelected);
+
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage; // Subscribe animation event 
             battleStateMachine.InputReader.EnterTargetAction += UIManagers.Instance.PausePerfectFrame;
 

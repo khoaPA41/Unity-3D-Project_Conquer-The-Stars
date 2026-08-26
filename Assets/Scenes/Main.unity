@@ -1512,6 +1512,12 @@ MonoBehaviour:
   - PooledObject: {fileID: 4132723855554449903, guid: 33f12580bdbdb644d8cce2b641e4cca1, type: 3}
     ObjectName: Player_I
     Quantity: 1
+  - PooledObject: {fileID: -3133378582491506990, guid: cef053cd3c4c89145acc429b5c0cf5e3, type: 3}
+    ObjectName: Character_HUD
+    Quantity: 3
+  - PooledObject: {fileID: 8369440765979022269, guid: 59d277f7464c8c840977da8bd0d272f8, type: 3}
+    ObjectName: Skill_Board_Element
+    Quantity: 10
 --- !u!1001 &989267714279016956
 PrefabInstance:
   m_ObjectHideFlags: 0

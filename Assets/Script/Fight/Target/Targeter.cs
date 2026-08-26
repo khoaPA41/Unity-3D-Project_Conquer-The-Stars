@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Targeter : MonoBehaviour
 {
@@ -27,11 +28,6 @@ public class Targeter : MonoBehaviour
         currentTarget = targetAvaiable[0];
     }
 
-    public void RemoveTarget()
-    {
-        targetAvaiable.RemoveAll(target => !target.gameObject.activeInHierarchy);
-    }
-
     public void ChooseNextTarget()
     {
         currentIndex++;
@@ -50,10 +46,26 @@ public class Targeter : MonoBehaviour
     {
         Debug.Log("GET TARGET");
 
-        cinemachineTargetGroup.RemoveMember(currentTarget.transform);
+        if (currentTarget != null) cinemachineTargetGroup.RemoveMember(currentTarget.transform);
 
         currentTarget = targetAvaiable[currentIndex];
+        if (cinemachineTargetGroup != null) cinemachineTargetGroup.AddMember(currentTarget.transform, 1f, 2f);
+    }
+
+    public void RemoveTarget(Target target)
+    {
+        targetAvaiable.Remove(target);
+        if (cinemachineTargetGroup != null) cinemachineTargetGroup.RemoveMember(target.transform);
+    }
+
+    public void RemoveTarget()
+    {
         if (cinemachineTargetGroup != null)
-            cinemachineTargetGroup.AddMember(currentTarget.transform, 1f, 2f);
+        {
+            if (cinemachineTargetGroup.FindMember(targetAvaiable[currentIndex].transform) >= 0)
+            {
+                cinemachineTargetGroup.RemoveMember(targetAvaiable[currentIndex].transform);
+            }
+        }
     }
 }

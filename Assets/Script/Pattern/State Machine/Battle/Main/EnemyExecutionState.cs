@@ -15,6 +15,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             battleStateMachine.InputReader.EnterTargetAction += PlayerDodge;
+            battleStateMachine.InputReader.BlockAction += PlayerBlock;
+
             battleStateMachine.EnemyStateMachine.IsFinished = false;
 
             battleStateMachine.StartCoroutine(WaitToEndAttack());
@@ -57,6 +59,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             foreach (var character in battleStateMachine.CharacterStats.Where(character => character.characterType == CharacterType.Player))
             {
                 character.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
+            }
+        }
+
+        private void PlayerBlock()
+        {
+            foreach (var character in battleStateMachine.CharacterStats.Where(character => character.characterType == CharacterType.Player))
+            {
+                character.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
             }
         }
 

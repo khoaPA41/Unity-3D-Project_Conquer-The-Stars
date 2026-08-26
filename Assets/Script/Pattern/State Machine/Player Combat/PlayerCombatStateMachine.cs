@@ -33,6 +33,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         [field: Header("Setup UI")]
         [field: SerializeField] public PlayerSetupSkillUI PlayerSetupSkillUI { get; private set; }
+        [field: SerializeField] public PlayerSetupUI PlayerSetupUI { get; private set; }
+
 
         [field: Header("Camera")]
         [field: SerializeField] public CinemachineCamera CinemachineCamera { get; private set; }
@@ -44,7 +46,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public string AnimationName { get; set; }
         public State PlayerIdleState { get; private set; }
         public State PlayerCombatIdleState { get; private set; }
-
+        public State PlayerBlockState { get; private set; }
         public State PlayerAttackState { get; private set; }
         public State PlayerGetHitState { get; private set; }
         public State PlayerDodgeState { get; private set; }
@@ -56,9 +58,10 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private readonly int attackSpeedParams = Animator.StringToHash("Attack"); // This event will attend when enemy play get hit animation
 
         public bool IsFinished { get; set; }
-        public event Action<int> PlayerExecuteAction = delegate { };
+        public event Action<string, int> PlayerExecuteAction = delegate { };
 
         public int AttackIndexSelected { get; set; }
+        public string AttackNameList { get; set; }
 
         private void Awake()
         {
@@ -68,6 +71,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             PlayerDodgeState = new PlayerCombatDodgeState(this);
             PlayerDyingState = new PlayerCombatDyingState(this);
             PlayerAttackState = new PlayerCombatAttackState(this);
+            PlayerBlockState = new PlayerCombatBlockState(this);
         }
 
         private void OnEnable()
@@ -75,6 +79,12 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             PlayerStartPosition = transform.position;
             CharacterStatsManagers.IsDyingAction += SwitchDyingState;
             PlayerExecuteAction += GetAttackIndex;
+            if (UIManagers.Instance != null)
+            {
+                PlayerSetupUI.SpawnCharacterHUD();
+                PlayerSetupUI.SetupStatusUI(CharacterStatsManagers.CurrentHealth / CharacterStatsManagers.maxHealth.GetFinalValue(),
+                CharacterStatsManagers.CurrentMana / CharacterStatsManagers.mana.GetFinalValue());
+            }
         }
 
         private void OnDisable()
@@ -99,6 +109,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             SwitchState(PlayerDodgeState);
         }
 
+        public void SwitchBlockState()
+        {
+            SwitchState(PlayerBlockState);
+        }
+
         public void SwitchDyingState()
         {
             SwitchState(PlayerDyingState);
@@ -119,13 +134,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             Animator.SetFloat(attackSpeedParams, .3f);
         }
 
-        public void GetIndexAction(int actionIndex)
+        public void GetIndexAction(string attackListName, int actionIndex)
         {
-            PlayerExecuteAction?.Invoke(actionIndex);
+            PlayerExecuteAction?.Invoke(attackListName, actionIndex);
         }
 
-        public void GetAttackIndex(int index)
+        public void GetAttackIndex(string attackListName, int index)
         {
+            AttackNameList = attackListName;
             AttackIndexSelected = index;
         }
 
@@ -139,6 +155,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             // CinemachineCamera.gameObject.SetActive(false);
             CameraGroup.SetActive(false);
 
+        }
+
+        public void ActiveFrame()
+        {
+            UIManagers.Instance.ActiveActionFrame();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction -= PlayerExecutedAction;
         }
 
-        private void PlayerExecutedAction(int index)
+        private void PlayerExecutedAction(string emptyName, int index)
         {
             battleStateMachine.StartCoroutine(WaitABit());
         }

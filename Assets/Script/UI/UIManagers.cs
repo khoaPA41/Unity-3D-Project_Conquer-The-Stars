@@ -5,15 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Canvas))]
 public class UIManagers : MonoBehaviour
 {
     public static UIManagers Instance;
-    private readonly int AppearTrigger = Animator.StringToHash("Appear");
-    private readonly int DisappearTrigger = Animator.StringToHash("Disappear");
-
-    [Header("Player UI")]
-    [SerializeField] private List<GameObject> healthPanel;
-    [SerializeField] private List<Image> healthFillList;
 
     [Header("Skill UI")]
     [SerializeField] private List<SkillSelectionElement> skillSelection;
@@ -21,6 +16,8 @@ public class UIManagers : MonoBehaviour
     [field: Header("Skill Frame Action")]
     [field: SerializeField] public SkillActionFrame SkillActionFrame { get; set; }
 
+    [field: Header("Status Panel")]
+    [field: SerializeField] public RectTransform StatusPanel { get; private set; }
 
     [SerializeField] private Animator skilLSelectionPanelAnimator;
     [SerializeField] private float timeToFill;
@@ -56,28 +53,6 @@ public class UIManagers : MonoBehaviour
     {
         // skilLSelectionPanelAnimator.SetTrigger(DisappearTrigger);
 
-    }
-
-    public void SetHealth(int healthUiIndex, float health)
-    {
-        healthPanel[healthUiIndex].SetActive(true);
-        StartCoroutine(HealthChangeCoroutine(healthFillList[healthUiIndex], health));
-    }
-
-    private IEnumerator HealthChangeCoroutine(Image healthFill, float targetHealth)
-    {
-        var currentHealth = healthFill.fillAmount;
-        var elapsed = 0f;
-        while (elapsed < timeToFill)
-        {
-            elapsed += Time.deltaTime;
-            var percentageTime = Mathf.Clamp01(elapsed / timeToFill);
-
-            var lerpHealth = Mathf.Lerp(currentHealth, targetHealth, percentageTime);
-            healthFill.fillAmount = lerpHealth;
-            yield return null;
-        }
-        healthFill.fillAmount = targetHealth;
     }
 
     public void ActiveActionFrame()

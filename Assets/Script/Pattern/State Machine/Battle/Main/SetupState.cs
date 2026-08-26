@@ -77,7 +77,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             int index = 0;
             foreach (var player in characterInMatch.Where(player => player.characterType == CharacterType.Player))
             {
-                UIManagers.Instance.SetHealth(index, player.maxHealth.GetFinalValue() / player.CurrentHealth);
+                // UIManagers.Instance.SetHealth(index, player.maxHealth.GetFinalValue() / player.CurrentHealth);
                 index++;
             }
         }

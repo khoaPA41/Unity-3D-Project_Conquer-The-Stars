@@ -8,6 +8,7 @@ public class BattleInputReader : MonoBehaviour, PlayerBattleInput.IPlayerActions
     public event Action NextTargetAction = delegate { };
     public event Action PreviousTargetAction = delegate { };
     public event Action EnterTargetAction = delegate { };
+    public event Action BlockAction = delegate { };
 
     private PlayerBattleInput inputActions;
 
@@ -30,6 +31,10 @@ public class BattleInputReader : MonoBehaviour, PlayerBattleInput.IPlayerActions
 
     public void OnParry(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            BlockAction?.Invoke();
+        }
     }
 
     public void OnSkill_I(InputAction.CallbackContext context)
