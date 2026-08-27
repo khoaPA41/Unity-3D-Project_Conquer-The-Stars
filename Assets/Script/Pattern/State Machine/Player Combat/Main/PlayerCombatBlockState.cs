@@ -16,13 +16,19 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
+            Debug.Log("Block");
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(BlockAnimationHash, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.CharacterStatsManagers.SetIsBlock(true);
         }
 
         public override void Tick(float deltaTime)
         {
             normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, BlockAnimationTag);
 
+            if (normalizedTime > prevTime && normalizedTime > .3f)
+            {
+                playerCombatStateMachine.CharacterStatsManagers.SetIsBlock(false);
+            }
 
             if (normalizedTime > prevTime && normalizedTime > .9f)
             {

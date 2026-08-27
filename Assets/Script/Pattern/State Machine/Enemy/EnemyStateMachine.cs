@@ -71,7 +71,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public void SwitchDyingState()
         {
-            Debug.Log("Dying");
             SwitchState(DyingState);
         }
 

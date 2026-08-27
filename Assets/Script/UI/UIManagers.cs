@@ -35,14 +35,14 @@ public class UIManagers : MonoBehaviour
         Instance = this;
     }
 
-    public void SetupSkillSelectionUI(List<Sprite> icons, List<string> inforList)
-    {
-        for (int i = 0; i < skillSelection.Count; i++)
-        {
-            skillSelection[i].Icon.sprite = icons[i];
-            skillSelection[i].Information.SetText(inforList[i]);
-        }
-    }
+    // public void SetupSkillSelectionUI(List<Sprite> icons, List<string> inforList)
+    // {
+    //     for (int i = 0; i < skillSelection.Count; i++)
+    //     {
+    //         skillSelection[i].Icon.sprite = icons[i];
+    //         skillSelection[i].Information.SetText(inforList[i]);
+    //     }
+    // }
 
     public void AppearSkillSelection()
     {

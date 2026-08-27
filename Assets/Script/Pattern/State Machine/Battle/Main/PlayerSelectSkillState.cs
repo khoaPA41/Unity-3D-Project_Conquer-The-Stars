@@ -25,8 +25,22 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction -= PlayerExecutedAction;
         }
 
-        private void PlayerExecutedAction(string emptyName, int index)
+        private void PlayerExecutedAction(string listName, int index)
         {
+            if (listName == "Skill")
+            {
+                var currentMana = battleStateMachine.CurrentTurn.CurrentMana;
+                var manaRequired = battleStateMachine.PlayerCombatStateMachine.GetManaRequired(listName, index);
+                Debug.Log($"Current Mana: {currentMana}");
+                Debug.Log($"Required Mana: {manaRequired}");
+
+                if (currentMana < manaRequired)
+                {
+                    return;
+                }
+                battleStateMachine.CurrentTurn.SubtractMana(manaRequired);
+            }
+
             battleStateMachine.StartCoroutine(WaitABit());
         }
 

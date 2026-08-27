@@ -14,8 +14,10 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
+            Debug.Log("Dodge");
+
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(DodgeAnimationHash, playerCombatStateMachine.AnimationCrossFade);
-            playerCombatStateMachine.CharacterStatsManagers.SetImmortal(true);
+            playerCombatStateMachine.CharacterStatsManagers.SetIsDodge(true);
         }
 
         public override void Tick(float deltaTime)
@@ -24,7 +26,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
             if (normalizedTime > prevTime && normalizedTime > .3f)
             {
-                playerCombatStateMachine.CharacterStatsManagers.SetImmortal(false);
+                playerCombatStateMachine.CharacterStatsManagers.SetIsDodge(false);
 
             }
 

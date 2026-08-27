@@ -161,5 +161,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             UIManagers.Instance.ActiveActionFrame();
         }
+
+        public float GetManaRequired(string name, int index)
+        {
+            if (name == "Skill")
+            {
+                return AttackData.ManaRequired[index];
+            }
+            return 0;
+        }
     }
 }

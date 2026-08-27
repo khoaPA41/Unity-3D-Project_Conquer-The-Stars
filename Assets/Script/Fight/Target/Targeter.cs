@@ -44,8 +44,6 @@ public class Targeter : MonoBehaviour
 
     public void GetTarget()
     {
-        Debug.Log("GET TARGET");
-
         if (currentTarget != null) cinemachineTargetGroup.RemoveMember(currentTarget.transform);
 
         currentTarget = targetAvaiable[currentIndex];

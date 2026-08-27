@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace ConquerTheStars.Stats
@@ -24,23 +25,15 @@ namespace ConquerTheStars.Stats
         public float CurrentHealth;
         public float CurrentMana;
 
-        public bool IsDeath;
-        // { get; private set; }
+        public bool IsDeath { get; private set; }
         public event Action IsDyingAction = delegate { };
-
         public event Action<float> HealthUpdateAction = delegate { };
-        private bool immortal;
+        public event Action<float> ManaUpdateAction = delegate { };
+        // public event Action<float> IsBlockAction = delegate { };
 
-        // private void Awake()
-        // {
-        // maxHealth = new StatsManagers(baseStatsData.Health);
-        // attack = new StatsManagers(baseStatsData.AttackPower);
-        // speed = new StatsManagers(baseStatsData.Speed);
-        // defense = new StatsManagers(baseStatsData.Defense);
-        // critical = new StatsManagers(baseStatsData.Critical);
-        // characterType = baseStatsData.Type;
-        // CurrentHealth = maxHealth.GetFinalValue();
-        // }
+        private bool isDodge;
+
+        private bool isBlock;
 
         private void OnEnable()
         {
@@ -55,13 +48,19 @@ namespace ConquerTheStars.Stats
 
             characterType = baseStatsData.Type;
             CurrentHealth = maxHealth.GetFinalValue();
-            CurrentMana = mana.GetFinalValue();
+            CurrentMana = 10;
             IsDeath = false;
         }
 
         public bool TakeDamage(float damage)
         {
-            if (immortal) return false;
+            if (isDodge) return false;
+            if (isBlock)
+            {
+                CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
+                ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
+                return false;
+            }
 
             var finalDamage = Mathf.Max(damage - defense.GetFinalValue(), 0f);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
@@ -73,9 +72,20 @@ namespace ConquerTheStars.Stats
             return true;
         }
 
-        public void SetImmortal(bool state)
+        public void SubtractMana(float value)
         {
-            immortal = state;
+            CurrentMana = Mathf.Max(CurrentMana - value, 0f);
+            ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
+        }
+
+        public void SetIsDodge(bool state)
+        {
+            isDodge = state;
+        }
+
+        public void SetIsBlock(bool state)
+        {
+            isBlock = state;
         }
 
         public void CallDyingEvent()

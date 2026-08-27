@@ -33,4 +33,10 @@ public class StatsManagers
     {
         if (buff != 0f) buffList.Remove(buff);
     }
+
+    public float AddValue(float value)
+    {
+        var finalValue = baseValue;
+        return finalValue += value;
+    }
 }

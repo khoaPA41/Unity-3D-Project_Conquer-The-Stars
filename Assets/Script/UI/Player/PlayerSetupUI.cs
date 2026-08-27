@@ -1,6 +1,7 @@
 using System.Collections;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Stats;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,16 +22,21 @@ public class PlayerSetupUI : MonoBehaviour
     private SkillSelectionElement skillSelectionElement;
     private Image health;
     private Image mana;
+    private TextMeshProUGUI healthText;
+    private TextMeshProUGUI manaText;
 
 
     private void OnEnable()
     {
         characterStatsManagers.HealthUpdateAction += HealthUpdate;
+        characterStatsManagers.ManaUpdateAction += ManaUpdate;
     }
 
     private void OnDisable()
     {
         characterStatsManagers.HealthUpdateAction -= HealthUpdate;
+        characterStatsManagers.ManaUpdateAction -= ManaUpdate;
+
     }
 
     public void SpawnCharacterHUD()
@@ -39,31 +45,42 @@ public class PlayerSetupUI : MonoBehaviour
         skillSelectionElement.GetComponent<RectTransform>().SetParent(UIManagers.Instance?.StatusPanel);
         health = skillSelectionElement.Health;
         mana = skillSelectionElement.Mana;
+        healthText = skillSelectionElement.HealthText;
+        manaText = skillSelectionElement.ManaText;
     }
 
     public void SetupStatusUI(float healthValue, float manaValue)
     {
         health.fillAmount = healthValue;
         mana.fillAmount = manaValue;
+        healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
+        manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
+
     }
 
     public void HealthUpdate(float target)
     {
-        Debug.Log(target);
-        StartCoroutine(HealthChanging(target));
+        StartCoroutine(HealthChanging(health, target));
+        healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
     }
 
-    private IEnumerator HealthChanging(float target)
+    public void ManaUpdate(float target)
+    {
+        StartCoroutine(HealthChanging(mana, target));
+        manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
+    }
+
+    private IEnumerator HealthChanging(Image targetFill, float target)
     {
         float elapsedTime = 0f;
-        var currentHealth = health.fillAmount;
+        var currentHealth = targetFill.fillAmount;
         while (elapsedTime < healthUpdate)
         {
             elapsedTime += Time.deltaTime;
             var percentageTime = Mathf.Clamp01(elapsedTime / healthUpdate);
-            health.fillAmount = Mathf.Lerp(currentHealth, target, percentageTime);
+            targetFill.fillAmount = Mathf.Lerp(currentHealth, target, percentageTime);
             yield return null;
         }
-        health.fillAmount = target;
+        targetFill.fillAmount = target;
     }
 }

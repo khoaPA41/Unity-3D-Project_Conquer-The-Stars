@@ -5,15 +5,14 @@ using UnityEngine;
 public class PlayerAttack : ScriptableObject
 {
     public List<string> AttackName;
-    public List<string> SkillName;
-
     public List<string> AttackInformation;
-    public List<string> SkillInformation;
-
     public List<Sprite> AttackIcon;
-    public List<Sprite> SkillIcon;
-
     public List<float> AttackDamage;
+
+    public List<string> SkillName;
+    public List<float> ManaRequired;
+    public List<string> SkillInformation;
+    public List<Sprite> SkillIcon;
     public List<float> SkillDamage;
 
 }
