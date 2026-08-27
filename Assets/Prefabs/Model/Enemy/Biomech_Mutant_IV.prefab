@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 5119214586036981138}
   - component: {fileID: 7155470282280432883}
   - component: {fileID: 7489739328557031501}
+  - component: {fileID: 9116425048104860681}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -455,6 +456,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9116425048104860681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450074903040127361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8222a4966aaf2148b1a1f670a6b50fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Billboard
 --- !u!1 &1494955419012146885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,6 +1859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: a67f4e4416fcf79438d0ed57ae4f35de, type: 2}
+  textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
   maxHealth:
     baseValue: 0
   mana:
@@ -1861,7 +1875,6 @@ MonoBehaviour:
   characterType: 0
   CurrentHealth: 0
   CurrentMana: 0
-  IsDeath: 0
 --- !u!114 &4805854478725602771
 MonoBehaviour:
   m_ObjectHideFlags: 0

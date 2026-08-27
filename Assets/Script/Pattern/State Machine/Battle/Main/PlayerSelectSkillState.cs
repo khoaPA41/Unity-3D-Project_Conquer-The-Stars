@@ -31,8 +31,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 var currentMana = battleStateMachine.CurrentTurn.CurrentMana;
                 var manaRequired = battleStateMachine.PlayerCombatStateMachine.GetManaRequired(listName, index);
-                Debug.Log($"Current Mana: {currentMana}");
-                Debug.Log($"Required Mana: {manaRequired}");
 
                 if (currentMana < manaRequired)
                 {

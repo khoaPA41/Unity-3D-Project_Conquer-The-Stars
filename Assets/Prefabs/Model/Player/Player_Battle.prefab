@@ -1439,6 +1439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: 40d81aaf9ca89e04193df84d35fae1d0, type: 2}
+  textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
   maxHealth:
     baseValue: 0
   mana:
@@ -1454,7 +1455,6 @@ MonoBehaviour:
   characterType: 0
   CurrentHealth: 0
   CurrentMana: 0
-  IsDeath: 0
 --- !u!114 &7585745460317986952
 MonoBehaviour:
   m_ObjectHideFlags: 0

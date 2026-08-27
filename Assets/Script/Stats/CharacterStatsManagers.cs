@@ -1,6 +1,7 @@
 using System;
-using NUnit.Framework;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ConquerTheStars.Stats
 {
@@ -13,6 +14,9 @@ namespace ConquerTheStars.Stats
     {
         [Header("Stats Data")]
         [SerializeField] private StatsData baseStatsData;
+
+        [Header("Dynamic Text")]
+        [SerializeField] private DynamicTextData textData;
 
         [Header("Stats Infor")]
         public StatsManagers maxHealth;
@@ -54,16 +58,24 @@ namespace ConquerTheStars.Stats
 
         public bool TakeDamage(float damage)
         {
-            if (isDodge) return false;
+            if (isDodge)
+            {
+                SpawnText("DODGE");
+                return false;
+            }
+
             if (isBlock)
             {
                 CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
                 ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
+                SpawnText("BLOCK");
                 return false;
             }
 
             var finalDamage = Mathf.Max(damage - defense.GetFinalValue(), 0f);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
+            // DynamicTextManager.CreateText(transform.position, damage.ToString(), textData);
+            SpawnText(finalDamage.ToString());
             if (CurrentHealth <= 0)
             {
                 IsDeath = true;
@@ -91,6 +103,17 @@ namespace ConquerTheStars.Stats
         public void CallDyingEvent()
         {
             IsDyingAction?.Invoke();
+        }
+
+        private void SpawnText(string text)
+        {
+
+            Vector3 destination = transform.position;
+            // destination.x += UnityEngine.Random.Range(-.5f, 1f);
+            destination.y += UnityEngine.Random.Range(.5f, 1.5f);
+            destination.z += UnityEngine.Random.Range(1f, 2f);
+
+            DynamicTextManager.CreateText(destination, text, textData);
         }
     }
 }
