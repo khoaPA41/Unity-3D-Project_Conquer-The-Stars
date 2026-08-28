@@ -1,17 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ConquerTheStars.Pattern.Object_Pooling;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
 public class UIManagers : MonoBehaviour
 {
+    private readonly string mainSceneName = "Main";
+
+    private readonly string killElementName = "KillElement";
     public static UIManagers Instance;
 
     [Header("Skill UI")]
-    [SerializeField] private List<SkillSelectionElement> skillSelection;
 
     [field: Header("Skill Frame Action")]
     [field: SerializeField] public SkillActionFrame SkillActionFrame { get; set; }
@@ -19,10 +23,17 @@ public class UIManagers : MonoBehaviour
     [field: Header("Status Panel")]
     [field: SerializeField] public RectTransform StatusPanel { get; private set; }
 
-    [SerializeField] private Animator skilLSelectionPanelAnimator;
     [SerializeField] private float timeToFill;
 
-
+    [Header("Result")]
+    [SerializeField] private GameObject resultBoard;
+    [SerializeField] private TextMeshProUGUI highestDamageText;
+    [SerializeField] private TextMeshProUGUI damageDealtText;
+    [SerializeField] private TextMeshProUGUI damageReceivedText;
+    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TextMeshProUGUI successfulPariesText;
+    [SerializeField] private TextMeshProUGUI successfulDodgesText;
+    [SerializeField] private RectTransform Kills;
 
     void Awake()
     {
@@ -35,26 +46,7 @@ public class UIManagers : MonoBehaviour
         Instance = this;
     }
 
-    // public void SetupSkillSelectionUI(List<Sprite> icons, List<string> inforList)
-    // {
-    //     for (int i = 0; i < skillSelection.Count; i++)
-    //     {
-    //         skillSelection[i].Icon.sprite = icons[i];
-    //         skillSelection[i].Information.SetText(inforList[i]);
-    //     }
-    // }
-
-    public void AppearSkillSelection()
-    {
-        // skilLSelectionPanelAnimator.SetTrigger(AppearTrigger);
-    }
-
-    public void DisappearSkillSelection()
-    {
-        // skilLSelectionPanelAnimator.SetTrigger(DisappearTrigger);
-
-    }
-
+    /**** Action Frame ****/
     public void ActiveActionFrame()
     {
         SkillActionFrame.gameObject.SetActive(true);
@@ -67,4 +59,35 @@ public class UIManagers : MonoBehaviour
     }
 
     public float GetActionFrameValue() => SkillActionFrame.ActionFrameValue;
+
+
+    /**** Result Board ****/
+    public void ActiveResultBoard()
+    {
+        resultBoard.SetActive(true);
+    }
+
+    public void SetResultText(string highestDamageText, string damageDealtText, string damageReceivedText,
+    string timeText, string successfulPariesText, string successfulDodgesText)
+    {
+        this.highestDamageText.SetText(highestDamageText);
+        this.damageDealtText.SetText(damageDealtText);
+        this.damageReceivedText.SetText(damageReceivedText);
+        this.timeText.SetText(timeText);
+        this.successfulPariesText.SetText(successfulPariesText);
+        this.successfulDodgesText.SetText(successfulDodgesText);
+    }
+
+    public void SpawnKillElement(Sprite enemyIcon)
+    {
+        var killElement = ObjectPoolingManagers.Instance.GetPooledObject(killElementName, Vector3.zero);
+        killElement.GetComponent<RectTransform>().SetParent(Kills);
+        killElement.GetComponent<EnemyKillElement>().SetIcon(enemyIcon);
+    }
+
+    /**** Result Board ****/
+    public void ReturMainScene()
+    {
+        SceneManager.LoadScene(mainSceneName);
+    }
 }

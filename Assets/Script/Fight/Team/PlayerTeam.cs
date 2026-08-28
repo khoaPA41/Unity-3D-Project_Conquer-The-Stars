@@ -6,6 +6,9 @@ public class PlayerTeam : MonoBehaviour
 {
     public static PlayerTeam Instance { get; set; }
     public List<string> TeamNameList { get; set; } = new();
+
+    public Vector3 currentPosition;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

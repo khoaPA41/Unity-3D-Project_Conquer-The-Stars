@@ -16,7 +16,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
-            Debug.Log("Block");
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(BlockAnimationHash, playerCombatStateMachine.AnimationCrossFade);
             playerCombatStateMachine.CharacterStatsManagers.SetIsBlock(true);
         }
@@ -32,7 +31,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
             if (normalizedTime > prevTime && normalizedTime > .9f)
             {
-                playerCombatStateMachine.ReturnIdle();
+                playerCombatStateMachine.ReturnCombatIdle();
             }
 
             normalizedTime = prevTime;

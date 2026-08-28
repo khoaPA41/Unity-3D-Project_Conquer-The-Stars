@@ -1327,7 +1327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3756629156935213867}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 36.54243, y: 3.53, z: 62.63996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1341,7 +1341,7 @@ Transform:
   - {fileID: 4893310932511550762}
   - {fileID: 4975653816042278545}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &930405337414683739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1453,6 +1453,7 @@ MonoBehaviour:
   critical:
     baseValue: 0
   characterType: 0
+  icon: {fileID: 0}
   CurrentHealth: 0
   CurrentMana: 0
 --- !u!114 &7585745460317986952
@@ -3277,7 +3278,8 @@ PrefabInstance:
       propertyPath: skillBoardOther_I
       value: 
       objectReference: {fileID: 2129355460816736054}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7607330919558839898, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

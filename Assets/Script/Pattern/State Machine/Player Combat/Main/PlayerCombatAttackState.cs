@@ -36,7 +36,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
                 if (normalizedTime > prevTime && normalizedTime >= .9)
                 {
                     playerCombatStateMachine.IsFinished = true;
-                    playerCombatStateMachine.ReturnIdle();
+                    playerCombatStateMachine.ReturnCombatIdle();
                 }
                 prevTime = normalizedTime;
                 return;

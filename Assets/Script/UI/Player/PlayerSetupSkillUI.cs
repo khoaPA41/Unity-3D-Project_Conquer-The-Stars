@@ -57,11 +57,14 @@ namespace ConquerTheStars.Fight.Player
         {
             for (int i = 0; i < playerCombatStateMachine.AttackData.AttackIcon.Count; i++)
             {
-                var skillUI = ObjectPoolingManagers.Instance.GetPooledObject(SkillElementName, Vector3.zero, Vector3.zero);
+                var skillUI = ObjectPoolingManagers.Instance.GetPooledObject(SkillElementName, Vector3.zero);
                 var skillElement = skillUI.GetComponent<SkillElement>();
                 var skillRectTransform = skillElement.GetComponent<RectTransform>();
                 skillRectTransform.SetParent(selection_I, false);
-                skillElement.SetupSkillElement(playerCombatStateMachine.AttackData.AttackIcon[i], playerCombatStateMachine.AttackData.AttackInformation[i]);
+                skillElement.SetupSkillElement(playerCombatStateMachine.AttackData.AttackIcon[i],
+                playerCombatStateMachine.AttackData.Attack[i],
+                playerCombatStateMachine.AttackData.AttackInformation[i]
+                );
 
                 //button
                 var index = i;
@@ -77,10 +80,12 @@ namespace ConquerTheStars.Fight.Player
         {
             for (int i = 0; i < playerCombatStateMachine.AttackData.SkillIcon.Count; i++)
             {
-                var skillElement = ObjectPoolingManagers.Instance.GetPooledObject(SkillElementName, Vector3.zero, Vector3.zero).GetComponent<SkillElement>();
+                var skillElement = ObjectPoolingManagers.Instance.GetPooledObject(SkillElementName, Vector3.zero).GetComponent<SkillElement>();
                 var skillRectTransform = skillElement.GetComponent<RectTransform>();
                 skillRectTransform.SetParent(selection_II, false);
-                skillElement.SetupSkillElement(playerCombatStateMachine.AttackData.SkillIcon[i], playerCombatStateMachine.AttackData.SkillInformation[i]);
+                skillElement.SetupSkillElement(playerCombatStateMachine.AttackData.SkillIcon[i],
+                playerCombatStateMachine.AttackData.Skill[i],
+                playerCombatStateMachine.AttackData.SkillInformation[i]);
 
                 //button
                 var index = i;

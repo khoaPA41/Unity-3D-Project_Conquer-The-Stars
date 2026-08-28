@@ -70,7 +70,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             }
         }
 
-        public PooledObject GetPooledObject(string objectName, Vector3 pos, Vector3 quaternion)
+        public PooledObject GetPooledObject(string objectName, Vector3 pos)
         {
             if (String.IsNullOrEmpty(objectName) || !pooledObjectDict.ContainsKey(objectName))
             {
@@ -93,7 +93,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             var existedObject = pooledObjectDict[objectName].Pop();
 
             existedObject.transform.position = pos;
-            existedObject.transform.Rotate(quaternion);
+            existedObject.transform.rotation = Quaternion.identity;
             existedObject.gameObject.SetActive(true);
             return existedObject;
         }

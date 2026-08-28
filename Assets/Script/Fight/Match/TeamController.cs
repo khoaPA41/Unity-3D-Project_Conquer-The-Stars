@@ -8,6 +8,8 @@ public class TeamController : MonoBehaviour
     public List<CharacterStatsManagers> PlayerTeam { get; private set; } = new();
     public List<CharacterStatsManagers> EnemyTeam { get; private set; } = new();
 
+    public bool IsVictory { get; set; }
+
     private bool IsDeadTeam(List<CharacterStatsManagers> team)
     {
         return team.All(character => character.IsDeath);
@@ -17,11 +19,13 @@ public class TeamController : MonoBehaviour
     {
         if (IsDeadTeam(PlayerTeam)) // Check player team
         {
+            IsVictory = false;
             return true; // if all dead
         }
 
         if (IsDeadTeam(EnemyTeam)) // Check enemy team
         {
+            IsVictory = true;
             return true; // if all dead
         }
         return false;

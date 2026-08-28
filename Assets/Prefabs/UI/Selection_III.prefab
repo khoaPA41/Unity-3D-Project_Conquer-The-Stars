@@ -147,7 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f719c7ceac2e8bc45a408cfe9d154ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectionBar
-  skillBoard: {fileID: 3884322379065831876}
+  skillBoardRoot: {fileID: 0}
+  skillBoardOther_I: {fileID: 0}
+  skillBoardOthe_II: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &3884322379065831876
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,8 +280,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Attack
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d5a9a99ca398d7740a1671582e06a49e, type: 2}
+  m_sharedMaterial: {fileID: 5238700394290128183, guid: d5a9a99ca398d7740a1671582e06a49e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

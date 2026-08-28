@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using ConquerTheStars.Pattern.Object_Pooling;
 
 namespace ConquerTheStars.Stats
 {
@@ -26,6 +27,7 @@ namespace ConquerTheStars.Stats
         public StatsManagers defense;
         public StatsManagers critical;
         public CharacterType characterType;
+        public Sprite icon;
         public float CurrentHealth;
         public float CurrentMana;
 
@@ -33,7 +35,18 @@ namespace ConquerTheStars.Stats
         public event Action IsDyingAction = delegate { };
         public event Action<float> HealthUpdateAction = delegate { };
         public event Action<float> ManaUpdateAction = delegate { };
-        // public event Action<float> IsBlockAction = delegate { };
+
+        // Information Event
+        // public event Action<float> CalculateHighestDamage = delegate { };
+        // public event Action<float> DamageDealt = delegate { };
+        public event Action<float> DamageReceivedAction = delegate { };
+        public event Action<float> BattleTimeAction = delegate { };
+        public event Action SuccessfulParryTimesAction = delegate { };
+        public event Action SuccessfulDodgeTimesAction = delegate { };
+
+        public float DamageReceived { get; set; }
+        public int SuccessfulParryTimes { get; set; }
+        public int SuccessfulDodgeTimes { get; set; }
 
         private bool isDodge;
 
@@ -48,6 +61,7 @@ namespace ConquerTheStars.Stats
             defense = new StatsManagers(baseStatsData.Defense);
             critical = new StatsManagers(baseStatsData.Critical);
             mana = new StatsManagers(baseStatsData.Mana);
+            icon = baseStatsData.Icon;
             /************************/
 
             characterType = baseStatsData.Type;
@@ -61,6 +75,8 @@ namespace ConquerTheStars.Stats
             if (isDodge)
             {
                 SpawnText("DODGE");
+                StartCoroutine(SlowTime());
+                SuccessfulDodgeTimes++; // Calculate result infor
                 return false;
             }
 
@@ -68,14 +84,21 @@ namespace ConquerTheStars.Stats
             {
                 CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
                 ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
+                ObjectPoolingManagers.Instance.GetPooledObject("BlockVFX",
+                new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z))
+                .transform.Rotate(0f, 0f, -90f);
+                StartCoroutine(SlowTime());
                 SpawnText("BLOCK");
+                SuccessfulParryTimes++; // Calculate result infor
                 return false;
             }
 
             var finalDamage = Mathf.Max(damage - defense.GetFinalValue(), 0f);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
-            // DynamicTextManager.CreateText(transform.position, damage.ToString(), textData);
+
+            DamageReceived += damage; // Calculate result infor
             SpawnText(finalDamage.ToString());
+
             if (CurrentHealth <= 0)
             {
                 IsDeath = true;
@@ -114,6 +137,13 @@ namespace ConquerTheStars.Stats
             destination.z += UnityEngine.Random.Range(1f, 2f);
 
             DynamicTextManager.CreateText(destination, text, textData);
+        }
+
+        private IEnumerator SlowTime()
+        {
+            Time.timeScale = .3f;
+            yield return new WaitForSecondsRealtime(1f);
+            Time.timeScale = 1f;
         }
     }
 }

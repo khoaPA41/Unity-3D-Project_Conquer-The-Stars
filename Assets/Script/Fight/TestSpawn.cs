@@ -17,6 +17,7 @@ public class TestSpawn : MonoBehaviour
             BattleInformationManagers.Instance.SetArea(enemyTeam);
             if (BattleInformationManagers.Instance.AreaInformation != null)
             {
+                gameObject.SetActive(false);
                 SceneManager.LoadScene("Battle");
             }
         }

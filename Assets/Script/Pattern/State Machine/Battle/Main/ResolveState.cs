@@ -25,6 +25,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (battleStateMachine.TeamController.CheckBattleResult()) // check if either one team list is dead, end battle
             {
                 Debug.Log("Is finished battle!");
+                battleStateMachine.SwitchState(battleStateMachine.Result);
                 return;
             }
             isFinished = true;
@@ -68,4 +69,5 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             }
         }
     }
+
 }

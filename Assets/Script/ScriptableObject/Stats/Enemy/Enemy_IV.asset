@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Enemy_IV
   m_EditorClassIdentifier: Assembly-CSharp::StatsData
   Type: 1
+  Icon: {fileID: 21300000, guid: 734e090194309f944a6424e94d0907fc, type: 3}
   Health: 250
+  Mana: 0
   AttackPower: 50
   Speed: 20
   Defense: 10

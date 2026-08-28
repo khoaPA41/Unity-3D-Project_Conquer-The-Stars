@@ -18,8 +18,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             {
                 object1 = ObjectPoolingManagers.Instance.GetPooledObject(
                     "Enemy_I",
-                    new Vector3(0, 0, 0),
-                    Vector3.zero
+                    new Vector3(0, 0, 0)
                 );
                 pooledObject_I.Push(object1);
                 Debug.Log($"Spawn: {object1.name} | ID: {object1.GetInstanceID()}");
@@ -29,8 +28,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             {
                 object2 = ObjectPoolingManagers.Instance.GetPooledObject(
                     "Enemy_II",
-                    new Vector3(2, 0, 0),
-                    Vector3.zero
+                    new Vector3(2, 0, 0)
                 );
                 pooledObject_II.Push(object2);
                 Debug.Log($"Spawn: {object2.name} | ID: {object1.GetInstanceID()}");
@@ -40,8 +38,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             {
                 object3 = ObjectPoolingManagers.Instance.GetPooledObject(
                     "Enemy_III",
-                    new Vector3(4, 0, 0),
-                    Vector3.zero
+                    new Vector3(4, 0, 0)
                 );
                 pooledObject_III.Push(object3);
                 Debug.Log($"Spawn: {object3.name} | ID: {object1.GetInstanceID()}");

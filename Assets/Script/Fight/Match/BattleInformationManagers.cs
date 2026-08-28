@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -8,6 +9,7 @@ public class BattleInformationManagers : MonoBehaviour
 
     public PlayerTeam PlayerTeam { get; set; }
 
+    public List<GameObject> area;
     private void Awake()
     {
         if (Instance != null && Instance != this)

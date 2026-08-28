@@ -48,7 +48,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             for (int i = 0; i < enemyTeam.Count; i++)
             {
-                var enemy = ObjectPoolingManagers.Instance.GetPooledObject(enemyTeam[i], battleStateMachine.Area.enemyTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].enemyTransformList[i].position, new Vector3(0f, 90f, 0f));
+                var enemy = ObjectPoolingManagers.Instance.GetPooledObject(enemyTeam[i], battleStateMachine.Area.enemyTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].enemyTransformList[i].position);
+                enemy.transform.Rotate(new Vector3(0f, 90f, 0f));
                 characterInMatch.Add(enemy.GetComponent<CharacterStatsManagers>());
                 battleStateMachine.TeamController.AddEnemyTeam(enemy.GetComponent<CharacterStatsManagers>());
             }
@@ -58,7 +59,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             for (int i = 0; i < playerTeam.Count; i++)
             {
-                var player = ObjectPoolingManagers.Instance.GetPooledObject(playerTeam[i], battleStateMachine.Area.playerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].playerTransformList[i].position, new Vector3(0f, -90f, 0f));
+                var player = ObjectPoolingManagers.Instance.GetPooledObject(playerTeam[i], battleStateMachine.Area.playerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].playerTransformList[i].position);
+                player.transform.Rotate(new Vector3(0f, -90f, 0f));
                 characterInMatch.Add(player.GetComponent<CharacterStatsManagers>());
                 battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>());
             }
@@ -89,7 +91,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 var target = enemy.GetComponent<Target>();
                 battleStateMachine.PlayerTargeter.SetupTargetList(target);
             }
-            battleStateMachine.PlayerTargeter.FirstSelected();
+            // battleStateMachine.PlayerTargeter.FirstSelected();
         }
 
         private void SetupEnemyTarget() // Add all player to enemy target list

@@ -19,7 +19,7 @@ public class PlayerSetupUI : MonoBehaviour
     private float healthUpdate;
     [SerializeField] private float manaUpdate;
 
-    private SkillSelectionElement skillSelectionElement;
+    private PlayerHUD characterHud;
     private Image health;
     private Image mana;
     private TextMeshProUGUI healthText;
@@ -41,12 +41,18 @@ public class PlayerSetupUI : MonoBehaviour
 
     public void SpawnCharacterHUD()
     {
-        skillSelectionElement = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero, Vector3.zero).GetComponent<SkillSelectionElement>();
-        skillSelectionElement.GetComponent<RectTransform>().SetParent(UIManagers.Instance?.StatusPanel);
-        health = skillSelectionElement.Health;
-        mana = skillSelectionElement.Mana;
-        healthText = skillSelectionElement.HealthText;
-        manaText = skillSelectionElement.ManaText;
+        characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
+        characterHud.GetComponent<RectTransform>().SetParent(UIManagers.Instance?.StatusPanel);
+        characterHud.Icon.sprite = characterStatsManagers.icon;
+        health = characterHud.Health;
+        mana = characterHud.Mana;
+        healthText = characterHud.HealthText;
+        manaText = characterHud.ManaText;
+    }
+
+    public void InactiveCharacterHUD()
+    {
+        characterHud.gameObject.SetActive(false);
     }
 
     public void SetupStatusUI(float healthValue, float manaValue)

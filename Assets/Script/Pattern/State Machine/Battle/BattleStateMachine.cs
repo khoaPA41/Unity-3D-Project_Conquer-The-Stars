@@ -4,6 +4,7 @@ using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
@@ -25,6 +26,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         [field: Header("Team Controller")]
         [field: SerializeField] public TeamController TeamController { get; private set; }
 
+        [field: Header("Camera")]
+        [field: SerializeField] public CinemachineCamera VictoryCamera { get; private set; }
+
         // State
         public State BattleSetup { get; private set; }
         public State StartTurn { get; private set; }
@@ -35,14 +39,18 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public State EnemyTurn { get; private set; }
         public State EnemyExecuted { get; private set; }
         public State Resolve { get; private set; }
+        public State Result { get; private set; }
 
         public PlayerCombatStateMachine PlayerCombatStateMachine { get; set; }
         public EnemyStateMachine EnemyStateMachine { get; set; }
 
-        // public event Action<int> PlayerExecuteAction = delegate { };
 
-        // public int AttackIndexSelected { get; set; }
-
+        public float HighestDamage;
+        public float DamageDealt;
+        public float DamageReceived;
+        public float BattleTime;
+        public int SuccessfulParryTimes;
+        public int SuccessfulDodgeTimes;
         void Start()
         {
             Cursor.lockState = CursorLockMode.None;
@@ -55,13 +63,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             EnemyTurn = new EnemyTurnState(this);
             EnemyExecuted = new EnemyExecutionState(this);
             Resolve = new ResolveState(this);
+            Result = new BattleResultState(this);
+
             SwitchState(BattleSetup);
         }
-
-        // public void ExecutionAction(int actionIndex)
-        // {
-        //     PlayerExecuteAction?.Invoke(actionIndex);
-        // }
 
         public void SwitchPlayerExecuted()
         {
@@ -76,6 +81,21 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public void SwitchStartTurn()
         {
             SwitchState(StartTurn);
+        }
+
+        public void CalculateDamageReceived(float damage)
+        {
+            DamageReceived += damage;
+        }
+
+        public void CalculateSuccessfulParryTimes()
+        {
+            SuccessfulParryTimes++;
+        }
+
+        public void CalculateSuccessfulDodgeTimes()
+        {
+            SuccessfulDodgeTimes++;
         }
     }
 }

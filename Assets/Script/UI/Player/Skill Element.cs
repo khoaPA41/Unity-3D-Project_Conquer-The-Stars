@@ -6,30 +6,17 @@ public class SkillElement : MonoBehaviour
 {
     [Header("Skill Element")]
     [SerializeField] private Image icon;
+    [SerializeField] private TextMeshProUGUI skillName;
     [SerializeField] private TextMeshProUGUI information;
+
     [field: SerializeField] public Button Button { get; set; }
     public int index;
 
 
-    private void Start()
-    {
-
-    }
-
-    private void OnEnable()
-    {
-        // Button.onClick.AddListener();
-    }
-
-    // private void OnDisable()
-    // {
-    //     Button.onClick.AddListener();
-    // }
-
-
-    public void SetupSkillElement(Sprite icon, string information)
+    public void SetupSkillElement(Sprite icon, string skillName, string information)
     {
         this.icon.sprite = icon;
+        this.skillName.SetText(skillName);
         this.information.SetText(information);
     }
 }

@@ -346,4 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f719c7ceac2e8bc45a408cfe9d154ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectionBar
-  skillBoard: {fileID: 5630648485519324349}
+  skillBoardRoot: {fileID: 0}
+  skillBoardOther_I: {fileID: 0}
+  skillBoardOthe_II: {fileID: 0}
+  animator: {fileID: 0}

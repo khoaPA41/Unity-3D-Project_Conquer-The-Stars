@@ -51,9 +51,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             var enemyStatsManager = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>(); // Get CharacterStatsManagers from target
             if (target != null)
             {
-                if (enemyStatsManager.TakeDamage(battleStateMachine.PlayerCombatStateMachine.AttackData.AttackDamage
-                [battleStateMachine.PlayerCombatStateMachine.AttackIndexSelected] * UIManagers.Instance.GetActionFrameValue())) // take damage
+                var damage = battleStateMachine.PlayerCombatStateMachine.AttackData.AttackDamage
+                [battleStateMachine.PlayerCombatStateMachine.AttackIndexSelected] * UIManagers.Instance.GetActionFrameValue();
+                if (enemyStatsManager.TakeDamage(damage)) // take damage
                 {
+                    battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, damage); //Calculate Result Infor
+                    battleStateMachine.DamageDealt += damage;//Calculate Result Infor
+
                     target.SwitchState(target.GethitState); // Switch target state to get hit
                 }
             }

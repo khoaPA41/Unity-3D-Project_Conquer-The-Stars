@@ -25,7 +25,7 @@ public class Targeter : MonoBehaviour
 
     public void FirstSelected()
     {
-        currentTarget = targetAvaiable[0];
+        currentTarget = targetAvaiable[currentIndex];
     }
 
     public void ChooseNextTarget()
@@ -54,16 +54,23 @@ public class Targeter : MonoBehaviour
     {
         targetAvaiable.Remove(target);
         if (cinemachineTargetGroup != null) cinemachineTargetGroup.RemoveMember(target.transform);
+        currentIndex = 0;
     }
 
     public void RemoveTarget()
     {
-        if (cinemachineTargetGroup != null)
+        // if (cinemachineTargetGroup != null)
+        // {
+        //     if (cinemachineTargetGroup.FindMember(targetAvaiable[currentIndex].transform) >= 0)
+        //     {
+        if (currentTarget != null)
         {
-            if (cinemachineTargetGroup.FindMember(targetAvaiable[currentIndex].transform) >= 0)
-            {
-                cinemachineTargetGroup.RemoveMember(targetAvaiable[currentIndex].transform);
-            }
+            Debug.Log(currentTarget);
+            cinemachineTargetGroup.RemoveMember(currentTarget.transform);
+            currentIndex = 0;
         }
+
+        // }
     }
 }
+

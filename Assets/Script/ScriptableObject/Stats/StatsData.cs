@@ -6,6 +6,7 @@ using UnityEngine;
 public class StatsData : ScriptableObject
 {
     public CharacterType Type;
+    public Sprite Icon;
     public float Health;
     public float Mana;
     public float AttackPower;

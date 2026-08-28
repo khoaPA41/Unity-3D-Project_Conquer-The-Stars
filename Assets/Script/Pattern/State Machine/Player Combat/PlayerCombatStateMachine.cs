@@ -4,6 +4,7 @@ using ConquerTheStars.Fight.Player;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Stats;
+using JetBrains.Annotations;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -51,6 +52,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public State PlayerGetHitState { get; private set; }
         public State PlayerDodgeState { get; private set; }
         public State PlayerDyingState { get; private set; }
+        public State PlayerVictoryState { get; private set; }
 
         public Vector3 PlayerStartPosition { get; set; }
 
@@ -63,6 +65,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public int AttackIndexSelected { get; set; }
         public string AttackNameList { get; set; }
 
+
         private void Awake()
         {
             PlayerIdleState = new PlayerCombatIdleState(this);
@@ -72,6 +75,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             PlayerDyingState = new PlayerCombatDyingState(this);
             PlayerAttackState = new PlayerCombatAttackState(this);
             PlayerBlockState = new PlayerCombatBlockState(this);
+            PlayerVictoryState = new PlayerCombatVictoryState(this);
         }
 
         private void OnEnable()
@@ -98,7 +102,10 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             SwitchState(PlayerIdleState);
         }
-
+        public void ReturnCombatIdle()
+        {
+            SwitchState(PlayerCombatIdleState);
+        }
         public void SwitchAttackState()
         {
             SwitchState(PlayerAttackState);
@@ -119,6 +126,10 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             SwitchState(PlayerDyingState);
         }
 
+        public void SwitchVictoryState()
+        {
+            SwitchState(PlayerVictoryState);
+        }
         public void CallDealDamageEvent()
         {
             AttackDealDamage?.Invoke();
