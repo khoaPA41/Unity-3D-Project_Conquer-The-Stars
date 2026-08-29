@@ -29,7 +29,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
                 playerCombatStateMachine.CharacterStatsManagers.SetIsBlock(false);
             }
 
-            if (normalizedTime > prevTime && normalizedTime > .9f)
+            if (normalizedTime > prevTime && normalizedTime > .9f && normalizedTime <= 1f)
             {
                 playerCombatStateMachine.ReturnCombatIdle();
             }

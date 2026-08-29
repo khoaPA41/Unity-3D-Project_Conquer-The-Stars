@@ -33,7 +33,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             {
                 normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, AttackAnimationTag);
 
-                if (normalizedTime > prevTime && normalizedTime >= .9)
+                if (normalizedTime > prevTime && normalizedTime >= .9f && normalizedTime <= 1f)
                 {
                     playerCombatStateMachine.IsFinished = true;
                     playerCombatStateMachine.ReturnCombatIdle();

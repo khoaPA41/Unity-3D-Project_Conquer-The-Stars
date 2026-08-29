@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using ConquerTheStars.Pattern.StateMachine.Enemy;
-using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
+
 using ConquerTheStars.Stats;
 using UnityEngine;
 
@@ -12,7 +7,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
     public class ResolveState : BattleBaseState
     {
         private bool isFinished;
-        // CharacterStatsManagers character;
         public ResolveState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
@@ -20,8 +14,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             isFinished = false;
-            CheckCurrentCharacter();
+
             CheckCurrentTurnList();
+            CheckCurrentCharacter();
             if (battleStateMachine.TeamController.CheckBattleResult()) // check if either one team list is dead, end battle
             {
                 Debug.Log("Is finished battle!");
@@ -61,6 +56,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 if (character.IsDeath)
                 {
                     character.CallDyingEvent();
+
                     if (character.characterType == CharacterType.Enemy)
                     {
                         battleStateMachine.PlayerTargeter.RemoveTarget(character.GetComponent<Target>());

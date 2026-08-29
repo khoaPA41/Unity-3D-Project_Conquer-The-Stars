@@ -12,6 +12,7 @@ public class EnemyUI : MonoBehaviour
     [Header("Character Stats Manager")]
     [SerializeField]
     private CharacterStatsManagers characterStatsManagers;
+
     private void OnEnable()
     {
         SetupHealth(1f);

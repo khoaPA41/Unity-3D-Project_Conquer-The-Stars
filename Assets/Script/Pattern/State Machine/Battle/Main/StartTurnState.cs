@@ -15,8 +15,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            // SwitchTurnByType();
-            battleStateMachine.StartCoroutine(WaitToSetup());
+            SwitchTurnByType();
         }
 
         public override void Tick(float deltaTime)
@@ -29,11 +28,22 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void SwitchTurnByType()
         {
-            battleStateMachine.CurrentTurn = battleStateMachine.CharacterStats.Dequeue();
-
-            if (battleStateMachine.CurrentTurn.IsDeath)
+            // Skip Characte Death
+            while (battleStateMachine.CharacterStats.Count > 0)
             {
-                battleStateMachine.SwitchState(battleStateMachine.StartTurn);
+                var next = battleStateMachine.CharacterStats.Dequeue();
+                if (next == null) continue;
+
+                if (!next.IsDeath)
+                {
+                    battleStateMachine.CurrentTurn = next;
+                    break;
+                }
+            }
+
+            if (battleStateMachine.CurrentTurn == null)
+            {
+                battleStateMachine.SwitchStartTurn();
                 return;
             }
 
@@ -49,12 +59,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                     battleStateMachine.SwitchState(battleStateMachine.EnemyTurn);
                     break;
             }
-        }
-
-        private IEnumerator WaitToSetup()
-        {
-            yield return new WaitForSecondsRealtime(2f);
-            SwitchTurnByType();
         }
     }
 }

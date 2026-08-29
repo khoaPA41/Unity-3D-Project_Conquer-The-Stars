@@ -65,12 +65,16 @@ public class Targeter : MonoBehaviour
         //     {
         if (currentTarget != null)
         {
-            Debug.Log(currentTarget);
             cinemachineTargetGroup.RemoveMember(currentTarget.transform);
             currentIndex = 0;
         }
 
         // }
+    }
+
+    public void ClearTarget()
+    {
+        targetAvaiable.Clear();
     }
 }
 

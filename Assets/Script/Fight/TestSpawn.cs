@@ -10,11 +10,13 @@ public class TestSpawn : MonoBehaviour
     {
         enemyTeam = GetComponent<EnemyTeam>();
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             BattleInformationManagers.Instance.SetArea(enemyTeam);
+            PlayerTeam.Instance.SavePos(new Vector3(transform.position.x, 0f, transform.position.z));
             if (BattleInformationManagers.Instance.AreaInformation != null)
             {
                 gameObject.SetActive(false);

@@ -42,6 +42,7 @@ public class PlayerSetupUI : MonoBehaviour
     public void SpawnCharacterHUD()
     {
         characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
+        UIManagers.Instance.AddUiPooledObjectList(characterHud.GetComponent<PooledObject>());
         characterHud.GetComponent<RectTransform>().SetParent(UIManagers.Instance?.StatusPanel);
         characterHud.Icon.sprite = characterStatsManagers.icon;
         health = characterHud.Health;

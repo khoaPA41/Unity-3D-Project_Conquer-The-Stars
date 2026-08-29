@@ -2308,7 +2308,8 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
-  characterType: 0
+  characterType: 1
+  icon: {fileID: 21300000, guid: 1e255565a1050e74ca3c1b726c8e9103, type: 3}
   CurrentHealth: 0
   CurrentMana: 0
 --- !u!114 &-7914153550810431556

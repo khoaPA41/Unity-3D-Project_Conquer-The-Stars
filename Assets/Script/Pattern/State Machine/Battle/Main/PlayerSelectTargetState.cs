@@ -12,11 +12,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             /*Change Combat Idle State*/
-            battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerCombatIdleState); // Change Player State
+            battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerCombatIdleState);
+
             /*Select Target*/
             battleStateMachine.PlayerTargeter.FirstSelected();
             battleStateMachine.PlayerTargeter.GetTarget();
             Selected();
+
             /*Choose Target*/
             battleStateMachine.InputReader.NextTargetAction += battleStateMachine.PlayerTargeter.ChooseNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction += battleStateMachine.PlayerTargeter.ChoosePrevTarget;

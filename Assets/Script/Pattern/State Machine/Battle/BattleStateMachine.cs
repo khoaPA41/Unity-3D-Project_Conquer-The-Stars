@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
@@ -43,7 +45,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public PlayerCombatStateMachine PlayerCombatStateMachine { get; set; }
         public EnemyStateMachine EnemyStateMachine { get; set; }
-
 
         public float HighestDamage;
         public float DamageDealt;
@@ -96,6 +97,19 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public void CalculateSuccessfulDodgeTimes()
         {
             SuccessfulDodgeTimes++;
+        }
+
+        public void ReleaseAllTeam()
+        {
+            foreach (var player in TeamController.PlayerTeam)
+            {
+                player.GetComponent<PooledObject>().Release();
+            }
+
+            foreach (var enemy in TeamController.EnemyTeam)
+            {
+                enemy.GetComponent<PooledObject>().Release();
+            }
         }
     }
 }

@@ -23,8 +23,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Player
 
         private void Start()
         {
+            transform.position = PlayerTeam.Instance.CurrentPosition;
             MainCamera = Camera.main;
             SwitchState(new PlayerLocomotionState(this));
+
         }
     }
 }

@@ -23,7 +23,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public override void Tick(float deltaTime)
         {
             normalizeTime = NormalizedTime(playerCombatStateMachine.Animator, GetHitAnimationTag);
-            if (normalizeTime > prevTime && normalizeTime > .8f)
+            if (normalizeTime > prevTime && normalizeTime > .8f && normalizeTime <= 1f)
             {
                 playerCombatStateMachine.IsFinished = true;
                 playerCombatStateMachine.ReturnIdle();

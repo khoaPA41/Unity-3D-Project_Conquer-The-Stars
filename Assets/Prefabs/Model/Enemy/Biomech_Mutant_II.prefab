@@ -1994,7 +1994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.Enemy.EnemyStateMachine
   <CharacterController>k__BackingField: {fileID: 4619605247933079161}
   <Speed>k__BackingField: 10
-  <Animator>k__BackingField: {fileID: 6042459200081680747, guid: 42a37e6b405d1714bab2f5ddcf6003fc, type: 3}
+  <Animator>k__BackingField: {fileID: 6810730790409754458}
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: -6692468754761527920}
   <AttackData>k__BackingField: {fileID: 0}
@@ -2059,7 +2059,8 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
-  characterType: 0
+  characterType: 1
+  icon: {fileID: 21300000, guid: d6129bd4c88647549af9a52e238defb7, type: 3}
   CurrentHealth: 0
   CurrentMana: 0
 --- !u!114 &5474354374937421046
@@ -2111,7 +2112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f03055180842d4c84056bee88bb2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUI
-  healthImage: {fileID: 2834613747092355183}
+  healthImage: {fileID: 2368301465375127226}
   healthUpdate: 0.3
   characterStatsManagers: {fileID: -6692468754761527920}
 --- !u!1 &5946183987302591400

@@ -28,7 +28,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
             }
 
-            if (normalizedTime > prevTime && normalizedTime > .9f)
+            if (normalizedTime > prevTime && normalizedTime > .9f && normalizedTime <= 1f)
             {
                 playerCombatStateMachine.ReturnCombatIdle();
             }

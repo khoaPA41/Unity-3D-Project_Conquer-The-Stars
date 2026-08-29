@@ -13,7 +13,16 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            battleStateMachine.StartCoroutine(WaitToChangeVictory());
+            if (battleStateMachine.TeamController.IsVictory)
+            {
+                battleStateMachine.StartCoroutine(WaitToChangeVictory());
+            }
+            else
+            {
+                battleStateMachine.StartCoroutine(WaitToChangeDefeat());
+
+            }
+
         }
 
         public override void Tick(float deltaTime)
@@ -32,6 +41,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             ChangeVictoryState();
             CalculateResultInformation();
             battleStateMachine.VictoryCamera.gameObject.SetActive(true);
+            SetupResultBoard();
+        }
+        private IEnumerator WaitToChangeDefeat()
+        {
+            yield return new WaitForSecondsRealtime(2f);
+            CalculateResultInformation();
             SetupResultBoard();
         }
 
@@ -67,7 +82,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 UIManagers.Instance.SpawnKillElement(enemy.icon);
             }
 
-            UIManagers.Instance.ActiveResultBoard();
+            UIManagers.Instance.ActiveResultBoard(battleStateMachine.TeamController.IsVictory);
         }
     }
 }

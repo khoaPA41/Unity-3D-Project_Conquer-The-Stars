@@ -24,7 +24,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             characterInMatch.Sort((a, b) => b.speed.GetFinalValue().CompareTo(a.speed.GetFinalValue()));
             AddCharacterToQueue();
-            SetupHealthUI();
             SetupPlayerTarget();
             SetupEnemyTarget();
             battleStateMachine.SwitchState(battleStateMachine.StartTurn);
@@ -71,16 +70,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             foreach (var character in characterInMatch)
             {
                 battleStateMachine.CharacterStats.Enqueue(character);
-            }
-        }
-
-        private void SetupHealthUI()
-        {
-            int index = 0;
-            foreach (var player in characterInMatch.Where(player => player.characterType == CharacterType.Player))
-            {
-                // UIManagers.Instance.SetHealth(index, player.maxHealth.GetFinalValue() / player.CurrentHealth);
-                index++;
             }
         }
 

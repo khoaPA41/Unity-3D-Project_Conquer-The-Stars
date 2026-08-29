@@ -44,11 +44,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
             AttackState = new EnemyAttackState(this);
             GethitState = new EnemyGetHitState(this);
             DyingState = new EnemyDyingState(this);
-            SwitchState(IdleState);
         }
 
         private void OnEnable()
         {
+            SwitchState(IdleState);
             EnemyStartPosition = transform.position;
             CharacterStatsManagers.IsDyingAction += SwitchDyingState;
         }

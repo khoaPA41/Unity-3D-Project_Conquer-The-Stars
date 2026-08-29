@@ -14,14 +14,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
+            playerCombatStateMachine.PlayerSetupUI.InactiveCharacterHUD();
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(DyingAnimationHash, playerCombatStateMachine.AnimationCrossFade);
-
         }
 
         public override void Tick(float deltaTime)
         {
             normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, DyingTag);
-            if (normalizedTime > prevTime && normalizedTime >= .9)
+            if (normalizedTime > prevTime && normalizedTime >= .9 && normalizedTime <= 1f)
             {
                 playerCombatStateMachine.IsFinished = true;
                 playerCombatStateMachine.PooledObject.Release();

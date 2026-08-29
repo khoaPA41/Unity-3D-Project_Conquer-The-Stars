@@ -1807,7 +1807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.Enemy.EnemyStateMachine
   <CharacterController>k__BackingField: {fileID: 608174464105567991}
   <Speed>k__BackingField: 10
-  <Animator>k__BackingField: {fileID: 6042459200081680747, guid: 42a37e6b405d1714bab2f5ddcf6003fc, type: 3}
+  <Animator>k__BackingField: {fileID: 1484178176883231513}
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: 954568753195517253}
   <AttackData>k__BackingField: {fileID: 0}
@@ -1872,7 +1872,8 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
-  characterType: 0
+  characterType: 1
+  icon: {fileID: 21300000, guid: 734e090194309f944a6424e94d0907fc, type: 3}
   CurrentHealth: 0
   CurrentMana: 0
 --- !u!114 &4805854478725602771

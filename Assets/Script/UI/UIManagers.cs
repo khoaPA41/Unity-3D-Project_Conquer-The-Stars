@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class UIManagers : MonoBehaviour
 {
     private readonly string mainSceneName = "Main";
+    private readonly string battleSceneName = "Battle";
 
     private readonly string killElementName = "KillElement";
     public static UIManagers Instance;
@@ -27,6 +28,10 @@ public class UIManagers : MonoBehaviour
 
     [Header("Result")]
     [SerializeField] private GameObject resultBoard;
+    [SerializeField] private GameObject victoryText;
+    [SerializeField] private GameObject defeatText;
+    [SerializeField] private GameObject revengeButton;
+
     [SerializeField] private TextMeshProUGUI highestDamageText;
     [SerializeField] private TextMeshProUGUI damageDealtText;
     [SerializeField] private TextMeshProUGUI damageReceivedText;
@@ -35,6 +40,9 @@ public class UIManagers : MonoBehaviour
     [SerializeField] private TextMeshProUGUI successfulDodgesText;
     [SerializeField] private RectTransform Kills;
 
+
+    private List<PooledObject> uiPooledObject { get; set; } = new();
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,8 +50,12 @@ public class UIManagers : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
+    }
+
+    public void AddUiPooledObjectList(PooledObject ui)
+    {
+        uiPooledObject.Add(ui);
     }
 
     /**** Action Frame ****/
@@ -62,8 +74,17 @@ public class UIManagers : MonoBehaviour
 
 
     /**** Result Board ****/
-    public void ActiveResultBoard()
+    public void ActiveResultBoard(bool isVictory)
     {
+        if (isVictory)
+        {
+            victoryText.SetActive(true);
+        }
+        else
+        {
+            defeatText.SetActive(true);
+            revengeButton.SetActive(true);
+        }
         resultBoard.SetActive(true);
     }
 
@@ -81,13 +102,29 @@ public class UIManagers : MonoBehaviour
     public void SpawnKillElement(Sprite enemyIcon)
     {
         var killElement = ObjectPoolingManagers.Instance.GetPooledObject(killElementName, Vector3.zero);
+        AddUiPooledObjectList(killElement);
         killElement.GetComponent<RectTransform>().SetParent(Kills);
         killElement.GetComponent<EnemyKillElement>().SetIcon(enemyIcon);
     }
 
-    /**** Result Board ****/
-    public void ReturMainScene()
+    public void ReturnMainScene()
     {
         SceneManager.LoadScene(mainSceneName);
     }
+
+    public void ReloadBattle()
+    {
+        SceneManager.LoadScene(battleSceneName);
+    }
+
+    /*Release All UI Pooled*/
+
+    public void ReleaseAllUiPooledObject()
+    {
+        foreach (var ui in uiPooledObject)
+        {
+            ui.Release();
+        }
+    }
+
 }

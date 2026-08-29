@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using TMPro;
@@ -10,7 +11,6 @@ namespace ConquerTheStars.Fight.Player
     [RequireComponent(typeof(PlayerCombatStateMachine))]
     public class PlayerSetupSkillUI : MonoBehaviour
     {
-        private readonly string SkillElementName = "Skill_Board_Element";
         private readonly int SkillSelectionAppearAnimationHash = Animator.StringToHash("Appear");
         private readonly int SkillSelectionDisappearAnimationHash = Animator.StringToHash("Disappear");
 
@@ -24,6 +24,12 @@ namespace ConquerTheStars.Fight.Player
         [SerializeField] private RectTransform selection_II;
         [SerializeField] private RectTransform selection_III;
 
+        [Header("Skill Selection")]
+        [SerializeField]
+        private List<SkillElement> attackElement;
+        [SerializeField]
+        private List<SkillElement> skillElement;
+
         [Header("Animator")]
         [SerializeField]
         private Animator skillAnimator;
@@ -33,6 +39,7 @@ namespace ConquerTheStars.Fight.Player
 
         private Camera mainCamera;
 
+        private bool isInitialized;
         private void Start()
         {
 
@@ -41,10 +48,15 @@ namespace ConquerTheStars.Fight.Player
         private void OnEnable()
         {
             mainCamera = Camera.main;
-            if (playerCombatStateMachine != null && ObjectPoolingManagers.Instance.IsSetupFinished)
+            if (playerCombatStateMachine != null)
             {
-                SetupAttackUI();
-                SetupSkillUI();
+                if (!isInitialized)
+                {
+                    SetupAttackUI();
+                    SetupSkillUI();
+                    isInitialized = true;
+                }
+
                 if (mainCamera != null)
                 {
                     SetupCamera();
@@ -57,18 +69,14 @@ namespace ConquerTheStars.Fight.Player
         {
             for (int i = 0; i < playerCombatStateMachine.AttackData.AttackIcon.Count; i++)
             {
-                var skillUI = ObjectPoolingManagers.Instance.GetPooledObject(SkillElementName, Vector3.zero);
-                var skillElement = skillUI.GetComponent<SkillElement>();
-                var skillRectTransform = skillElement.GetComponent<RectTransform>();
-                skillRectTransform.SetParent(selection_I, false);
-                skillElement.SetupSkillElement(playerCombatStateMachine.AttackData.AttackIcon[i],
+                attackElement[i].SetupSkillElement(playerCombatStateMachine.AttackData.AttackIcon[i],
                 playerCombatStateMachine.AttackData.Attack[i],
                 playerCombatStateMachine.AttackData.AttackInformation[i]
                 );
 
                 //button
                 var index = i;
-                skillElement.Button.onClick.AddListener(() =>
+                attackElement[i].Button.onClick.AddListener(() =>
                 {
                     playerCombatStateMachine.GetIndexAction("Attack", index);
                 });
@@ -80,16 +88,13 @@ namespace ConquerTheStars.Fight.Player
         {
             for (int i = 0; i < playerCombatStateMachine.AttackData.SkillIcon.Count; i++)
             {
-                var skillElement = ObjectPoolingManagers.Instance.GetPooledObject(SkillElementName, Vector3.zero).GetComponent<SkillElement>();
-                var skillRectTransform = skillElement.GetComponent<RectTransform>();
-                skillRectTransform.SetParent(selection_II, false);
-                skillElement.SetupSkillElement(playerCombatStateMachine.AttackData.SkillIcon[i],
+                skillElement[i].SetupSkillElement(playerCombatStateMachine.AttackData.SkillIcon[i],
                 playerCombatStateMachine.AttackData.Skill[i],
                 playerCombatStateMachine.AttackData.SkillInformation[i]);
 
                 //button
                 var index = i;
-                skillElement.Button.onClick.AddListener(() =>
+                skillElement[i].Button.onClick.AddListener(() =>
                 {
                     playerCombatStateMachine.GetIndexAction("Skill", index);
                 });

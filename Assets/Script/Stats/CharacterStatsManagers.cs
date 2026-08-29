@@ -39,10 +39,10 @@ namespace ConquerTheStars.Stats
         // Information Event
         // public event Action<float> CalculateHighestDamage = delegate { };
         // public event Action<float> DamageDealt = delegate { };
-        public event Action<float> DamageReceivedAction = delegate { };
-        public event Action<float> BattleTimeAction = delegate { };
-        public event Action SuccessfulParryTimesAction = delegate { };
-        public event Action SuccessfulDodgeTimesAction = delegate { };
+        // public event Action<float> DamageReceivedAction = delegate { };
+        // public event Action<float> BattleTimeAction = delegate { };
+        // public event Action SuccessfulParryTimesAction = delegate { };
+        // public event Action SuccessfulDodgeTimesAction = delegate { };
 
         public float DamageReceived { get; set; }
         public int SuccessfulParryTimes { get; set; }
