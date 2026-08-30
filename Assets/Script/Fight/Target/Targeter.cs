@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -59,17 +60,19 @@ public class Targeter : MonoBehaviour
 
     public void RemoveTarget()
     {
-        // if (cinemachineTargetGroup != null)
-        // {
-        //     if (cinemachineTargetGroup.FindMember(targetAvaiable[currentIndex].transform) >= 0)
-        //     {
         if (currentTarget != null)
         {
             cinemachineTargetGroup.RemoveMember(currentTarget.transform);
             currentIndex = 0;
         }
+    }
 
-        // }
+    public void RemoveTargetCamera()
+    {
+        if (currentTarget != null)
+        {
+            cinemachineTargetGroup.RemoveMember(currentTarget.transform);
+        }
     }
 
     public void ClearTarget()

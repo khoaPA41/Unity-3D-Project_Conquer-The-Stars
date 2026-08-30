@@ -26,6 +26,8 @@ namespace ConquerTheStars.Stats
         public StatsManagers speed;
         public StatsManagers defense;
         public StatsManagers critical;
+        public int level;
+
         public CharacterType characterType;
         public Sprite icon;
         public float CurrentHealth;
@@ -36,31 +38,25 @@ namespace ConquerTheStars.Stats
         public event Action<float> HealthUpdateAction = delegate { };
         public event Action<float> ManaUpdateAction = delegate { };
 
-        // Information Event
-        // public event Action<float> CalculateHighestDamage = delegate { };
-        // public event Action<float> DamageDealt = delegate { };
-        // public event Action<float> DamageReceivedAction = delegate { };
-        // public event Action<float> BattleTimeAction = delegate { };
-        // public event Action SuccessfulParryTimesAction = delegate { };
-        // public event Action SuccessfulDodgeTimesAction = delegate { };
-
         public float DamageReceived { get; set; }
         public int SuccessfulParryTimes { get; set; }
         public int SuccessfulDodgeTimes { get; set; }
-
         private bool isDodge;
-
         private bool isBlock;
+
+
 
         private void OnEnable()
         {
             /*Setup Value*/
-            maxHealth = new StatsManagers(baseStatsData.Health);
-            attack = new StatsManagers(baseStatsData.AttackPower);
-            speed = new StatsManagers(baseStatsData.Speed);
-            defense = new StatsManagers(baseStatsData.Defense);
-            critical = new StatsManagers(baseStatsData.Critical);
-            mana = new StatsManagers(baseStatsData.Mana);
+
+            maxHealth = new StatsManagers(baseStatsData.Health, level);
+            attack = new StatsManagers(baseStatsData.AttackPower, level);
+            speed = new StatsManagers(baseStatsData.Speed, level);
+            defense = new StatsManagers(baseStatsData.Defense, level);
+            critical = new StatsManagers(baseStatsData.Critical, level);
+            mana = new StatsManagers(baseStatsData.Mana, level);
+
             icon = baseStatsData.Icon;
             /************************/
 
@@ -144,6 +140,11 @@ namespace ConquerTheStars.Stats
             Time.timeScale = .3f;
             yield return new WaitForSecondsRealtime(1f);
             Time.timeScale = 1f;
+        }
+
+        public void AddExp(int exp)
+        {
+
         }
     }
 }

@@ -25,6 +25,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         [field: Header("PooledObject")]
         [field: SerializeField] public PooledObject PooledObject { get; private set; }
 
+        [field: Header("AI")]
+        [field: SerializeField] public EnemyEvaluation EnemyEvaluation { get; private set; }
 
         public Target Target { get; set; }
         public bool IsFinished { get; set; } // Detect animation done 

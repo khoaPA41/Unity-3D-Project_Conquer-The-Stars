@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TeamController : MonoBehaviour
 {
-    public List<CharacterStatsManagers> PlayerTeam { get; private set; } = new();
-    public List<CharacterStatsManagers> EnemyTeam { get; private set; } = new();
+    public List<CharacterStatsManagers> PlayerTeam = new();
+    public List<CharacterStatsManagers> EnemyTeam = new();
 
     public bool IsVictory { get; set; }
 

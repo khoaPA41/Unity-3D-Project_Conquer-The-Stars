@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ConquerTheStars.Pattern.Object_Pooling;
@@ -18,15 +19,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            Initialize();
-            SetupEnemyPosition();
-            SetupPlayerPosition();
-
-            characterInMatch.Sort((a, b) => b.speed.GetFinalValue().CompareTo(a.speed.GetFinalValue()));
-            AddCharacterToQueue();
-            SetupPlayerTarget();
-            SetupEnemyTarget();
-            battleStateMachine.SwitchState(battleStateMachine.StartTurn);
+            battleStateMachine.StartCoroutine(WaitToSetup());
         }
 
         public override void Tick(float deltaTime)
@@ -62,7 +55,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 var player = ObjectPoolingManagers.Instance.GetPooledObject(playerTeam[i], battleStateMachine.Area.playerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].playerTransformList[i].position);
                 player.transform.Rotate(new Vector3(0f, -90f, 0f));
-                Debug.Log(player.transform.rotation);
 
                 characterInMatch.Add(player.GetComponent<CharacterStatsManagers>());
                 battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>());
@@ -79,22 +71,44 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void SetupPlayerTarget() // Add all enemy to player target list
         {
-            foreach (var enemy in characterInMatch.Where(enemy => enemy.characterType == CharacterType.Enemy))
+            // foreach (var enemy in characterInMatch.Where(enemy => enemy.characterType == CharacterType.Enemy))
+            // {
+            //     var target = enemy.GetComponent<Target>();
+            //     battleStateMachine.PlayerTargeter.SetupTargetList(target);
+            // }
+
+            foreach (var enemy in battleStateMachine.TeamController.EnemyTeam)
             {
-                var target = enemy.GetComponent<Target>();
-                battleStateMachine.PlayerTargeter.SetupTargetList(target);
+                battleStateMachine.PlayerTargeter.SetupTargetList(enemy.GetComponent<Target>());
             }
-            // battleStateMachine.PlayerTargeter.FirstSelected();
         }
 
         private void SetupEnemyTarget() // Add all player to enemy target list
         {
-            foreach (var player in characterInMatch.Where(player => player.characterType == CharacterType.Player))
+            // foreach (var player in characterInMatch.Where(player => player.characterType == CharacterType.Player))
+            // {
+            //     var target = player.GetComponent<Target>();
+            //     battleStateMachine.EnemyTargeter.SetupTargetList(target);
+            // }
+
+            foreach (var player in battleStateMachine.TeamController.PlayerTeam)
             {
-                var target = player.GetComponent<Target>();
-                battleStateMachine.EnemyTargeter.SetupTargetList(target);
+                battleStateMachine.EnemyTargeter.SetupTargetList(player.GetComponent<Target>());
             }
-            battleStateMachine.EnemyTargeter.FirstSelected();
+        }
+
+        private IEnumerator WaitToSetup()
+        {
+            Initialize();
+            SetupEnemyPosition();
+            SetupPlayerPosition();
+
+            characterInMatch.Sort((a, b) => b.speed.GetFinalValue().CompareTo(a.speed.GetFinalValue()));
+            AddCharacterToQueue();
+            SetupPlayerTarget();
+            SetupEnemyTarget();
+            yield return new WaitForSecondsRealtime(3f);
+            battleStateMachine.SwitchState(battleStateMachine.StartTurn);
         }
     }
 }

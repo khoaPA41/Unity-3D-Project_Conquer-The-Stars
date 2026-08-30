@@ -17,7 +17,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             battleStateMachine.PlayerCombatStateMachine.IsFinished = false;
-            battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
+            battleStateMachine.PlayerTargeter.RemoveTargetCamera();
             battleStateMachine.StartCoroutine(WaitToEndAttack());
         }
 
@@ -42,6 +42,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= PlayerDealDamage; // UnSubscribe animation event 
             battleStateMachine.InputReader.EnterTargetAction -= UIManagers.Instance.PausePerfectFrame;
+            battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
             battleStateMachine.SwitchResolve();
         }
 
@@ -51,8 +52,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             var enemyStatsManager = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>(); // Get CharacterStatsManagers from target
             if (target != null)
             {
-                var damage = battleStateMachine.PlayerCombatStateMachine.AttackData.AttackDamage
-                [battleStateMachine.PlayerCombatStateMachine.AttackIndexSelected] * UIManagers.Instance.GetActionFrameValue();
+                var damage = battleStateMachine.PlayerCombatStateMachine.GetAttackDameScale() *
+                battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.attack.GetFinalValue() *
+                UIManagers.Instance.GetActionFrameValue();
+
                 if (enemyStatsManager.TakeDamage(damage)) // take damage
                 {
                     battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, damage); //Calculate Result Infor

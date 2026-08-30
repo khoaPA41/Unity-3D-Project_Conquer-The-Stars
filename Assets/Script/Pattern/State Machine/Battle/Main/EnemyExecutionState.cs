@@ -14,10 +14,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            // battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.DamageReceivedAction += battleStateMachine.CalculateDamageReceived;
-            // battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.SuccessfulParryTimesAction += battleStateMachine.CalculateSuccessfulParryTimes;
-            // battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.SuccessfulDodgeTimesAction += battleStateMachine.CalculateSuccessfulDodgeTimes;
-
             battleStateMachine.InputReader.EnterTargetAction += PlayerDodge;
             battleStateMachine.InputReader.BlockAction += PlayerBlock;
 
@@ -34,15 +30,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.InputReader.EnterTargetAction -= PlayerDodge;
             battleStateMachine.InputReader.BlockAction -= PlayerBlock;
-
-            // battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.DamageReceivedAction += battleStateMachine.CalculateDamageReceived;
-            // battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.SuccessfulParryTimesAction += battleStateMachine.CalculateSuccessfulParryTimes;
-            // battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.SuccessfulDodgeTimesAction += battleStateMachine.CalculateSuccessfulDodgeTimes;
         }
 
         private IEnumerator WaitToEndAttack()
         {
             battleStateMachine.EnemyStateMachine.Target = battleStateMachine.EnemyTargeter.currentTarget; // Get Current Target form select Target state
+
             battleStateMachine.EnemyStateMachine.AttackDealDamage += EnemyDealDamage; // Subscribe animation event 
             battleStateMachine.EnemyStateMachine.SwitchAttackState();
 

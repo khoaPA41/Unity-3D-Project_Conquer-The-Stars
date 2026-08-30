@@ -111,7 +111,5 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             pooledObject.gameObject.SetActive(false);
             pooledObjectDict[pooledObject.name].Push(pooledObject);
         }
-
-
     }
 }

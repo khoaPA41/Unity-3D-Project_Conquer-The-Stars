@@ -3096,6 +3096,7 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
+  level: 10
   characterType: 0
   icon: {fileID: 0}
   CurrentHealth: 0

@@ -36,6 +36,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private async void Selected()
         {
+            battleStateMachine.PlayerCombatStateMachine.RotateToEnemy(battleStateMachine.PlayerTargeter.currentTarget.transform);
             await WaitForConfirm();
             battleStateMachine.SwitchState(battleStateMachine.Playerexecuted);
         }

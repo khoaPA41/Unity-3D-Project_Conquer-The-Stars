@@ -131,6 +131,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             SwitchState(PlayerVictoryState);
         }
+
         public void CallDealDamageEvent()
         {
             AttackDealDamage?.Invoke();
@@ -157,16 +158,35 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             AttackIndexSelected = index;
         }
 
+        public float GetAttackDameScale()
+        {
+            var damageScale = AttackNameList == "Attack" ?
+                            AttackData.ScaleAttackDamage[AttackIndexSelected] :
+                            AttackData.ScaleSkillDamage[AttackIndexSelected];
+            return damageScale;
+        }
+
         public void ActiveCamera()
         {
-            // CinemachineCamera.gameObject.SetActive(true);
             CameraGroup.SetActive(true);
         }
         public void InactiveCamera()
         {
-            // CinemachineCamera.gameObject.SetActive(false);
             CameraGroup.SetActive(false);
+        }
 
+        public void RotateToEnemy(Transform target)
+        {
+            if (target != null)
+            {
+                Debug.Log(target);
+                var eulers = target.position;
+                // eulers.x = 0f;
+                // eulers.z = 0f;
+
+
+                transform.LookAt(eulers);
+            }
         }
 
         public void ActiveFrame()

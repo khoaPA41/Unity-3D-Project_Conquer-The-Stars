@@ -8,13 +8,13 @@ public class PlayerAttack : ScriptableObject
     public List<string> Attack;
     public List<string> AttackInformation;
     public List<Sprite> AttackIcon;
-    public List<float> AttackDamage;
+    public List<float> ScaleAttackDamage;
 
     public List<string> SkillName;
     public List<string> Skill;
     public List<float> ManaRequired;
     public List<string> SkillInformation;
     public List<Sprite> SkillIcon;
-    public List<float> SkillDamage;
+    public List<float> ScaleSkillDamage;
 
 }

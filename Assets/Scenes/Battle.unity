@@ -387,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 96903713}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.57, y: 0, z: 74.00991}
+  m_LocalPosition: {x: 10.04, y: 0, z: 74.00991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1252,7 +1252,7 @@ Transform:
   m_GameObject: {fileID: 437097296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.3, y: 0, z: 68.66}
+  m_LocalPosition: {x: 17.3, y: 0, z: 70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3402,7 +3402,7 @@ Transform:
   m_GameObject: {fileID: 1013783186}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.3, y: 0, z: 79.66}
+  m_LocalPosition: {x: 17.3, y: 0, z: 78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3476,8 +3476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartMatch
   enemyTransformList:
   - enemyTransformList:
-    - {fileID: 96903714}
     - {fileID: 442573890}
+    - {fileID: 96903714}
     - {fileID: 1947585541}
   playerTransformList:
   - playerTransformList:
@@ -3661,7 +3661,7 @@ Transform:
   m_GameObject: {fileID: 1091914525}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.81, y: 0, z: 74.00991}
+  m_LocalPosition: {x: 17.3, y: 0, z: 74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

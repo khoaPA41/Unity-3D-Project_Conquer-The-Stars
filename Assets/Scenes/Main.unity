@@ -676,7 +676,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTeam
   enemyTeam:
+  - Enemy_II
   - Enemy_I
+  - Enemy_II
   AreaIndex: 0
 --- !u!1 &832575517
 GameObject:
@@ -1567,7 +1569,7 @@ Transform:
   m_GameObject: {fileID: 2138787556}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 43.211, y: 6.017, z: -49.29}
+  m_LocalPosition: {x: 42.94, y: 6.8, z: -48.41}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

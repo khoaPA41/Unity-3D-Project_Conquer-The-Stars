@@ -24,9 +24,9 @@ MonoBehaviour:
   AttackIcon:
   - {fileID: 1029824220789480579, guid: edc0aae658eabe247be321d1c088909c, type: 3}
   - {fileID: 6768103739580031212, guid: 1f8cf6c8566c95848bb607c57d54612b, type: 3}
-  AttackDamage:
-  - 10
-  - 20
+  ScaleAttackDamage:
+  - 0.8
+  - 0.9
   SkillName:
   - Attack_Skill_I
   - Attack_Skill_II
@@ -42,6 +42,6 @@ MonoBehaviour:
   SkillIcon:
   - {fileID: -5304530595179370628, guid: d456b782ffc5dea45b342b7603457214, type: 3}
   - {fileID: 3786173703934460796, guid: e8c81125d2c656345adc4ea2a821a8ae, type: 3}
-  SkillDamage:
-  - 50
-  - 100
+  ScaleSkillDamage:
+  - 1
+  - 1.5

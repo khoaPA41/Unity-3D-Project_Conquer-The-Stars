@@ -9,9 +9,19 @@ public class StatsManagers
 
     private readonly List<float> buffList = new();
 
-    public StatsManagers(float baseValue)
+    private readonly int level;
+    public StatsManagers(float baseValue, int level)
     {
         this.baseValue = baseValue;
+        this.level = level;
+        SetupBaseLevel();
+    }
+
+
+    private void SetupBaseLevel()
+    {
+        var valueBaseLevel = baseValue * (level / 10f);
+        AddBuff(valueBaseLevel);
     }
 
     public float GetFinalValue()

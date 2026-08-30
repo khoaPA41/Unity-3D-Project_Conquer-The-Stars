@@ -2204,6 +2204,7 @@ GameObject:
   - component: {fileID: -7914153550810431556}
   - component: {fileID: 9120890348055135393}
   - component: {fileID: -3574187358980237583}
+  - component: {fileID: 3776633786789092002}
   m_Layer: 0
   m_Name: Biomech_Mutant_I
   m_TagString: Untagged
@@ -2248,6 +2249,7 @@ MonoBehaviour:
   <CharacterStatsManagers>k__BackingField: {fileID: 8012070513579947379}
   <AttackData>k__BackingField: {fileID: 0}
   <PooledObject>k__BackingField: {fileID: 4100300716556319957}
+  <EnemyEvaluation>k__BackingField: {fileID: 3776633786789092002}
 --- !u!95 &6042459200081680747
 Animator:
   serializedVersion: 7
@@ -2308,6 +2310,7 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
+  level: 0
   characterType: 1
   icon: {fileID: 21300000, guid: 1e255565a1050e74ca3c1b726c8e9103, type: 3}
   CurrentHealth: 0
@@ -2364,6 +2367,19 @@ MonoBehaviour:
   healthImage: {fileID: 8025434772883719390}
   healthUpdate: 0.3
   characterStatsManagers: {fileID: 8012070513579947379}
+--- !u!114 &3776633786789092002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893584617159484733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c7f29154d2a0441a3ae52056cd0e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyEvaluation
+  strategyEvaluation: {fileID: 11400000, guid: 889d21e01bdce7b47b33e886d97de34b, type: 2}
 --- !u!1 &7992223188089545962
 GameObject:
   m_ObjectHideFlags: 0
