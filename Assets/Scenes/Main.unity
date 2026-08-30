@@ -1519,6 +1519,12 @@ MonoBehaviour:
   - PooledObject: {fileID: 4132723855554449903, guid: 33f12580bdbdb644d8cce2b641e4cca1, type: 3}
     ObjectName: Player_I
     Quantity: 1
+  - PooledObject: {fileID: 3158385293569201347, guid: 64f03fe3542752744a87c32406ce6646, type: 3}
+    ObjectName: Player_II
+    Quantity: 1
+  - PooledObject: {fileID: 110656989515154985, guid: 9a8b93c9238303c40be1f566c2f940bc, type: 3}
+    ObjectName: Player_III
+    Quantity: 1
   - PooledObject: {fileID: 7576702072547911793, guid: 570ba05ed214bb54092a8233cda56d57, type: 3}
     ObjectName: BlockVFX
     Quantity: 10

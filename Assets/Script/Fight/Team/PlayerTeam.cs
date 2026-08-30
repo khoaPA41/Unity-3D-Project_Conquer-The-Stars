@@ -19,7 +19,7 @@ public class PlayerTeam : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        AddTeamMate("Player_I");
+        AddTeamMate("Player_III");
     }
 
 

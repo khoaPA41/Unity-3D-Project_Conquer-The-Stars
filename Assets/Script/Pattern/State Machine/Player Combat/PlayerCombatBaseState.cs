@@ -18,6 +18,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             var offset = targetPos - currentPos;
             offset.y = 0f;
 
+            if (playerCombatStateMachine.IsNotMove)
+            {
+                return true;
+            }
+
             if (offset.sqrMagnitude < 1f)
             {
                 return true;

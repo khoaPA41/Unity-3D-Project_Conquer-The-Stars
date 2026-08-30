@@ -12,13 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b135d2d18aa98a9409e7dae0495cf540, type: 3}
   m_Name: PlayerAttack_II
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  AttackName: []
-  AttackInformation: []
+  AttackName:
+  - Attack_Basic_I
+  - Attack_Basic_II
+  Attack:
+  - Punch
+  - Kick
+  AttackInformation:
+  - Punch Enemy
+  - Kick Enemy
   AttackIcon:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1029824220789480579, guid: edc0aae658eabe247be321d1c088909c, type: 3}
+  - {fileID: 6768103739580031212, guid: 1f8cf6c8566c95848bb607c57d54612b, type: 3}
   AttackDamage:
+  - 10
   - 20
-  - 40
+  SkillName:
+  - Attack_Skill_I
+  - Attack_Skill_II
+  Skill:
+  - Combo I
+  - Combo II
+  ManaRequired:
+  - 1
+  - 2
+  SkillInformation:
+  - Combo Punch
+  - Combo Kick
+  SkillIcon:
+  - {fileID: -5304530595179370628, guid: d456b782ffc5dea45b342b7603457214, type: 3}
+  - {fileID: 3786173703934460796, guid: e8c81125d2c656345adc4ea2a821a8ae, type: 3}
+  SkillDamage:
   - 50
+  - 100

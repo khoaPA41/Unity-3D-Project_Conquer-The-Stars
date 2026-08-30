@@ -21,7 +21,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: SerializeField] public Animator Animator { get; private set; }
         [field: SerializeField] public float AnimationCrossFade { get; private set; }
         [field: SerializeField] public float AnimationAttackSpeed { get; private set; }
-
+        [field: SerializeField] public bool IsNotMove { get; private set; }
 
         [field: Header("Attack Data")]
         [field: SerializeField] public PlayerAttack AttackData { get; private set; }
@@ -64,6 +64,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public int AttackIndexSelected { get; set; }
         public string AttackNameList { get; set; }
+
 
 
         private void Awake()
