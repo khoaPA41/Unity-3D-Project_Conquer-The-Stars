@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e493d9397987a7428d3f17ec8d83109, type: 3}
   m_Name: Enemy_II
   m_EditorClassIdentifier: Assembly-CSharp::StrategyEvaluation
+  hpWeight: 0.3
+  threatWeight: 0.8
+  defenseWeight: 0.3
+  statusWeight: 0.1

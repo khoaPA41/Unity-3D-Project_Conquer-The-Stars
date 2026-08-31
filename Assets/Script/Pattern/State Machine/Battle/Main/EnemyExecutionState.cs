@@ -34,7 +34,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private IEnumerator WaitToEndAttack()
         {
-            battleStateMachine.EnemyStateMachine.Target = battleStateMachine.EnemyTargeter.currentTarget; // Get Current Target form select Target state
 
             battleStateMachine.EnemyStateMachine.AttackDealDamage += EnemyDealDamage; // Subscribe animation event 
             battleStateMachine.EnemyStateMachine.SwitchAttackState();
@@ -58,18 +57,20 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerDodge()
         {
-            foreach (var character in battleStateMachine.CharacterStats.Where(character => character.characterType == CharacterType.Player))
-            {
-                character.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
-            }
+            // foreach (var character in battleStateMachine.CharacterStats.Where(character => character.characterType == CharacterType.Player))
+            // {
+            //     character.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
+            // }
+            battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
         }
 
         private void PlayerBlock()
         {
-            foreach (var character in battleStateMachine.CharacterStats.Where(character => character.characterType == CharacterType.Player))
-            {
-                character.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
-            }
+            // foreach (var character in battleStateMachine.CharacterStats.Where(character => character.characterType == CharacterType.Player))
+            // {
+            //     character.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
+            // }
+            battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
         }
 
     }

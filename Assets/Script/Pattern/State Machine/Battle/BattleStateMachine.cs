@@ -52,6 +52,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public float BattleTime;
         public int SuccessfulParryTimes;
         public int SuccessfulDodgeTimes;
+
+        public CharacterStatsManagers playerDealsHighestDamageLastTurn;
         void Start()
         {
             Cursor.lockState = CursorLockMode.None;

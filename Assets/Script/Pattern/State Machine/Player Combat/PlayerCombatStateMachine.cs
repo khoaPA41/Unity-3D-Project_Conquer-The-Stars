@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ConquerTheStars.Factory.Item;
 using ConquerTheStars.Fight.Player;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
@@ -11,7 +12,7 @@ using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
-    public class PlayerCombatStateMachine : Base.StateMachine
+    public class PlayerCombatStateMachine : Base.StateMachine, ICaster
     {
         [field: Header("Physics - Movement")]
         [field: SerializeField] public CharacterController CharacterController { get; private set; }
@@ -47,6 +48,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public string AnimationName { get; set; }
         public State PlayerIdleState { get; private set; }
         public State PlayerCombatIdleState { get; private set; }
+        public State PlayerDefenseState { get; private set; }
+        public State PlayerUseItemState { get; private set; }
         public State PlayerBlockState { get; private set; }
         public State PlayerAttackState { get; private set; }
         public State PlayerGetHitState { get; private set; }
@@ -61,16 +64,20 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public bool IsFinished { get; set; }
         public event Action<string, int> PlayerExecuteAction = delegate { };
+        public event Action<ItemType, int> PlayerUseItem = delegate { };
 
         public int AttackIndexSelected { get; set; }
         public string AttackNameList { get; set; }
 
-
+        public int ItemIndex { get; set; }
+        public ItemType ItemType { get; set; }
 
         private void Awake()
         {
             PlayerIdleState = new PlayerCombatIdleState(this);
             PlayerCombatIdleState = new PlayerCombatIdleCombatState(this);
+            PlayerDefenseState = new PlayerCombatDefenseState(this);
+            PlayerUseItemState = new PlayerCombatUseItemState(this);
             PlayerGetHitState = new PlayerCombatGetHitState(this);
             PlayerDodgeState = new PlayerCombatDodgeState(this);
             PlayerDyingState = new PlayerCombatDyingState(this);
@@ -99,6 +106,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         }
 
+        public GameObject CharacterUse()
+        {
+            return this.gameObject;
+        }
+
         public void ReturnIdle()
         {
             SwitchState(PlayerIdleState);
@@ -106,6 +118,17 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public void ReturnCombatIdle()
         {
             SwitchState(PlayerCombatIdleState);
+        }
+
+        public void ReturnDefenseIdle()
+        {
+            ActiveCamera();
+            SwitchState(PlayerDefenseState);
+        }
+
+        public void SwitchUseItem()
+        {
+            SwitchState(PlayerUseItemState);
         }
         public void SwitchAttackState()
         {
@@ -152,6 +175,13 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             PlayerExecuteAction?.Invoke(attackListName, actionIndex);
         }
 
+        public void GetItemIndex(ItemType itemType, int index)
+        {
+            ItemType = itemType;
+            ItemIndex = index;
+            PlayerUseItem?.Invoke(itemType, index);
+        }
+
         public void GetAttackIndex(string attackListName, int index)
         {
             AttackNameList = attackListName;
@@ -179,12 +209,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             if (target != null)
             {
-                Debug.Log(target);
                 var eulers = target.position;
-                // eulers.x = 0f;
-                // eulers.z = 0f;
-
-
                 transform.LookAt(eulers);
             }
         }

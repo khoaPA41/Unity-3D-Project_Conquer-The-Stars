@@ -59,6 +59,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 if (enemyStatsManager.TakeDamage(damage)) // take damage
                 {
                     battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, damage); //Calculate Result Infor
+                    battleStateMachine.CurrentTurn.DamageHistories.Add(damage);
+                    // battleStateMachine.CurrentTurn.HighestAverageDamage = (battleStateMachine.CurrentTurn.HighestAverageDamage + damage) / 2f; ;
                     battleStateMachine.DamageDealt += damage;//Calculate Result Infor
 
                     target.SwitchState(target.GethitState); // Switch target state to get hit

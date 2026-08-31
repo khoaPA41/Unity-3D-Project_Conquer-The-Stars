@@ -758,6 +758,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e20b7cdac21ede40ad2ab0ba6d70223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTeam
+  itemDatas:
+  - ItemData: {fileID: 11400000, guid: 8d7a6c8b895d81b41a57ea8df0f4a7c7, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: db97d639bc4a4a94ca03b73ea412fc6b, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: b168b497e8b2ea44198d16d93518ce4d, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: b5eb578fad41629448631575b4ee3b1a, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: 7c55c73fbb3005945a33660acebf7235, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: f23baaad043b73c42a2aeb1b5a7e2927, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: 3bed3df51c837ee4494908477943c99a, type: 2}
+    Quantity: 1
+  - ItemData: {fileID: 11400000, guid: 85d9cd72e715bdc40961ddda3c759b3a, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: 3cfe960c1995a3e4187e662c971b961e, type: 2}
+    Quantity: 2
 --- !u!4 &871645449
 Transform:
   m_ObjectHideFlags: 0

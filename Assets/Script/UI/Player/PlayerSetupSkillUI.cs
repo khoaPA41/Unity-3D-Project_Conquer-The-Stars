@@ -29,6 +29,7 @@ namespace ConquerTheStars.Fight.Player
         private List<SkillElement> attackElement;
         [SerializeField]
         private List<SkillElement> skillElement;
+        [SerializeField] private List<SkillElement> itemElement;
 
         [Header("Animator")]
         [SerializeField]
@@ -48,12 +49,13 @@ namespace ConquerTheStars.Fight.Player
         private void OnEnable()
         {
             mainCamera = Camera.main;
-            if (playerCombatStateMachine != null)
+            if (playerCombatStateMachine != null && PlayerTeam.Instance != null)
             {
                 if (!isInitialized)
                 {
                     SetupAttackUI();
                     SetupSkillUI();
+                    SetupItemUI();
                     isInitialized = true;
                 }
 
@@ -97,6 +99,21 @@ namespace ConquerTheStars.Fight.Player
                 skillElement[i].Button.onClick.AddListener(() =>
                 {
                     playerCombatStateMachine.GetIndexAction("Skill", index);
+                });
+            }
+        }
+
+        private void SetupItemUI()
+        {
+            var itemList = PlayerTeam.Instance.GetItemList();
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                itemElement[i].SetupSkillElement(itemList[i].ItemData.ItemIcon, itemList[i].Quantity.ToString(), itemList[i].ItemData.ItemInformation);
+                //button
+                var index = i;
+                itemElement[i].Button.onClick.AddListener(() =>
+                {
+                    playerCombatStateMachine.GetItemIndex(itemList[index].ItemData.ItemType, index);
                 });
             }
         }

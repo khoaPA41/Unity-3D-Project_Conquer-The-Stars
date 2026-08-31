@@ -1,13 +1,28 @@
+using System;
 using System.Collections.Generic;
 using ConquerTheStars.Stats;
 using UnityEngine;
 
+
+[Serializable]
+public class ItemQuantity
+{
+    public ItemData ItemData;
+    public int Quantity;
+}
 public class PlayerTeam : MonoBehaviour
 {
     public static PlayerTeam Instance { get; set; }
+    // [SerializeField] private List<ItemData> itemDatas;
+    // public List<int> quantity;
+
+    [SerializeField] private List<ItemQuantity> itemDatas;
     public List<string> TeamNameList { get; set; } = new();
 
     public Vector3 CurrentPosition { get; private set; } = new Vector3(36f, 0f, 62f);
+
+
+    // Dictionary<int, ItemData> itemQuantityDict = new();
 
     private void Awake()
     {
@@ -33,5 +48,23 @@ public class PlayerTeam : MonoBehaviour
     public void SavePos(Vector3 position)
     {
         CurrentPosition = position;
+    }
+
+    public List<ItemQuantity> GetItemList()
+    {
+        return itemDatas;
+    }
+
+    public ItemData GetItemData(int index)
+    {
+        return itemDatas[index].ItemData;
+    }
+
+    public void AddQuantity()
+    {
+        for (int i = 0; i < itemDatas.Count; i++)
+        {
+
+        }
     }
 }

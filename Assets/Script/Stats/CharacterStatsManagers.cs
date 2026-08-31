@@ -39,6 +39,8 @@ namespace ConquerTheStars.Stats
         public event Action<float> ManaUpdateAction = delegate { };
 
         public float DamageReceived { get; set; }
+        public List<float> DamageHistories { get; set; } = new();
+        // public float HighestAverageDamage { get; set; }
         public int SuccessfulParryTimes { get; set; }
         public int SuccessfulDodgeTimes { get; set; }
         private bool isDodge;
@@ -101,6 +103,12 @@ namespace ConquerTheStars.Stats
             }
             HealthUpdateAction?.Invoke(CurrentHealth / maxHealth.GetFinalValue());
             return true;
+        }
+
+        public void Healing(float amount)
+        {
+            CurrentHealth = Mathf.Min(CurrentHealth + amount, maxHealth.GetFinalValue());
+            HealthUpdateAction?.Invoke(CurrentHealth / maxHealth.GetFinalValue());
         }
 
         public void SubtractMana(float value)

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatsData
   Type: 1
   Icon: {fileID: 21300000, guid: d6129bd4c88647549af9a52e238defb7, type: 3}
-  Health: 100
+  Health: 1000
   Mana: 0
   AttackPower: 30
   Speed: 11
