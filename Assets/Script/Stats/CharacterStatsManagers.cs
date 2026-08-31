@@ -32,6 +32,11 @@ namespace ConquerTheStars.Stats
         public Sprite icon;
         public float CurrentHealth;
         public float CurrentMana;
+        public float CurrentAttackDamage;
+        public float CurrentSpeed;
+        public float CurrentDefense;
+        public float CurrentCritical;
+
 
         public bool IsDeath { get; private set; }
         public event Action IsDyingAction = delegate { };
@@ -40,13 +45,10 @@ namespace ConquerTheStars.Stats
 
         public float DamageReceived { get; set; }
         public List<float> DamageHistories { get; set; } = new();
-        // public float HighestAverageDamage { get; set; }
         public int SuccessfulParryTimes { get; set; }
         public int SuccessfulDodgeTimes { get; set; }
         private bool isDodge;
         private bool isBlock;
-
-
 
         private void OnEnable()
         {
@@ -65,9 +67,14 @@ namespace ConquerTheStars.Stats
             characterType = baseStatsData.Type;
             CurrentHealth = maxHealth.GetFinalValue();
             CurrentMana = 10;
+            CurrentAttackDamage = attack.GetFinalValue();
+            CurrentSpeed = speed.GetFinalValue();
+            CurrentDefense = defense.GetFinalValue();
+            CurrentCritical = critical.GetFinalValue();
             IsDeath = false;
         }
 
+        /*************************************Health*************************************/
         public bool TakeDamage(float damage)
         {
             if (isDodge)
@@ -91,7 +98,7 @@ namespace ConquerTheStars.Stats
                 return false;
             }
 
-            var finalDamage = Mathf.Max(damage - defense.GetFinalValue(), 0f);
+            var finalDamage = Mathf.Max(damage - CurrentDefense, 0f);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
 
             DamageReceived += damage; // Calculate result infor
@@ -105,18 +112,30 @@ namespace ConquerTheStars.Stats
             return true;
         }
 
+        public void CallDyingEvent()
+        {
+            IsDyingAction?.Invoke();
+        }
+
         public void Healing(float amount)
         {
             CurrentHealth = Mathf.Min(CurrentHealth + amount, maxHealth.GetFinalValue());
             HealthUpdateAction?.Invoke(CurrentHealth / maxHealth.GetFinalValue());
         }
 
+        /*************************************Mana*************************************/
+        public void AddMana(float amount)
+        {
+            CurrentMana = Mathf.Min(CurrentMana + amount, mana.GetFinalValue());
+            ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
+        }
         public void SubtractMana(float value)
         {
             CurrentMana = Mathf.Max(CurrentMana - value, 0f);
             ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
         }
 
+        /*************************************Situation Award*************************************/
         public void SetIsDodge(bool state)
         {
             isDodge = state;
@@ -127,11 +146,45 @@ namespace ConquerTheStars.Stats
             isBlock = state;
         }
 
-        public void CallDyingEvent()
+        private IEnumerator SlowTime()
         {
-            IsDyingAction?.Invoke();
+            Time.timeScale = .3f;
+            yield return new WaitForSecondsRealtime(1f);
+            Time.timeScale = 1f;
         }
 
+        /*************************************Defense*************************************/
+        public void IncreaseDefense(float amount)
+        {
+            // CurrentDefense = Mathf.Min(CurrentDefense + amount, defense.GetFinalValue());
+            CurrentDefense += amount;
+        }
+
+        /*************************************Speed*************************************/
+        public void IncreaseSpeed(float amount)
+        {
+            // CurrentSpeed = Mathf.Min(CurrentSpeed + amount, speed.GetFinalValue());
+            CurrentSpeed += amount;
+
+        }
+
+        /*************************************Damage*************************************/
+        public void IncreaseDamage(float amount)
+        {
+            // CurrentAttackDamage = Mathf.Min(CurrentAttackDamage + amount, attack.GetFinalValue());
+            CurrentAttackDamage += amount;
+
+        }
+
+        /*************************************Critical*************************************/
+        public void IncreaseCritical(float amount)
+        {
+            // CurrentCritical = Mathf.Min(CurrentCritical + amount, defense.GetFinalValue());
+            CurrentCritical += amount;
+
+        }
+
+        /*************************************Dynamic Text*************************************/
         private void SpawnText(string text)
         {
 
@@ -143,12 +196,6 @@ namespace ConquerTheStars.Stats
             DynamicTextManager.CreateText(destination, text, textData);
         }
 
-        private IEnumerator SlowTime()
-        {
-            Time.timeScale = .3f;
-            yield return new WaitForSecondsRealtime(1f);
-            Time.timeScale = 1f;
-        }
 
         public void AddExp(int exp)
         {

@@ -22,8 +22,10 @@ namespace ConquerTheStars.Factory.Item
 
         public void Use(ICaster character, ItemData itemData)
         {
+            var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
+            var manaIncreaseAmount = 20f + (characterStatsManagers.CurrentMana * .5f);
+            characterStatsManagers.AddMana(manaIncreaseAmount);
             Debug.Log($"{character.CharacterUse().name}: {itemData.ItemType}");
-
         }
     }
 
@@ -33,6 +35,9 @@ namespace ConquerTheStars.Factory.Item
 
         public void Use(ICaster character, ItemData itemData)
         {
+            var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
+            var defenseAmount = 20f;
+            characterStatsManagers.IncreaseDefense(defenseAmount);
             Debug.Log($"{character.CharacterUse().name}: {itemData.ItemType}");
 
         }
@@ -43,6 +48,9 @@ namespace ConquerTheStars.Factory.Item
 
         public void Use(ICaster character, ItemData itemData)
         {
+            var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
+            var damageAmount = 20f;
+            characterStatsManagers.IncreaseDamage(damageAmount);
             Debug.Log($"{character.CharacterUse().name}: {itemData.ItemType}");
 
         }
@@ -53,6 +61,9 @@ namespace ConquerTheStars.Factory.Item
 
         public void Use(ICaster character, ItemData itemData)
         {
+            var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
+            var criticalcAmount = 20f;
+            characterStatsManagers.IncreaseCritical(criticalcAmount);
             Debug.Log($"{character.CharacterUse().name}: {itemData.ItemType}");
 
         }
@@ -63,6 +74,9 @@ namespace ConquerTheStars.Factory.Item
 
         public void Use(ICaster character, ItemData itemData)
         {
+            var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
+            var speedAmount = 20f + (characterStatsManagers.CurrentMana * .5f);
+            characterStatsManagers.IncreaseSpeed(speedAmount);
             Debug.Log($"{character.CharacterUse().name}: {itemData.ItemType}");
 
         }
