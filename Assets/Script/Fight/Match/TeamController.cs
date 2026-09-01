@@ -3,41 +3,49 @@ using System.Linq;
 using ConquerTheStars.Stats;
 using UnityEngine;
 
-public class TeamController : MonoBehaviour
+namespace ConquerTheStars.Fight.Match
 {
-    public List<CharacterStatsManagers> PlayerTeam = new();
-    public List<CharacterStatsManagers> EnemyTeam = new();
-
-    public bool IsVictory { get; set; }
-
-    private bool IsDeadTeam(List<CharacterStatsManagers> team)
+    public class TeamController : MonoBehaviour
     {
-        return team.All(character => character.IsDeath);
-    }
+        public List<CharacterStatsManagers> PlayerTeam = new();
+        public List<CharacterStatsManagers> EnemyTeam = new();
 
-    public bool CheckBattleResult()
-    {
-        if (IsDeadTeam(PlayerTeam)) // Check player team
+        public bool IsVictory { get; set; }
+
+        private bool IsDeadTeam(List<CharacterStatsManagers> team)
         {
-            IsVictory = false;
-            return true; // if all dead
+            return team.All(character => character.IsDeath);
         }
 
-        if (IsDeadTeam(EnemyTeam)) // Check enemy team
+        public bool CheckBattleResult()
         {
-            IsVictory = true;
-            return true; // if all dead
+            if (IsDeadTeam(PlayerTeam)) // Check player team
+            {
+                IsVictory = false;
+                return true; // if all dead
+            }
+
+            if (IsDeadTeam(EnemyTeam)) // Check enemy team
+            {
+                IsVictory = true;
+                return true; // if all dead
+            }
+            return false;
         }
-        return false;
-    }
 
-    public void AddPlayerTeam(CharacterStatsManagers player)
-    {
-        PlayerTeam.Add(player);
-    }
+        public void AddPlayerTeam(CharacterStatsManagers player)
+        {
+            PlayerTeam.Add(player);
+        }
 
-    public void AddEnemyTeam(CharacterStatsManagers enemy)
-    {
-        EnemyTeam.Add(enemy);
+        public void AddEnemyTeam(CharacterStatsManagers enemy)
+        {
+            EnemyTeam.Add(enemy);
+        }
+
+        public List<CharacterStatsManagers> ReturnAllyDeath()
+        {
+            return PlayerTeam.FindAll(ally => ally.IsDeath);
+        }
     }
 }

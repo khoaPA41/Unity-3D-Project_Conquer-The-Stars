@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
-using TMPro;
+using ConquerTheStars.UI.Player;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ConquerTheStars.Fight.Player
 {
@@ -27,8 +24,7 @@ namespace ConquerTheStars.Fight.Player
         [Header("Skill Selection")]
         [SerializeField]
         private List<SkillElement> attackElement;
-        [SerializeField]
-        private List<SkillElement> skillElement;
+        [SerializeField] private List<SkillElement> skillElement;
         [SerializeField] private List<SkillElement> itemElement;
 
         [Header("Animator")]
@@ -41,10 +37,6 @@ namespace ConquerTheStars.Fight.Player
         private Camera mainCamera;
 
         private bool isInitialized;
-        private void Start()
-        {
-
-        }
 
         private void OnEnable()
         {
@@ -71,12 +63,13 @@ namespace ConquerTheStars.Fight.Player
         {
             for (int i = 0; i < playerCombatStateMachine.AttackData.AttackIcon.Count; i++)
             {
+                // Setup attack element base AttackData
                 attackElement[i].SetupSkillElement(playerCombatStateMachine.AttackData.AttackIcon[i],
                 playerCombatStateMachine.AttackData.Attack[i],
                 playerCombatStateMachine.AttackData.AttackInformation[i]
                 );
 
-                //button
+                //Attach event
                 var index = i;
                 attackElement[i].Button.onClick.AddListener(() =>
                 {
@@ -90,11 +83,13 @@ namespace ConquerTheStars.Fight.Player
         {
             for (int i = 0; i < playerCombatStateMachine.AttackData.SkillIcon.Count; i++)
             {
+                // Setup skill element base AttackData
+
                 skillElement[i].SetupSkillElement(playerCombatStateMachine.AttackData.SkillIcon[i],
                 playerCombatStateMachine.AttackData.Skill[i],
                 playerCombatStateMachine.AttackData.SkillInformation[i]);
 
-                //button
+                //Attach event
                 var index = i;
                 skillElement[i].Button.onClick.AddListener(() =>
                 {
@@ -108,8 +103,10 @@ namespace ConquerTheStars.Fight.Player
             var itemList = PlayerTeam.Instance.GetItemList();
             for (int i = 0; i < itemList.Count; i++)
             {
+                // Setup item element base Item List
                 itemElement[i].SetupSkillElement(itemList[i].ItemData.ItemIcon, itemList[i].Quantity.ToString(), itemList[i].ItemData.ItemInformation);
-                //button
+
+                //Attach event
                 var index = i;
                 itemElement[i].Button.onClick.AddListener(() =>
                 {

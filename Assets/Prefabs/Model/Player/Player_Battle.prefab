@@ -557,7 +557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4975653816042278545
 Transform:
   m_ObjectHideFlags: 0
@@ -1636,6 +1636,7 @@ GameObject:
   - component: {fileID: 7585745460317986952}
   - component: {fileID: 2809757090863327041}
   - component: {fileID: 5527444843006475073}
+  - component: {fileID: 4458655260899961602}
   m_Layer: 0
   m_Name: Player_Battle
   m_TagString: Player
@@ -1686,6 +1687,7 @@ MonoBehaviour:
   <IsNotMove>k__BackingField: 0
   <AttackData>k__BackingField: {fileID: 11400000, guid: 45f3bb4ef3f239d43a912381cecb8178, type: 2}
   <CharacterStatsManagers>k__BackingField: {fileID: 5115756970071326048}
+  <BattleStatistics>k__BackingField: {fileID: 4458655260899961602}
   <PooledObject>k__BackingField: {fileID: 4132723855554449903}
   <PlayerSetupSkillUI>k__BackingField: {fileID: 2809757090863327041}
   <PlayerSetupUI>k__BackingField: {fileID: 5527444843006475073}
@@ -1782,6 +1784,10 @@ MonoBehaviour:
   icon: {fileID: 0}
   CurrentHealth: 0
   CurrentMana: 0
+  CurrentAttackDamage: 0
+  CurrentSpeed: 0
+  CurrentDefense: 0
+  CurrentCritical: 0
 --- !u!114 &7585745460317986952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,6 +1849,18 @@ MonoBehaviour:
   characterStatsManagers: {fileID: 5115756970071326048}
   healthUpdate: 0.5
   manaUpdate: 0.5
+--- !u!114 &4458655260899961602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3756629156935213867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61b497fea8e1c14faec5f7839eb1d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.BattleStatistics
 --- !u!1 &3961408802062980765
 GameObject:
   m_ObjectHideFlags: 0

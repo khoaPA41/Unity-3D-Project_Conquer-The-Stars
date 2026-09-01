@@ -1,4 +1,6 @@
 using System;
+using ConquerTheStars.Fight.Enemy;
+using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Stats;
@@ -39,7 +41,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public Vector3 EnemyStartPosition { get; set; } // Root pos
 
-        public event Action AttackDealDamage = delegate { }; // This event will attend when enemy play get hit animation
+        // This event will call when enemy play get hit animation
+        public event Action AttackDealDamage = delegate { };
+
         private void Start()
         {
             IdleState = new EnemyIdleState(this);
@@ -52,13 +56,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         {
             SwitchState(IdleState);
             EnemyStartPosition = transform.position;
-            CharacterStatsManagers.IsDyingAction += SwitchDyingState;
+            CharacterStatsManagers.DyingAction += SwitchDyingState;
         }
 
         private void OnDisable()
         {
             EnemyStartPosition = transform.position;
-            CharacterStatsManagers.IsDyingAction -= SwitchDyingState;
+            CharacterStatsManagers.DyingAction -= SwitchDyingState;
         }
 
         public void SwitchIdle()

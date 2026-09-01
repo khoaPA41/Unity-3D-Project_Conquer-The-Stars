@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using ConquerTheStars.Fight.Match;
+using ConquerTheStars.Fight.Target;
+using ConquerTheStars.InputController;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
@@ -38,14 +39,17 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public State PlayerSelectSkillTurn { get; private set; }
         public State PlayerSelectTargetTurn { get; private set; }
         public State Playerexecuted { get; private set; }
+        public State PlayerSelectAlly { get; private set; }
         public State EnemyTurn { get; private set; }
         public State EnemyExecuted { get; private set; }
         public State Resolve { get; private set; }
         public State Result { get; private set; }
 
+        // Current Character Turn
         public PlayerCombatStateMachine PlayerCombatStateMachine { get; set; }
         public EnemyStateMachine EnemyStateMachine { get; set; }
 
+        // Battle Statistics
         public float HighestDamage;
         public float DamageDealt;
         public float DamageReceived;
@@ -60,6 +64,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             BattleSetup = new SetupState(this);
             StartTurn = new StartTurnState(this);
             PlayerTurn = new PlayerTurnState(this);
+            PlayerSelectAlly = new PlayerSelectAllyState(this);
             PlayerSelectSkillTurn = new PlayerSelectSkillState(this);
             PlayerSelectTargetTurn = new PlayerSelectTargetState(this);
             Playerexecuted = new PlayerExecutionState(this);
@@ -84,6 +89,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public void SwitchStartTurn()
         {
             SwitchState(StartTurn);
+        }
+
+        public void SwitchSelectAlly()
+        {
+            SwitchState(PlayerSelectAlly);
         }
 
         public void CalculateDamageReceived(float damage)

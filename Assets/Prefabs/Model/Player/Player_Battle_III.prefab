@@ -3169,6 +3169,7 @@ GameObject:
   - component: {fileID: 2064447757060982690}
   - component: {fileID: 2698470094360578167}
   - component: {fileID: 6650433822801792943}
+  - component: {fileID: 504991949521979741}
   m_Layer: 0
   m_Name: Player_Battle_III
   m_TagString: Player
@@ -3222,6 +3223,7 @@ MonoBehaviour:
   <IsNotMove>k__BackingField: 1
   <AttackData>k__BackingField: {fileID: 11400000, guid: f3609d6e0f8b9d14f84bc2bc5f703c28, type: 2}
   <CharacterStatsManagers>k__BackingField: {fileID: 6203293951924019736}
+  <BattleStatistics>k__BackingField: {fileID: 504991949521979741}
   <PooledObject>k__BackingField: {fileID: 110656989515154985}
   <PlayerSetupSkillUI>k__BackingField: {fileID: 2064447757060982690}
   <PlayerSetupUI>k__BackingField: {fileID: 2698470094360578167}
@@ -3318,6 +3320,10 @@ MonoBehaviour:
   icon: {fileID: 0}
   CurrentHealth: 0
   CurrentMana: 0
+  CurrentAttackDamage: 0
+  CurrentSpeed: 0
+  CurrentDefense: 0
+  CurrentCritical: 0
 --- !u!114 &5876219377847960629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3391,6 +3397,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f422bc33e2776f4681ef961ab8ad055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.Object_Pooling.PooledObject
+--- !u!114 &504991949521979741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3026047354392669009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61b497fea8e1c14faec5f7839eb1d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.BattleStatistics
 --- !u!1 &3106265022616890651
 GameObject:
   m_ObjectHideFlags: 0

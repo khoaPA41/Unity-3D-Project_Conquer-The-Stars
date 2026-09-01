@@ -1,4 +1,5 @@
 
+using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Stats;
 using UnityEngine;
 
@@ -17,14 +18,16 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             CheckCurrentTurnList();
             CheckCurrentCharacter();
-            if (battleStateMachine.TeamController.CheckBattleResult()) // check if either one team list is dead, end battle
+
+            // Check if either one team list is dead, end battle
+            if (battleStateMachine.TeamController.CheckBattleResult())
             {
                 Debug.Log("Is finished battle!");
                 battleStateMachine.SwitchState(battleStateMachine.Result);
                 return;
             }
-            isFinished = true;
 
+            isFinished = true;
         }
 
         public override void Tick(float deltaTime)

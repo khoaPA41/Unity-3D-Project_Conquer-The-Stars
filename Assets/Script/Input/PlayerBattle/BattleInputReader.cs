@@ -3,73 +3,76 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BattleInputReader : MonoBehaviour, PlayerBattleInput.IPlayerActions
+namespace ConquerTheStars.InputController
 {
-    public event Action NextTargetAction = delegate { };
-    public event Action PreviousTargetAction = delegate { };
-    public event Action EnterTargetAction = delegate { };
-    public event Action BlockAction = delegate { };
-
-    private PlayerBattleInput inputActions;
-
-
-    private void Start()
+    public class BattleInputReader : MonoBehaviour, PlayerBattleInput.IPlayerActions
     {
-        inputActions = new PlayerBattleInput();
-        inputActions.Player.SetCallbacks(this);
-        inputActions.Enable();
-    }
+        public event Action NextTargetAction = delegate { };
+        public event Action PreviousTargetAction = delegate { };
+        public event Action EnterTargetAction = delegate { };
+        public event Action BlockAction = delegate { };
 
-    // private void OnEnable() => inputActions.Enable();
+        private PlayerBattleInput inputActions;
 
 
-    private void OnDisable() => inputActions.Disable();
-
-    public void OnDodge(InputAction.CallbackContext context)
-    {
-    }
-
-    public void OnParry(InputAction.CallbackContext context)
-    {
-        if (context.started)
+        private void Start()
         {
-            BlockAction?.Invoke();
+            inputActions = new PlayerBattleInput();
+            inputActions.Player.SetCallbacks(this);
+            inputActions.Enable();
         }
-    }
 
-    public void OnSkill_I(InputAction.CallbackContext context)
-    {
-    }
+        // private void OnEnable() => inputActions.Enable();
 
-    public void OnSkill_II(InputAction.CallbackContext context)
-    {
-    }
 
-    public void OnSkill_III(InputAction.CallbackContext context)
-    {
-    }
+        private void OnDisable() => inputActions.Disable();
 
-    public void OnNext(InputAction.CallbackContext context)
-    {
-        if (context.started)
+        public void OnDodge(InputAction.CallbackContext context)
         {
-            NextTargetAction?.Invoke();
         }
-    }
 
-    public void OnPrevious(InputAction.CallbackContext context)
-    {
-        if (context.started)
+        public void OnParry(InputAction.CallbackContext context)
         {
-            PreviousTargetAction?.Invoke();
+            if (context.started)
+            {
+                BlockAction?.Invoke();
+            }
         }
-    }
 
-    public void OnEnter(InputAction.CallbackContext context)
-    {
-        if (context.started)
+        public void OnSkill_I(InputAction.CallbackContext context)
         {
-            EnterTargetAction?.Invoke();
+        }
+
+        public void OnSkill_II(InputAction.CallbackContext context)
+        {
+        }
+
+        public void OnSkill_III(InputAction.CallbackContext context)
+        {
+        }
+
+        public void OnNext(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                NextTargetAction?.Invoke();
+            }
+        }
+
+        public void OnPrevious(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                PreviousTargetAction?.Invoke();
+            }
+        }
+
+        public void OnEnter(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                EnterTargetAction?.Invoke();
+            }
         }
     }
 }

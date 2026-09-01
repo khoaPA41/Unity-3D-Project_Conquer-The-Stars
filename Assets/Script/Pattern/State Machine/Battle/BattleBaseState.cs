@@ -1,6 +1,4 @@
 using ConquerTheStars.Pattern.StateMachine.Base;
-using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
-using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
@@ -10,11 +8,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         protected BattleBaseState(BattleStateMachine battleStateMachine)
         {
             this.battleStateMachine = battleStateMachine;
-        }
-
-        protected void SelectedTarget()
-        {
-
         }
     }
 }

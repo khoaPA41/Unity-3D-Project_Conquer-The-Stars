@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore;
 
 namespace ConquerTheStars.Pattern.Object_Pooling
 {

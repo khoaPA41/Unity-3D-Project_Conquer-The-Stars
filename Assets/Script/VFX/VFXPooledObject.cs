@@ -1,25 +1,28 @@
 using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
 
-public class VFXPooledObject : MonoBehaviour
+namespace ConquerTheStars.Vfx
 {
-    [Header("Particle System")]
-    [SerializeField]
-    private ParticleSystem vfx;
-
-    [Header("PooledObject")]
-    [SerializeField]
-    private PooledObject pooledObject;
-
-    private void OnEnable()
+    public class VFXPooledObject : MonoBehaviour
     {
-        vfx.Play();
-    }
+        [Header("Particle System")]
+        [SerializeField]
+        private ParticleSystem vfx;
+
+        [Header("PooledObject")]
+        [SerializeField]
+        private PooledObject pooledObject;
+
+        private void OnEnable()
+        {
+            vfx.Play();
+        }
 
 
-    private void OnParticleSystemStopped()
-    {
-        vfx.Stop();
-        pooledObject.Release();
+        private void OnParticleSystemStopped()
+        {
+            vfx.Stop();
+            pooledObject.Release();
+        }
     }
 }

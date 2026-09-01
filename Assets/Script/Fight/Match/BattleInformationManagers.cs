@@ -1,41 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class BattleInformationManagers : MonoBehaviour
+namespace ConquerTheStars.Fight.Match
 {
-    public static BattleInformationManagers Instance;
-    public EnemyTeam AreaInformation { get; set; }
-
-    public PlayerTeam PlayerTeam { get; set; }
-
-    public List<GameObject> area;
-    public List<bool> isAvtive;
-    private void Awake()
+    public class BattleInformationManagers : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static BattleInformationManagers Instance;
+        public EnemyTeam AreaInformation { get; set; }
+
+        public PlayerTeam PlayerTeam { get; set; }
+
+        public List<GameObject> area;
+        public List<bool> isAvtive;
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        private void OnEnable()
+        {
+            if (area.Count > 0)
+                for (int i = 0; i < area.Count; i++)
+                {
+                    area[i].SetActive(isAvtive[i]);
+                }
+        }
 
-    private void OnEnable()
-    {
-        if (area.Count > 0)
-            for (int i = 0; i < area.Count; i++)
-            {
-                area[i].SetActive(isAvtive[i]);
-            }
-    }
-
-    public void SetArea(EnemyTeam enemyTeam)
-    {
-        AreaInformation = enemyTeam;
-        // area.Add(enemyTeam.gameObject);
-        // isAvtive.Add(false);
+        public void SetArea(EnemyTeam enemyTeam)
+        {
+            AreaInformation = enemyTeam;
+        }
     }
 }

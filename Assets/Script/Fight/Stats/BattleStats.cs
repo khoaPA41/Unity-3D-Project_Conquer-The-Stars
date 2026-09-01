@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class BattleStats : MonoBehaviour
+namespace ConquerTheStars.Fight.Stats
 {
-    [field: Header("Battle Stats")]
-    [field: SerializeField] public float Health;
-    [field: SerializeField] public float Attack;
-    [field: SerializeField] public float Speed;
-    [field: SerializeField] public float Defense;
-    [field: SerializeField] public float CriticalRate;
+    public class BattleStats : MonoBehaviour
+    {
+        [field: Header("Battle Stats")]
+        [field: SerializeField] public float Health;
+        [field: SerializeField] public float Attack;
+        [field: SerializeField] public float Speed;
+        [field: SerializeField] public float Defense;
+        [field: SerializeField] public float CriticalRate;
+    }
 }

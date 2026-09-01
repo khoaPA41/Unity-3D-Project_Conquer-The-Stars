@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Threading.Tasks;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
-using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
+using ConquerTheStars.UI.Player;
 using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
@@ -32,38 +31,45 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private IEnumerator WaitToEndAttack()
         {
-            battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.currentTarget; // Get Current Target form select Target state
-            battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerAttackState); // Switch Player combat atk state
+            //Prepare attack
+            battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.currentTarget;
+            battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerAttackState);
 
-            battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage; // Subscribe animation event 
+            // Listen event for exact the frame attack deals damage
+            battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage;
             battleStateMachine.InputReader.EnterTargetAction += UIManagers.Instance.PausePerfectFrame;
 
-            yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true); // Wait until atk animation done
+            //Wait until player attack animation done
+            yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true);
 
-            battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= PlayerDealDamage; // UnSubscribe animation event 
+            // Clear event to avoid double call / memory leak
+            battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= PlayerDealDamage;
             battleStateMachine.InputReader.EnterTargetAction -= UIManagers.Instance.PausePerfectFrame;
+
             battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
             battleStateMachine.SwitchResolve();
         }
 
         private void PlayerDealDamage()
         {
-            var target = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>(); // Get StateMachine from target
-            var enemyStatsManager = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>(); // Get CharacterStatsManagers from target
+            var target = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>();
+            var enemyStatsManager = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>();
             if (target != null)
             {
+                // Final damage = base attack * skill multiplier * perfect timing bonus
                 var damage = battleStateMachine.PlayerCombatStateMachine.GetAttackDameScale() *
-                battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.attack.GetFinalValue() *
+                battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.CurrentAttackDamage *
                 UIManagers.Instance.GetActionFrameValue();
 
-                if (enemyStatsManager.TakeDamage(damage)) // take damage
+                // TakeDamage will return false if enemy block / dodge
+                if (enemyStatsManager.TakeDamage(damage))
                 {
-                    battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, damage); //Calculate Result Infor
-                    battleStateMachine.CurrentTurn.DamageHistories.Add(damage);
-                    // battleStateMachine.CurrentTurn.HighestAverageDamage = (battleStateMachine.CurrentTurn.HighestAverageDamage + damage) / 2f; ;
-                    battleStateMachine.DamageDealt += damage;//Calculate Result Infor
+                    // Track battle statistics for result screen
+                    battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, damage);
+                    battleStateMachine.PlayerCombatStateMachine.BattleStatistics.DamageHistories.Add(damage);
 
-                    target.SwitchState(target.GethitState); // Switch target state to get hit
+                    battleStateMachine.DamageDealt += damage;
+                    target.SwitchState(target.GethitState);
                 }
             }
         }

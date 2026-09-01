@@ -6,20 +6,31 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatUseItemState : PlayerCombatBaseState
     {
-        private readonly int UseItemIdleAnimationHash = Animator.StringToHash("UseItem");
+        private readonly int UseItemAnimationHash = Animator.StringToHash("UseItem");
+        private readonly string UseItemAnimationTag = "UseItem";
 
+        private float _normalizedTime;
+        private float _prevTime;
         public PlayerCombatUseItemState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
 
         public override void Enter()
         {
-            playerCombatStateMachine.Animator.CrossFadeInFixedTime(UseItemIdleAnimationHash, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(UseItemAnimationHash, playerCombatStateMachine.AnimationCrossFade);
             UseItem();
         }
 
         public override void Tick(float deltaTime)
         {
+            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, UseItemAnimationTag);
+
+            if (_normalizedTime > _prevTime && _normalizedTime >= .9f && _normalizedTime <= 1f)
+            {
+                playerCombatStateMachine.IsFinished = true;
+                playerCombatStateMachine.ReturnCombatIdle();
+            }
+            _prevTime = _normalizedTime;
         }
 
         public override void Exit()

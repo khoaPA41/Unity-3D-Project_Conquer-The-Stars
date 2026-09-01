@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using ConquerTheStars.Fight.Match;
+using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Stats;
-using UnityEditor;
 using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class SetupState : BattleBaseState
     {
+        // List of characters who will be in the match
         private List<CharacterStatsManagers> characterInMatch = new();
+
         private List<string> enemyTeam = new();
         private List<string> playerTeam = new();
         public SetupState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
@@ -30,21 +32,25 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
         }
 
-        public void Initialize() // attach enemy & player list
+        public void Initialize()
         {
+            // Get enemy & player list
             enemyTeam = BattleInformationManagers.Instance.AreaInformation.enemyTeam;
             playerTeam = PlayerTeam.Instance.TeamNameList;
         }
 
-        private void SetupEnemyPosition() // Spawn enemy at target position - add to enemy team list and queue
+        private void SetupEnemyPosition()
         {
             for (int i = 0; i < enemyTeam.Count; i++)
             {
+                // Spawn enemy at target position
                 var enemy = ObjectPoolingManagers.Instance.GetPooledObject(enemyTeam[i], battleStateMachine.Area.enemyTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].enemyTransformList[i].position);
-
                 enemy.transform.Rotate(new Vector3(0f, 90f, 0f));
-                // enemy.transform.Rotate(new Vector3(0f, 90f, 0f));
+
+                // Add to characterInMatch list - prepare for queue
                 characterInMatch.Add(enemy.GetComponent<CharacterStatsManagers>());
+
+                // Add to the team list used to manage status throughout the match
                 battleStateMachine.TeamController.AddEnemyTeam(enemy.GetComponent<CharacterStatsManagers>());
             }
         }
@@ -53,46 +59,42 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             for (int i = 0; i < playerTeam.Count; i++)
             {
+                // Spawn player at target position
                 var player = ObjectPoolingManagers.Instance.GetPooledObject(playerTeam[i], battleStateMachine.Area.playerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].playerTransformList[i].position);
                 player.transform.Rotate(new Vector3(0f, -90f, 0f));
 
+                // Add to characterInMatch list - prepare for queue
                 characterInMatch.Add(player.GetComponent<CharacterStatsManagers>());
+
+                // Add to the team list used to manage status throughout the match
                 battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>());
             }
         }
 
         private void AddCharacterToQueue()
         {
+            // Add player & enemy team list to queue
+
             foreach (var character in characterInMatch)
             {
                 battleStateMachine.CharacterStats.Enqueue(character);
             }
         }
 
-        private void SetupPlayerTarget() // Add all enemy to player target list
+        private void SetupPlayerTarget()
         {
-            // foreach (var enemy in characterInMatch.Where(enemy => enemy.characterType == CharacterType.Enemy))
-            // {
-            //     var target = enemy.GetComponent<Target>();
-            //     battleStateMachine.PlayerTargeter.SetupTargetList(target);
-            // }
-
             foreach (var enemy in battleStateMachine.TeamController.EnemyTeam)
             {
+                // Add all enemy to player target list
                 battleStateMachine.PlayerTargeter.SetupTargetList(enemy.GetComponent<Target>());
             }
         }
 
-        private void SetupEnemyTarget() // Add all player to enemy target list
+        private void SetupEnemyTarget()
         {
-            // foreach (var player in characterInMatch.Where(player => player.characterType == CharacterType.Player))
-            // {
-            //     var target = player.GetComponent<Target>();
-            //     battleStateMachine.EnemyTargeter.SetupTargetList(target);
-            // }
-
             foreach (var player in battleStateMachine.TeamController.PlayerTeam)
             {
+                // Add all player to enemy target list
                 battleStateMachine.EnemyTargeter.SetupTargetList(player.GetComponent<Target>());
             }
         }
@@ -103,7 +105,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             SetupEnemyPosition();
             SetupPlayerPosition();
 
+            // Sort the match list in descending speed order
             characterInMatch.Sort((a, b) => b.speed.GetFinalValue().CompareTo(a.speed.GetFinalValue()));
+
             AddCharacterToQueue();
             SetupPlayerTarget();
             SetupEnemyTarget();

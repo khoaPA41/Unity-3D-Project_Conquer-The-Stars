@@ -6,8 +6,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private readonly int DodgeAnimationHash = Animator.StringToHash("Dodge");
         private readonly string DodgeAnimationTag = "Dodge";
 
-        private float normalizedTime;
-        private float prevTime;
+        private float _normalizedTime;
+        private float _prevTime;
         public PlayerCombatDodgeState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
@@ -20,20 +20,20 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Tick(float deltaTime)
         {
-            normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, DodgeAnimationTag);
+            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, DodgeAnimationTag);
 
-            if (normalizedTime > prevTime && normalizedTime > .3f)
+            if (_normalizedTime > _prevTime && _normalizedTime > .3f)
             {
                 playerCombatStateMachine.CharacterStatsManagers.SetIsDodge(false);
 
             }
 
-            if (normalizedTime > prevTime && normalizedTime > .9f && normalizedTime <= 1f)
+            if (_normalizedTime > _prevTime && _normalizedTime > .9f && _normalizedTime <= 1f)
             {
                 playerCombatStateMachine.ReturnCombatIdle();
             }
 
-            normalizedTime = prevTime;
+            _prevTime = _normalizedTime;
         }
 
         public override void Exit()

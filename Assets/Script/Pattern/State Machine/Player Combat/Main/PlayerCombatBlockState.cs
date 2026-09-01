@@ -8,8 +8,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         private readonly string BlockAnimationTag = "Block";
 
-        private float normalizedTime;
-        private float prevTime;
+        private float _normalizedTime;
+        private float _prevTime;
         public PlayerCombatBlockState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
@@ -22,19 +22,19 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Tick(float deltaTime)
         {
-            normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, BlockAnimationTag);
+            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, BlockAnimationTag);
 
-            if (normalizedTime > prevTime && normalizedTime > .3f)
+            if (_normalizedTime > _prevTime && _normalizedTime > .3f)
             {
                 playerCombatStateMachine.CharacterStatsManagers.SetIsBlock(false);
             }
 
-            if (normalizedTime > prevTime && normalizedTime > .9f && normalizedTime <= 1f)
+            if (_normalizedTime > _prevTime && _normalizedTime > .9f && _normalizedTime <= 1f)
             {
                 playerCombatStateMachine.ReturnCombatIdle();
             }
 
-            normalizedTime = prevTime;
+            _prevTime = _normalizedTime;
         }
 
         public override void Exit()

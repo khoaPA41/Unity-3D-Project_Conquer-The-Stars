@@ -11,10 +11,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction += PlayerExecutedAction; // Attack
-            battleStateMachine.PlayerCombatStateMachine.PlayerUseItem += PlayerUseItem; // Item
+            // Listen attack and use item event
+            battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction += PlayerExecutedAction;
+            battleStateMachine.PlayerCombatStateMachine.PlayerUseItem += PlayerUseItem;
+            battleStateMachine.PlayerCombatStateMachine.UseReviveItem += () => battleStateMachine.SwitchSelectAlly();
 
-            /*Setup Skill Selection UI*/
+            /*Show Skill Selection UI*/
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.AppearSkillUI();
         }
 
@@ -25,8 +27,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Exit()
         {
             battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction -= PlayerExecutedAction;
-            battleStateMachine.PlayerCombatStateMachine.PlayerUseItem -= PlayerUseItem; // Item
-
+            battleStateMachine.PlayerCombatStateMachine.PlayerUseItem -= PlayerUseItem;
+            battleStateMachine.PlayerCombatStateMachine.UseReviveItem -= () => battleStateMachine.SwitchSelectAlly();
         }
 
         private void PlayerExecutedAction(string listName, int index)
@@ -48,7 +50,19 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerUseItem(ItemType itemType, int index)
         {
+            battleStateMachine.StartCoroutine(WaitToEndAnimation());
+        }
+
+        private IEnumerator WaitToEndAnimation()
+        {
+            battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
             battleStateMachine.PlayerCombatStateMachine.SwitchUseItem();
+
+            //Wait until player use item animation done
+            yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true);
+
+            battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
+            battleStateMachine.SwitchResolve();
         }
 
         private IEnumerator WaitABit()

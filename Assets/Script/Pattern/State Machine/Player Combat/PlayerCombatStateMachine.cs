@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using ConquerTheStars.Factory.Item;
 using ConquerTheStars.Fight.Player;
+using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Stats;
+using ConquerTheStars.UI.Player;
 using JetBrains.Annotations;
 using TMPro;
 using Unity.Cinemachine;
@@ -29,6 +31,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         [field: Header("Status")]
         [field: SerializeField] public CharacterStatsManagers CharacterStatsManagers { get; private set; }
+        [field: SerializeField] public BattleStatistics BattleStatistics { get; private set; }
 
         [field: Header("PooledObject")]
         [field: SerializeField] public PooledObject PooledObject { get; private set; }
@@ -37,15 +40,15 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: SerializeField] public PlayerSetupSkillUI PlayerSetupSkillUI { get; private set; }
         [field: SerializeField] public PlayerSetupUI PlayerSetupUI { get; private set; }
 
-
         [field: Header("Camera")]
         [field: SerializeField] public CinemachineCamera CinemachineCamera { get; private set; }
         [field: SerializeField] public GameObject CameraGroup { get; private set; }
         [field: SerializeField] public CinemachineTargetGroup CinemachineTargetGroup { get; private set; }
 
         public Target Target { get; set; }
-
         public string AnimationName { get; set; }
+
+        //State
         public State PlayerIdleState { get; private set; }
         public State PlayerCombatIdleState { get; private set; }
         public State PlayerDefenseState { get; private set; }
@@ -59,13 +62,15 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public Vector3 PlayerStartPosition { get; set; }
 
-        public event Action AttackDealDamage = delegate { }; // This event will attend when enemy play get hit animation
-        private readonly int attackSpeedParams = Animator.StringToHash("Attack"); // This event will attend when enemy play get hit animation
+        // This event will call when enemy play get hit animation
+        public event Action AttackDealDamage = delegate { };
 
+        private readonly int attackSpeedParams = Animator.StringToHash("Attack");
         public bool IsFinished { get; set; }
-        public event Action<string, int> PlayerExecuteAction = delegate { };
-        public event Action<ItemType, int> PlayerUseItem = delegate { };
 
+        public event Action<string, int> PlayerExecuteAction = delegate { }; // Event for active attack
+        public event Action<ItemType, int> PlayerUseItem = delegate { }; // Event for use item
+        public event Action UseReviveItem = delegate { }; // Event for use revive item
         public int AttackIndexSelected { get; set; }
         public string AttackNameList { get; set; }
 
@@ -89,7 +94,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private void OnEnable()
         {
             PlayerStartPosition = transform.position;
-            CharacterStatsManagers.IsDyingAction += SwitchDyingState;
+            CharacterStatsManagers.DyingAction += SwitchDyingState;
             PlayerExecuteAction += GetAttackIndex;
             if (UIManagers.Instance != null)
             {
@@ -101,7 +106,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         private void OnDisable()
         {
-            CharacterStatsManagers.IsDyingAction -= SwitchDyingState;
+            CharacterStatsManagers.DyingAction -= SwitchDyingState;
             PlayerExecuteAction -= GetAttackIndex;
 
         }
@@ -203,6 +208,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public void InactiveCamera()
         {
             CameraGroup.SetActive(false);
+        }
+
+        public void CallUseReviveItemEvent()
+        {
+            UseReviveItem?.Invoke();
         }
 
         public void RotateToEnemy(Transform target)

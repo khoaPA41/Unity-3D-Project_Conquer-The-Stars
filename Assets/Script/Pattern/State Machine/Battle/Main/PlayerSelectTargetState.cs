@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Threading.Tasks;
-using UnityEngine;
+
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class PlayerSelectTargetState : BattleBaseState
@@ -14,12 +13,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             /*Change Combat Idle State*/
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerCombatIdleState);
 
-            /*Select Target*/
+            /*Select default target*/
             battleStateMachine.PlayerTargeter.FirstSelected();
             battleStateMachine.PlayerTargeter.GetTarget();
+
             Selected();
 
-            /*Choose Target*/
+            /*Listen input event to choose target*/
             battleStateMachine.InputReader.NextTargetAction += battleStateMachine.PlayerTargeter.ChooseNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction += battleStateMachine.PlayerTargeter.ChoosePrevTarget;
         }
@@ -36,7 +36,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private async void Selected()
         {
-            battleStateMachine.PlayerCombatStateMachine.RotateToEnemy(battleStateMachine.PlayerTargeter.currentTarget.transform);
+            // battleStateMachine.PlayerCombatStateMachine.RotateToEnemy(battleStateMachine.PlayerTargeter.currentTarget.transform);
             await WaitForConfirm();
             battleStateMachine.SwitchState(battleStateMachine.Playerexecuted);
         }

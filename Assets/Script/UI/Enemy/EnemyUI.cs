@@ -3,51 +3,52 @@ using ConquerTheStars.Stats;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyUI : MonoBehaviour
+namespace ConquerTheStars.UI.Enemy
 {
-    [Header("Health UI")]
-    [SerializeField] private Image healthImage;
-    [SerializeField] private float healthUpdate;
-
-    [Header("Character Stats Manager")]
-    [SerializeField]
-    private CharacterStatsManagers characterStatsManagers;
-
-    private void OnEnable()
+    public class EnemyUI : MonoBehaviour
     {
-        SetupHealth(1f);
-        characterStatsManagers.HealthUpdateAction += UpdateHealth;
-    }
+        [Header("Health UI")]
+        [SerializeField] private Image _healthImage;
+        [SerializeField] private float _healthUpdate;
 
-    private void OnDisable()
-    {
-        characterStatsManagers.HealthUpdateAction -= UpdateHealth;
+        [Header("Character Stats Manager")]
+        [SerializeField]
+        private CharacterStatsManagers characterStatsManagers;
 
-    }
-
-    public void SetupHealth(float health)
-    {
-        healthImage.fillAmount = health;
-    }
-
-    public void UpdateHealth(float targetHealth)
-    {
-        StartCoroutine(HealthChanging(targetHealth));
-    }
-
-    private IEnumerator HealthChanging(float target)
-    {
-        float elapsedTime = 0f;
-        var currentHealth = healthImage.fillAmount;
-        while (elapsedTime < healthUpdate)
+        private void OnEnable()
         {
-            elapsedTime += Time.deltaTime;
-            var percentageTime = Mathf.Clamp01(elapsedTime / healthUpdate);
-            healthImage.fillAmount = Mathf.Lerp(currentHealth, target, percentageTime);
-            yield return null;
+            SetupHealth(1f);
+            characterStatsManagers.HealthUpdateAction += UpdateHealth;
         }
-        healthImage.fillAmount = target;
+
+        private void OnDisable()
+        {
+            characterStatsManagers.HealthUpdateAction -= UpdateHealth;
+
+        }
+
+        public void SetupHealth(float health)
+        {
+            _healthImage.fillAmount = health;
+        }
+
+        public void UpdateHealth(float targetHealth)
+        {
+            StartCoroutine(HealthChanging(targetHealth));
+        }
+
+        private IEnumerator HealthChanging(float target)
+        {
+            float elapsedTime = 0f;
+            var currentHealth = _healthImage.fillAmount;
+            while (elapsedTime < _healthUpdate)
+            {
+                elapsedTime += Time.deltaTime;
+                var percentageTime = Mathf.Clamp01(elapsedTime / _healthUpdate);
+                _healthImage.fillAmount = Mathf.Lerp(currentHealth, target, percentageTime);
+                yield return null;
+            }
+            _healthImage.fillAmount = target;
+        }
     }
-
-
 }

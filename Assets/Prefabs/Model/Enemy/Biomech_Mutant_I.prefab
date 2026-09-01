@@ -2315,6 +2315,10 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 1e255565a1050e74ca3c1b726c8e9103, type: 3}
   CurrentHealth: 0
   CurrentMana: 0
+  CurrentAttackDamage: 0
+  CurrentSpeed: 0
+  CurrentDefense: 0
+  CurrentCritical: 0
 --- !u!114 &-7914153550810431556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2364,8 +2368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f03055180842d4c84056bee88bb2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUI
-  healthImage: {fileID: 8025434772883719390}
-  healthUpdate: 0.3
+  _healthImage: {fileID: 8025434772883719390}
+  _healthUpdate: 0
   characterStatsManagers: {fileID: 8012070513579947379}
 --- !u!114 &3776633786789092002
 MonoBehaviour:

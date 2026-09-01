@@ -6,8 +6,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
     {
         private readonly int DyingAnimationHash = Animator.StringToHash("Dying");
         private readonly string DyingTag = "Dying";
-        private float normalizedTime;
-        private float prevTime;
+        private float _normalizedTime;
+        private float _prevTime;
         public PlayerCombatDyingState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
@@ -20,14 +20,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Tick(float deltaTime)
         {
-            normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, DyingTag);
-            if (normalizedTime > prevTime && normalizedTime >= .9 && normalizedTime <= 1f)
+            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, DyingTag);
+            if (_normalizedTime > _prevTime && _normalizedTime >= .9 && _normalizedTime <= 1f)
             {
                 playerCombatStateMachine.IsFinished = true;
                 playerCombatStateMachine.PooledObject.Release();
             }
 
-            prevTime = normalizedTime;
+            _prevTime = _normalizedTime;
         }
 
         public override void Exit()

@@ -6,8 +6,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
     {
         private readonly int GetHitAnimationHash = Animator.StringToHash("GetHit");
         private readonly string GetHitTag = "GetHit";
-        private float normalizedTime;
-        private float prevTime;
+        private float _normalizedTime;
+        private float _prevTime;
         public EnemyGetHitState(EnemyStateMachine enemyStateMachine) : base(enemyStateMachine)
         {
         }
@@ -19,30 +19,17 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public override void Tick(float deltaTime)
         {
-            normalizedTime = NormalizedTime(enemyStateMachine.Animator, GetHitTag);
-            if (normalizedTime > prevTime && normalizedTime >= .9)
+            _normalizedTime = NormalizedTime(enemyStateMachine.Animator, GetHitTag);
+            if (_normalizedTime > _prevTime && _normalizedTime >= .9)
             {
-                // enemyStateMachine.IsFinished = true;
-                // CheckHealth();
                 enemyStateMachine.SwitchIdle();
             }
 
-            prevTime = normalizedTime;
+            _prevTime = _normalizedTime;
         }
 
         public override void Exit()
         {
-            // enemyStateMachine.IsFinished = false;
-        }
-
-        private void CheckHealth()
-        {
-            if (enemyStateMachine.CharacterStatsManagers.IsDeath)
-            {
-                enemyStateMachine.SwitchDyingState();
-                return;
-            }
-            enemyStateMachine.SwitchIdle();
         }
     }
 }

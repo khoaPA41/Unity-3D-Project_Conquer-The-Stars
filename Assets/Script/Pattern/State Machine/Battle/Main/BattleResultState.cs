@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Linq;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
-using Unity.Burst.Intrinsics;
+using ConquerTheStars.UI.Player;
 using UnityEngine;
+
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class BattleResultState : BattleBaseState
@@ -20,9 +21,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             else
             {
                 battleStateMachine.StartCoroutine(WaitToChangeDefeat());
-
             }
-
         }
 
         public override void Tick(float deltaTime)
@@ -59,9 +58,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         }
         private void CalculateResultInformation()
         {
-            var damageReceived = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.DamageReceived);
-            var succesfulDodge = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.SuccessfulDodgeTimes);
-            var succesfulParry = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.SuccessfulParryTimes);
+
+            var damageReceived = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.DamageReceived);
+            var succesfulDodge = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.SuccessfulDodgeTimes);
+            var succesfulParry = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.SuccessfulParryTimes);
+
             battleStateMachine.DamageReceived = damageReceived;
             battleStateMachine.SuccessfulDodgeTimes = succesfulDodge;
             battleStateMachine.SuccessfulParryTimes = succesfulParry;

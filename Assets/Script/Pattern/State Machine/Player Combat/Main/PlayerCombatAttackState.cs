@@ -1,62 +1,59 @@
+using ConquerTheStars.UI.Player;
 using UnityEngine;
 namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatAttackState : PlayerCombatBaseState
     {
-        private readonly int AttackSpeedParams = Animator.StringToHash("AttackSpeed");
-
         private readonly string AttackAnimationTag = "Attack";
 
-        // private readonly int attackIndex;
-
-        private bool isActiveAnimation;
-        private float normalizedTime;
-        private float prevTime;
-        string animationName;
+        private bool _isActiveAnimation;
+        private float _normalizedTime;
+        private float _prevTime;
+        string _animationName;
         public PlayerCombatAttackState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
-            // attackIndex = index;
         }
 
         public override void Enter()
         {
-            isActiveAnimation = false;
+            _isActiveAnimation = false;
             UIManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
-            animationName = playerCombatStateMachine.AttackNameList == "Attack" ?
+            _animationName = playerCombatStateMachine.AttackNameList == "Attack" ?
             playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
             playerCombatStateMachine.AttackData.SkillName[playerCombatStateMachine.AttackIndexSelected];
         }
 
         public override void Tick(float deltaTime)
         {
-            if (isActiveAnimation)
+            if (_isActiveAnimation)
             {
-                normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, AttackAnimationTag);
+                _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, AttackAnimationTag);
 
-                if (normalizedTime > prevTime && normalizedTime >= .9f && normalizedTime <= 1f)
+                if (_normalizedTime > _prevTime && _normalizedTime >= .9f && _normalizedTime <= 1f)
                 {
                     playerCombatStateMachine.IsFinished = true;
                     playerCombatStateMachine.ReturnCombatIdle();
                 }
-                prevTime = normalizedTime;
+                _prevTime = _normalizedTime;
                 return;
             }
 
 
             if (MoveToTarget(deltaTime))
             {
-                if (!isActiveAnimation)
+                if (!_isActiveAnimation)
                 {
-                    isActiveAnimation = true;
-                    // UIManagers.Instance.ActiveActionFrame();
-                    playerCombatStateMachine.Animator.CrossFadeInFixedTime(animationName, playerCombatStateMachine.AnimationCrossFade);
+                    _isActiveAnimation = true;
+                    playerCombatStateMachine.Animator.CrossFadeInFixedTime(_animationName, playerCombatStateMachine.AnimationCrossFade);
                 }
             }
+            playerCombatStateMachine.RotateToEnemy(playerCombatStateMachine.Target.transform);
         }
 
         public override void Exit()
         {
             UIManagers.Instance.SkillActionFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
+            RotateRoot();
         }
     }
 }

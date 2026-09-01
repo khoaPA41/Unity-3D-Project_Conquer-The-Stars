@@ -1,27 +1,30 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
-public class ForceReceiver : MonoBehaviour
+namespace ConquerTheStars.Physic
 {
-    private CharacterController controller;
-    public float VerticalVelocity { get; private set; }
-    public Vector3 Movement => Vector3.zero + Vector3.up * VerticalVelocity;
-
-    private void Start()
+    [RequireComponent(typeof(CharacterController))]
+    public class ForceReceiver : MonoBehaviour
     {
-        controller = GetComponent<CharacterController>();
-    }
+        private CharacterController controller;
+        public float VerticalVelocity { get; private set; }
+        public Vector3 Movement => Vector3.zero + Vector3.up * VerticalVelocity;
 
-
-    private void Update()
-    {
-        if (controller.isGrounded)
+        private void Start()
         {
-            VerticalVelocity = 0f;
+            controller = GetComponent<CharacterController>();
         }
-        else
+
+        private void Update()
         {
-            VerticalVelocity += Physics.gravity.y * 2 * Time.deltaTime;
+            if (controller.isGrounded)
+            {
+                VerticalVelocity = 0f;
+            }
+            else
+            {
+                VerticalVelocity += Physics.gravity.y * 2 * Time.deltaTime;
+            }
         }
     }
 }
+

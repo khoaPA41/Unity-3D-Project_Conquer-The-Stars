@@ -3474,15 +3474,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad515c068ec11d4e879cb20a574ea3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMatch
-  enemyTransformList:
+  <enemyTransformList>k__BackingField:
   - enemyTransformList:
     - {fileID: 442573890}
     - {fileID: 96903714}
     - {fileID: 1947585541}
-  playerTransformList:
+  <playerTransformList>k__BackingField:
   - playerTransformList:
-    - {fileID: 1091914526}
     - {fileID: 437097297}
+    - {fileID: 1091914526}
     - {fileID: 1013783187}
 --- !u!4 &1067235457
 Transform:
@@ -4932,7 +4932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.Battle.BattleStateMachine
   <InputReader>k__BackingField: {fileID: 1476980627}
-  <Area>k__BackingField: {fileID: 1476980629}
+  <Area>k__BackingField: {fileID: 1067235456}
   <PlayerTargeter>k__BackingField: {fileID: 1476980630}
   <EnemyTargeter>k__BackingField: {fileID: 1476980631}
   <TeamController>k__BackingField: {fileID: 1476980632}
@@ -4943,6 +4943,7 @@ MonoBehaviour:
   BattleTime: 0
   SuccessfulParryTimes: 0
   SuccessfulDodgeTimes: 0
+  playerDealsHighestDamageLastTurn: {fileID: 0}
 --- !u!114 &1476980629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4955,16 +4956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad515c068ec11d4e879cb20a574ea3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMatch
-  enemyTransformList:
-  - enemyTransformList:
-    - {fileID: 96903714}
-    - {fileID: 442573890}
-    - {fileID: 1947585541}
-  playerTransformList:
-  - playerTransformList:
-    - {fileID: 1091914526}
-    - {fileID: 437097297}
-    - {fileID: 1013783187}
+  <enemyTransformList>k__BackingField: []
+  <playerTransformList>k__BackingField: []
 --- !u!114 &1476980630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5007,6 +5000,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03185f614475c6e4ba8dd627a0da8d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeamController
+  PlayerTeam: []
+  EnemyTeam: []
 --- !u!1 &1480184608
 GameObject:
   m_ObjectHideFlags: 0
@@ -6091,7 +6086,7 @@ Transform:
   m_GameObject: {fileID: 1874340205}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06162845, y: 0.70441604, z: -0.06162845, w: 0.70441604}
-  m_LocalPosition: {x: 0, y: 1.7, z: 2}
+  m_LocalPosition: {x: -6, y: 1.7, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

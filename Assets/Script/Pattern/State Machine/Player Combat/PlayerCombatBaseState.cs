@@ -46,5 +46,13 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             var dirToTarget = offset.normalized;
             playerCombatStateMachine.CharacterController.Move(deltaTime * playerCombatStateMachine.Speed * dirToTarget);
         }
+
+        protected void RotateRoot()
+        {
+            // playerCombatStateMachine.transform.Rotate(new Vector3(0f, 0f, 0f));
+
+            // playerCombatStateMachine.transform.Rotate(new Vector3(0f, -90f, 0f));
+            playerCombatStateMachine.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+        }
     }
 }

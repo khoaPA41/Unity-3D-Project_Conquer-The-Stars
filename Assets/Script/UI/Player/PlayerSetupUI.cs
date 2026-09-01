@@ -5,89 +5,97 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerSetupUI : MonoBehaviour
+namespace ConquerTheStars.UI.Player
 {
-    private readonly string UiName = "Character_HUD";
-
-    [Header("Character Stats Manager")]
-    [SerializeField]
-    private CharacterStatsManagers characterStatsManagers;
-
-
-    [Header("Time To Update UI")]
-    [SerializeField]
-    private float healthUpdate;
-    [SerializeField] private float manaUpdate;
-
-    private PlayerHUD characterHud;
-    private Image health;
-    private Image mana;
-    private TextMeshProUGUI healthText;
-    private TextMeshProUGUI manaText;
-
-
-    private void OnEnable()
+    public class PlayerSetupUI : MonoBehaviour
     {
-        characterStatsManagers.HealthUpdateAction += HealthUpdate;
-        characterStatsManagers.ManaUpdateAction += ManaUpdate;
-    }
+        private readonly string UiName = "Character_HUD";
 
-    private void OnDisable()
-    {
-        characterStatsManagers.HealthUpdateAction -= HealthUpdate;
-        characterStatsManagers.ManaUpdateAction -= ManaUpdate;
+        [Header("Character Stats Manager")]
+        [SerializeField]
+        private CharacterStatsManagers characterStatsManagers;
 
-    }
 
-    public void SpawnCharacterHUD()
-    {
-        characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
-        UIManagers.Instance.AddUiPooledObjectList(characterHud.GetComponent<PooledObject>());
-        characterHud.GetComponent<RectTransform>().SetParent(UIManagers.Instance?.StatusPanel);
-        characterHud.Icon.sprite = characterStatsManagers.icon;
-        health = characterHud.Health;
-        mana = characterHud.Mana;
-        healthText = characterHud.HealthText;
-        manaText = characterHud.ManaText;
-    }
+        [Header("Time To Update UI")]
+        [SerializeField]
+        private float healthUpdate;
+        [SerializeField] private float manaUpdate;
 
-    public void InactiveCharacterHUD()
-    {
-        characterHud.gameObject.SetActive(false);
-    }
+        private PlayerHUD characterHud;
+        private Image health;
+        private Image mana;
+        private TextMeshProUGUI healthText;
+        private TextMeshProUGUI manaText;
 
-    public void SetupStatusUI(float healthValue, float manaValue)
-    {
-        health.fillAmount = healthValue;
-        mana.fillAmount = manaValue;
-        healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
-        manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
 
-    }
-
-    public void HealthUpdate(float target)
-    {
-        StartCoroutine(HealthChanging(health, target));
-        healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
-    }
-
-    public void ManaUpdate(float target)
-    {
-        StartCoroutine(HealthChanging(mana, target));
-        manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
-    }
-
-    private IEnumerator HealthChanging(Image targetFill, float target)
-    {
-        float elapsedTime = 0f;
-        var currentHealth = targetFill.fillAmount;
-        while (elapsedTime < healthUpdate)
+        private void OnEnable()
         {
-            elapsedTime += Time.deltaTime;
-            var percentageTime = Mathf.Clamp01(elapsedTime / healthUpdate);
-            targetFill.fillAmount = Mathf.Lerp(currentHealth, target, percentageTime);
-            yield return null;
+            characterStatsManagers.HealthUpdateAction += HealthUpdate;
+            characterStatsManagers.ManaUpdateAction += ManaUpdate;
         }
-        targetFill.fillAmount = target;
+
+        private void OnDisable()
+        {
+            characterStatsManagers.HealthUpdateAction -= HealthUpdate;
+            characterStatsManagers.ManaUpdateAction -= ManaUpdate;
+
+        }
+
+        public void SpawnCharacterHUD()
+        {
+            // Spawn character HUD ui
+            characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
+
+            UIManagers.Instance.AddUiPooledObjectList(characterHud.GetComponent<PooledObject>());
+
+            characterHud.GetComponent<RectTransform>().SetParent(UIManagers.Instance?.StatusPanel);
+
+            //Setup hud base characterStatsManagers
+            characterHud.Icon.sprite = characterStatsManagers.icon;
+            health = characterHud.Health;
+            mana = characterHud.Mana;
+            healthText = characterHud.HealthText;
+            manaText = characterHud.ManaText;
+        }
+
+        public void InactiveCharacterHUD()
+        {
+            characterHud.gameObject.SetActive(false);
+        }
+
+        public void SetupStatusUI(float healthValue, float manaValue)
+        {
+            health.fillAmount = healthValue;
+            mana.fillAmount = manaValue;
+            healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
+            manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
+
+        }
+
+        public void HealthUpdate(float target)
+        {
+            StartCoroutine(HealthChanging(health, target));
+            healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
+        }
+
+        public void ManaUpdate(float target)
+        {
+            StartCoroutine(HealthChanging(mana, target));
+            manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
+        }
+
+        private IEnumerator HealthChanging(Image targetFill, float target)
+        {
+            float elapsedTime = 0f;
+            var currentHealth = targetFill.fillAmount;
+            while (elapsedTime < healthUpdate)
+            {
+                elapsedTime += Time.deltaTime;
+                var percentageTime = Mathf.Clamp01(elapsedTime / healthUpdate);
+                targetFill.fillAmount = Mathf.Lerp(currentHealth, target, percentageTime);
+                yield return null;
+            }
+            targetFill.fillAmount = target;
+        }
     }
 }

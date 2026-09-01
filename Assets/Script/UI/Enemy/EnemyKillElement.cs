@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyKillElement : MonoBehaviour
+namespace ConquerTheStars.UI.Enemy
 {
-    [Header("Enemy Icon")]
-    [SerializeField] private Image icon;
-
-    public void SetIcon(Sprite icon)
+    public class EnemyKillElement : MonoBehaviour
     {
-        this.icon.sprite = icon;
-    }
+        [Header("Enemy Icon")]
+        [SerializeField] private Image icon;
 
+        public void SetIcon(Sprite icon)
+        {
+            this.icon.sprite = icon;
+        }
+
+    }
 }

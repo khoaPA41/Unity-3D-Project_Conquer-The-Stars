@@ -1,3 +1,4 @@
+using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using UnityEngine;
 
@@ -87,6 +88,8 @@ namespace ConquerTheStars.Factory.Item
 
         public void Use(ICaster character, ItemData itemData)
         {
+            var player = character.CharacterUse().GetComponent<PlayerCombatStateMachine>();
+            player.CallUseReviveItemEvent();
             Debug.Log($"{character.CharacterUse().name}: {itemData.ItemType}");
 
         }
