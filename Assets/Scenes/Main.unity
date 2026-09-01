@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.120973706, y: 0.0000000019494832, z: 2.3758107e-10, w: 0.99265575}
+  m_LocalRotation: {x: -0.120973535, y: 0.000000007703546, z: 9.388201e-10, w: 0.99265575}
   m_LocalPosition: {x: -2.05085, y: 0.9021175, z: 1.322586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -863,7 +863,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005356038}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.1209737, y: 0.000000001949483, z: 2.3758132e-10, w: 0.99265575}
+  m_LocalRotation: {x: -0.12097353, y: 0.000000007683581, z: 7.7499845e-10, w: 0.99265575}
   m_LocalPosition: {x: -2.05085, y: 0.9021175, z: 1.322586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1558,6 +1558,9 @@ MonoBehaviour:
   - PooledObject: {fileID: 7896747997660631332, guid: 2ff9300dd95cbd4488e1ee40d7ad79a7, type: 3}
     ObjectName: KillElement
     Quantity: 10
+  - PooledObject: {fileID: 7865295376392538669, guid: 90f90cc58c3346d4686a6793321c1beb, type: 3}
+    ObjectName: TurnOrder
+    Quantity: 6
 --- !u!1 &2138787556
 GameObject:
   m_ObjectHideFlags: 0
