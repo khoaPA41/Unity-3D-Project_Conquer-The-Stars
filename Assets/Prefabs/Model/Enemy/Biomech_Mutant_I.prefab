@@ -2304,6 +2304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: f0c8838edf82fab4c986829484ccb19c, type: 2}
   textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
+  <HitVFXName>k__BackingField: Enemy_Hit
   maxHealth:
     baseValue: 0
   mana:
@@ -2316,6 +2317,8 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
+  luck:
+    baseValue: 0
   level: 0
   characterType: 1
   icon: {fileID: 21300000, guid: 1e255565a1050e74ca3c1b726c8e9103, type: 3}
@@ -2325,6 +2328,7 @@ MonoBehaviour:
   CurrentSpeed: 0
   CurrentDefense: 0
   CurrentCritical: 0
+  CurrentLuck: 0
 --- !u!114 &-7914153550810431556
 MonoBehaviour:
   m_ObjectHideFlags: 0

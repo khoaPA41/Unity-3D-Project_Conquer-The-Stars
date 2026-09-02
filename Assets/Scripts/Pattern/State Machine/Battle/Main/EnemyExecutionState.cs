@@ -62,7 +62,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
 
             // TakeDamage will return false if player block / dodge
-            if (playerStatsManager.TakeDamage(damage, isCrit))
+            if (playerStatsManager.TakeDamage(damage, isCrit, battleStateMachine.CurrentTurn.HitVFXName))
             {
                 target.SwitchState(target.PlayerGetHitState);
 

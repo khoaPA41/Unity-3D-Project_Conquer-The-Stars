@@ -18,6 +18,10 @@ namespace ConquerTheStars.Stats
         [Header("Dynamic Text")]
         [SerializeField] private DynamicTextData textData;
 
+        [field: Header("VFX Name")]
+        [field: SerializeField] public string HitVFXName { get; private set; }
+
+
         [Header("Stats Infor")]
         public StatsManagers maxHealth;
         public StatsManagers mana;
@@ -80,7 +84,7 @@ namespace ConquerTheStars.Stats
         /// Return turn false if the damage was fully avoided (Block / Dogge)
         /// </summary>
 
-        public bool TakeDamage(float damage, bool isCrit)
+        public bool TakeDamage(float damage, bool isCrit, string hitVfxName)
         {
             if (IsDodge)
             {
@@ -110,6 +114,7 @@ namespace ConquerTheStars.Stats
 
             var finalDamage = Mathf.Max(damage - CurrentDefense, 0f);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
+            ObjectPoolingManagers.Instance.GetPooledObject(hitVfxName, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
 
             SpawnText(finalDamage.ToString());
 

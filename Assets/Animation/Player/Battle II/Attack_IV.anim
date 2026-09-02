@@ -338298,6 +338298,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.53333336
+    functionName: SpawnSlashVfx
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.73333335
     functionName: SetAttackSpeed
     data: 
@@ -338314,6 +338321,13 @@ AnimationClip:
     messageOptions: 0
   - time: 1.6666666
     functionName: CallDealDamageEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.7333333
+    functionName: SpawnSlashVfx
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -338340,6 +338354,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 2.7
+    functionName: SpawnSlashVfx
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 2.9666667
     functionName: SetAttackSpeed
     data: 
@@ -338356,6 +338377,13 @@ AnimationClip:
     messageOptions: 0
   - time: 4.5333333
     functionName: CallDealDamageEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 4.6666665
+    functionName: SpawnSlashVfx
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

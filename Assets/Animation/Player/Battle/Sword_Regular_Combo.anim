@@ -92775,6 +92775,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.33333334
+    functionName: SpawnSlashVfx
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.43333334
     functionName: SetAttackSpeed
     data: 
@@ -92796,6 +92803,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.8333333
+    functionName: SpawnSlashVfx
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.2
     functionName: SetAttackSpeed
     data: 
@@ -92812,6 +92826,13 @@ AnimationClip:
     messageOptions: 0
   - time: 1.5666667
     functionName: CallDealDamageEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6333333
+    functionName: SpawnSlashVfx
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

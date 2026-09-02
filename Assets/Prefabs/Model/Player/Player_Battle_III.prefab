@@ -3045,14 +3045,15 @@ MonoBehaviour:
   <AnimationAttackSpeed>k__BackingField: 0.5
   <IsNotMove>k__BackingField: 1
   <AttackData>k__BackingField: {fileID: 11400000, guid: f3609d6e0f8b9d14f84bc2bc5f703c28, type: 2}
+  <AttackTransform>k__BackingField: {fileID: 1702606736812371475}
   <CharacterStatsManagers>k__BackingField: {fileID: 6203293951924019736}
   <BattleStatistics>k__BackingField: {fileID: 504991949521979741}
   <PooledObject>k__BackingField: {fileID: 110656989515154985}
   <PlayerSetupSkillUI>k__BackingField: {fileID: 2064447757060982690}
   <PlayerSetupUI>k__BackingField: {fileID: 2698470094360578167}
-  <CinemachineCamera>k__BackingField: {fileID: 7323960811599518871}
   <CameraGroup>k__BackingField: {fileID: 3714282290553325519}
   <HighlightCurrentTurn>k__BackingField: {fileID: 8901361235196878590}
+  <SlashVfxName>k__BackingField: Snow_Slash
 --- !u!95 &2917003206520305461
 Animator:
   serializedVersion: 7
@@ -3126,6 +3127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: 1d78dd15835c4344fa95e2d053e3c615, type: 2}
   textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
+  <HitVFXName>k__BackingField: Snow_Hit
   maxHealth:
     baseValue: 0
   mana:
@@ -3138,6 +3140,8 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
+  luck:
+    baseValue: 0
   level: 0
   characterType: 0
   icon: {fileID: 0}
@@ -3147,6 +3151,7 @@ MonoBehaviour:
   CurrentSpeed: 0
   CurrentDefense: 0
   CurrentCritical: 0
+  CurrentLuck: 0
 --- !u!114 &5876219377847960629
 MonoBehaviour:
   m_ObjectHideFlags: 0

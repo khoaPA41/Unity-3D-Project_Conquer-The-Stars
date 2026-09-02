@@ -1633,14 +1633,15 @@ MonoBehaviour:
   <AnimationAttackSpeed>k__BackingField: 0.5
   <IsNotMove>k__BackingField: 0
   <AttackData>k__BackingField: {fileID: 11400000, guid: 45f3bb4ef3f239d43a912381cecb8178, type: 2}
+  <AttackTransform>k__BackingField: {fileID: 1673352967782964686}
   <CharacterStatsManagers>k__BackingField: {fileID: 5115756970071326048}
   <BattleStatistics>k__BackingField: {fileID: 4458655260899961602}
   <PooledObject>k__BackingField: {fileID: 4132723855554449903}
   <PlayerSetupSkillUI>k__BackingField: {fileID: 2809757090863327041}
   <PlayerSetupUI>k__BackingField: {fileID: 5527444843006475073}
-  <CinemachineCamera>k__BackingField: {fileID: 1206789589807636827}
   <CameraGroup>k__BackingField: {fileID: 1375053711465466975}
   <HighlightCurrentTurn>k__BackingField: {fileID: 3889665761813132493}
+  <SlashVfxName>k__BackingField: Electro_Slash
 --- !u!95 &7871194670638967278
 Animator:
   serializedVersion: 7
@@ -1714,6 +1715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: 40d81aaf9ca89e04193df84d35fae1d0, type: 2}
   textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
+  <HitVFXName>k__BackingField: Electro_Hit
   maxHealth:
     baseValue: 0
   mana:
@@ -1726,6 +1728,8 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
+  luck:
+    baseValue: 0
   level: 0
   characterType: 0
   icon: {fileID: 0}
@@ -1735,6 +1739,7 @@ MonoBehaviour:
   CurrentSpeed: 0
   CurrentDefense: 0
   CurrentCritical: 0
+  CurrentLuck: 0
 --- !u!114 &7585745460317986952
 MonoBehaviour:
   m_ObjectHideFlags: 0

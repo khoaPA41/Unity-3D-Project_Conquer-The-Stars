@@ -26,6 +26,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         [field: Header("Attack Data")]
         [field: SerializeField] public PlayerAttack AttackData { get; private set; }
+        [field: SerializeField] public Transform AttackTransform { get; private set; }
+
 
         [field: Header("Status")]
         [field: SerializeField] public CharacterStatsManagers CharacterStatsManagers { get; private set; }
@@ -44,6 +46,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         [field: Header("VFX")]
         [field: SerializeField] public HighlightVfx HighlightCurrentTurn { get; private set; }
+        [field: SerializeField] public string SlashVfxName { get; private set; }
 
         public Target Target { get; set; }
         public string AnimationName { get; set; }
@@ -162,7 +165,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public void CallDealDamageEvent()
         {
+
             AttackDealDamage?.Invoke();
+        }
+
+        public void SpawnSlashVfx()
+        {
+            var vfx = ObjectPoolingManagers.Instance.GetPooledObject(SlashVfxName, AttackTransform.position);
+            vfx.transform.eulerAngles = transform.eulerAngles;
         }
 
         public void ReturnAttackSpeed()

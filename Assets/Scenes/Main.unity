@@ -1561,6 +1561,27 @@ MonoBehaviour:
   - PooledObject: {fileID: 7865295376392538669, guid: 90f90cc58c3346d4686a6793321c1beb, type: 3}
     ObjectName: TurnOrder
     Quantity: 6
+  - PooledObject: {fileID: 3563973085531924967, guid: 7657c56b4c0b7594e91127eba0d7ca5e, type: 3}
+    ObjectName: Electro_Slash
+    Quantity: 5
+  - PooledObject: {fileID: 2927523748142283241, guid: 093e2e72e23e7b341bbb2d5a4c1d7046, type: 3}
+    ObjectName: Green_Slash
+    Quantity: 5
+  - PooledObject: {fileID: 6927242797269047777, guid: 7e42ad9d7316a3148b77e6047644f467, type: 3}
+    ObjectName: Snow_Slash
+    Quantity: 5
+  - PooledObject: {fileID: 4688528962561571221, guid: 6e7e085889019f94da70091ac0c56c44, type: 3}
+    ObjectName: Electro_Hit
+    Quantity: 5
+  - PooledObject: {fileID: 8458576101682043831, guid: 5754b42dd8613874fb7e1bc9a378ae32, type: 3}
+    ObjectName: Green_Hit
+    Quantity: 5
+  - PooledObject: {fileID: 7683881951084746556, guid: e0e74ca3e22d0dd4bae388650ad3d5e7, type: 3}
+    ObjectName: Snow_Hit
+    Quantity: 5
+  - PooledObject: {fileID: 977352887439050048, guid: 7fdb6c55b34726e4691eee6b94aa19de, type: 3}
+    ObjectName: Enemy_Hit
+    Quantity: 5
 --- !u!1 &2138787556
 GameObject:
   m_ObjectHideFlags: 0

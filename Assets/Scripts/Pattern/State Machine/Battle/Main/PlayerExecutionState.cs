@@ -70,7 +70,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             UIManagers.Instance.GetActionFrameValue();
 
             // TakeDamage will return false if enemy block / dodge
-            if (enemyStatsManager.TakeDamage(finalDamage, isCrit))
+            if (enemyStatsManager.TakeDamage(finalDamage, isCrit, battleStateMachine.CurrentTurn.HitVFXName))
             {
                 // Track battle statistics for result screen
                 battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, finalDamage);

@@ -2494,6 +2494,7 @@ Transform:
   - {fileID: 6954785632102871957}
   - {fileID: 1381091527264964277}
   - {fileID: 7618200037018242936}
+  - {fileID: 689286615429588550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &4094177202038467508
@@ -2515,6 +2516,7 @@ MonoBehaviour:
   <AnimationAttackSpeed>k__BackingField: 0.5
   <IsNotMove>k__BackingField: 0
   <AttackData>k__BackingField: {fileID: 11400000, guid: c6c6701acf8ca4246b3a03adabbd48da, type: 2}
+  <AttackTransform>k__BackingField: {fileID: 689286615429588550}
   <CharacterStatsManagers>k__BackingField: {fileID: 1681969748647765961}
   <BattleStatistics>k__BackingField: {fileID: 175369917718761702}
   <PooledObject>k__BackingField: {fileID: 3158385293569201347}
@@ -2522,6 +2524,7 @@ MonoBehaviour:
   <PlayerSetupUI>k__BackingField: {fileID: 4472543842194979827}
   <CameraGroup>k__BackingField: {fileID: 8164411484654199282}
   <HighlightCurrentTurn>k__BackingField: {fileID: 7712305246452980821}
+  <SlashVfxName>k__BackingField: Green_Slash
 --- !u!95 &6835715610955843052
 Animator:
   serializedVersion: 7
@@ -2595,6 +2598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: 6d40f8f282fd76745a89776ce99e23ad, type: 2}
   textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
+  <HitVFXName>k__BackingField: Green_Hit
   maxHealth:
     baseValue: 0
   mana:
@@ -2607,6 +2611,8 @@ MonoBehaviour:
     baseValue: 0
   critical:
     baseValue: 0
+  luck:
+    baseValue: 0
   level: 0
   characterType: 0
   icon: {fileID: 0}
@@ -2616,6 +2622,7 @@ MonoBehaviour:
   CurrentSpeed: 0
   CurrentDefense: 0
   CurrentCritical: 0
+  CurrentLuck: 0
 --- !u!114 &2483266583381244365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3649,6 +3656,37 @@ Transform:
   - {fileID: 2070053406513236372}
   - {fileID: 4688621116746503631}
   m_Father: {fileID: 2241860370669924962}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4554520247804168141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 689286615429588550}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &689286615429588550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554520247804168141}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.403, z: 0.731}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2687132620859148121}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4667657049401619856
 GameObject:

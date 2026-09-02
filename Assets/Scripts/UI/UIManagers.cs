@@ -134,7 +134,6 @@ namespace ConquerTheStars.UI.Player
             }
         }
 
-
         public void SetTurnOrder(List<CharacterStatsManagers> characters)
         {
             foreach (var character in characters)
