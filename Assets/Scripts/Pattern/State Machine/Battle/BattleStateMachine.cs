@@ -63,6 +63,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public float SpeedAverage { get; set; }
         public bool IsTurnOrderChange { get; set; }
         public CharacterStatsManagers playerDealsHighestDamageLastTurn;
+        public bool IsWaitingCameraBlend { get; set; }
         void Start()
         {
 
@@ -80,6 +81,21 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             Result = new BattleResultState(this);
 
             SwitchState(BattleSetup);
+        }
+
+        private void OnEnable()
+        {
+            CinemachineCore.BlendFinishedEvent.AddListener(OnBlendFinished);
+        }
+
+        private void OnDisable()
+        {
+            CinemachineCore.BlendFinishedEvent.RemoveListener(OnBlendFinished);
+        }
+
+        private void OnBlendFinished(ICinemachineMixer camera, ICinemachineCamera cinemachineCamera)
+        {
+            IsWaitingCameraBlend = true;
         }
 
         public void SwitchPlayerExecuted()

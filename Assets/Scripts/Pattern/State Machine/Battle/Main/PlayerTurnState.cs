@@ -27,11 +27,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             // Prepare for player turn
             battleStateMachine.PlayerCombatStateMachine.HighlightCurrentTurn.Highlight();
-            // battleStateMachine.PlayerTargeter.SetupTargetCamera(battleStateMachine.PlayerCombatStateMachine.CinemachineTargetGroup);
             battleStateMachine.PlayerCombatStateMachine.ActiveCamera();
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerIdleState);
 
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitUntil(() => battleStateMachine.IsWaitingCameraBlend == true);
 
             battleStateMachine.SwitchState(battleStateMachine.PlayerSelectSkillTurn);
         }

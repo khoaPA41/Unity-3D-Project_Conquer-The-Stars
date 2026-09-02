@@ -4,6 +4,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatAttackState : PlayerCombatBaseState
     {
+        private readonly int JumpAnimationTag = Animator.StringToHash("Jump");
+
         private readonly string AttackAnimationTag = "Attack";
 
         private bool _isActiveAnimation;
@@ -17,10 +19,16 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public override void Enter()
         {
             _isActiveAnimation = false;
+            _prevTime = 0f;
+            _normalizedTime = 0f;
+            playerCombatStateMachine.IsWatingCameraBlendFinished = false;
+
             UIManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
             _animationName = playerCombatStateMachine.AttackNameList == "Attack" ?
             playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
             playerCombatStateMachine.AttackData.SkillName[playerCombatStateMachine.AttackIndexSelected];
+
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(JumpAnimationTag, playerCombatStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
@@ -41,12 +49,18 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
             if (MoveToTarget(deltaTime))
             {
+                playerCombatStateMachine.ActiveCamera();
+                if (!playerCombatStateMachine.IsWatingCameraBlendFinished) return;
+
+                if (playerCombatStateMachine.CinemachineBrain.IsBlending) return;
                 if (!_isActiveAnimation)
                 {
                     _isActiveAnimation = true;
+
                     playerCombatStateMachine.Animator.CrossFadeInFixedTime(_animationName, playerCombatStateMachine.AnimationCrossFade);
                 }
             }
+
             playerCombatStateMachine.RotateToEnemy(playerCombatStateMachine.Target.transform);
         }
 
@@ -54,6 +68,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             UIManagers.Instance.SkillActionFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
             RotateRoot();
+            playerCombatStateMachine.InactiveCamera();
         }
     }
 }

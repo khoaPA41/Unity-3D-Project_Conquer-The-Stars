@@ -11,6 +11,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
+            battleStateMachine.IsWaitingCameraBlend = false;
+
+
             // Listen attack and use item event
             battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction += PlayerExecutedAction;
             battleStateMachine.PlayerCombatStateMachine.PlayerUseItem += PlayerUseItem;
@@ -44,8 +47,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 }
                 battleStateMachine.CurrentTurn.SubtractMana(manaRequired);
             }
-
-            battleStateMachine.StartCoroutine(WaitABit());
+            // SwitchSelectTarget();
+            battleStateMachine.StartCoroutine(WaitForCameraBlendFinished());
         }
 
         private void PlayerUseItem(ItemType itemType, int index)
@@ -65,13 +68,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.SwitchResolve();
         }
 
-        private IEnumerator WaitABit()
+        private IEnumerator WaitForCameraBlendFinished()
         {
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
-
-            yield return new WaitForSecondsRealtime(3f);
-
             battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
+
+            yield return new WaitUntil(() => battleStateMachine.IsWaitingCameraBlend == true);
+
             battleStateMachine.SwitchState(battleStateMachine.PlayerSelectTargetTurn);
         }
     }

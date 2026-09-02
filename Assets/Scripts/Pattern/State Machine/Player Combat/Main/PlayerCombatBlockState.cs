@@ -16,6 +16,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
+            _prevTime = 0f;
+            _normalizedTime = 0f;
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(BlockAnimationHash, playerCombatStateMachine.AnimationCrossFade);
             playerCombatStateMachine.CharacterStatsManagers.SetIsBlock(true);
         }

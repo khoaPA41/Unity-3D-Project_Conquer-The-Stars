@@ -41,7 +41,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: SerializeField] public PlayerSetupUI PlayerSetupUI { get; private set; }
 
         [field: Header("Camera")]
-        // [field: SerializeField] public CinemachineCamera CinemachineCamera { get; private set; }
+        [field: SerializeField] public CinemachineStateDrivenCamera CinemachineStateDrivenCamera { get; private set; }
         [field: SerializeField] public GameObject CameraGroup { get; private set; }
 
         [field: Header("VFX")]
@@ -80,8 +80,12 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public int ItemIndex { get; set; }
         public ItemType ItemType { get; set; }
 
+        public CinemachineBrain CinemachineBrain { get; set; }
+
+        public bool IsWatingCameraBlendFinished { get; set; }
         private void Awake()
         {
+            CinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
             PlayerIdleState = new PlayerCombatIdleState(this);
             PlayerCombatIdleState = new PlayerCombatIdleCombatState(this);
             PlayerDefenseState = new PlayerCombatDefenseState(this);
@@ -99,19 +103,31 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             PlayerStartPosition = transform.position;
             CharacterStatsManagers.DyingAction += SwitchDyingState;
             PlayerExecuteAction += GetAttackIndex;
+
             if (UIManagers.Instance != null)
             {
                 PlayerSetupUI.SpawnCharacterHUD();
                 PlayerSetupUI.SetupStatusUI(CharacterStatsManagers.CurrentHealth / CharacterStatsManagers.maxHealth.GetFinalValue(),
                 CharacterStatsManagers.CurrentMana / CharacterStatsManagers.mana.GetFinalValue());
             }
+
+            // Listen camera blend finish
+            CinemachineCore.BlendFinishedEvent.AddListener(OnBlendFinished);
         }
 
         private void OnDisable()
         {
             CharacterStatsManagers.DyingAction -= SwitchDyingState;
             PlayerExecuteAction -= GetAttackIndex;
+            CinemachineCore.BlendFinishedEvent.RemoveListener(OnBlendFinished);
+        }
 
+        public void OnBlendFinished(ICinemachineMixer camera, ICinemachineCamera cinemachineCamera)
+        {
+            // var activeChild = CinemachineStateDrivenCamera.LiveChild;
+
+            // Debug.Log($"Current Child Camera: {activeChild?.Name}");
+            IsWatingCameraBlendFinished = true;
         }
 
         public GameObject CharacterUse()
@@ -182,7 +198,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public void SetAttackSpeed()
         {
-            Animator.SetFloat(attackSpeedParams, .3f);
+            Animator.SetFloat(attackSpeedParams, .1f);
         }
 
         public void GetIndexAction(string attackListName, int actionIndex)

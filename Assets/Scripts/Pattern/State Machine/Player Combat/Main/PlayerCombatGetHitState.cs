@@ -7,7 +7,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private readonly int GetHitAnimationHash = Animator.StringToHash("GetHit");
         private readonly string GetHitAnimationTag = "GetHit";
 
-        private float _normalizeTime;
+        private float _normalizedTime;
         private float _prevTime;
 
         public PlayerCombatGetHitState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
@@ -16,18 +16,20 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
+            _prevTime = 0f;
+            _normalizedTime = 0f;
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(GetHitAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
         {
-            _normalizeTime = NormalizedTime(playerCombatStateMachine.Animator, GetHitAnimationTag);
-            if (_normalizeTime > _prevTime && _normalizeTime > .8f && _normalizeTime <= 1f)
+            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, GetHitAnimationTag);
+            if (_normalizedTime > _prevTime && _normalizedTime > .8f && _normalizedTime <= 1f)
             {
                 playerCombatStateMachine.IsFinished = true;
                 playerCombatStateMachine.ReturnIdle();
             }
-            _prevTime = _normalizeTime;
+            _prevTime = _normalizedTime;
         }
 
         public override void Exit()

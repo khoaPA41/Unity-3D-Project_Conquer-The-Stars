@@ -17,6 +17,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
+            battleStateMachine.IsWaitingCameraBlend = false;
             UIManagers.Instance.InactiveTurnOrderHighlight();
 
             if (battleStateMachine.IsTurnOrderChange)
