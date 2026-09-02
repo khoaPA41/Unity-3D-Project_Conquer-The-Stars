@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using ConquerTheStars.Pattern.Object_Pooling;
 
 namespace ConquerTheStars.Stats
@@ -26,6 +25,8 @@ namespace ConquerTheStars.Stats
         public StatsManagers speed;
         public StatsManagers defense;
         public StatsManagers critical;
+        public StatsManagers luck;
+
         public int level;
 
         public CharacterType characterType;
@@ -36,6 +37,8 @@ namespace ConquerTheStars.Stats
         public float CurrentSpeed;
         public float CurrentDefense;
         public float CurrentCritical;
+        public float CurrentLuck;
+
 
         public bool IsDeath { get; private set; }
         public event Action DyingAction = delegate { };
@@ -45,6 +48,8 @@ namespace ConquerTheStars.Stats
         public bool IsDodge { get; set; }
         public bool IsBlock { get; set; }
 
+
+        private float currentChance;
         private void OnEnable()
         {
             // Initialize stats from ScriptableObject + level scaling
@@ -54,6 +59,7 @@ namespace ConquerTheStars.Stats
             defense = new StatsManagers(baseStatsData.Defense, level);
             critical = new StatsManagers(baseStatsData.Critical, level);
             mana = new StatsManagers(baseStatsData.Mana, level);
+            luck = new StatsManagers(baseStatsData.Luck, level);
 
             icon = baseStatsData.Icon;
             characterType = baseStatsData.Type;
@@ -64,6 +70,8 @@ namespace ConquerTheStars.Stats
             CurrentSpeed = speed.GetFinalValue();
             CurrentDefense = defense.GetFinalValue();
             CurrentCritical = critical.GetFinalValue();
+            CurrentLuck = luck.GetFinalValue();
+
             IsDeath = false;
         }
 
@@ -72,7 +80,7 @@ namespace ConquerTheStars.Stats
         /// Return turn false if the damage was fully avoided (Block / Dogge)
         /// </summary>
 
-        public bool TakeDamage(float damage)
+        public bool TakeDamage(float damage, bool isCrit)
         {
             if (IsDodge)
             {
@@ -95,6 +103,11 @@ namespace ConquerTheStars.Stats
                 return false;
             }
 
+            if (isCrit)
+            {
+                SpawnText("CRIT");
+            }
+
             var finalDamage = Mathf.Max(damage - CurrentDefense, 0f);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
 
@@ -107,6 +120,27 @@ namespace ConquerTheStars.Stats
 
             HealthUpdateAction?.Invoke(CurrentHealth / maxHealth.GetFinalValue());
             return true;
+        }
+
+        public bool RandomCritical()
+        {
+            currentChance = luck.GetFinalValue();
+
+            if (UnityEngine.Random.value < currentChance)
+            {
+                currentChance = luck.GetFinalValue();
+                return true;
+            }
+            else
+            {
+                currentChance += luck.GetFinalValue();
+                return false;
+            }
+        }
+
+        public float CalculateCriticalDamage()
+        {
+            return CurrentAttackDamage * (1 + CurrentLuck * (CurrentCritical - 1));
         }
 
         public void CallDyingEvent()

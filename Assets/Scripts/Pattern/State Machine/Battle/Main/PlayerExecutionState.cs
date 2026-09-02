@@ -55,24 +55,30 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             var target = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>();
             var enemyStatsManager = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>();
-            if (target != null)
+
+            if (target == null) return;
+
+            //  Calculate damage if critical
+            var isCrit = battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.RandomCritical();
+            var damage = isCrit ?
+                        battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.CalculateCriticalDamage() :
+                        battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.CurrentAttackDamage;
+
+            // Final damage = attack * skill multiplier * perfect timing bonus
+            var finalDamage = battleStateMachine.PlayerCombatStateMachine.GetAttackDameScale() *
+            damage *
+            UIManagers.Instance.GetActionFrameValue();
+
+            // TakeDamage will return false if enemy block / dodge
+            if (enemyStatsManager.TakeDamage(finalDamage, isCrit))
             {
-                // Final damage = base attack * skill multiplier * perfect timing bonus
-                var damage = battleStateMachine.PlayerCombatStateMachine.GetAttackDameScale() *
-                battleStateMachine.PlayerCombatStateMachine.CharacterStatsManagers.CurrentAttackDamage *
-                UIManagers.Instance.GetActionFrameValue();
+                // Track battle statistics for result screen
+                battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, finalDamage);
+                battleStateMachine.PlayerCombatStateMachine.BattleStatistics.DamageHistories.Add(finalDamage);
 
-                // TakeDamage will return false if enemy block / dodge
-                if (enemyStatsManager.TakeDamage(damage))
-                {
-                    // Track battle statistics for result screen
-                    battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, damage);
-                    battleStateMachine.PlayerCombatStateMachine.BattleStatistics.DamageHistories.Add(damage);
-
-                    battleStateMachine.DamageDealt += damage;
-                    target.HighlightTarget.InactiveHighlight();
-                    target.SwitchState(target.GethitState);
-                }
+                battleStateMachine.DamageDealt += finalDamage;
+                target.HighlightTarget.InactiveHighlight();
+                target.SwitchState(target.GethitState);
             }
         }
     }

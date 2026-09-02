@@ -52,29 +52,33 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             var target = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>();
             var playerStatsManager = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<CharacterStatsManagers>();
-            if (target != null)
+            if (target == null) return;
+
+            //  Calculate damage if critical
+            var isCrit = battleStateMachine.EnemyStateMachine.CharacterStatsManagers.RandomCritical();
+            var damage = isCrit ?
+                        battleStateMachine.EnemyStateMachine.CharacterStatsManagers.CalculateCriticalDamage() :
+                        battleStateMachine.EnemyStateMachine.CharacterStatsManagers.CurrentAttackDamage;
+
+
+            // TakeDamage will return false if player block / dodge
+            if (playerStatsManager.TakeDamage(damage, isCrit))
             {
-                var damage = battleStateMachine.EnemyStateMachine.CharacterStatsManagers.CurrentAttackDamage;
+                target.SwitchState(target.PlayerGetHitState);
 
-                // TakeDamage will return false if player block / dodge
-                if (playerStatsManager.TakeDamage(damage))
+                // Track battle statistics for result screen
+                target.BattleStatistics.DamageReceived += damage;
+            }
+            else
+            {
+                // Track battle statistics for result screen
+                if (playerStatsManager.IsDodge)
                 {
-                    target.SwitchState(target.PlayerGetHitState);
-
-                    // Track battle statistics for result screen
-                    target.BattleStatistics.DamageReceived += damage;
+                    target.BattleStatistics.SuccessfulDodgeTimes++;
                 }
-                else
+                if (playerStatsManager.IsBlock)
                 {
-                    // Track battle statistics for result screen
-                    if (playerStatsManager.IsDodge)
-                    {
-                        target.BattleStatistics.SuccessfulDodgeTimes++;
-                    }
-                    if (playerStatsManager.IsBlock)
-                    {
-                        target.BattleStatistics.SuccessfulParryTimes++;
-                    }
+                    target.BattleStatistics.SuccessfulParryTimes++;
                 }
             }
         }

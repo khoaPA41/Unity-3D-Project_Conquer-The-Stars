@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
@@ -16,8 +17,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            UIManagers.Instance.InactiveTurnOrderHighlight();
-            UIManagers.Instance.ActiveTurnOrderHighlight();
+            // UIManagers.Instance.InactiveTurnOrderHighlight();
+            // UIManagers.Instance.ActiveTurnOrderHighlight();
             SwitchTurnByType();
         }
 
@@ -31,15 +32,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void SwitchTurnByType()
         {
-            // Skip Characte Death
-            while (battleStateMachine.CharacterStats.Count > 0)
+            // Get next character and remove if next character death
+            foreach (var next in battleStateMachine.CharacterStats)
             {
-                var next = battleStateMachine.CharacterStats.Dequeue();
                 if (next == null) continue;
 
                 if (!next.IsDeath)
                 {
                     battleStateMachine.CurrentTurn = next;
+                    battleStateMachine.CharacterStats.Remove(next);
                     break;
                 }
             }
@@ -53,7 +54,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             switch (battleStateMachine.CurrentTurn.characterType)
             {
                 case CharacterType.Player:
-                    battleStateMachine.PlayerTargeter.RemoveTarget();
+                    battleStateMachine.PlayerTargeter.ResetTarget();
                     battleStateMachine.PlayerCombatStateMachine = battleStateMachine.CurrentTurn.GetComponent<PlayerCombatStateMachine>();
                     battleStateMachine.SwitchState(battleStateMachine.PlayerTurn);
                     break;
@@ -63,5 +64,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                     break;
             }
         }
+
+
     }
 }

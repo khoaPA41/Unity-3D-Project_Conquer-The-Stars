@@ -13,4 +13,5 @@ public class StatsData : ScriptableObject
     public float Speed;
     public float Defense;
     public float Critical;
+    public float Luck;
 }

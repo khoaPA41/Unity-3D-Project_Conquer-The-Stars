@@ -17,6 +17,7 @@ MonoBehaviour:
   Health: 100
   Mana: 100
   AttackPower: 100
-  Speed: 15
+  Speed: 100
   Defense: 10
-  Critical: 10
+  Critical: 1.5
+  Luck: 0.5

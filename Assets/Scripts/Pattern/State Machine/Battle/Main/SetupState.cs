@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Pattern.Object_Pooling;
@@ -74,12 +75,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void AddCharacterToQueue()
         {
-            // Add player & enemy team list to queue
-
-            foreach (var character in characterInMatch)
-            {
-                battleStateMachine.CharacterStats.Enqueue(character);
-            }
+            battleStateMachine.CharacterStats = characterInMatch;
         }
 
         private void SetupPlayerTarget()
@@ -107,13 +103,16 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             SetupPlayerPosition();
 
             // Sort the match list in descending speed order
-            characterInMatch.Sort((a, b) => b.speed.GetFinalValue().CompareTo(a.speed.GetFinalValue()));
+            characterInMatch.Sort((a, b) => b.CurrentSpeed.CompareTo(a.CurrentSpeed));
 
             AddCharacterToQueue();
             SetupPlayerTarget();
             SetupEnemyTarget();
 
-            UIManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
+            battleStateMachine.SpeedAverage = characterInMatch.Average(character => character.CurrentSpeed);
+            Debug.Log(battleStateMachine.SpeedAverage);
+
+            // UIManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
             yield return new WaitForSecondsRealtime(3f);
             battleStateMachine.SwitchState(battleStateMachine.StartTurn);
         }

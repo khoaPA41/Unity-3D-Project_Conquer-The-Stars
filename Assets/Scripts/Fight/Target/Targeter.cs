@@ -42,12 +42,15 @@ namespace ConquerTheStars.Fight.Target
             currentTarget = targetAvaiable[currentIndex];
         }
 
+        public void ResetTarget()
+        {
+            // targetAvaiable.Remove(currentTarget);
+            currentIndex = 0;
+        }
+
         public void RemoveTarget()
         {
-            if (currentTarget != null)
-            {
-                currentIndex = 0;
-            }
+            targetAvaiable.Remove(currentTarget);
         }
     }
 }
