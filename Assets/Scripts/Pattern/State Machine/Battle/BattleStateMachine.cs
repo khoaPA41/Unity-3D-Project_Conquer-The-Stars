@@ -60,8 +60,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public int SuccessfulDodgeTimes;
 
         // 
-        public float SpeedAverage;
-
+        public float SpeedAverage { get; set; }
+        public bool IsTurnOrderChange { get; set; }
         public CharacterStatsManagers playerDealsHighestDamageLastTurn;
         void Start()
         {

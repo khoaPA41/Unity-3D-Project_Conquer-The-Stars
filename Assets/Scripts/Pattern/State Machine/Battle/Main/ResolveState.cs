@@ -93,6 +93,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 var stealTurnRate = Mathf.Clamp(character.CurrentLuck * (character.CurrentSpeed - battleStateMachine.SpeedAverage) / 100f, 0f, .95f);
                 if (!IsStealSuccess(stealTurnRate)) continue;
 
+                battleStateMachine.IsTurnOrderChange = true;
                 battleStateMachine.CharacterStats.Remove(character);
                 battleStateMachine.CharacterStats.Insert(0, character);
             }

@@ -47,7 +47,7 @@ namespace ConquerTheStars.UI.Player
         [Header("Turn Order")]
         [SerializeField] private GameObject turnOrderBoard;
         private GameObject turnOrderRootParent;
-        public Queue<TurnOrderElement> turnOrders = new();
+        public List<TurnOrderElement> turnOrders = new();
         private TurnOrderElement curentTurnOrder;
         private List<PooledObject> uiPooledObject { get; set; } = new();
 
@@ -135,7 +135,7 @@ namespace ConquerTheStars.UI.Player
         }
 
 
-        public void SetTurnOrder(Queue<CharacterStatsManagers> characters)
+        public void SetTurnOrder(List<CharacterStatsManagers> characters)
         {
             foreach (var character in characters)
             {
@@ -147,13 +147,13 @@ namespace ConquerTheStars.UI.Player
 
                 turnOrderElement.SetIcon(character.icon);
 
-                turnOrders.Enqueue(turnOrderElement);
+                turnOrders.Add(turnOrderElement);
             }
         }
 
         public void ActiveTurnOrderHighlight()
         {
-            curentTurnOrder = turnOrders.Dequeue();
+            curentTurnOrder = turnOrders[0];
             curentTurnOrder.ActiveHighlight();
         }
 
@@ -162,8 +162,19 @@ namespace ConquerTheStars.UI.Player
             if (curentTurnOrder != null)
             {
                 curentTurnOrder.InactiveHighlight();
-                turnOrders.Enqueue(curentTurnOrder);
+                turnOrders.Remove(curentTurnOrder);
+                turnOrders.Add(curentTurnOrder);
             }
+        }
+
+        public void ResetTurnOrder()
+        {
+            foreach (var character in turnOrders)
+            {
+                character.transform.SetParent(curentTurnOrder.transform);
+                character.GetComponent<PooledObject>().Release();
+            }
+            turnOrders.Clear();
         }
     }
 }

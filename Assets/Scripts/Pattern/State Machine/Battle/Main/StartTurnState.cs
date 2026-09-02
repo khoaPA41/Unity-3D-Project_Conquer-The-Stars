@@ -17,8 +17,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            // UIManagers.Instance.InactiveTurnOrderHighlight();
-            // UIManagers.Instance.ActiveTurnOrderHighlight();
+            UIManagers.Instance.InactiveTurnOrderHighlight();
+
+            if (battleStateMachine.IsTurnOrderChange)
+            {
+                UIManagers.Instance.ResetTurnOrder();
+                UIManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
+            }
+            UIManagers.Instance.ActiveTurnOrderHighlight();
+            battleStateMachine.IsTurnOrderChange = false;
             SwitchTurnByType();
         }
 

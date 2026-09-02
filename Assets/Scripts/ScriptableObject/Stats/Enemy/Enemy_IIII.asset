@@ -20,4 +20,4 @@ MonoBehaviour:
   Speed: 12
   Defense: 10
   Critical: 15
-  Luck: 0.5
+  Luck: 0.1
