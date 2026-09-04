@@ -4,6 +4,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 {
     public class EnemyBossAttackState : EnemyBaseState
     {
+        private readonly int MoveAnimationHash = Animator.StringToHash("Move");
         private readonly string AttackTagHash = "Attack";
 
         private string attackName;
@@ -21,6 +22,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
             _prevTime = 0f;
             _normalizedTime = 0f;
             attackName = enemyStateMachine.EnemyAttack.AttackNameList[Random.Range(0, enemyStateMachine.EnemyAttack.AttackNameList.Count)];
+            enemyStateMachine.Animator.CrossFadeInFixedTime(MoveAnimationHash, enemyStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)

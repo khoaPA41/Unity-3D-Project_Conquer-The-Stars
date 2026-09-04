@@ -24,7 +24,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         [field: SerializeField] public bool IsBoss { get; private set; }
 
         [field: Header("Attack Data")]
-        [field: SerializeField] public EnemyAttack EnemyAttack { get; private set; }
+        [field: SerializeField] public EnemyAttack EnemyAttack { get; set; }
         [field: SerializeField] public Transform AttackTransform { get; private set; }
 
 

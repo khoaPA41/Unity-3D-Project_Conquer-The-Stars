@@ -16115,6 +16115,7 @@ GameObject:
   - component: {fileID: 6011627685785358009}
   - component: {fileID: 6485009032817984335}
   - component: {fileID: 702204945407666725}
+  - component: {fileID: 1652086393009922762}
   m_Layer: 0
   m_Name: Boss_II
   m_TagString: Untagged
@@ -16213,7 +16214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.Enemy.EnemyStateMachine
   <CharacterController>k__BackingField: {fileID: 2458444388894261783}
-  <Speed>k__BackingField: 20
+  <Speed>k__BackingField: 10
   <Animator>k__BackingField: {fileID: 273439225321185213}
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: 7041562865203575106}
@@ -16315,6 +16316,26 @@ MonoBehaviour:
   _healthImage: {fileID: 139886102489425390}
   _healthUpdate: 0.3
   characterStatsManagers: {fileID: 7041562865203575106}
+--- !u!114 &1652086393009922762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4110579520809547023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54012cb2a832d114b9c24ef86ea583d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossPhase
+  Attacks:
+  - EnemyAttack: {fileID: 11400000, guid: 2d51fd0539233d642a79e2178f52e570, type: 2}
+    healthThreshold: 1
+  - EnemyAttack: {fileID: 11400000, guid: ebaf678a16973b04dbfcc25a29529271, type: 2}
+    healthThreshold: 0.5
+  bossStatsManagers: {fileID: 7041562865203575106}
+  enemyStateMachine: {fileID: 3213133964373519049}
+  EnemyAttack: {fileID: 0}
 --- !u!1 &4204735547274476026
 GameObject:
   m_ObjectHideFlags: 0

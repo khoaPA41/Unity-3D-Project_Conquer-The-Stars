@@ -4,7 +4,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatAttackState : PlayerCombatBaseState
     {
-        private readonly int JumpAnimationTag = Animator.StringToHash("Jump");
+        private readonly int JumpAnimationHash = Animator.StringToHash("Jump");
 
         private readonly string AttackAnimationTag = "Attack";
 
@@ -28,7 +28,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
             playerCombatStateMachine.AttackData.SkillName[playerCombatStateMachine.AttackIndexSelected];
 
-            playerCombatStateMachine.Animator.CrossFadeInFixedTime(JumpAnimationTag, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(JumpAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)

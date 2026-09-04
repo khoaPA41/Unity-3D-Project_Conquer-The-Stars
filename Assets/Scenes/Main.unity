@@ -1537,10 +1537,10 @@ MonoBehaviour:
     Quantity: 5
   - PooledObject: {fileID: 6687563998601776287, guid: 9fa5d9ba4d7d4174b895abd90cdae057, type: 3}
     ObjectName: Boss_I
-    Quantity: 5
+    Quantity: 1
   - PooledObject: {fileID: 4703387100525572960, guid: 1724ebc75eb64824f8a260e3e803e726, type: 3}
     ObjectName: Boss_II
-    Quantity: 5
+    Quantity: 1
   - PooledObject: {fileID: 4132723855554449903, guid: 33f12580bdbdb644d8cce2b641e4cca1, type: 3}
     ObjectName: Player_I
     Quantity: 1
