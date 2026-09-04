@@ -12,6 +12,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class SetupState : BattleBaseState
     {
+        private static WaitForSecondsRealtime _waitForSecondsRealtime3 = new WaitForSecondsRealtime(3f);
+
         // List of characters who will be in the match
         private List<CharacterStatsManagers> characterInMatch = new();
 
@@ -73,7 +75,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             }
         }
 
-        private void AddCharacterToQueue()
+        private void AddCharacterToBattleList()
         {
             battleStateMachine.CharacterStats = characterInMatch;
         }
@@ -96,6 +98,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             }
         }
 
+        private void SetupAllyTarget()
+        {
+            foreach (var player in battleStateMachine.TeamController.PlayerTeam)
+            {
+                // Add all player to ally target list
+                battleStateMachine.AllyTargeter.SetupTargetList(player.GetComponent<Target>());
+            }
+        }
+
         private IEnumerator WaitToSetup()
         {
             Initialize();
@@ -105,15 +116,17 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             // Sort the match list in descending speed order
             characterInMatch.Sort((a, b) => b.CurrentSpeed.CompareTo(a.CurrentSpeed));
 
-            AddCharacterToQueue();
+            AddCharacterToBattleList();
+
             SetupPlayerTarget();
             SetupEnemyTarget();
+            SetupAllyTarget();
 
             battleStateMachine.SpeedAverage = characterInMatch.Average(character => character.CurrentSpeed);
             Debug.Log(battleStateMachine.SpeedAverage);
 
             UIManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
-            yield return new WaitForSecondsRealtime(3f);
+            yield return _waitForSecondsRealtime3;
             battleStateMachine.SwitchState(battleStateMachine.StartTurn);
         }
     }

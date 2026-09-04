@@ -63,7 +63,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
         }
 
-
         private void HighlightPrevTarget()
         {
             battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();

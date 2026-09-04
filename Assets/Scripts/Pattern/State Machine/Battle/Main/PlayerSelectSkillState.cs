@@ -17,7 +17,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             // Listen attack and use item event
             battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction += PlayerExecutedAction;
             battleStateMachine.PlayerCombatStateMachine.PlayerUseItem += PlayerUseItem;
-            battleStateMachine.PlayerCombatStateMachine.UseReviveItem += () => battleStateMachine.SwitchSelectAlly();
 
             /*Show Skill Selection UI*/
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.AppearSkillUI();
@@ -31,7 +30,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction -= PlayerExecutedAction;
             battleStateMachine.PlayerCombatStateMachine.PlayerUseItem -= PlayerUseItem;
-            battleStateMachine.PlayerCombatStateMachine.UseReviveItem -= () => battleStateMachine.SwitchSelectAlly();
         }
 
         private void PlayerExecutedAction(string listName, int index)
@@ -47,28 +45,25 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 }
                 battleStateMachine.CurrentTurn.SubtractMana(manaRequired);
             }
-            // SwitchSelectTarget();
-            battleStateMachine.StartCoroutine(WaitForCameraBlendFinished());
+            battleStateMachine.StartCoroutine(WaitForCameraBlendFinishedForSelectTarget());
         }
 
         private void PlayerUseItem(ItemType itemType, int index)
         {
-            battleStateMachine.StartCoroutine(WaitToEndAnimation());
+            battleStateMachine.StartCoroutine(WaitForCameraBlendFinishedForSelectAlly());
         }
 
-        private IEnumerator WaitToEndAnimation()
+        private IEnumerator WaitForCameraBlendFinishedForSelectAlly()
         {
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
-            battleStateMachine.PlayerCombatStateMachine.SwitchUseItem();
-
-            //Wait until player use item animation done
-            yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true);
-
             battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
-            battleStateMachine.SwitchResolve();
+
+            yield return new WaitUntil(() => battleStateMachine.IsWaitingCameraBlend == true);
+
+            battleStateMachine.SwitchSelectAlly();
         }
 
-        private IEnumerator WaitForCameraBlendFinished()
+        private IEnumerator WaitForCameraBlendFinishedForSelectTarget()
         {
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
             battleStateMachine.PlayerCombatStateMachine.InactiveCamera();

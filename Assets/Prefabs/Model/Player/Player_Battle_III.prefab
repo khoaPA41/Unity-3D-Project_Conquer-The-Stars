@@ -3128,7 +3128,6 @@ GameObject:
   - component: {fileID: 2698470094360578167}
   - component: {fileID: 6650433822801792943}
   - component: {fileID: 504991949521979741}
-  - component: {fileID: 8901361235196878590}
   m_Layer: 0
   m_Name: Player_Battle_III
   m_TagString: Player
@@ -3161,6 +3160,7 @@ Transform:
   - {fileID: 8167700290188474709}
   - {fileID: 8372170642976543012}
   - {fileID: 2760011910172499623}
+  - {fileID: 6139344156293400582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &5284544426125184048
@@ -3190,7 +3190,8 @@ MonoBehaviour:
   <PlayerSetupUI>k__BackingField: {fileID: 2698470094360578167}
   <CinemachineStateDrivenCamera>k__BackingField: {fileID: 717530477024210357}
   <CameraGroup>k__BackingField: {fileID: 3714282290553325519}
-  <HighlightCurrentTurn>k__BackingField: {fileID: 8901361235196878590}
+  <HighlightCurrentTurn>k__BackingField: {fileID: 17140753756152478}
+  <HighlightSelectedByAlly>k__BackingField: {fileID: 4421880761381017044}
   <SlashVfxName>k__BackingField: Snow_Slash
 --- !u!95 &2917003206520305461
 Animator:
@@ -3375,19 +3376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61b497fea8e1c14faec5f7839eb1d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.BattleStatistics
---- !u!114 &8901361235196878590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3026047354392669009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HighlightCurrentTurn
-  hightlightCurrentTurn: {fileID: 1940843729491250010}
 --- !u!1 &3106265022616890651
 GameObject:
   m_ObjectHideFlags: 0
@@ -10790,6 +10778,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507c0128afd83da408346fe41c6b3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillElement
+--- !u!1001 &5214586272627085413
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5993065241267929975}
+    m_Modifications:
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586332129560644235, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+      propertyPath: m_Name
+      value: Selected By Ally
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+--- !u!114 &4421880761381017044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8430812762081265073, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+  m_PrefabInstance: {fileID: 5214586272627085413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Vfx.HighlightVfx
+--- !u!4 &6139344156293400582 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2120837454992627811, guid: f9d9ccef6bd36644cbe250b3351b1e84, type: 3}
+  m_PrefabInstance: {fileID: 5214586272627085413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5743524112721784357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10851,11 +10912,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d2f9833557041a4b89968bab27ea354, type: 3}
---- !u!198 &1940843729491250010 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6150329219121603967, guid: 1d2f9833557041a4b89968bab27ea354, type: 3}
+--- !u!114 &17140753756152478 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5731390919127420091, guid: 1d2f9833557041a4b89968bab27ea354, type: 3}
   m_PrefabInstance: {fileID: 5743524112721784357}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Vfx.HighlightVfx
 --- !u!4 &2760011910172499623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7636012552429891714, guid: 1d2f9833557041a4b89968bab27ea354, type: 3}

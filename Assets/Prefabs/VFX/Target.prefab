@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 3125631498244869275}
   - component: {fileID: 1712126979959642470}
   - component: {fileID: 3078302293721579107}
+  - component: {fileID: 4592115513724978539}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3125631498244869275
 Transform:
   m_ObjectHideFlags: 0
@@ -4895,6 +4896,19 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &4592115513724978539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187003431420022919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Vfx.HighlightVfx
+  hightlightCurrentTurn: {fileID: 1712126979959642470}
 --- !u!1 &9123974885709795363
 GameObject:
   m_ObjectHideFlags: 0

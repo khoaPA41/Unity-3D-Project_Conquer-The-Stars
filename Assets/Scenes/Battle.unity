@@ -519,6 +519,7 @@ MonoBehaviour:
   successfulDodgesText: {fileID: 578882930}
   Kills: {fileID: 132821579}
   turnOrderBoard: {fileID: 259741870}
+  turnOrders: []
 --- !u!223 &160426062
 Canvas:
   m_ObjectHideFlags: 0
@@ -4948,6 +4949,7 @@ GameObject:
   - component: {fileID: 1476980629}
   - component: {fileID: 1476980630}
   - component: {fileID: 1476980631}
+  - component: {fileID: 1476980633}
   - component: {fileID: 1476980632}
   m_Layer: 0
   m_Name: <=== Battle Managers ===>
@@ -4997,8 +4999,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.Battle.BattleStateMachine
   <InputReader>k__BackingField: {fileID: 1476980627}
   <Area>k__BackingField: {fileID: 1067235456}
+  CharacterStats: []
   <PlayerTargeter>k__BackingField: {fileID: 1476980630}
   <EnemyTargeter>k__BackingField: {fileID: 1476980631}
+  <AllyTargeter>k__BackingField: {fileID: 1476980633}
   <TeamController>k__BackingField: {fileID: 1476980632}
   <VictoryCamera>k__BackingField: {fileID: 1874340207}
   HighestDamage: 0
@@ -5066,6 +5070,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TeamController
   PlayerTeam: []
   EnemyTeam: []
+--- !u!114 &1476980633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476980624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a4a4200796be74c9e739bda1d70e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Fight.Target.Targeter
+  targetAvaiable: []
+  currentTarget: {fileID: 0}
+  currentIndex: 0
 --- !u!1 &1480184608
 GameObject:
   m_ObjectHideFlags: 0

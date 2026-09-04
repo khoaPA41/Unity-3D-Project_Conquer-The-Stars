@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using ConquerTheStars.UI.Player;
-using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {

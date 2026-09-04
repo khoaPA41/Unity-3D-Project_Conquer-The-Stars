@@ -27,6 +27,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         [field: Header("Target")]
         [field: SerializeField] public Targeter PlayerTargeter { get; private set; }
         [field: SerializeField] public Targeter EnemyTargeter { get; private set; }
+        [field: SerializeField] public Targeter AllyTargeter { get; private set; }
+
 
         [field: Header("Team Controller")]
         [field: SerializeField] public TeamController TeamController { get; private set; }

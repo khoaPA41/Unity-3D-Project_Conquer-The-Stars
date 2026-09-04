@@ -1769,8 +1769,6 @@ GameObject:
   - component: {fileID: 608174464105567991}
   - component: {fileID: -788064091163289262}
   - component: {fileID: -2691424428945884284}
-  - component: {fileID: -875681413740291585}
-  - component: {fileID: 713864673690206961}
   m_Layer: 0
   m_Name: Biomech_Mutant_IV
   m_TagString: Untagged
@@ -1818,8 +1816,8 @@ MonoBehaviour:
   <AttackData>k__BackingField: {fileID: 0}
   <PooledObject>k__BackingField: {fileID: 3730210697709678520}
   <EnemyEvaluation>k__BackingField: {fileID: -2691424428945884284}
-  <HighlightCurrentTurn>k__BackingField: {fileID: -875681413740291585}
-  <HighlightTarget>k__BackingField: {fileID: 713864673690206961}
+  <HighlightCurrentTurn>k__BackingField: {fileID: 3866545958545742422}
+  <HighlightTarget>k__BackingField: {fileID: 5213688376897694172}
 --- !u!95 &1484178176883231513
 Animator:
   serializedVersion: 7
@@ -1958,32 +1956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEvaluation
   strategyEvaluation: {fileID: 11400000, guid: 9749df2ad5e20e64fb61993909637bd8, type: 2}
---- !u!114 &-875681413740291585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6365013594272506456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Vfx.HighlightVfx
-  hightlightCurrentTurn: {fileID: 3421360684109722514}
---- !u!114 &713864673690206961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6365013594272506456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Vfx.HighlightVfx
-  hightlightCurrentTurn: {fileID: 6927230175824967121}
 --- !u!1 &6542969738411973346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,14 +2892,20 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82f75751e9bdb934ba9644cc054c09c6, type: 3}
+--- !u!114 &5213688376897694172 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4592115513724978539, guid: 82f75751e9bdb934ba9644cc054c09c6, type: 3}
+  m_PrefabInstance: {fileID: 8638121025465396407}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Vfx.HighlightVfx
 --- !u!4 &6665534190485430316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3125631498244869275, guid: 82f75751e9bdb934ba9644cc054c09c6, type: 3}
-  m_PrefabInstance: {fileID: 8638121025465396407}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6927230175824967121 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1712126979959642470, guid: 82f75751e9bdb934ba9644cc054c09c6, type: 3}
   m_PrefabInstance: {fileID: 8638121025465396407}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8800392922368972525
@@ -2996,8 +2974,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7636012552429891714, guid: 1d2f9833557041a4b89968bab27ea354, type: 3}
   m_PrefabInstance: {fileID: 8800392922368972525}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &3421360684109722514 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6150329219121603967, guid: 1d2f9833557041a4b89968bab27ea354, type: 3}
+--- !u!114 &3866545958545742422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5731390919127420091, guid: 1d2f9833557041a4b89968bab27ea354, type: 3}
   m_PrefabInstance: {fileID: 8800392922368972525}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69edfa3431d9d94da4469ec95d7c4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Vfx.HighlightVfx
