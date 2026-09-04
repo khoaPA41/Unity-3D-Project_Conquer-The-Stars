@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy_IV
   m_EditorClassIdentifier: Assembly-CSharp::StrategyEvaluation
   hpWeight: 1
-  threatWeight: 0.5
+  threatWeight: 0.8
   defenseWeight: 0.3
   statusWeight: 0.1

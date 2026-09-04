@@ -3540,8 +3540,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartMatch
   <enemyTransformList>k__BackingField:
   - enemyTransformList:
-    - {fileID: 442573890}
     - {fileID: 96903714}
+    - {fileID: 442573890}
     - {fileID: 1947585541}
   <playerTransformList>k__BackingField:
   - playerTransformList:

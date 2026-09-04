@@ -16,6 +16,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public override void Enter()
         {
+            _isActiveAnimation = false;
+            _prevTime = 0f;
+            _normalizedTime = 0f;
         }
 
         public override void Tick(float deltaTime)

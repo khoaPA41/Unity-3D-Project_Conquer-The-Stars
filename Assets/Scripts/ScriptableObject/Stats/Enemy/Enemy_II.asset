@@ -19,5 +19,5 @@ MonoBehaviour:
   AttackPower: 30
   Speed: 11
   Defense: 11
-  Critical: 10
+  Critical: 1.5
   Luck: 0.1

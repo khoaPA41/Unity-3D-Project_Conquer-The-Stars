@@ -36,7 +36,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private IEnumerator WaitToEndAttack()
         {
             //Prepare attack
-            battleStateMachine.EnemyStateMachine.SwitchAttackState();
+            SwitchAttackByType();
 
             // Listen event for exact the frame attack deals damage
             battleStateMachine.EnemyStateMachine.AttackDealDamage += EnemyDealDamage;
@@ -91,6 +91,17 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private void PlayerBlock()
         {
             battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
+        }
+
+        private void SwitchAttackByType()
+        {
+            if (battleStateMachine.EnemyStateMachine.IsBoss)
+            {
+                battleStateMachine.EnemyStateMachine.SwitchBossAttackState();
+                return;
+            }
+            battleStateMachine.EnemyStateMachine.SwitchAttackState();
+
         }
     }
 }

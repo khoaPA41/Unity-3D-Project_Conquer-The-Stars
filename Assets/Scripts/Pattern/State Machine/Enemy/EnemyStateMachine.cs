@@ -21,9 +21,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         [field: Header("Status")]
         [field: SerializeField] public CharacterStatsManagers CharacterStatsManagers { get; private set; }
+        [field: SerializeField] public bool IsBoss { get; private set; }
 
         [field: Header("Attack Data")]
         [field: SerializeField] public PlayerAttack AttackData { get; private set; }
+        [field: SerializeField] public EnemyAttack EnemyAttack { get; private set; }
+
 
         [field: Header("PooledObject")]
         [field: SerializeField] public PooledObject PooledObject { get; private set; }
@@ -41,6 +44,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         /*State*/
         public State IdleState { get; private set; }
         public State AttackState { get; private set; }
+        public State BossAttackState { get; private set; }
+
         public State GethitState { get; private set; }
         public State DyingState { get; private set; }
 
@@ -53,6 +58,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         {
             IdleState = new EnemyIdleState(this);
             AttackState = new EnemyAttackState(this);
+            BossAttackState = new EnemyBossAttackState(this);
             GethitState = new EnemyGetHitState(this);
             DyingState = new EnemyDyingState(this);
         }
@@ -78,6 +84,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         public void SwitchAttackState()
         {
             SwitchState(AttackState);
+        }
+
+        public void SwitchBossAttackState()
+        {
+            SwitchState(BossAttackState);
         }
 
         public void SwitchDyingState()

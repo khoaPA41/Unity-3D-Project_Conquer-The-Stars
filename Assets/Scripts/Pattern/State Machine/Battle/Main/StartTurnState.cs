@@ -63,6 +63,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                     battleStateMachine.SwitchState(battleStateMachine.PlayerTurn);
                     break;
                 case CharacterType.Enemy:
+                    battleStateMachine.EnemyTargeter.ResetTarget();
                     battleStateMachine.EnemyStateMachine = battleStateMachine.CurrentTurn.GetComponent<EnemyStateMachine>();
                     battleStateMachine.SwitchState(battleStateMachine.EnemyTurn);
                     break;
