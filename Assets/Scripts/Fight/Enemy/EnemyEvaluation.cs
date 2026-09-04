@@ -19,12 +19,16 @@ namespace ConquerTheStars.Fight.Enemy
             {
                 if (targets[i].IsDeath)
                 {
+                    Debug.Log($"Death: {targets[i]}");
+                    listCharacterScore.Add(0f);
                     continue;
                 }
                 var finalScore = EvaluateHP(targets[i]) * strategyEvaluation.hpWeight +
                                 EvaluateThreat(targets[i]) * strategyEvaluation.threatWeight +
                                 EvaluateDefense(targets[i]) * strategyEvaluation.defenseWeight +
                                 EvaluateStatus(targets[i]) * strategyEvaluation.statusWeight;
+
+                Debug.Log($"Valid: {targets[i]}");
 
                 listCharacterScore.Add(finalScore);
             }
@@ -55,7 +59,6 @@ namespace ConquerTheStars.Fight.Enemy
 
         public CharacterStatsManagers GetBestTarget(List<CharacterStatsManagers> targets)
         {
-
             var scoredList = Evaluate(targets);
 
             int bestIndex = 0;
@@ -64,9 +67,11 @@ namespace ConquerTheStars.Fight.Enemy
             {
                 if (scoredList[i] > scoredList[bestIndex])
                 {
+                    Debug.Log(targets[bestIndex]);
                     bestIndex = i;
                 }
             }
+
             return targets[bestIndex];
         }
     }

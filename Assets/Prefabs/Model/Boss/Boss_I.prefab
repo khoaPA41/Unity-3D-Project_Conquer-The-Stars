@@ -2057,8 +2057,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 3552292599343630430}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+    m_Center: {x: 0.24, y: 0, z: 0.13}
+    m_Extent: {x: 0.41, y: 0.18, z: 0.13}
   m_DirtyAABB: 0
 --- !u!183 &3983200109989563246
 Cloth:
@@ -2067,7 +2067,7 @@ Cloth:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5924835037611376055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_StretchingStiffness: 1
   m_BendingStiffness: 0
   m_UseTethers: 1
@@ -7164,8 +7164,8 @@ MonoBehaviour:
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: 258571526176355355}
   <IsBoss>k__BackingField: 1
-  <AttackData>k__BackingField: {fileID: 0}
   <EnemyAttack>k__BackingField: {fileID: 11400000, guid: 640fd1b16e8e3324d95cd7965519bc2e, type: 2}
+  <AttackTransform>k__BackingField: {fileID: 8941598084904306950}
   <PooledObject>k__BackingField: {fileID: 6687563998601776287}
   <EnemyEvaluation>k__BackingField: {fileID: 8840092135850645067}
   <HighlightCurrentTurn>k__BackingField: {fileID: 920681284680977727}

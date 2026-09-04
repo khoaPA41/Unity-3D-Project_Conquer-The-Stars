@@ -24,8 +24,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         [field: SerializeField] public bool IsBoss { get; private set; }
 
         [field: Header("Attack Data")]
-        [field: SerializeField] public PlayerAttack AttackData { get; private set; }
         [field: SerializeField] public EnemyAttack EnemyAttack { get; private set; }
+        [field: SerializeField] public Transform AttackTransform { get; private set; }
 
 
         [field: Header("PooledObject")]
@@ -53,6 +53,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         // This event will call when enemy play get hit animation
         public event Action AttackDealDamage = delegate { };
+
+
+        private readonly int attackSpeedParams = Animator.StringToHash("Attack");
 
         private void Start()
         {
@@ -99,6 +102,22 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         public void CallDealDamageEvent()
         {
             AttackDealDamage?.Invoke();
+        }
+
+        public void ReturnAttackSpeed(float speedParam)
+        {
+            Animator.SetFloat(attackSpeedParams, speedParam);
+        }
+
+        public void SetAttackSpeed(float speedParam)
+        {
+            Animator.SetFloat(attackSpeedParams, speedParam);
+        }
+
+        public void SpawnSlashVfx()
+        {
+            var vfx = ObjectPoolingManagers.Instance.GetPooledObject(EnemyAttack.SlashVfxName, AttackTransform.position);
+            vfx.transform.eulerAngles = transform.eulerAngles;
         }
     }
 }

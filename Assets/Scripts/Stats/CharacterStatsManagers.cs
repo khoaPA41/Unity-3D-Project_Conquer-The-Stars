@@ -102,7 +102,7 @@ namespace ConquerTheStars.Stats
                 ObjectPoolingManagers.Instance.GetPooledObject("BlockVFX",
                 new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z))
                 .transform.Rotate(0f, 0f, -90f);
-                StartCoroutine(SlowTime());
+                StartCoroutine(PauseTime());
                 SpawnText("BLOCK");
                 return false;
             }
@@ -184,6 +184,13 @@ namespace ConquerTheStars.Stats
         {
             Time.timeScale = .3f;
             yield return new WaitForSecondsRealtime(1f);
+            Time.timeScale = 1f;
+        }
+
+        private IEnumerator PauseTime()
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(.1f);
             Time.timeScale = 1f;
         }
 
