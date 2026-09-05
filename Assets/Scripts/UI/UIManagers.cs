@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Stats;
 using ConquerTheStars.UI.Enemy;
@@ -46,9 +47,9 @@ namespace ConquerTheStars.UI.Player
 
         [Header("Turn Order")]
         [SerializeField] private GameObject turnOrderBoard;
-        private GameObject turnOrderRootParent;
+        public GameObject turnOrderRootParent;
         public List<TurnOrderElement> turnOrders = new();
-        private TurnOrderElement curentTurnOrder;
+        public TurnOrderElement curentTurnOrder;
         private List<PooledObject> uiPooledObject { get; set; } = new();
 
         void Awake()
@@ -117,7 +118,8 @@ namespace ConquerTheStars.UI.Player
 
         public void ReturnMainScene()
         {
-            SceneManager.LoadScene(mainSceneName);
+            GameManager.Instance.ContinueGame();
+            // SceneManager.LoadScene(mainSceneName);
         }
 
         public void ReloadBattle()
@@ -141,7 +143,7 @@ namespace ConquerTheStars.UI.Player
                 var turnOrderObject = ObjectPoolingManagers.Instance.GetPooledObject("TurnOrder", Vector3.zero);
                 var turnOrderElement = turnOrderObject.GetComponent<TurnOrderElement>();
 
-                turnOrderRootParent = turnOrderObject.gameObject;
+                turnOrderRootParent = turnOrderObject.gameObject.transform.parent.gameObject;
                 turnOrderObject.transform.SetParent(turnOrderBoard.transform);
 
                 turnOrderElement.SetIcon(character.icon);
@@ -170,7 +172,7 @@ namespace ConquerTheStars.UI.Player
         {
             foreach (var character in turnOrders)
             {
-                character.transform.SetParent(curentTurnOrder.transform);
+                character.transform.SetParent(turnOrderRootParent.transform);
                 character.GetComponent<PooledObject>().Release();
             }
             turnOrders.Clear();

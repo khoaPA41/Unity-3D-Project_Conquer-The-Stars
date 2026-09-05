@@ -15,17 +15,16 @@ namespace ConquerTheStars.InputController
         private PlayerBattleInput inputActions;
 
 
-        private void Start()
+        private void Awake()
         {
             inputActions = new PlayerBattleInput();
             inputActions.Player.SetCallbacks(this);
             inputActions.Enable();
         }
 
-        // private void OnEnable() => inputActions.Enable();
+        private void OnEnable() => inputActions?.Enable();
 
-
-        private void OnDisable() => inputActions.Disable();
+        private void OnDisable() => inputActions?.Disable();
 
         public void OnDodge(InputAction.CallbackContext context)
         {

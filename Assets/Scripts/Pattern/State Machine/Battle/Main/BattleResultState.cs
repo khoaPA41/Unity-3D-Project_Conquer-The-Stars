@@ -14,6 +14,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
+            UIManagers.Instance.ResetTurnOrder();
             if (battleStateMachine.TeamController.IsVictory)
             {
                 battleStateMachine.StartCoroutine(WaitToChangeVictory());

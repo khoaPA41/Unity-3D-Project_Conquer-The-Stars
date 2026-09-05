@@ -10,19 +10,23 @@ public class ItemQuantity
     public ItemData ItemData;
     public int Quantity;
 }
+
+// [Serializable]
+// public class TeamLevel
+// {
+//     public ItemData ItemData;
+//     public int Quantity;
+// }
 public class PlayerTeam : MonoBehaviour
 {
     public static PlayerTeam Instance { get; set; }
-    // [SerializeField] private List<ItemData> itemDatas;
-    // public List<int> quantity;
 
     [SerializeField] private List<ItemQuantity> itemDatas;
     public List<string> TeamNameList { get; set; } = new();
 
     public Vector3 CurrentPosition { get; private set; } = new Vector3(36f, 0f, 62f);
 
-
-    // Dictionary<int, ItemData> itemQuantityDict = new();
+    public int TeamLevel { get; set; } = 1;
 
     private void Awake()
     {
@@ -45,10 +49,10 @@ public class PlayerTeam : MonoBehaviour
         TeamNameList.Add(name);
     }
 
-    public void SavePos(Vector3 position)
-    {
-        CurrentPosition = position;
-    }
+    // public void SavePos(Vector3 position)
+    // {
+    //     CurrentPosition = position;
+    // }
 
     public List<ItemQuantity> GetItemList()
     {

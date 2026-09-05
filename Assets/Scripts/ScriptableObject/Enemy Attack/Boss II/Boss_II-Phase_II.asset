@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Boss_II-Phase_II
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   AttackNameList:
-  - Attack_I
-  - Attack_II
   - Attack_III
   - Attack_IV
   SlashVfxName: Boss_Slash_I

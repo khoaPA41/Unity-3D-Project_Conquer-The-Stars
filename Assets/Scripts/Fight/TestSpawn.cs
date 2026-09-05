@@ -1,4 +1,5 @@
 using ConquerTheStars.Fight.Match;
+using ConquerTheStars.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,11 +18,16 @@ public class TestSpawn : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             BattleInformationManagers.Instance.SetArea(enemyTeam);
-            PlayerTeam.Instance.SavePos(new Vector3(transform.position.x, 0f, transform.position.z));
+            // PlayerTeam.Instance.SavePos(new Vector3(transform.position.x, 0f, transform.position.z));
             if (BattleInformationManagers.Instance.AreaInformation != null)
             {
-                gameObject.SetActive(false);
-                SceneManager.LoadScene("Battle");
+                BattleInformationManagers.Instance.SetAreaActive(false);
+                BattleInformationManagers.Instance.area.Remove(this.gameObject);
+
+                GameManager.Instance.SetCheckpoint(transform.position); // Set Checkpoint
+                GameManager.Instance.AutoSaveGame();
+                // SceneManager.LoadScene("Battle");
+                GameManager.Instance.LoadBattleScene();
             }
         }
     }

@@ -56,6 +56,8 @@ namespace ConquerTheStars.Stats
         private float currentChance;
         private void OnEnable()
         {
+            SetupLevelByType();
+
             // Initialize stats from ScriptableObject + level scaling
             maxHealth = new StatsManagers(baseStatsData.Health, level);
             attack = new StatsManagers(baseStatsData.AttackPower, level);
@@ -77,6 +79,14 @@ namespace ConquerTheStars.Stats
             CurrentLuck = luck.GetFinalValue();
 
             IsDeath = false;
+        }
+
+        private void SetupLevelByType()
+        {
+            if (characterType == CharacterType.Player)
+            {
+                level = PlayerTeam.Instance.TeamLevel;
+            }
         }
 
         /// <summary>

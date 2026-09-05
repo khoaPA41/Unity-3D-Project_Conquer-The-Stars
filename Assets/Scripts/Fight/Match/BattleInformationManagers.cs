@@ -26,16 +26,25 @@ namespace ConquerTheStars.Fight.Match
 
         private void OnEnable()
         {
-            if (area.Count > 0)
-                for (int i = 0; i < area.Count; i++)
-                {
-                    area[i].SetActive(isAvtive[i]);
-                }
+            // if (area.Count > 0)
+            //     for (int i = 0; i < area.Count; i++)
+            //     {
+            //         area[i].SetActive(isAvtive[i]);
+            //     }
+            SetAreaActive(true);
         }
 
         public void SetArea(EnemyTeam enemyTeam)
         {
             AreaInformation = enemyTeam;
+        }
+
+        public void SetAreaActive(bool active)
+        {
+            foreach (var plane in area)
+            {
+                plane.SetActive(active);
+            }
         }
     }
 }
