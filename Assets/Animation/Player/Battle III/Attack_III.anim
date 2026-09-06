@@ -48275,14 +48275,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.0166667
+  - time: 2
     functionName: SpawnSlashVfx
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.05
+  - time: 2.0333333
+    functionName: PlaySlashSound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.0666666
     functionName: CallDealDamageEvent
     data: 
     objectReferenceParameter: {fileID: 0}

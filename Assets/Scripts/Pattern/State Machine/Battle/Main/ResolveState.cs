@@ -97,7 +97,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 if (!IsStealSuccess(stealTurnRate)) continue;
 
                 battleStateMachine.IsTurnOrderChange = true;
+
                 battleStateMachine.CharacterStats.Remove(character);
+
                 battleStateMachine.CharacterStats.Insert(0, character);
             }
         }
@@ -107,5 +109,4 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             return Random.value < rate;
         }
     }
-
 }

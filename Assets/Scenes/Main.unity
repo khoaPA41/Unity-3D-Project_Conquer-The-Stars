@@ -1134,6 +1134,9 @@ MonoBehaviour:
   - PooledObject: {fileID: 8131631414806152944, guid: 3727fd5819e4b474386283abb4974043, type: 3}
     ObjectName: Battle_Infor
     Quantity: 10
+  - PooledObject: {fileID: 1986412661605579865, guid: 7faef5c00350bd94db82c31cf3bb8ed3, type: 3}
+    ObjectName: Audio
+    Quantity: 10
 --- !u!1001 &989267714279016956
 PrefabInstance:
   m_ObjectHideFlags: 0

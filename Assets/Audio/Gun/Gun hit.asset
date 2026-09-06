@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-4854832146530127911
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TII_SCIWeap_SCIFIArrowShot_Normal_Step3_DESIGNED_03_{-4854832146530127911}
+  m_AudioClip: {fileID: 8300000, guid: 35c5de67b99f1d34c9fbd2c4201b9eca, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-530041382278404825
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TII_SCIWeap_SCIFIArrowShot_Normal_Step3_DESIGNED_09_{-530041382278404825}
+  m_AudioClip: {fileID: 8300000, guid: ab11fcc849774e44d8221ab5088c65f7, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &662972017979775030
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TII_SCIWeap_SCIFIArrowShot_Normal_Step3_DESIGNED_01_{662972017979775030}
+  m_AudioClip: {fileID: 8300000, guid: 8e32cb23740523749a8efe9c993b3961, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &4180844580915819943
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TII_SCIWeap_SCIFIArrowShot_Normal_Step3_DESIGNED_04_{4180844580915819943}
+  m_AudioClip: {fileID: 8300000, guid: 636bd2d1130ff964185a4636352c1200, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gun hit
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: 0, y: 0}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: 9074209800942210647}
+  - {fileID: -4854832146530127911}
+  - {fileID: 662972017979775030}
+  - {fileID: -530041382278404825}
+  - {fileID: 4180844580915819943}
+  m_AvoidRepeatingLast: 0
+  m_PlaybackMode: 1
+  m_TriggerMode: 0
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 0
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0
+--- !u!1233149941 &9074209800942210647
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TII_SCIWeap_SCIFIArrowShot_Normal_Step3_DESIGNED_02_{9074209800942210647}
+  m_AudioClip: {fileID: 8300000, guid: d35dfb3621f3338488167d6a9517af89, type: 3}
+  m_Volume: 0
+  m_Enabled: 1

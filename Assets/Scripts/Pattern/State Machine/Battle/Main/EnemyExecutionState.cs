@@ -64,6 +64,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             // TakeDamage will return false if player block / dodge
             if (playerStatsManager.TakeDamage(damage, isCrit, battleStateMachine.CurrentTurn.HitVFXName))
             {
+                // Play hit sound if player take dmg
+                target.PlayHitSound();
+
                 target.SwitchState(target.PlayerGetHitState);
 
                 // Track battle statistics for result screen
@@ -74,10 +77,16 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 // Track battle statistics for result screen
                 if (playerStatsManager.IsDodge)
                 {
+                    // Play dodge sound if player dodge succes
+                    target.PlayDodgeSound();
+
                     target.BattleStatistics.SuccessfulDodgeTimes++;
                 }
                 if (playerStatsManager.IsBlock)
                 {
+                    // Play parry sound if player dodge succes
+                    target.PlayParrySound();
+
                     target.BattleStatistics.SuccessfulParryTimes++;
                 }
             }

@@ -9,6 +9,7 @@ using ConquerTheStars.UI.Player;
 using ConquerTheStars.Vfx;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
@@ -47,8 +48,15 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: Header("VFX")]
         [field: SerializeField] public HighlightVfx HighlightCurrentTurn { get; private set; }
         [field: SerializeField] public HighlightVfx HighlightSelectedByAlly { get; private set; }
-
         [field: SerializeField] public string SlashVfxName { get; private set; }
+
+
+        [field: Header("SFX")]
+        [field: SerializeField] public AudioResource AttackSfx { get; private set; }
+        [field: SerializeField] public AudioResource DodgeSfx { get; private set; }
+        [field: SerializeField] public AudioResource ParrySfx { get; private set; }
+        [field: SerializeField] public AudioResource HitSfx { get; private set; }
+        [field: SerializeField] public AudioResource DeathSfx { get; private set; }
 
         public Target Target { get; set; }
         public string AnimationName { get; set; }
@@ -264,6 +272,30 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
                 return AttackData.ManaRequired[index];
             }
             return 0;
+        }
+
+        public void PlaySlashSound()
+        {
+            Debug.Log("Slash");
+            AudioManagers.Instance.PlaySound(AttackTransform, AttackSfx);
+        }
+
+        public void PlayHitSound()
+        {
+            Debug.Log("Hit");
+            AudioManagers.Instance.PlaySound(AttackTransform, HitSfx);
+        }
+
+        public void PlayDodgeSound()
+        {
+            Debug.Log("Dodge");
+            AudioManagers.Instance.PlaySound(AttackTransform, DodgeSfx);
+        }
+
+        public void PlayParrySound()
+        {
+            Debug.Log("Parry");
+            AudioManagers.Instance.PlaySound(AttackTransform, ParrySfx);
         }
     }
 }

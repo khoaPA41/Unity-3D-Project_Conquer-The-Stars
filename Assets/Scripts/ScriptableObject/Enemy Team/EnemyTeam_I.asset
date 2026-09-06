@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: EnemyTeam_I
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTeam
   enemyTeam:
-  - Enemy_I
+  - Enemy_IV
+  - Enemy_IV
+  - Enemy_IV
   AreaIndex: 0

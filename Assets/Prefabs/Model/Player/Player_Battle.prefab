@@ -1634,7 +1634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.StateMachine.PlayerCombat.PlayerCombatStateMachine
   <CharacterController>k__BackingField: {fileID: 7793290319220787183}
-  <Speed>k__BackingField: 15
+  <Speed>k__BackingField: 10
   <Animator>k__BackingField: {fileID: 7871194670638967278}
   <AnimationCrossFade>k__BackingField: 0.1
   <AnimationAttackSpeed>k__BackingField: 0.5
@@ -1651,6 +1651,11 @@ MonoBehaviour:
   <HighlightCurrentTurn>k__BackingField: {fileID: 3363747570549386320}
   <HighlightSelectedByAlly>k__BackingField: {fileID: 4019989597042190789}
   <SlashVfxName>k__BackingField: Electro_Slash
+  <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: 4d2ccf93ae36d9e489965960074fd6b0, type: 2}
+  <DodgeSfx>k__BackingField: {fileID: 8300000, guid: cda15ad211165fd42a22595d25d28971, type: 3}
+  <ParrySfx>k__BackingField: {fileID: 8300000, guid: ec787d5ed4a652b438f2acc12b5d0e57, type: 3}
+  <HitSfx>k__BackingField: {fileID: 6418180475301049370, guid: 45a1d3afa692fce46a9288204a37cd92, type: 2}
+  <DeathSfx>k__BackingField: {fileID: 6418180475301049370, guid: 45a1d3afa692fce46a9288204a37cd92, type: 2}
 --- !u!95 &7871194670638967278
 Animator:
   serializedVersion: 7
