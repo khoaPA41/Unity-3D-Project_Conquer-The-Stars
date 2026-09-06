@@ -1,30 +1,40 @@
 using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Managers;
+using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(EnemyTeam))]
-public class TestSpawn : MonoBehaviour
+
+[RequireComponent(typeof(PooledObject))]
+public class EnemyInformation : MonoBehaviour
 {
-    private EnemyTeam enemyTeam;
+    public EnemyTeam enemyTeam;
+    private PooledObject pooledObject;
 
     private void Start()
     {
-        enemyTeam = GetComponent<EnemyTeam>();
+        pooledObject = GetComponent<PooledObject>();
+    }
+
+    public void SetEnemyTeam(EnemyTeam enemyTeam)
+    {
+        this.enemyTeam = enemyTeam;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Touch");
             BattleInformationManagers.Instance.SetArea(enemyTeam);
+
+            Debug.Log(BattleInformationManagers.Instance.AreaInformation);
             // PlayerTeam.Instance.SavePos(new Vector3(transform.position.x, 0f, transform.position.z));
             if (BattleInformationManagers.Instance.AreaInformation != null)
             {
-                BattleInformationManagers.Instance.SetAreaActive(false);
-                BattleInformationManagers.Instance.area.Remove(this.gameObject);
+                pooledObject.Release();
 
                 GameManager.Instance.SetCheckpoint(transform.position); // Set Checkpoint
+                Debug.Log(transform.position);
                 GameManager.Instance.AutoSaveGame();
                 // SceneManager.LoadScene("Battle");
                 GameManager.Instance.LoadBattleScene();

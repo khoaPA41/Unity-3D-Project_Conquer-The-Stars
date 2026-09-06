@@ -105,8 +105,9 @@ namespace ConquerTheStars.Pattern.Object_Pooling
                 Debug.Log("Don't have object");
                 return;
             }
-
+            var parrentObject = pooledObject.name + "_Pool";
             pooledObject.gameObject.SetActive(false);
+            pooledObject.gameObject.transform.SetParent(parentsObject.Find(parrentName => parrentName.name == parrentObject).transform);
             pooledObjectDict[pooledObject.name].Push(pooledObject);
         }
     }

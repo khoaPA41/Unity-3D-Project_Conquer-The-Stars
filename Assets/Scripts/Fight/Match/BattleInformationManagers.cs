@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
 
 namespace ConquerTheStars.Fight.Match
@@ -10,8 +11,10 @@ namespace ConquerTheStars.Fight.Match
 
         public PlayerTeam PlayerTeam { get; set; }
 
-        public List<GameObject> area;
-        public List<bool> isAvtive;
+        public List<Transform> battleInforTransform;
+
+        public List<EnemyTeam> enemyTeams;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -22,29 +25,28 @@ namespace ConquerTheStars.Fight.Match
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            // if (area.Count > 0)
-            //     for (int i = 0; i < area.Count; i++)
-            //     {
-            //         area[i].SetActive(isAvtive[i]);
-            //     }
-            SetAreaActive(true);
+            Setup();
+        }
+
+
+        private void Setup()
+        {
+            for (int i = 0; i < battleInforTransform.Count; i++)
+            {
+                var enemy = ObjectPoolingManagers.Instance.GetPooledObject("Battle_Infor", battleInforTransform[i].position).GetComponent<EnemyInformation>();
+                enemy.SetEnemyTeam(enemyTeams[i]);
+
+            }
         }
 
         public void SetArea(EnemyTeam enemyTeam)
         {
             AreaInformation = enemyTeam;
-        }
-
-        public void SetAreaActive(bool active)
-        {
-            foreach (var plane in area)
-            {
-                plane.SetActive(active);
-            }
         }
     }
 }

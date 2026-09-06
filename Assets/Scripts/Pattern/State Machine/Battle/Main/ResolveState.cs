@@ -70,6 +70,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 {
                     battleStateMachine.EnemyTargeter.RemoveTarget();
                 }
+
+                battleStateMachine.IsTurnOrderChange = true; // Update Turn Order UI if character die
+
                 character.CallDyingEvent();
             }
 

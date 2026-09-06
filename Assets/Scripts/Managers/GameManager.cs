@@ -10,7 +10,8 @@ namespace ConquerTheStars.Managers
         New,
         Reload,
         Exit,
-        ReloadCombat
+        ReloadCombat,
+        BackToMain
     }
 
     public class GameManager : MonoBehaviour
@@ -62,6 +63,9 @@ namespace ConquerTheStars.Managers
 
                 case ReasonLoadScene.ReloadCombat:
                     break;
+                case ReasonLoadScene.BackToMain:
+                    ApplySaveData(player);
+                    break;
                 default:
                     break;
             }
@@ -106,6 +110,13 @@ namespace ConquerTheStars.Managers
             Debug.Log("Load combat scene");
             currentLoadReason = ReasonLoadScene.ReloadCombat;
             SceneManager.LoadScene(CommbatScene);
+        }
+
+        public void BackToMainScene()
+        {
+            Debug.Log("Load Main scene");
+            currentLoadReason = ReasonLoadScene.BackToMain;
+            SceneManager.LoadScene(MainScene);
         }
 
         // Save

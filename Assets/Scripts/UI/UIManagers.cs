@@ -118,7 +118,7 @@ namespace ConquerTheStars.UI.Player
 
         public void ReturnMainScene()
         {
-            GameManager.Instance.ContinueGame();
+            GameManager.Instance.BackToMainScene();
             // SceneManager.LoadScene(mainSceneName);
         }
 
@@ -142,6 +142,7 @@ namespace ConquerTheStars.UI.Player
             {
                 var turnOrderObject = ObjectPoolingManagers.Instance.GetPooledObject("TurnOrder", Vector3.zero);
                 var turnOrderElement = turnOrderObject.GetComponent<TurnOrderElement>();
+                turnOrderElement.InactiveHighlight();
 
                 turnOrderRootParent = turnOrderObject.gameObject.transform.parent.gameObject;
                 turnOrderObject.transform.SetParent(turnOrderBoard.transform);
