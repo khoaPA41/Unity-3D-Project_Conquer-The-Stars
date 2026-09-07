@@ -65,7 +65,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (playerStatsManager.TakeDamage(damage, isCrit, battleStateMachine.CurrentTurn.HitVFXName))
             {
                 // Play hit sound if player take dmg
-                target.PlayHitSound();
+                battleStateMachine.EnemyStateMachine.PlayHitSound();
 
                 target.SwitchState(target.PlayerGetHitState);
 

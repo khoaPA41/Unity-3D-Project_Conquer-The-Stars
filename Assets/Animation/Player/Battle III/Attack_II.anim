@@ -47034,20 +47034,20 @@ AnimationClip:
   m_HasMotionFloatCurves: 1
   m_Events:
   - time: 1.3
-    functionName: ActiveFrame
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.3
     functionName: SetAttackSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.0333333
+  - time: 1.3
+    functionName: ActiveFrame
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.4166666
     functionName: PlaySlashSound
     data: 
     objectReferenceParameter: {fileID: 0}

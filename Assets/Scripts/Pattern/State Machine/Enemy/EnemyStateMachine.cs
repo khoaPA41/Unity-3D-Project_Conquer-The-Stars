@@ -6,6 +6,7 @@ using ConquerTheStars.Pattern.StateMachine.Base;
 using ConquerTheStars.Stats;
 using ConquerTheStars.Vfx;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace ConquerTheStars.Pattern.StateMachine.Enemy
 {
@@ -56,6 +57,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
 
         private readonly int attackSpeedParams = Animator.StringToHash("Attack");
+
+        [field: Header("SFX")]
+        [field: SerializeField] public AudioResource AttackSfx { get; private set; }
+        [field: SerializeField] public AudioResource HitSfx { get; private set; }
 
         private void Start()
         {
@@ -118,6 +123,18 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         {
             var vfx = ObjectPoolingManagers.Instance.GetPooledObject(EnemyAttack.SlashVfxName, AttackTransform.position);
             vfx.transform.eulerAngles = transform.eulerAngles;
+        }
+
+        public void PlaySlashSound()
+        {
+            Debug.Log("Slash");
+            AudioManagers.Instance.PlaySound(AttackTransform, AttackSfx);
+        }
+
+        public void PlayHitSound()
+        {
+            Debug.Log("Hit");
+            AudioManagers.Instance.PlaySound(AttackTransform, HitSfx);
         }
     }
 }

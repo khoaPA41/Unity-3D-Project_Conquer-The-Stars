@@ -38,14 +38,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             // Listen event for exact the frame attack deals damage
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage;
-            battleStateMachine.InputReader.EnterTargetAction += UIManagers.Instance.PausePerfectFrame;
+            battleStateMachine.InputReader.EnterTargetAction += UICombatManagers.Instance.PausePerfectFrame;
 
             //Wait until player attack animation done
             yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true);
 
             // Clear event to avoid double call / memory leak
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= PlayerDealDamage;
-            battleStateMachine.InputReader.EnterTargetAction -= UIManagers.Instance.PausePerfectFrame;
+            battleStateMachine.InputReader.EnterTargetAction -= UICombatManagers.Instance.PausePerfectFrame;
 
             // battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
             battleStateMachine.SwitchResolve();
@@ -67,7 +67,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             // Final damage = attack * skill multiplier * perfect timing bonus
             var finalDamage = battleStateMachine.PlayerCombatStateMachine.GetAttackDameScale() *
             damage *
-            UIManagers.Instance.GetActionFrameValue();
+            UICombatManagers.Instance.GetActionFrameValue();
 
             // TakeDamage will return false if enemy block / dodge
             if (enemyStatsManager.TakeDamage(finalDamage, isCrit, battleStateMachine.CurrentTurn.HitVFXName))

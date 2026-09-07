@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &107360434423907404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3418693846277025078}
+  m_Layer: 0
+  m_Name: Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3418693846277025078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107360434423907404}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6923103693007949599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &122733878366907541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,6 +2012,7 @@ Transform:
   - {fileID: 7024613111659325123}
   - {fileID: 5730923683359152710}
   - {fileID: 5310719969610963830}
+  - {fileID: 3418693846277025078}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &2932543440694353461
@@ -2000,11 +2032,15 @@ MonoBehaviour:
   <Animator>k__BackingField: {fileID: 6810730790409754458}
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: -6692468754761527920}
-  <AttackData>k__BackingField: {fileID: 0}
+  <IsBoss>k__BackingField: 0
+  <EnemyAttack>k__BackingField: {fileID: 0}
+  <AttackTransform>k__BackingField: {fileID: 3418693846277025078}
   <PooledObject>k__BackingField: {fileID: 5885340852337738895}
   <EnemyEvaluation>k__BackingField: {fileID: 4873483518729076865}
   <HighlightCurrentTurn>k__BackingField: {fileID: 8053028727442941775}
   <HighlightTarget>k__BackingField: {fileID: 6580415784709116854}
+  <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: b024963a34235b547b13635338dac853, type: 2}
+  <HitSfx>k__BackingField: {fileID: 6418180475301049370, guid: 85ee7e816352425408be0b9a60bed78e, type: 2}
 --- !u!95 &6810730790409754458
 Animator:
   serializedVersion: 7

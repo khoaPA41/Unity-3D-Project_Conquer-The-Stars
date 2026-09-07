@@ -13,13 +13,13 @@ using UnityEngine.UI;
 namespace ConquerTheStars.UI.Player
 {
     [RequireComponent(typeof(Canvas))]
-    public class UIManagers : MonoBehaviour
+    public class UICombatManagers : MonoBehaviour
     {
         private readonly string mainSceneName = "Main";
         private readonly string battleSceneName = "Battle";
 
         private readonly string killElementName = "KillElement";
-        public static UIManagers Instance;
+        public static UICombatManagers Instance;
 
         [Header("Skill UI")]
 

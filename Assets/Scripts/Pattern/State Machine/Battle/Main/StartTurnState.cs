@@ -14,14 +14,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             battleStateMachine.IsWaitingCameraBlend = false;
-            UIManagers.Instance.InactiveTurnOrderHighlight();
+            UICombatManagers.Instance.InactiveTurnOrderHighlight();
 
             if (battleStateMachine.IsTurnOrderChange)
             {
-                UIManagers.Instance.ResetTurnOrder();
-                UIManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
+                UICombatManagers.Instance.ResetTurnOrder();
+                UICombatManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
             }
-            UIManagers.Instance.ActiveTurnOrderHighlight();
+            UICombatManagers.Instance.ActiveTurnOrderHighlight();
             battleStateMachine.IsTurnOrderChange = false;
             SwitchTurnByType();
         }

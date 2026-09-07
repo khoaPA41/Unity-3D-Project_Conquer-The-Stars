@@ -67,7 +67,6 @@ namespace ConquerTheStars.Fight.Enemy
             {
                 if (scoredList[i] > scoredList[bestIndex])
                 {
-                    Debug.Log(targets[bestIndex]);
                     bestIndex = i;
                 }
             }

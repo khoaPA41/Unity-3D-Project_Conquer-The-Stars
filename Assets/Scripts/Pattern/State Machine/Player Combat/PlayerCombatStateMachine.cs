@@ -114,7 +114,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             CharacterStatsManagers.DyingAction += SwitchDyingState;
             PlayerExecuteAction += GetAttackIndex;
 
-            if (UIManagers.Instance != null)
+            if (UICombatManagers.Instance != null)
             {
                 PlayerSetupUI.SpawnCharacterHUD();
                 PlayerSetupUI.SetupStatusUI(CharacterStatsManagers.CurrentHealth / CharacterStatsManagers.maxHealth.GetFinalValue(),
@@ -262,7 +262,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public void ActiveFrame()
         {
-            UIManagers.Instance.ActiveActionFrame();
+            UICombatManagers.Instance.ActiveActionFrame();
         }
 
         public float GetManaRequired(string name, int index)

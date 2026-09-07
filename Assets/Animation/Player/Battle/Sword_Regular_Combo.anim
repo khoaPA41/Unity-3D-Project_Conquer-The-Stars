@@ -92768,7 +92768,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.13333334
+  - time: 0.033333335
     functionName: PlaySlashSound
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -92790,20 +92790,20 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.43333334
-    functionName: SetAttackSpeed
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.43333334
     functionName: ActiveFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6333333
+  - time: 0.43333334
+    functionName: SetAttackSpeed
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.46666667
     functionName: PlaySlashSound
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -92838,7 +92838,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.4333333
+  - time: 1.2333333
     functionName: PlaySlashSound
     data: 
     objectReferenceParameter: {fileID: 0}

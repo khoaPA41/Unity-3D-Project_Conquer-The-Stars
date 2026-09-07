@@ -124,7 +124,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             battleStateMachine.SpeedAverage = characterInMatch.Average(character => character.CurrentSpeed);
 
-            UIManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
+            UICombatManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
             yield return _waitForSecondsRealtime3;
             battleStateMachine.SwitchState(battleStateMachine.StartTurn);
         }

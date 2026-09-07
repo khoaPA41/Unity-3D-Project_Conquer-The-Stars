@@ -49905,15 +49905,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 3.2666667
-    functionName: SpawnSlashVfx
+  - time: 2.3
+    functionName: PlaySlashSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 3.3
-    functionName: PlaySlashSound
+  - time: 3.2666667
+    functionName: SpawnSlashVfx
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

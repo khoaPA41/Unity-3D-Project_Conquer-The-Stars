@@ -2230,6 +2230,7 @@ Transform:
   - {fileID: 8001062765032188315}
   - {fileID: 7374886703857478452}
   - {fileID: 5275072551103507514}
+  - {fileID: 1656134468611358389}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &-5779221267627353744
@@ -2249,11 +2250,15 @@ MonoBehaviour:
   <Animator>k__BackingField: {fileID: 6042459200081680747}
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: 8012070513579947379}
-  <AttackData>k__BackingField: {fileID: 0}
+  <IsBoss>k__BackingField: 0
+  <EnemyAttack>k__BackingField: {fileID: 0}
+  <AttackTransform>k__BackingField: {fileID: 1656134468611358389}
   <PooledObject>k__BackingField: {fileID: 4100300716556319957}
   <EnemyEvaluation>k__BackingField: {fileID: 3776633786789092002}
   <HighlightCurrentTurn>k__BackingField: {fileID: 8018025613145968643}
   <HighlightTarget>k__BackingField: {fileID: 8251401083858330308}
+  <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: b024963a34235b547b13635338dac853, type: 2}
+  <HitSfx>k__BackingField: {fileID: 6418180475301049370, guid: 85ee7e816352425408be0b9a60bed78e, type: 2}
 --- !u!95 &6042459200081680747
 Animator:
   serializedVersion: 7
@@ -2659,6 +2664,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8758182927187322816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1656134468611358389}
+  m_Layer: 0
+  m_Name: Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1656134468611358389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758182927187322816}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.3, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3510767227895492871}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8873436586008216295
 GameObject:
   m_ObjectHideFlags: 0

@@ -864,6 +864,7 @@ Transform:
   - {fileID: 1984705507566755729}
   - {fileID: 5512318703418574645}
   - {fileID: 2836989693682860804}
+  - {fileID: 2425880368054075192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &-4318412581036087477
@@ -883,11 +884,15 @@ MonoBehaviour:
   <Animator>k__BackingField: {fileID: 1564183532130832783}
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: 5605771835838259731}
-  <AttackData>k__BackingField: {fileID: 0}
+  <IsBoss>k__BackingField: 0
+  <EnemyAttack>k__BackingField: {fileID: 0}
+  <AttackTransform>k__BackingField: {fileID: 2425880368054075192}
   <PooledObject>k__BackingField: {fileID: 4003114059721682024}
   <EnemyEvaluation>k__BackingField: {fileID: 5084206831313819289}
   <HighlightCurrentTurn>k__BackingField: {fileID: 85126669896384317}
   <HighlightTarget>k__BackingField: {fileID: 6387706625033670341}
+  <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: b024963a34235b547b13635338dac853, type: 2}
+  <HitSfx>k__BackingField: {fileID: 6418180475301049370, guid: 85ee7e816352425408be0b9a60bed78e, type: 2}
 --- !u!95 &1564183532130832783
 Animator:
   serializedVersion: 7
@@ -1154,6 +1159,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8330502585666897440}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3012571685944667615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2425880368054075192}
+  m_Layer: 0
+  m_Name: Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2425880368054075192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3012571685944667615}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2995265832559633365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3026734716101956531
 GameObject:

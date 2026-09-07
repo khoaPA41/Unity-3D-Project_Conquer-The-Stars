@@ -34,8 +34,8 @@ MonoBehaviour:
   - POWER SURGE!
   - CHAIN ASSAULT!
   ManaRequired:
-  - 20
-  - 50
+  - 1
+  - 1
   SkillInformation:
   - A charged strike capable of bypassing energy shields.
   - A chain of consecutive attacks. Deals 150% increased damage against enemies without

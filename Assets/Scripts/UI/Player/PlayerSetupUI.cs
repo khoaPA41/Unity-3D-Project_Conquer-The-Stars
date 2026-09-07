@@ -46,9 +46,9 @@ namespace ConquerTheStars.UI.Player
             // Spawn character HUD ui
             characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
 
-            UIManagers.Instance.AddUiPooledObjectList(characterHud.GetComponent<PooledObject>());
+            UICombatManagers.Instance.AddUiPooledObjectList(characterHud.GetComponent<PooledObject>());
 
-            characterHud.GetComponent<RectTransform>().SetParent(UIManagers.Instance?.StatusPanel);
+            characterHud.GetComponent<RectTransform>().SetParent(UICombatManagers.Instance?.StatusPanel);
 
             //Setup hud base characterStatsManagers
             characterHud.Icon.sprite = characterStatsManagers.icon;

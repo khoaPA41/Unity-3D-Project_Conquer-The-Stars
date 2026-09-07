@@ -7170,6 +7170,8 @@ MonoBehaviour:
   <EnemyEvaluation>k__BackingField: {fileID: 8840092135850645067}
   <HighlightCurrentTurn>k__BackingField: {fileID: 920681284680977727}
   <HighlightTarget>k__BackingField: {fileID: 2985108608946517583}
+  <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: 4d2ccf93ae36d9e489965960074fd6b0, type: 2}
+  <HitSfx>k__BackingField: {fileID: 6418180475301049370, guid: 45a1d3afa692fce46a9288204a37cd92, type: 2}
 --- !u!114 &6687563998601776287
 MonoBehaviour:
   m_ObjectHideFlags: 0

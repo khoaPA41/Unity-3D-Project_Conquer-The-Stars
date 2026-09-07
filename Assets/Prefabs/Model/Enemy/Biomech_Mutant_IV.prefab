@@ -1269,6 +1269,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6295032115476041128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4191241775184012387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5466728356352888147}
+  m_Layer: 0
+  m_Name: Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5466728356352888147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4191241775184012387}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6429538051351656115}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4543560169955553869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,6 +1825,7 @@ Transform:
   - {fileID: 1814217514723749901}
   - {fileID: 6665534190485430316}
   - {fileID: 1430409965917169263}
+  - {fileID: 5466728356352888147}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &-4980959468992811903
@@ -1813,11 +1845,15 @@ MonoBehaviour:
   <Animator>k__BackingField: {fileID: 1484178176883231513}
   <AnimationCrossFade>k__BackingField: 0.1
   <CharacterStatsManagers>k__BackingField: {fileID: 954568753195517253}
-  <AttackData>k__BackingField: {fileID: 0}
+  <IsBoss>k__BackingField: 0
+  <EnemyAttack>k__BackingField: {fileID: 0}
+  <AttackTransform>k__BackingField: {fileID: 5466728356352888147}
   <PooledObject>k__BackingField: {fileID: 3730210697709678520}
   <EnemyEvaluation>k__BackingField: {fileID: -2691424428945884284}
   <HighlightCurrentTurn>k__BackingField: {fileID: 3866545958545742422}
   <HighlightTarget>k__BackingField: {fileID: 5213688376897694172}
+  <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: b024963a34235b547b13635338dac853, type: 2}
+  <HitSfx>k__BackingField: {fileID: 6418180475301049370, guid: 85ee7e816352425408be0b9a60bed78e, type: 2}
 --- !u!95 &1484178176883231513
 Animator:
   serializedVersion: 7

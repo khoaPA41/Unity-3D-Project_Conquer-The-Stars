@@ -16225,6 +16225,9 @@ MonoBehaviour:
   <EnemyEvaluation>k__BackingField: {fileID: 6011627685785358009}
   <HighlightCurrentTurn>k__BackingField: {fileID: 2983613393782938235}
   <HighlightTarget>k__BackingField: {fileID: 5477644335073372172}
+  <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: 4d2ccf93ae36d9e489965960074fd6b0, type: 2}
+  <HitSfx>k__BackingField: {fileID: 6418180475301049370, guid: 45a1d3afa692fce46a9288204a37cd92, type: 2}
+  <DeathSfx>k__BackingField: {fileID: 0}
 --- !u!114 &4703387100525572960
 MonoBehaviour:
   m_ObjectHideFlags: 0

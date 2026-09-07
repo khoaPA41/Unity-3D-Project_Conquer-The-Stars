@@ -14,7 +14,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            UIManagers.Instance.ResetTurnOrder();
+            UICombatManagers.Instance.ResetTurnOrder();
             if (battleStateMachine.TeamController.IsVictory)
             {
                 battleStateMachine.StartCoroutine(WaitToChangeVictory());
@@ -71,7 +71,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void SetupResultBoard()
         {
-            UIManagers.Instance.SetResultText(
+            UICombatManagers.Instance.SetResultText(
                             Mathf.RoundToInt(battleStateMachine.HighestDamage).ToString(),
                             Mathf.RoundToInt(battleStateMachine.DamageDealt).ToString(),
                             Mathf.RoundToInt(battleStateMachine.DamageReceived).ToString(),
@@ -81,10 +81,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                         );
             foreach (var enemy in battleStateMachine.TeamController.EnemyTeam)
             {
-                UIManagers.Instance.SpawnKillElement(enemy.icon);
+                UICombatManagers.Instance.SpawnKillElement(enemy.icon);
             }
 
-            UIManagers.Instance.ActiveResultBoard(battleStateMachine.TeamController.IsVictory);
+            UICombatManagers.Instance.ActiveResultBoard(battleStateMachine.TeamController.IsVictory);
         }
     }
 }
