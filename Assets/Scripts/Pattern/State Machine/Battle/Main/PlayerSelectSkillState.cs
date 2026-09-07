@@ -48,7 +48,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.StartCoroutine(WaitForCameraBlendFinishedForSelectTarget());
         }
 
-        private void PlayerUseItem(ItemType itemType, int index)
+        private void PlayerUseItem()
         {
             battleStateMachine.StartCoroutine(WaitForCameraBlendFinishedForSelectAlly());
         }

@@ -22,8 +22,8 @@ MonoBehaviour:
   - Punch Enemy
   - Kick Enemy
   AttackIcon:
-  - {fileID: 1029824220789480579, guid: edc0aae658eabe247be321d1c088909c, type: 3}
-  - {fileID: 6768103739580031212, guid: 1f8cf6c8566c95848bb607c57d54612b, type: 3}
+  - {fileID: 21300000, guid: 4b902e61d2a35864b899daaebfc8ee8c, type: 3}
+  - {fileID: 21300000, guid: 9a437a3235866a242a57615119d40c78, type: 3}
   ScaleAttackDamage:
   - 0.8
   - 0.9
@@ -40,8 +40,8 @@ MonoBehaviour:
   - Combo Punch
   - Combo Kick
   SkillIcon:
-  - {fileID: -5304530595179370628, guid: d456b782ffc5dea45b342b7603457214, type: 3}
-  - {fileID: 3786173703934460796, guid: e8c81125d2c656345adc4ea2a821a8ae, type: 3}
+  - {fileID: 21300000, guid: 3d999f4125671fd41b3737d280b3e563, type: 3}
+  - {fileID: 21300000, guid: f24126fd673eeaf4789b71c88cf7c9f6, type: 3}
   ScaleSkillDamage:
   - 1
   - 1.5

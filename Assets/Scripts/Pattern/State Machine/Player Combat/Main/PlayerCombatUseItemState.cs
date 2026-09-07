@@ -1,4 +1,5 @@
 using ConquerTheStars.Factory.Item;
+using ConquerTheStars.Fight;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using UnityEngine;
 
@@ -41,8 +42,9 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         private void UseItem()
         {
-            IItem item = ItemFactory.CreateItem(playerCombatStateMachine.ItemType);
-            item.Use(playerCombatStateMachine, PlayerTeam.Instance.GetItemData(playerCombatStateMachine.ItemIndex));
+            // IItem item = ItemFactory.CreateItem(playerCombatStateMachine.ItemType);
+            // item.Use(playerCombatStateMachine, PlayerTeam.Instance.GetItemData(playerCombatStateMachine.ItemIndex));
+            playerCombatStateMachine.BuffManager.ApplyBuff();
         }
     }
 }

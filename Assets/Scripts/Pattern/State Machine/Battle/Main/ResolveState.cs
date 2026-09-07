@@ -17,6 +17,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             isFinished = false;
 
+            CheckBuffRemaining();
             InactiveCamera();
             CheckCurrentCharacter();
             CheckCurrentTurnList();
@@ -46,6 +47,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.CurrentTurn = null;
             battleStateMachine.PlayerCombatStateMachine = null;
             battleStateMachine.EnemyStateMachine = null;
+        }
+
+        private void CheckBuffRemaining()
+        {
+            if (battleStateMachine.PlayerCombatStateMachine != null)
+                battleStateMachine.PlayerCombatStateMachine.BuffManager.CheckRemainingBuff();
         }
 
         private void CheckCurrentCharacter()

@@ -656,7 +656,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -75}
-  m_SizeDelta: {x: 130, y: 150}
+  m_SizeDelta: {x: 90, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &574788613995441155
 CanvasRenderer:
@@ -2601,6 +2601,7 @@ GameObject:
   - component: {fileID: 4472543842194979827}
   - component: {fileID: 6771578964804002569}
   - component: {fileID: 175369917718761702}
+  - component: {fileID: -6491479874549817352}
   m_Layer: 0
   m_Name: Player_Battle_II
   m_TagString: Player
@@ -2654,6 +2655,7 @@ MonoBehaviour:
   <IsNotMove>k__BackingField: 0
   <AttackData>k__BackingField: {fileID: 11400000, guid: c6c6701acf8ca4246b3a03adabbd48da, type: 2}
   <AttackTransform>k__BackingField: {fileID: 689286615429588550}
+  <BuffManager>k__BackingField: {fileID: -6491479874549817352}
   <CharacterStatsManagers>k__BackingField: {fileID: 1681969748647765961}
   <BattleStatistics>k__BackingField: {fileID: 175369917718761702}
   <PooledObject>k__BackingField: {fileID: 3158385293569201347}
@@ -2852,6 +2854,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61b497fea8e1c14faec5f7839eb1d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.BattleStatistics
+--- !u!114 &-6491479874549817352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3063589468811279116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88616639b847a704fad48bf08de3e8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuffManager
 --- !u!1 &3211952980297968401
 GameObject:
   m_ObjectHideFlags: 0

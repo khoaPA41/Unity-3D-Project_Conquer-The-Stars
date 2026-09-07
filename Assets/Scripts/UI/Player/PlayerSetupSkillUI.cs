@@ -110,7 +110,7 @@ namespace ConquerTheStars.Fight.Player
                 var index = i;
                 itemElement[i].Button.onClick.AddListener(() =>
                 {
-                    playerCombatStateMachine.GetItemIndex(itemList[index].ItemData.ItemType, index);
+                    playerCombatStateMachine.GetItemIndex(itemList[index].ItemData);
                 });
             }
         }

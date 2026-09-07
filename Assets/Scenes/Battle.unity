@@ -518,7 +518,7 @@ MonoBehaviour:
   successfulPariesText: {fileID: 1627247599}
   successfulDodgesText: {fileID: 578882930}
   Kills: {fileID: 704182441}
-  turnOrderBoard: {fileID: 132821578}
+  turnOrderBoard: {fileID: 259741870}
   turnOrderRootParent: {fileID: 0}
   turnOrders: []
   curentTurnOrder: {fileID: 0}

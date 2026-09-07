@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using ConquerTheStars.Pattern.Object_Pooling;
+using ConquerTheStars.Fight;
 
 namespace ConquerTheStars.Stats
 {
@@ -174,6 +175,7 @@ namespace ConquerTheStars.Stats
             CurrentMana = Mathf.Min(CurrentMana + amount, mana.GetFinalValue());
             ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
         }
+
         public void SubtractMana(float value)
         {
             CurrentMana = Mathf.Max(CurrentMana - value, 0f);

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: ManaRecovery
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemType: 1
-  ItemIcon: {fileID: -6982649436817158719, guid: a7fcc5029797c344ca5a377618cabf50, type: 3}
+  ItemIcon: {fileID: 21300000, guid: 10dc9c67ffb56dd4f800103585f26888, type: 3}
   ItemInformation: Restore 20 Mana
+  Value: 20
+  RemainingTurn: 1

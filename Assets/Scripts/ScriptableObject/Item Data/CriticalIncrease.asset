@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: CriticalIncrease
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemType: 6
-  ItemIcon: {fileID: -7023454158489440084, guid: 3bc72d0b9f5026d41985af92cb5cebf3, type: 3}
+  ItemIcon: {fileID: 21300000, guid: aa0a930fde5ba3546a0a4990da3c7958, type: 3}
   ItemInformation: Increase Critical Rate for 2 turns
+  Value: 20
+  RemainingTurn: 1

@@ -47,8 +47,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             var targetAlly = battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>();
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
-            targetAlly.ItemIndex = battleStateMachine.PlayerCombatStateMachine.ItemIndex;
-            targetAlly.ItemType = battleStateMachine.PlayerCombatStateMachine.ItemType;
+
+            targetAlly.BuffManager.SetItemToUse(battleStateMachine.PlayerCombatStateMachine.ItemData);
 
             targetAlly.HighlightSelectedByAlly.InactiveHighlight();
             targetAlly.SwitchUseItem();

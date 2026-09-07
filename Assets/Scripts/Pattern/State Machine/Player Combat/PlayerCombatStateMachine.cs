@@ -28,6 +28,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: Header("Attack Data")]
         [field: SerializeField] public PlayerAttack AttackData { get; private set; }
         [field: SerializeField] public Transform AttackTransform { get; private set; }
+        [field: SerializeField] public BuffManager BuffManager { get; private set; }
 
 
         [field: Header("Status")]
@@ -82,13 +83,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public bool IsFinished { get; set; }
 
         public event Action<string, int> PlayerExecuteAction = delegate { }; // Event for active attack
-        public event Action<ItemType, int> PlayerUseItem = delegate { }; // Event for use item
+        public event Action PlayerUseItem = delegate { }; // Event for use item
         public event Action UseReviveItem = delegate { }; // Event for use revive item
         public int AttackIndexSelected { get; set; }
         public string AttackNameList { get; set; }
-
-        public int ItemIndex { get; set; }
-        public ItemType ItemType { get; set; }
+        public ItemData ItemData { get; set; }
 
         public CinemachineBrain CinemachineBrain { get; set; }
 
@@ -216,11 +215,10 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             PlayerExecuteAction?.Invoke(attackListName, actionIndex);
         }
 
-        public void GetItemIndex(ItemType itemType, int index)
+        public void GetItemIndex(ItemData itemData)
         {
-            ItemType = itemType;
-            ItemIndex = index;
-            PlayerUseItem?.Invoke(itemType, index);
+            ItemData = itemData;
+            PlayerUseItem?.Invoke();
         }
 
         public void GetAttackIndex(string attackListName, int index)

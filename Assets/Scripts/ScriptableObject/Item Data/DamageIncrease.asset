@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: DamageIncrease
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   ItemType: 5
-  ItemIcon: {fileID: -6982649436817158719, guid: a7fcc5029797c344ca5a377618cabf50, type: 3}
+  ItemIcon: {fileID: 21300000, guid: 66ea6d4dcfce95c4a98eba75acf30526, type: 3}
   ItemInformation: Increase Basic Damage for 2 turns
+  Value: 20
+  RemainingTurn: 1

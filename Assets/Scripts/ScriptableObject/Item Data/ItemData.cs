@@ -7,4 +7,7 @@ public class ItemData : ScriptableObject
     public ItemType ItemType;
     public Sprite ItemIcon;
     public string ItemInformation;
+    public float Value;
+    public int RemainingTurn;
+
 }
