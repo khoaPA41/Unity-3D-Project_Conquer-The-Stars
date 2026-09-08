@@ -11,6 +11,12 @@ public class ButtonFeatures : MonoBehaviour
     {
         GameManager.Instance.ContinueGame();
     }
+
+    public void Settings(bool active)
+    {
+        UiManagers.Instance.ActiveSettingsPanel(active);
+    }
+
     public void ExitGame()
     {
         GameManager.Instance.Exit();

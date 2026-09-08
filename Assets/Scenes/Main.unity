@@ -579,16 +579,6 @@ MonoBehaviour:
     Quantity: 2
   - ItemData: {fileID: 11400000, guid: b5eb578fad41629448631575b4ee3b1a, type: 2}
     Quantity: 2
-  - ItemData: {fileID: 11400000, guid: 7c55c73fbb3005945a33660acebf7235, type: 2}
-    Quantity: 2
-  - ItemData: {fileID: 11400000, guid: f23baaad043b73c42a2aeb1b5a7e2927, type: 2}
-    Quantity: 2
-  - ItemData: {fileID: 11400000, guid: 3bed3df51c837ee4494908477943c99a, type: 2}
-    Quantity: 1
-  - ItemData: {fileID: 11400000, guid: 85d9cd72e715bdc40961ddda3c759b3a, type: 2}
-    Quantity: 2
-  - ItemData: {fileID: 11400000, guid: 3cfe960c1995a3e4187e662c971b961e, type: 2}
-    Quantity: 2
 --- !u!4 &871645449
 Transform:
   m_ObjectHideFlags: 0
@@ -1081,7 +1071,7 @@ MonoBehaviour:
     ObjectName: Boss_I
     Quantity: 1
   - PooledObject: {fileID: 4703387100525572960, guid: 1724ebc75eb64824f8a260e3e803e726, type: 3}
-    ObjectName: Boss_II
+    ObjectName: Final_Boss
     Quantity: 1
   - PooledObject: {fileID: 4132723855554449903, guid: 33f12580bdbdb644d8cce2b641e4cca1, type: 3}
     ObjectName: Player_I

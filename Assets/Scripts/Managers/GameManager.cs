@@ -20,7 +20,7 @@ namespace ConquerTheStars.Managers
         private readonly string StartMenuScene = "Start";
         private readonly string MainScene = "Main";
         private readonly string CommbatScene = "Battle";
-
+        private readonly string EndScene = "End";
         public static GameManager Instance { get; private set; }
 
         private ReasonLoadScene currentLoadReason = ReasonLoadScene.New;
@@ -118,6 +118,13 @@ namespace ConquerTheStars.Managers
             Debug.Log("Load Main scene");
             currentLoadReason = ReasonLoadScene.BackToMain;
             SceneManager.LoadScene(MainScene);
+        }
+
+        public void LoadEndScene()
+        {
+            Debug.Log("Load Main scene");
+            currentLoadReason = ReasonLoadScene.Exit;
+            SceneManager.LoadScene(EndScene);
         }
 
         // Save

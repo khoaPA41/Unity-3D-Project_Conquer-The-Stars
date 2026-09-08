@@ -66,6 +66,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public bool IsTurnOrderChange { get; set; }
         public CharacterStatsManagers playerDealsHighestDamageLastTurn;
         public bool IsWaitingCameraBlend { get; set; }
+
+        public bool IsFinalBoss { get; set; }
+
         void Start()
         {
 

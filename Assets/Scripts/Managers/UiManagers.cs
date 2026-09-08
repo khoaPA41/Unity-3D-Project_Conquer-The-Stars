@@ -21,6 +21,4 @@ public class UiManagers : MonoBehaviour
     {
         settingsPanel.SetActive(active);
     }
-
-
 }

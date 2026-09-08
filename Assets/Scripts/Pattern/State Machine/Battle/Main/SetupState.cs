@@ -51,7 +51,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 // Spawn enemy at target position
                 var enemy = ObjectPoolingManagers.Instance.GetPooledObject(enemyTeam[i], battleStateMachine.Area.enemyTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].enemyTransformList[i].position);
                 enemy.transform.Rotate(new Vector3(0f, 90f, 0f));
-
+                battleStateMachine.IsFinalBoss = enemy.name == "Final_Boss";
                 // Add to characterInMatch list - prepare for queue
                 characterInMatch.Add(enemy.GetComponent<CharacterStatsManagers>());
 

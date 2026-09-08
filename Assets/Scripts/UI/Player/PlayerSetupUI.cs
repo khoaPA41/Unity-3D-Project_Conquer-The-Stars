@@ -14,6 +14,8 @@ namespace ConquerTheStars.UI.Player
         [Header("Character Stats Manager")]
         [SerializeField]
         private CharacterStatsManagers characterStatsManagers;
+        [SerializeField]
+        private BuffManager buffManager;
 
 
         [Header("Time To Update UI")]
@@ -32,6 +34,7 @@ namespace ConquerTheStars.UI.Player
         {
             characterStatsManagers.HealthUpdateAction += HealthUpdate;
             characterStatsManagers.ManaUpdateAction += ManaUpdate;
+
         }
 
         private void OnDisable()

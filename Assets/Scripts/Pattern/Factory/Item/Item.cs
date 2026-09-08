@@ -96,7 +96,6 @@ namespace ConquerTheStars.Factory.Item
         {
             var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
 
-            // var speedAmount = value + (characterStatsManagers.CurrentMana * .5f);
             characterStatsManagers.IncreaseSpeed(value);
 
             if (value > 0)

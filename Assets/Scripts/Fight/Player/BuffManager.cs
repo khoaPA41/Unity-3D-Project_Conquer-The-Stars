@@ -29,6 +29,8 @@ public class BuffManager : MonoBehaviour
 
     private ItemData itemToUse;
 
+    public event Action<Sprite> OnBuffSuccess;
+
     private void Start()
     {
         playerCombatStateMachine = GetComponent<PlayerCombatStateMachine>();
@@ -78,8 +80,8 @@ public class BuffManager : MonoBehaviour
 
 
 
-
-
-
-
+    public void CallSetupBuffUi(Sprite sprite)
+    {
+        OnBuffSuccess?.Invoke(sprite);
+    }
 }

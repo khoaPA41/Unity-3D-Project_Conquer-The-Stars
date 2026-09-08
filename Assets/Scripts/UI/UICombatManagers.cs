@@ -35,7 +35,9 @@ namespace ConquerTheStars.UI.Player
         [SerializeField] private GameObject resultBoard;
         [SerializeField] private GameObject victoryText;
         [SerializeField] private GameObject defeatText;
+        [SerializeField] private GameObject continueButton;
         [SerializeField] private GameObject revengeButton;
+        [SerializeField] private GameObject endButton;
 
         [SerializeField] private TextMeshProUGUI highestDamageText;
         [SerializeField] private TextMeshProUGUI damageDealtText;
@@ -83,10 +85,15 @@ namespace ConquerTheStars.UI.Player
 
 
         // Result Board 
-        public void ActiveResultBoard(bool isVictory)
+        public void ActiveResultBoard(bool isVictory, bool isFinalBoss)
         {
             if (isVictory)
             {
+                if (isFinalBoss)
+                {
+                    continueButton.SetActive(false);
+                    endButton.SetActive(true);
+                }
                 victoryText.SetActive(true);
             }
             else
@@ -119,7 +126,11 @@ namespace ConquerTheStars.UI.Player
         public void ReturnMainScene()
         {
             GameManager.Instance.BackToMainScene();
-            // SceneManager.LoadScene(mainSceneName);
+        }
+
+        public void EndScene()
+        {
+            GameManager.Instance.LoadEndScene();
         }
 
         public void ReloadBattle()

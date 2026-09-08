@@ -84,7 +84,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 UICombatManagers.Instance.SpawnKillElement(enemy.icon);
             }
 
-            UICombatManagers.Instance.ActiveResultBoard(battleStateMachine.TeamController.IsVictory);
+            UICombatManagers.Instance.ActiveResultBoard(battleStateMachine.TeamController.IsVictory, battleStateMachine.IsFinalBoss);
         }
     }
 }

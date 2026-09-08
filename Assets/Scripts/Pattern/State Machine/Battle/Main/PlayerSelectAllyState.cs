@@ -13,7 +13,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             battleStateMachine.PlayerCombatStateMachine.HighlightCurrentTurn.InactiveHighlight();
-
+            battleStateMachine.PlayerCombatStateMachine.IsFinished = false;
             /*Select default ally target*/
             battleStateMachine.AllyTargeter.FirstSelected();
             battleStateMachine.AllyTargeter.GetTarget();
@@ -24,7 +24,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             /*Listen input event to choose target*/
             battleStateMachine.InputReader.NextTargetAction += HighlightNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction += HighlightPrevTarget;
-
         }
 
         public override void Tick(float deltaTime)
@@ -47,7 +46,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             var targetAlly = battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>();
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
-
+            targetAlly.IsFinished = false;
             targetAlly.BuffManager.SetItemToUse(battleStateMachine.PlayerCombatStateMachine.ItemData);
 
             targetAlly.HighlightSelectedByAlly.InactiveHighlight();
