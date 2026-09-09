@@ -10,13 +10,13 @@
 
 **Conquer The Stars** is a personal Unity project developed to explore and implement turn-based combat systems, enemy decision-making, reusable gameplay architecture, and data-driven design.
 
-The project is currently **In Development**.
-
 ## Overview
 
-The combat system is built around a dynamic turn-order system where character speed affects the order of actions. Players can select skills, targets, allies, and defensive actions, while enemies evaluate available targets and make decisions based on combat conditions.
+**Conquer The Stars** is a 3D turn-based combat project focused on tactical decision-making, dynamic turn order, enemy AI, and reusable gameplay systems.
 
-The project also includes reusable systems for items, temporary buffs, object pooling, character statistics, save data, and boss phases.
+Players can select skills, targets, allies, items, and defensive actions during combat, while enemies evaluate targets based on combat conditions.
+
+The project is currently **In Development**.
 
 ## Features
 
@@ -195,5 +195,5 @@ This project is primarily focused on **gameplay programming and system architect
 
 ## Credits
 
-Developed by Developed by [Phạm Anh Khoa](https://github.com/khoaPA41)
+Developed by [Phạm Anh Khoa](https://github.com/khoaPA41)
 
