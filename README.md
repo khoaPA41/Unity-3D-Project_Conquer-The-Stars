@@ -1,10 +1,10 @@
+# Conquer The Stars
+
 <p align="center">
   <img src="https://github.com/khoaPA41/Unity-3D-Project_Conquer-The-Stars/blob/main/Assets/Third_party%20Assets/UI/Demo/Player_I.gif" width="32%" />
   <img src="https://github.com/khoaPA41/Unity-3D-Project_Conquer-The-Stars/blob/main/Assets/Third_party%20Assets/UI/Demo/Player_II.gif" width="32%" />
   <img src="https://github.com/khoaPA41/Unity-3D-Project_Conquer-The-Stars/blob/main/Assets/Third_party%20Assets/UI/Demo/Player_III.gif" width="32%" />
 </p>
-
-# Conquer The Stars
 
 > A 3D turn-based combat game focused on tactical decision-making, character abilities, and reusable gameplay systems.
 
@@ -20,26 +20,21 @@ The project also includes reusable systems for items, temporary buffs, object po
 
 ## Features
 
-* Turn-based combat with dynamic turn order
-* Speed-based turn manipulation
-* Player skill, target, ally, and item selection
+* Turn-based combat with dynamic and speed-based turn order
+* Skill, target, ally, item, and defensive action selection
 * Dodge and parry mechanics
-* Enemy target evaluation system
-* Boss phases with health-based attack changes
-* Temporary buffs and stat modifications
-* Item system using Factory Pattern
-* Reusable object pooling system
-* Data-driven character and item configuration using ScriptableObjects
+* Enemy AI with weighted target evaluation
+* Boss phases with health-based behavior changes
+* Item and temporary buff system
 * Battle statistics and post-battle results
 * Save / Load system
-* Cinemachine-based battle camera transitions
-* Unity Input System integration
+
 
 ## Technical Highlights
 
 ### Hierarchical State Machine
 
-The battle flow and character behaviors are separated into multiple state machines.
+Implemented a hierarchical state-machine architecture to manage battle flow and character behaviors.
 
 ```text
 Battle State Machine
@@ -54,38 +49,45 @@ Battle State Machine
 └── Battle Result
 ```
 
-Player and enemy combat behaviors use dedicated state machines to manage actions such as attacking, defending, dodging, blocking, taking damage, dying, and victory states.
+Dedicated state machines are also used for player and enemy combat behaviors, including attacking, defending, dodging, blocking, taking damage, dying, and victory states.
 
-### Enemy Target Evaluation
+### Dynamic Turn Order
 
-Enemy AI evaluates available targets using weighted combat factors:
+Implemented a speed-based turn-order system where character speed determines action priority.
+
+The battle system also supports turn manipulation, allowing certain combat conditions to influence the order in which characters act.
+
+### Enemy AI & Target Evaluation
+
+Implemented a weighted target evaluation system that allows enemies to prioritize targets based on combat factors such as:
 
 ```text
-Target Score =
-    HP Weight
-  + Threat Weight
-  + Defense Weight
-  + Status Weight
+HP
+Threat
+Defense
+Status
 ```
 
-The evaluation strategy is configured through ScriptableObjects, allowing different enemy behaviors to use different priorities.
+Different evaluation strategies can be configured through ScriptableObjects, allowing enemy behaviors to be adjusted without modifying the core AI logic.
 
 ### Data-Driven Gameplay
 
-ScriptableObjects are used to separate gameplay data from runtime logic.
+Used ScriptableObjects to separate gameplay data from runtime logic.
 
-Examples include:
+```text
+Character Stats
+Player Attacks
+Enemy Attacks
+Enemy Teams
+Items
+AI Evaluation Strategies
+```
 
-* Character statistics
-* Player attacks and skills
-* Enemy attacks
-* Enemy team configurations
-* Item data
-* Enemy evaluation strategies
+This allows gameplay parameters and configurations to be modified directly in the Unity Inspector.
 
 ### Item & Buff System
 
-Items are implemented through an interface-based Factory Pattern.
+Implemented an interface-based item system using the Factory Pattern.
 
 ```text
 ItemData
@@ -99,33 +101,36 @@ IItem
 Use()
 ```
 
-The system supports healing, mana recovery, temporary stat buffs, revival, and other item effects.
+The system supports reusable effects such as healing, mana recovery, temporary stat buffs, revival, and other combat effects.
 
 ### Object Pooling
 
-A custom object pooling system is used for frequently spawned objects such as enemies, VFX, and UI elements.
+Developed a reusable object-pooling system for frequently spawned gameplay objects such as enemies, VFX, and UI elements.
 
 ```text
-ObjectPoolingManager
-        ↓
-Dictionary<string, Stack<PooledObject>>
-        ↓
-Get / Release
+Object Pool
+    ↓
+Get()
+    ↓
+Use
+    ↓
+Release()
 ```
 
-This reduces repeated object instantiation during gameplay and provides reusable object lifecycle management.
+This reduces repeated runtime instantiation and provides centralized object lifecycle management.
 
-### Combat Statistics
+### Battle Statistics
 
-Battle statistics are tracked during combat and displayed on the result screen, including:
+Implemented a combat statistics system to track and display battle performance, including:
 
-* Highest damage
 * Damage dealt
 * Damage received
-* Successful parries
+* Highest damage
 * Successful dodges
+* Successful parries
 * Battle duration
 * Defeated enemies
+
 
 ## Architecture
 
@@ -190,5 +195,5 @@ This project is primarily focused on **gameplay programming and system architect
 
 ## Credits
 
-Developed by **Phạm Anh Khoa**
+Developed by Developed by [Phạm Anh Khoa](https://github.com/khoaPA41)
 
