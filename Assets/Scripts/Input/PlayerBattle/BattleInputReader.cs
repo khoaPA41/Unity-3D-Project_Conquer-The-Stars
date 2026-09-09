@@ -11,7 +11,7 @@ namespace ConquerTheStars.InputController
         public event Action PreviousTargetAction = delegate { };
         public event Action EnterTargetAction = delegate { };
         public event Action BlockAction = delegate { };
-
+        public event Action SettingUiAction = delegate { };
         private PlayerBattleInput inputActions;
 
 
@@ -71,6 +71,14 @@ namespace ConquerTheStars.InputController
             if (context.started)
             {
                 EnterTargetAction?.Invoke();
+            }
+        }
+
+        public void OnTab(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                SettingUiAction?.Invoke();
             }
         }
     }

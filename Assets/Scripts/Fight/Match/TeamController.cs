@@ -47,5 +47,7 @@ namespace ConquerTheStars.Fight.Match
         {
             return PlayerTeam.FindAll(ally => ally.IsDeath);
         }
+
+
     }
 }

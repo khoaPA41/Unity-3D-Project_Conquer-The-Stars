@@ -7,8 +7,6 @@ public class StartMenuButton : MonoBehaviour
 
     public void ActiveSettings(bool active)
     {
-        // startMenuUI.SetActive(!active);
-        // backButton.SetActive(active);
         UiManagers.Instance.ActiveSettingsPanel(active);
     }
 }

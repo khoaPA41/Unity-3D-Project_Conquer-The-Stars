@@ -24,14 +24,15 @@ public class EnemyInformation : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            // Auto Save
+            GameManager.Instance.SetCheckpoint(transform.position);
+            GameManager.Instance.AutoSaveGame();
+
             BattleInformationManagers.Instance.SetArea(enemyTeam);
 
             if (BattleInformationManagers.Instance.AreaInformation != null)
             {
                 pooledObject.Release();
-
-                GameManager.Instance.SetCheckpoint(transform.position); // Set Checkpoint
-                Debug.Log(transform.position);
                 GameManager.Instance.AutoSaveGame();
                 GameManager.Instance.LoadBattleScene();
             }

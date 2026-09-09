@@ -86,6 +86,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             Result = new BattleResultState(this);
 
             SwitchState(BattleSetup);
+
+            InputReader.SettingUiAction += ActiveSettingUI;
         }
 
         private void OnEnable()
@@ -96,6 +98,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private void OnDisable()
         {
             CinemachineCore.BlendFinishedEvent.RemoveListener(OnBlendFinished);
+            InputReader.SettingUiAction -= ActiveSettingUI;
+        }
+
+        private void ActiveSettingUI()
+        {
+            var isSettingsActiveUi = !UiManagers.Instance.settingsPanel.activeInHierarchy;
+            UiManagers.Instance.ActiveSettingsPanel(isSettingsActiveUi);
+            Cursor.lockState = isSettingsActiveUi ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
         private void OnBlendFinished(ICinemachineMixer camera, ICinemachineCamera cinemachineCamera)

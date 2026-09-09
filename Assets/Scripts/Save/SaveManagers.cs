@@ -43,8 +43,9 @@ public class SaveManagers : MonoBehaviour
 
     public void SaveGame(SaveData saveData)
     {
-        var dataJson = JsonUtility.ToJson(savePath, true);
+        var dataJson = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(savePath, dataJson);
+
         CurrentSaveData = saveData;
         Debug.Log("[SaveManagers] Saved Game" + savePath);
     }

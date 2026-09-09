@@ -86,8 +86,16 @@ namespace ConquerTheStars.Managers
         public void ContinueGame()
         {
             var saveData = SaveManagers.Instance.LoadSaveData();
-            checkpointPos = new Vector3(saveData.xPosition, saveData.yPosition, saveData.zPosition);
+            if (saveData == null)
+            {
+                Debug.LogWarning("[SaveManagers] Don't have save data]");
+                StartNewGame();
+                return;
+            }
+
             currentLoadReason = ReasonLoadScene.Reload;
+            checkpointPos = new Vector3(saveData.xPosition, saveData.yPosition, saveData.zPosition);
+
             SceneManager.LoadScene(MainScene);
         }
 
@@ -137,7 +145,6 @@ namespace ConquerTheStars.Managers
         private void ApplySaveData(GameObject player)
         {
             var saveData = SaveManagers.Instance.CurrentSaveData;
-            // var audio = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioSetting>();
             if (saveData is null) return;
 
             player.transform.position = new Vector3(saveData.xPosition, saveData.yPosition, saveData.zPosition);
@@ -145,48 +152,24 @@ namespace ConquerTheStars.Managers
             // Stats
             PlayerTeam.Instance.TeamLevel = saveData.teamLevel;
 
-            // // Audio
-            // audio._masterVolume = data.masterVolume;
-            // audio._bgmVolume = data.BGMVolume;
-            // audio._sfxVolume = data.SFXVolume;
-            // audio._uiVolume = data.UIVolume;
         }
 
         public void AutoSaveGame()
         {
             var player = GameObject.FindGameObjectWithTag("Player");
-            // var audio = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioSetting>();
 
             if (player == null) return;
 
             // Stats
-            // var teamLevel = PlayerTeam.Instance.TeamLevel;
 
             var saveData = new SaveData
             {
-                sceneName = SceneManager.GetActiveScene().name,
+                sceneName = MainScene,
                 xPosition = checkpointPos.x,
                 yPosition = checkpointPos.y,
                 zPosition = checkpointPos.z,
 
                 teamLevel = PlayerTeam.Instance.TeamLevel
-
-                // masterVolume = audio._masterVolume,
-                // BGMVolume = audio._bgmVolume,
-                // SFXVolume = audio._sfxVolume,
-                // UIVolume = audio._uiVolume,
-
-                // resolutionIndex = GraphicManager.Instance.resolutionIndex,
-                // displayModeIndex = GraphicManager.Instance.displayModeIndex,
-                // fps = GraphicManager.Instance.fps,
-                // vsync = GraphicManager.Instance.vsync,
-                // qualityPresentIndex = GraphicManager.Instance.qualityPresentIndex,
-                // shadow = GraphicManager.Instance.shadow,
-                // antiAliasingIndex = GraphicManager.Instance.antiAliasingIndex,
-                // textureQualityIndex = GraphicManager.Instance.textureQualityIndex,
-                // bloom = GraphicManager.Instance.bloomData,
-                // motionBlur = GraphicManager.Instance.motionBlurData,
-                // ambientOcclusion = GraphicManager.Instance.ambientOcclusion,
             };
             SaveManagers.Instance.SaveGame(saveData);
         }

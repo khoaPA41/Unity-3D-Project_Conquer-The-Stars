@@ -24,10 +24,22 @@ namespace ConquerTheStars.Pattern.StateMachine.Player
 
         private void Start()
         {
-            // transform.position = PlayerTeam.Instance.CurrentPosition;
             MainCamera = Camera.main;
             SwitchState(new PlayerLocomotionState(this));
+            InputReader.SettingUiAction += ActiveSettingUI;
 
+        }
+
+        private void OnDisable()
+        {
+            InputReader.SettingUiAction -= ActiveSettingUI;
+        }
+
+        private void ActiveSettingUI()
+        {
+            var isSettingsActiveUi = !UiManagers.Instance.settingsPanel.activeInHierarchy;
+            UiManagers.Instance.ActiveSettingsPanel(isSettingsActiveUi);
+            Cursor.lockState = isSettingsActiveUi ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 }

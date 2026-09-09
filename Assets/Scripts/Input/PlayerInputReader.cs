@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ConquerTheStars.InputController
@@ -7,6 +8,7 @@ namespace ConquerTheStars.InputController
         public Vector2 Movement { get; set; }
         public bool Interact { get; set; }
         public bool Attack { get; set; }
+        public event Action SettingUiAction = delegate { };
 
         private PlayerInput playerInput;
 
@@ -51,6 +53,13 @@ namespace ConquerTheStars.InputController
 
         }
 
+        public void OnTab(UnityEngine.InputSystem.InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                SettingUiAction?.Invoke();
+            }
+        }
     }
 
 }
