@@ -6,6 +6,10 @@
   <img src="https://github.com/khoaPA41/Unity-3D-Project_Conquer-The-Stars/blob/main/Assets/Third_party%20Assets/UI/Demo/Player_III.gif" width="32%" />
 </p>
 
+## 🎮 Demo
+- [Download](https://pakbot4124.itch.io/conquer-the-stars)
+- [Gameplay Video](https://youtu.be/g3vkVFKuGm8)
+
 > A 3D turn-based combat game focused on tactical decision-making, character abilities, and reusable gameplay systems.
 
 **Conquer The Stars** is a personal Unity project developed to explore and implement turn-based combat systems, enemy decision-making, reusable gameplay architecture, and data-driven design.
