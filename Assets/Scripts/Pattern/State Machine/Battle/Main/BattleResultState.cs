@@ -75,7 +75,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                             Mathf.RoundToInt(battleStateMachine.HighestDamage).ToString(),
                             Mathf.RoundToInt(battleStateMachine.DamageDealt).ToString(),
                             Mathf.RoundToInt(battleStateMachine.DamageReceived).ToString(),
-                            Mathf.RoundToInt(battleStateMachine.BattleTime).ToString(),
+                            FormatBattleTime(Time.time - battleStateMachine.BattleTime),
                             Mathf.RoundToInt(battleStateMachine.SuccessfulParryTimes).ToString(),
                             Mathf.RoundToInt(battleStateMachine.SuccessfulDodgeTimes).ToString()
                         );
@@ -85,6 +85,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             }
 
             UICombatManagers.Instance.ActiveResultBoard(battleStateMachine.TeamController.IsVictory, battleStateMachine.IsFinalBoss);
+        }
+
+        public static string FormatBattleTime(float seconds)
+        {
+            var totalSeconds = Mathf.FloorToInt(seconds);
+            var minutes = totalSeconds / 60f;
+            var secs = totalSeconds % 60f;
+            return $"{minutes:00}:{secs:00}";
         }
     }
 }

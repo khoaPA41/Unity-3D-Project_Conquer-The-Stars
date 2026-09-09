@@ -16,8 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 16305d8e78509224c8e3c66c238fa0e7, type: 3}
   Health: 200
   Mana: 100
-  AttackPower: 80
+  AttackPower: 70
   Speed: 15
-  Defense: 10
+  Defense: 20
   Critical: 1.5
   Luck: 0.1

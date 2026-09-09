@@ -19,8 +19,8 @@ MonoBehaviour:
   - DIRECT SLASH!
   - ARC SLASH!
   AttackInformation:
-  - A direct slash capable of breaching armor.
-  - A rising slash that deals increased damage to non-cyborg enemies.
+  - Basic attack will deals 70% dmg
+  - Basic attack will deals 80% dmg
   AttackIcon:
   - {fileID: 21300000, guid: 787177968aa32814989626c470b81f0f, type: 3}
   - {fileID: 21300000, guid: 40be8921eaa3c3d45980551b8b1bdc05, type: 3}
@@ -34,15 +34,14 @@ MonoBehaviour:
   - POWER SURGE!
   - CHAIN ASSAULT!
   ManaRequired:
-  - 1
-  - 1
+  - 20
+  - 30
   SkillInformation:
-  - A charged strike capable of bypassing energy shields.
-  - A chain of consecutive attacks. Deals 150% increased damage against enemies without
-    shields.
+  - A charged strike will deals 100% dmg (20 mana)
+  - A chain of consecutive attacks. Deals 90% dmg (30 mana)
   SkillIcon:
   - {fileID: 21300000, guid: ab5e57cf303d2b248bd0faa00f26e838, type: 3}
   - {fileID: 21300000, guid: c2d50597d1937434c8aceb30a1980d18, type: 3}
   ScaleSkillDamage:
   - 1
-  - 1.5
+  - 0.9

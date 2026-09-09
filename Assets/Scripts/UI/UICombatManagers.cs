@@ -15,7 +15,6 @@ namespace ConquerTheStars.UI.Player
     [RequireComponent(typeof(Canvas))]
     public class UICombatManagers : MonoBehaviour
     {
-        private readonly string mainSceneName = "Main";
         private readonly string battleSceneName = "Battle";
 
         private readonly string killElementName = "KillElement";

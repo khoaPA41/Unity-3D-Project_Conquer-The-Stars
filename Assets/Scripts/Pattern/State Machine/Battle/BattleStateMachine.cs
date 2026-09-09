@@ -93,6 +93,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private void OnEnable()
         {
             CinemachineCore.BlendFinishedEvent.AddListener(OnBlendFinished);
+            BattleTime = Time.time;
         }
 
         private void OnDisable()

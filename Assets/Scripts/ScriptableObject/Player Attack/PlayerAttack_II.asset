@@ -16,11 +16,11 @@ MonoBehaviour:
   - Attack_Basic_I
   - Attack_Basic_II
   Attack:
-  - Punch
-  - Kick
+  - Impact
+  - Iron Kick
   AttackInformation:
-  - Punch Enemy
-  - Kick Enemy
+  - Punch Enemy with 80% dmg
+  - Kick Enemy with 90% dmg
   AttackIcon:
   - {fileID: 21300000, guid: 4b902e61d2a35864b899daaebfc8ee8c, type: 3}
   - {fileID: 21300000, guid: 9a437a3235866a242a57615119d40c78, type: 3}
@@ -31,17 +31,17 @@ MonoBehaviour:
   - Attack_Skill_I
   - Attack_Skill_II
   Skill:
-  - Combo I
-  - Combo II
+  - 'Bullet Storm (20 mana) '
+  - Lotus Nova (30 mana)
   ManaRequired:
-  - 1
-  - 2
+  - 20
+  - 30
   SkillInformation:
-  - Combo Punch
-  - Combo Kick
+  - 'Combo Punch with 80% dmg (20 mana) '
+  - Combo Kick with 80% dmg (30 mana)
   SkillIcon:
   - {fileID: 21300000, guid: 3d999f4125671fd41b3737d280b3e563, type: 3}
   - {fileID: 21300000, guid: f24126fd673eeaf4789b71c88cf7c9f6, type: 3}
   ScaleSkillDamage:
-  - 1
-  - 1.5
+  - 0.8
+  - 0.8
