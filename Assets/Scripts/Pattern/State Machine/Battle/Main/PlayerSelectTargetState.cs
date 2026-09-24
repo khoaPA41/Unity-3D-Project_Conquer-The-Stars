@@ -11,6 +11,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
+            battleStateMachine.SelectUi.SetActive(true);
             /*Change Combat Idle State*/
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerCombatIdleState);
 
@@ -25,6 +26,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             /*Listen input event to choose target*/
             battleStateMachine.InputReader.NextTargetAction += HighlightNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction += HighlightPrevTarget;
+
         }
 
         public override void Tick(float deltaTime)
@@ -35,6 +37,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.InputReader.NextTargetAction -= HighlightNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction -= HighlightPrevTarget;
+            battleStateMachine.SelectUi.SetActive(false);
         }
 
         private async void Selected()
@@ -50,9 +53,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 taskCompletionSource.TrySetResult(true);
                 battleStateMachine.InputReader.EnterTargetAction -= OnConfirm;
+                // battleStateMachine.TouchSwipeController.AttackAction -= OnConfirm;
             }
 
             battleStateMachine.InputReader.EnterTargetAction += OnConfirm;
+            // battleStateMachine.TouchSwipeController.AttackAction += OnConfirm;
+
             return taskCompletionSource.Task;
         }
 

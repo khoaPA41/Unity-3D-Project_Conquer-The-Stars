@@ -38,14 +38,18 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             // Listen event for exact the frame attack deals damage
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage += PlayerDealDamage;
-            battleStateMachine.InputReader.EnterTargetAction += UICombatManagers.Instance.PausePerfectFrame;
+            // battleStateMachine.InputReader.EnterTargetAction += UICombatManagers.Instance.PausePerfectFrame;
+            battleStateMachine.TouchSwipeController.AttackAction += UICombatManagers.Instance.PausePerfectFrame;
+
 
             //Wait until player attack animation done
             yield return new WaitUntil(() => battleStateMachine.PlayerCombatStateMachine.IsFinished == true);
 
             // Clear event to avoid double call / memory leak
             battleStateMachine.PlayerCombatStateMachine.AttackDealDamage -= PlayerDealDamage;
-            battleStateMachine.InputReader.EnterTargetAction -= UICombatManagers.Instance.PausePerfectFrame;
+            // battleStateMachine.InputReader.EnterTargetAction -= UICombatManagers.Instance.PausePerfectFrame;
+            battleStateMachine.TouchSwipeController.AttackAction -= UICombatManagers.Instance.PausePerfectFrame;
+
 
             // battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
             battleStateMachine.SwitchResolve();

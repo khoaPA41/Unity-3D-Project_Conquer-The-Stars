@@ -16,6 +16,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
     {
         [field: Header("Input")]
         [field: SerializeField] public BattleInputReader InputReader { get; private set; }
+        [field: SerializeField] public TouchSwipeController TouchSwipeController { get; private set; }
+
+        [field: Header("UI")]
+        [field: SerializeField] public GameObject SelectUi { get; private set; }
 
         [field: Header("Area")]
         [field: SerializeField] public StartMatch Area { get; private set; }

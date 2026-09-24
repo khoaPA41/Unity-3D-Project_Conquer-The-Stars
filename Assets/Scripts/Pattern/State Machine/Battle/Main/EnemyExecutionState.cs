@@ -15,8 +15,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.EnemyStateMachine.HighlightCurrentTurn.InactiveHighlight();
 
-            battleStateMachine.InputReader.EnterTargetAction += PlayerDodge;
-            battleStateMachine.InputReader.BlockAction += PlayerBlock;
+            // battleStateMachine.InputReader.EnterTargetAction += PlayerDodge;
+            // battleStateMachine.InputReader.BlockAction += PlayerBlock;
+
+            battleStateMachine.TouchSwipeController.DodgeAction += PlayerDodge;
+            battleStateMachine.TouchSwipeController.ParryAction += PlayerBlock;
 
             battleStateMachine.EnemyStateMachine.IsFinished = false;
 
@@ -29,8 +32,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-            battleStateMachine.InputReader.EnterTargetAction -= PlayerDodge;
-            battleStateMachine.InputReader.BlockAction -= PlayerBlock;
+            // battleStateMachine.InputReader.EnterTargetAction -= PlayerDodge;
+            // battleStateMachine.InputReader.BlockAction -= PlayerBlock;
+            battleStateMachine.TouchSwipeController.DodgeAction -= PlayerDodge;
+            battleStateMachine.TouchSwipeController.ParryAction -= PlayerBlock;
         }
 
         private IEnumerator WaitToEndAttack()

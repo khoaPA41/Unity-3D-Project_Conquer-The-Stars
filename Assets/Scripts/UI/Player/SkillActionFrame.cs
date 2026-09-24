@@ -37,7 +37,7 @@ namespace ConquerTheStars.UI.Player
                 yield return null;
             }
 
-            var value = actionFrame.rectTransform.lossyScale.x;
+            var value = actionFrame.rectTransform.localScale.x;
             ActionFrameValue = value >= 1.01f ? 0f : value;
 
             actionFrame.rectTransform.localScale = actionFrameLocalScaleRoot;

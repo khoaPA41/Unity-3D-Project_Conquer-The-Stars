@@ -14,7 +14,6 @@ namespace ConquerTheStars.InputController
         public event Action SettingUiAction = delegate { };
         private PlayerBattleInput inputActions;
 
-
         private void Awake()
         {
             inputActions = new PlayerBattleInput();
@@ -80,6 +79,21 @@ namespace ConquerTheStars.InputController
             {
                 SettingUiAction?.Invoke();
             }
+        }
+
+        public void OnNextButton()
+        {
+            NextTargetAction?.Invoke();
+        }
+
+        public void OnPreviousButton()
+        {
+            PreviousTargetAction?.Invoke();
+        }
+
+        public void OnEnterButton()
+        {
+            EnterTargetAction?.Invoke();
         }
     }
 }
