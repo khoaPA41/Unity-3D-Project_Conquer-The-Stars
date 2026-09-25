@@ -65,15 +65,14 @@ public class TouchSwipeController : MonoBehaviour
         // Qualified -> Active
         firedTouchs.Add(finger.index);
 
-        bool isRightSide = startPos.x > Screen.height * .5f;
+        bool isRightSide = startPos.x > Screen.width * .5f;
+
         if (isRightSide)
         {
-            Debug.Log("Dodge");
             DodgeAction?.Invoke();
         }
         else
         {
-            Debug.Log("Parry");
             ParryAction?.Invoke();
         }
     }

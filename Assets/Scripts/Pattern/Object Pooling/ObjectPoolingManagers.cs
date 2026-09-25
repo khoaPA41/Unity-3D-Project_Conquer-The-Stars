@@ -35,7 +35,6 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-
             parentsObject = new List<GameObject>();
             foreach (var pooledObject in poolObjectList)
             {

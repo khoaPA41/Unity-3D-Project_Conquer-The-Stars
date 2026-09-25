@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Stats;
 using UnityEngine;
-[Serializable]
 
+[Serializable]
 public class BossPhaseInformation
 {
     public EnemyAttack EnemyAttack;
     public float healthThreshold;
 }
+
 public class BossPhase : MonoBehaviour
 {
-    [field: SerializeField] public List<BossPhaseInformation> Attacks;
+    [field: SerializeField] public List<BossPhaseInformation> Attacks { get; private set; }
 
     [SerializeField] private CharacterStatsManagers bossStatsManagers;
 
@@ -20,13 +21,10 @@ public class BossPhase : MonoBehaviour
 
     public EnemyAttack EnemyAttack;
 
-
-
     private void OnEnable()
     {
         bossStatsManagers.HealthUpdateAction += GetAttackByPhase;
     }
-
 
     private void OnDisable()
     {
