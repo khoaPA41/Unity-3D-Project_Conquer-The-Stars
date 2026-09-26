@@ -37,6 +37,21 @@ Tracked during code review / Phase A. Status: **Fixed** | **Open**.
 | 6 | Object pool: string keys + parent lookup via `Substring`/`Contains` | Low | Open | Fragile on rename/typo; silent null if key wrong |
 | 7 | Typos / naming (`Nomalized`, `Playerexecuted`, `pooledObect`, …) | Low | Open | Consistency pass |
 | 8 | Empty stubs (`TeamManagers`, `UseItem`); `Target` is empty marker | Low | Open | Delete unused; keep `Target` only if still used as marker |
+
+
+### D02: Debugging Workflow
+Tracked during debugging / Phase A. **Status: Completed**
+
+| # | Task | Status | Notes |
+|---|---|---|---|
+| 1 | Reproduce identified bugs from D01 | Fixed | Re-tested each issue under its original conditions before changing code |
+| 2 | Debug with breakpoint + variable inspection | Fixed | Used VS Code debugger to inspect runtime values and execution flow |
+| 3 | TouchSwipe screen boundary | Fixed | Verified `Screen.width` against touch `startPos.x` for horizontal layout |
+| 4 | BossPhase selection | Fixed | Phase selection no longer depends on Inspector list order |
+| 5 | CharacterStatsManagers lifecycle | Fixed | Moved stat initialization to `Awake()`; runtime reset handled by explicit `Init()` |
+| 6 | ResolveState responsibilities | Fixed | Separated buff, camera, death resolution, turn steal, and battle-result flow into named methods |
+| 7 | Debug log / naming cleanup | Fixed | Removed redundant debug logs and standardized private fields to `_camelCase` |
+| 8 | Regression check | Fixed | Re-tested affected gameplay flows after fixes and verified no new compile/runtime errors |
 ## Credits
 
 Developed by [Phạm Anh Khoa](https://github.com/khoaPA41)
