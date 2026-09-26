@@ -8,50 +8,50 @@ namespace ConquerTheStars.Fight.Player
     [RequireComponent(typeof(PlayerCombatStateMachine))]
     public class PlayerSetupSkillUI : MonoBehaviour
     {
-        private readonly int SkillSelectionAppearAnimationHash = Animator.StringToHash("Appear");
-        private readonly int SkillSelectionDisappearAnimationHash = Animator.StringToHash("Disappear");
+        private readonly int _skillSelectionAppearAnimationHash = Animator.StringToHash("Appear");
+        private readonly int _skillSelectionDisappearAnimationHash = Animator.StringToHash("Disappear");
 
         [Header("Canvas")]
         [SerializeField]
-        private Canvas playerCanvas;
+        private Canvas _playerCanvas;
 
         [Header("Selection Object")]
         [SerializeField]
-        private RectTransform selection_I;
-        [SerializeField] private RectTransform selection_II;
-        [SerializeField] private RectTransform selection_III;
+        private RectTransform _selection_I;
+        [SerializeField] private RectTransform _selection_II;
+        [SerializeField] private RectTransform _selection_III;
 
         [Header("Skill Selection")]
         [SerializeField]
-        private List<SkillElement> attackElement;
-        [SerializeField] private List<SkillElement> skillElement;
-        [SerializeField] private List<SkillElement> itemElement;
+        private List<SkillElement> _attackElement;
+        [SerializeField] private List<SkillElement> _skillElement;
+        [SerializeField] private List<SkillElement> _itemElement;
 
         [Header("Animator")]
         [SerializeField]
-        private Animator skillAnimator;
+        private Animator _skillAnimator;
 
         [Header("StateMachine")]
-        [SerializeField] private PlayerCombatStateMachine playerCombatStateMachine;
+        [SerializeField] private PlayerCombatStateMachine _playerCombatStateMachine;
 
-        private Camera mainCamera;
+        private Camera _mainCamera;
 
-        private bool isInitialized;
+        private bool _isInitialized;
 
         private void OnEnable()
         {
-            mainCamera = Camera.main;
-            if (playerCombatStateMachine != null && PlayerTeam.Instance != null)
+            _mainCamera = Camera.main;
+            if (_playerCombatStateMachine != null && PlayerTeam.Instance != null)
             {
-                if (!isInitialized)
+                if (!_isInitialized)
                 {
                     SetupAttackUI();
                     SetupSkillUI();
                     SetupItemUI();
-                    isInitialized = true;
+                    _isInitialized = true;
                 }
 
-                if (mainCamera != null)
+                if (_mainCamera != null)
                 {
                     SetupCamera();
                 }
@@ -61,19 +61,19 @@ namespace ConquerTheStars.Fight.Player
 
         private void SetupAttackUI()
         {
-            for (int i = 0; i < playerCombatStateMachine.AttackData.AttackIcon.Count; i++)
+            for (int i = 0; i < _playerCombatStateMachine.AttackData.AttackIcon.Count; i++)
             {
                 // Setup attack element base AttackData
-                attackElement[i].SetupSkillElement(playerCombatStateMachine.AttackData.AttackIcon[i],
-                playerCombatStateMachine.AttackData.Attack[i],
-                playerCombatStateMachine.AttackData.AttackInformation[i]
+                _attackElement[i].SetupSkillElement(_playerCombatStateMachine.AttackData.AttackIcon[i],
+                _playerCombatStateMachine.AttackData.Attack[i],
+                _playerCombatStateMachine.AttackData.AttackInformation[i]
                 );
 
                 //Attach event
                 var index = i;
-                attackElement[i].Button.onClick.AddListener(() =>
+                _attackElement[i].Button.onClick.AddListener(() =>
                 {
-                    playerCombatStateMachine.GetIndexAction("Attack", index);
+                    _playerCombatStateMachine.GetIndexAction("Attack", index);
                 });
             }
         }
@@ -81,19 +81,19 @@ namespace ConquerTheStars.Fight.Player
 
         private void SetupSkillUI()
         {
-            for (int i = 0; i < playerCombatStateMachine.AttackData.SkillIcon.Count; i++)
+            for (int i = 0; i < _playerCombatStateMachine.AttackData.SkillIcon.Count; i++)
             {
                 // Setup skill element base AttackData
 
-                skillElement[i].SetupSkillElement(playerCombatStateMachine.AttackData.SkillIcon[i],
-                playerCombatStateMachine.AttackData.Skill[i],
-                playerCombatStateMachine.AttackData.SkillInformation[i]);
+                _skillElement[i].SetupSkillElement(_playerCombatStateMachine.AttackData.SkillIcon[i],
+                _playerCombatStateMachine.AttackData.Skill[i],
+                _playerCombatStateMachine.AttackData.SkillInformation[i]);
 
                 //Attach event
                 var index = i;
-                skillElement[i].Button.onClick.AddListener(() =>
+                _skillElement[i].Button.onClick.AddListener(() =>
                 {
-                    playerCombatStateMachine.GetIndexAction("Skill", index);
+                    _playerCombatStateMachine.GetIndexAction("Skill", index);
                 });
             }
         }
@@ -104,36 +104,36 @@ namespace ConquerTheStars.Fight.Player
             for (int i = 0; i < itemList.Count; i++)
             {
                 // Setup item element base Item List
-                itemElement[i].SetupSkillElement(itemList[i].ItemData.ItemIcon, itemList[i].Quantity.ToString(), itemList[i].ItemData.ItemInformation);
+                _itemElement[i].SetupSkillElement(itemList[i].ItemData.ItemIcon, itemList[i].Quantity.ToString(), itemList[i].ItemData.ItemInformation);
 
                 //Attach event
                 var index = i;
-                itemElement[i].Button.onClick.AddListener(() =>
+                _itemElement[i].Button.onClick.AddListener(() =>
                 {
-                    playerCombatStateMachine.GetItemIndex(itemList[index].ItemData);
+                    _playerCombatStateMachine.GetItemIndex(itemList[index].ItemData);
                 });
             }
         }
 
         private void SetupCamera()
         {
-            playerCanvas.worldCamera = mainCamera;
+            _playerCanvas.worldCamera = _mainCamera;
         }
 
         public void AppearSkillUI()
         {
-            playerCanvas.gameObject.SetActive(true);
-            skillAnimator.SetTrigger(SkillSelectionAppearAnimationHash);
+            _playerCanvas.gameObject.SetActive(true);
+            _skillAnimator.SetTrigger(_skillSelectionAppearAnimationHash);
         }
         public void DisappearSkillUI()
         {
-            skillAnimator.SetTrigger(SkillSelectionDisappearAnimationHash);
-            playerCanvas.gameObject.SetActive(false);
+            _skillAnimator.SetTrigger(_skillSelectionDisappearAnimationHash);
+            _playerCanvas.gameObject.SetActive(false);
         }
 
         public void InActiveSkillUI()
         {
-            playerCanvas.gameObject.SetActive(false);
+            _playerCanvas.gameObject.SetActive(false);
         }
     }
 

@@ -35,11 +35,13 @@ namespace ConquerTheStars.Fight.Match
 
         public void AddPlayerTeam(CharacterStatsManagers player)
         {
+            player.Init(); // Setup Stats before add to list
             PlayerTeam.Add(player);
         }
 
         public void AddEnemyTeam(CharacterStatsManagers enemy)
         {
+            enemy.Init(); // Setup Stats before add to list
             EnemyTeam.Add(enemy);
         }
 

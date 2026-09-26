@@ -69,7 +69,5 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                     break;
             }
         }
-
-
     }
 }

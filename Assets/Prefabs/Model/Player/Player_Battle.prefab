@@ -1778,28 +1778,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c7775e25df16e439c836b9c1c8fdb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSetupSkillUI
-  playerCanvas: {fileID: 4325294405774738794}
-  selection_I: {fileID: 8244247701474137245}
-  selection_II: {fileID: 56533261710240181}
-  selection_III: {fileID: 6782472933558941365}
-  attackElement:
+  _playerCanvas: {fileID: 4325294405774738794}
+  _selection_I: {fileID: 8244247701474137245}
+  _selection_II: {fileID: 56533261710240181}
+  _selection_III: {fileID: 6782472933558941365}
+  _attackElement:
   - {fileID: 733012438606887357}
   - {fileID: 755337445474105077}
-  skillElement:
+  _skillElement:
   - {fileID: 2977192497164237640}
   - {fileID: 7914676360292257253}
-  itemElement:
+  _itemElement:
   - {fileID: 6897139520351919489}
   - {fileID: 6101567189898033101}
   - {fileID: 2688541503053391102}
   - {fileID: 4676037100284219002}
   - {fileID: 286098430949034009}
   - {fileID: 5652246822373469166}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  skillAnimator: {fileID: 8127610899210728619}
-  playerCombatStateMachine: {fileID: 930405337414683739}
+  _skillAnimator: {fileID: 8127610899210728619}
+  _playerCombatStateMachine: {fileID: 930405337414683739}
 --- !u!114 &5527444843006475073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1813,6 +1810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSetupUI
   characterStatsManagers: {fileID: 5115756970071326048}
+  buffManager: {fileID: 7458693076291688881}
   healthUpdate: 0.5
   manaUpdate: 0.5
 --- !u!114 &4458655260899961602
@@ -4833,7 +4831,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4245238502856771769}
     - target: {fileID: 2898256427428023135, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 4245238502856771769}
+    - target: {fileID: 2898256427428023135, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
       propertyPath: skillBoardRoot
+      value: 
+      objectReference: {fileID: 8011154608662311454}
+    - target: {fileID: 2898256427428023135, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardRoot
       value: 
       objectReference: {fileID: 8011154608662311454}
     - target: {fileID: 2898256427428023135, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
@@ -4844,12 +4850,28 @@ PrefabInstance:
       propertyPath: skillBoardOther_I
       value: 
       objectReference: {fileID: 2129355460816736054}
+    - target: {fileID: 2898256427428023135, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardOthe_II
+      value: 
+      objectReference: {fileID: 3586449883978804510}
+    - target: {fileID: 2898256427428023135, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardOther_I
+      value: 
+      objectReference: {fileID: 2129355460816736054}
     - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 3264737157725034959}
     - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 3264737157725034959}
+    - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
       propertyPath: skillBoardRoot
+      value: 
+      objectReference: {fileID: 2129355460816736054}
+    - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardRoot
       value: 
       objectReference: {fileID: 2129355460816736054}
     - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
@@ -4858,6 +4880,14 @@ PrefabInstance:
       objectReference: {fileID: 3586449883978804510}
     - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
       propertyPath: skillBoardOther_I
+      value: 
+      objectReference: {fileID: 8011154608662311454}
+    - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardOthe_II
+      value: 
+      objectReference: {fileID: 3586449883978804510}
+    - target: {fileID: 6528257879544100471, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardOther_I
       value: 
       objectReference: {fileID: 8011154608662311454}
     - target: {fileID: 7064302080195211515, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
@@ -4949,7 +4979,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5578104700455413416}
     - target: {fileID: 8561443343963771999, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 5578104700455413416}
+    - target: {fileID: 8561443343963771999, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
       propertyPath: skillBoardRoot
+      value: 
+      objectReference: {fileID: 3586449883978804510}
+    - target: {fileID: 8561443343963771999, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardRoot
       value: 
       objectReference: {fileID: 3586449883978804510}
     - target: {fileID: 8561443343963771999, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
@@ -4958,6 +4996,14 @@ PrefabInstance:
       objectReference: {fileID: 8011154608662311454}
     - target: {fileID: 8561443343963771999, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
       propertyPath: skillBoardOther_I
+      value: 
+      objectReference: {fileID: 2129355460816736054}
+    - target: {fileID: 8561443343963771999, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardOthe_II
+      value: 
+      objectReference: {fileID: 8011154608662311454}
+    - target: {fileID: 8561443343963771999, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}
+      propertyPath: _skillBoardOther_I
       value: 
       objectReference: {fileID: 2129355460816736054}
     - target: {fileID: 9051367485616075103, guid: 8fe1e3c2b3e992442b400eb9728a95f2, type: 3}

@@ -64,21 +64,21 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void HighlightNextTarget()
         {
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
             battleStateMachine.PlayerTargeter.ChooseNextTarget();
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
         }
 
         private void HighlightPrevTarget()
         {
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
             battleStateMachine.PlayerTargeter.ChoosePrevTarget();
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
         }
 
         private void Highlight()
         {
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
         }
     }
 }

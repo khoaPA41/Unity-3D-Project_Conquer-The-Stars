@@ -7,8 +7,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatUseItemState : PlayerCombatBaseState
     {
-        private readonly int UseItemAnimationHash = Animator.StringToHash("UseItem");
-        private readonly string UseItemAnimationTag = "UseItem";
+        private readonly int _useItemAnimationHash = Animator.StringToHash("UseItem");
+        private readonly string _useItemAnimationTag = "UseItem";
 
         private float _normalizedTime;
         private float _prevTime;
@@ -22,12 +22,12 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             _prevTime = 0f;
             _normalizedTime = 0f;
             isUseItem = false;
-            playerCombatStateMachine.Animator.CrossFadeInFixedTime(UseItemAnimationHash, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(_useItemAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
         {
-            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, UseItemAnimationTag);
+            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, _useItemAnimationTag);
 
             if (_normalizedTime > _prevTime && _normalizedTime >= .9f && _normalizedTime <= 1f)
             {

@@ -3,11 +3,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatDodgeState : PlayerCombatBaseState
     {
-        private readonly int DodgeAnimationHash = Animator.StringToHash("Dodge");
-        private readonly string DodgeAnimationTag = "Dodge";
-
+        private readonly int _dodgeAnimationHash = Animator.StringToHash("Dodge");
+        private readonly string _dodgeAnimationTag = "Dodge";
         private float _normalizedTime;
         private float _prevTime;
+
         public PlayerCombatDodgeState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
@@ -16,13 +16,13 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             _prevTime = 0f;
             _normalizedTime = 0f;
-            playerCombatStateMachine.Animator.CrossFadeInFixedTime(DodgeAnimationHash, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(_dodgeAnimationHash, playerCombatStateMachine.AnimationCrossFade);
             playerCombatStateMachine.CharacterStatsManagers.SetIsDodge(true);
         }
 
         public override void Tick(float deltaTime)
         {
-            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, DodgeAnimationTag);
+            _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, _dodgeAnimationTag);
 
             if (_normalizedTime > _prevTime && _normalizedTime > .3f)
             {

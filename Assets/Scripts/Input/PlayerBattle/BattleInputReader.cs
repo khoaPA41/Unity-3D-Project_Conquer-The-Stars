@@ -12,18 +12,18 @@ namespace ConquerTheStars.InputController
         public event Action EnterTargetAction = delegate { };
         public event Action BlockAction = delegate { };
         public event Action SettingUiAction = delegate { };
-        private PlayerBattleInput inputActions;
+        private PlayerBattleInput _inputActions;
 
         private void Awake()
         {
-            inputActions = new PlayerBattleInput();
-            inputActions.Player.SetCallbacks(this);
-            inputActions.Enable();
+            _inputActions = new PlayerBattleInput();
+            _inputActions.Player.SetCallbacks(this);
+            _inputActions.Enable();
         }
 
-        private void OnEnable() => inputActions?.Enable();
+        private void OnEnable() => _inputActions?.Enable();
 
-        private void OnDisable() => inputActions?.Disable();
+        private void OnDisable() => _inputActions?.Disable();
 
         public void OnDodge(InputAction.CallbackContext context)
         {

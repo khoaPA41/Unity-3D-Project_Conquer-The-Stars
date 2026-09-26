@@ -23,9 +23,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         [field: Header("Area")]
         [field: SerializeField] public StartMatch Area { get; private set; }
-        // public Queue<CharacterStatsManagers> CharacterStats { get; set; } = new();
         public List<CharacterStatsManagers> CharacterStats = new();
-
         public CharacterStatsManagers CurrentTurn { get; set; }
 
         [field: Header("Target")]
@@ -75,7 +73,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         void Start()
         {
-
             Cursor.lockState = CursorLockMode.None;
             BattleSetup = new SetupState(this);
             StartTurn = new StartTurnState(this);

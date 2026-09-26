@@ -49,16 +49,17 @@ namespace ConquerTheStars.Stats
         public event Action DyingAction = delegate { };
         public event Action<float> HealthUpdateAction = delegate { };
         public event Action<float> ManaUpdateAction = delegate { };
+        public event Action SetupHudAction = delegate { };
 
         public bool IsDodge { get; set; }
         public bool IsBlock { get; set; }
 
 
         private float currentChance;
-        private void OnEnable()
+
+        private void Awake()
         {
             SetupLevelByType();
-
             // Initialize stats from ScriptableObject + level scaling
             maxHealth = new StatsManagers(baseStatsData.Health, level);
             attack = new StatsManagers(baseStatsData.AttackPower, level);
@@ -71,6 +72,10 @@ namespace ConquerTheStars.Stats
             icon = baseStatsData.Icon;
             characterType = baseStatsData.Type;
 
+        }
+
+        public void Init()
+        {
             CurrentHealth = maxHealth.GetFinalValue();
             CurrentMana = 10;
             CurrentAttackDamage = attack.GetFinalValue();
@@ -78,8 +83,8 @@ namespace ConquerTheStars.Stats
             CurrentDefense = defense.GetFinalValue();
             CurrentCritical = critical.GetFinalValue();
             CurrentLuck = luck.GetFinalValue();
-
             IsDeath = false;
+            SetupHudAction?.Invoke();
         }
 
         private void SetupLevelByType()

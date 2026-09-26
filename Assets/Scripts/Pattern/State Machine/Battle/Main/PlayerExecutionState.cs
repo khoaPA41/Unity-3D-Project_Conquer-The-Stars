@@ -17,7 +17,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.PlayerCombatStateMachine.HighlightCurrentTurn.InactiveHighlight();
             battleStateMachine.PlayerCombatStateMachine.IsFinished = false;
-            // battleStateMachine.PlayerTargeter.RemoveTargetCamera();
             battleStateMachine.StartCoroutine(WaitToEndAttack());
         }
 
@@ -33,7 +32,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private IEnumerator WaitToEndAttack()
         {
             //Prepare attack
-            battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.currentTarget;
+            battleStateMachine.PlayerCombatStateMachine.Target = battleStateMachine.PlayerTargeter.CurrentTarget;
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerAttackState);
 
             // Listen event for exact the frame attack deals damage
@@ -57,8 +56,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerDealDamage()
         {
-            var target = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>();
-            var enemyStatsManager = battleStateMachine.PlayerTargeter.currentTarget.GetComponent<CharacterStatsManagers>();
+            var target = battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>();
+            var enemyStatsManager = battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<CharacterStatsManagers>();
 
             if (target == null) return;
 

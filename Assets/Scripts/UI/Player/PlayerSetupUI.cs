@@ -23,68 +23,71 @@ namespace ConquerTheStars.UI.Player
         private float healthUpdate;
         [SerializeField] private float manaUpdate;
 
-        private PlayerHUD characterHud;
-        private Image health;
-        private Image mana;
-        private TextMeshProUGUI healthText;
-        private TextMeshProUGUI manaText;
+        private PlayerHUD _characterHud;
+        private Image _health;
+        private Image _mana;
+        private TextMeshProUGUI _healthText;
+        private TextMeshProUGUI _manaText;
 
 
         private void OnEnable()
         {
             characterStatsManagers.HealthUpdateAction += HealthUpdate;
             characterStatsManagers.ManaUpdateAction += ManaUpdate;
-
         }
 
         private void OnDisable()
         {
             characterStatsManagers.HealthUpdateAction -= HealthUpdate;
             characterStatsManagers.ManaUpdateAction -= ManaUpdate;
-
         }
 
         public void SpawnCharacterHUD()
         {
             // Spawn character HUD ui
-            characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
+            _characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
 
-            UICombatManagers.Instance.AddUiPooledObjectList(characterHud.GetComponent<PooledObject>());
+            UICombatManagers.Instance.AddUiPooledObjectList(_characterHud.GetComponent<PooledObject>());
 
-            characterHud.GetComponent<RectTransform>().SetParent(UICombatManagers.Instance?.StatusPanel);
+            _characterHud.GetComponent<RectTransform>().SetParent(UICombatManagers.Instance?.StatusPanel);
 
             //Setup hud base characterStatsManagers
-            characterHud.Icon.sprite = characterStatsManagers.icon;
-            health = characterHud.Health;
-            mana = characterHud.Mana;
-            healthText = characterHud.HealthText;
-            manaText = characterHud.ManaText;
+            _characterHud.Icon.sprite = characterStatsManagers.icon;
+            _health = _characterHud.Health;
+            _mana = _characterHud.Mana;
+            _healthText = _characterHud.HealthText;
+            _manaText = _characterHud.ManaText;
         }
 
         public void InactiveCharacterHUD()
         {
-            characterHud.gameObject.SetActive(false);
+            _characterHud.gameObject.SetActive(false);
+        }
+
+        public void ReturnToPool()
+        {
+            _characterHud.PooledObject.Release();
         }
 
         public void SetupStatusUI(float healthValue, float manaValue)
         {
-            health.fillAmount = healthValue;
-            mana.fillAmount = manaValue;
-            healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
-            manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
+            _health.fillAmount = healthValue;
+            _mana.fillAmount = manaValue;
+            _healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
+            _manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
 
         }
 
         public void HealthUpdate(float target)
         {
-            StartCoroutine(HealthChanging(health, target));
-            healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
+            StartCoroutine(HealthChanging(_health, target));
+            _healthText.SetText($"{characterStatsManagers.CurrentHealth}/{characterStatsManagers.maxHealth.GetFinalValue()}");
         }
 
         public void ManaUpdate(float target)
         {
-            StartCoroutine(HealthChanging(mana, target));
-            manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
+            StartCoroutine(HealthChanging(_mana, target));
+            _manaText.SetText($"{characterStatsManagers.CurrentMana}/{characterStatsManagers.mana.GetFinalValue()}");
         }
 
         private IEnumerator HealthChanging(Image targetFill, float target)

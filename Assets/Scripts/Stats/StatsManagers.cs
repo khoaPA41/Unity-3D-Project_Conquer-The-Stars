@@ -11,10 +11,16 @@ namespace ConquerTheStars.Stats
 
         private readonly List<float> buffList = new();
 
-        private readonly int level;
+        private int level;
         public StatsManagers(float baseValue, int level)
         {
             this.baseValue = baseValue;
+            this.level = level;
+            SetupBaseLevel();
+        }
+
+        public void LevelUp(int level)
+        {
             this.level = level;
             SetupBaseLevel();
         }

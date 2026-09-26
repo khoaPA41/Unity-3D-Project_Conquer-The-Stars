@@ -10,18 +10,18 @@ namespace ConquerTheStars.InputController
         public bool Attack { get; set; }
         public event Action SettingUiAction = delegate { };
 
-        private PlayerInput playerInput;
+        private PlayerInput _playerInput;
 
         private void Awake()
         {
-            playerInput = new PlayerInput();
-            playerInput.Player.SetCallbacks(this);
+            _playerInput = new PlayerInput();
+            _playerInput.Player.SetCallbacks(this);
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        private void OnEnable() => playerInput.Enable();
+        private void OnEnable() => _playerInput.Enable();
 
-        private void OnDisable() => playerInput.Disable();
+        private void OnDisable() => _playerInput.Disable();
 
         public void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {

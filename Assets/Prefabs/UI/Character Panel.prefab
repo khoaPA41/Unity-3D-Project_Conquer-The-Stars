@@ -112,6 +112,7 @@ MonoBehaviour:
   <HealthText>k__BackingField: {fileID: 7710545985100164599}
   <ManaText>k__BackingField: {fileID: 8250931328978815836}
   Buff: {fileID: 5205153650509894460}
+  PooledObject: {fileID: -3133378582491506990}
 --- !u!1 &62751166539121810
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,14 +4,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatAttackState : PlayerCombatBaseState
     {
-        private readonly int JumpAnimationHash = Animator.StringToHash("Jump");
+        private readonly int _jumpAnimationHash = Animator.StringToHash("Jump");
 
-        private readonly string AttackAnimationTag = "Attack";
-
+        private readonly string _attackAnimationTag = "Attack";
         private bool _isActiveAnimation;
         private float _normalizedTime;
         private float _prevTime;
-        string _animationName;
+        private string _animationName;
+
         public PlayerCombatAttackState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
@@ -28,14 +28,14 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
             playerCombatStateMachine.AttackData.SkillName[playerCombatStateMachine.AttackIndexSelected];
 
-            playerCombatStateMachine.Animator.CrossFadeInFixedTime(JumpAnimationHash, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(_jumpAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
         {
             if (_isActiveAnimation)
             {
-                _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, AttackAnimationTag);
+                _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, _attackAnimationTag);
 
                 if (_normalizedTime > _prevTime && _normalizedTime >= .9f && _normalizedTime <= 1f)
                 {

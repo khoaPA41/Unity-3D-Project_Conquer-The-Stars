@@ -127,13 +127,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public void PlaySlashSound()
         {
-            Debug.Log("Slash");
             AudioManagers.Instance.PlaySound(AttackTransform, AttackSfx);
         }
 
         public void PlayHitSound()
         {
-            Debug.Log("Hit");
             AudioManagers.Instance.PlaySound(AttackTransform, HitSfx);
         }
     }

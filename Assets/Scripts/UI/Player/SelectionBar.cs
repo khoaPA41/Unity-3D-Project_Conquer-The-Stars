@@ -4,21 +4,22 @@ namespace ConquerTheStars.UI.Player
 {
     public class SelectionBar : MonoBehaviour
     {
-        private readonly int SkillSelectionAppearAnimationHash = Animator.StringToHash("Appear");
-        private readonly int SkillSelectionDisappearAnimationHash = Animator.StringToHash("Disappear");
+        private readonly int _skillSelectionAppearAnimationHash = Animator.StringToHash("Appear");
+        private readonly int _skillSelectionDisappearAnimationHash = Animator.StringToHash("Disappear");
+
         [Header("Skill Board")]
-        [SerializeField] private GameObject skillBoardRoot;
-        [SerializeField] private GameObject skillBoardOther_I;
-        [SerializeField] private GameObject skillBoardOthe_II;
-        [SerializeField] private Animator animator;
+        [SerializeField] private GameObject _skillBoardRoot;
+        [SerializeField] private GameObject _skillBoardOther_I;
+        [SerializeField] private GameObject _skillBoardOthe_II;
+        [SerializeField] private Animator _animator;
 
 
         public void ActiveSkillBoard()
         {
-            skillBoardOther_I.SetActive(false);
-            skillBoardOthe_II.SetActive(false);
-            skillBoardRoot.SetActive(true);
-            animator.SetTrigger(SkillSelectionAppearAnimationHash);
+            _skillBoardOther_I.SetActive(false);
+            _skillBoardOthe_II.SetActive(false);
+            _skillBoardRoot.SetActive(true);
+            _animator.SetTrigger(_skillSelectionAppearAnimationHash);
         }
     }
 }

@@ -8,19 +8,19 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class ResolveState : BattleBaseState
     {
-        private bool isFinished;
+        private bool _isFinished;
         public ResolveState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
-            isFinished = false;
+            _isFinished = false;
 
             CheckBuffRemaining();
             InactiveCamera();
-            CheckCurrentCharacter();
-            CheckCurrentTurnList();
+            PutCurrentCharacterBackToList();
+            ResolveDeaths();
             StealTurn();
 
             // Check if either one team list is dead, end battle
@@ -30,14 +30,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 return;
             }
 
-            isFinished = true;
+            _isFinished = true;
         }
 
         public override void Tick(float deltaTime)
         {
-            if (isFinished)
+            if (_isFinished)
             {
-                isFinished = false;
+                _isFinished = false;
                 battleStateMachine.SwitchStartTurn();
             }
         }
@@ -51,17 +51,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void CheckBuffRemaining()
         {
-            if (battleStateMachine.PlayerCombatStateMachine != null)
-                battleStateMachine.PlayerCombatStateMachine.BuffManager.CheckRemainingBuff();
+            battleStateMachine.PlayerCombatStateMachine?.BuffManager?.CheckRemainingBuff();
         }
 
-        private void CheckCurrentCharacter()
+        private void PutCurrentCharacterBackToList()
         {
             battleStateMachine.CharacterStats.Add(battleStateMachine.CurrentTurn);
         }
 
-
-        private void CheckCurrentTurnList()
+        private void ResolveDeaths()
         {
             //Call Death event if character isDeath
             foreach (var character in battleStateMachine.CharacterStats)

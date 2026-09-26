@@ -20,7 +20,8 @@ namespace ConquerTheStars.Pattern.Object_Pooling
         [SerializeField] private List<PoolObject> poolObjectList;
 
         private Dictionary<string, Stack<PooledObject>> pooledObjectDict;
-        private List<GameObject> parentsObject;
+        private Dictionary<string, Transform> parentByNameDict;
+        private Dictionary<string, PooledObject> objectByNameDict;
 
         public bool IsSetupFinished { get; private set; }
 
@@ -35,15 +36,32 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            parentsObject = new List<GameObject>();
+
+            SetupParrentObject(); // Save Parrent
+            SetupPooledObject(); // Save Object
+            Setup();
+            IsSetupFinished = true;
+        }
+
+        private void SetupParrentObject()
+        {
+            parentByNameDict = new();
             foreach (var pooledObject in poolObjectList)
             {
                 var parent = new GameObject(pooledObject.ObjectName + "_Pool");
                 parent.transform.SetParent(transform);
-                parentsObject.Add(parent);
+
+                parentByNameDict[pooledObject.ObjectName] = parent.transform; // Save parrent Transform as soon as created
             }
-            Setup();
-            IsSetupFinished = true;
+        }
+
+        private void SetupPooledObject()
+        {
+            objectByNameDict = new();
+            foreach (var pooledObject in poolObjectList)
+            {
+                objectByNameDict[pooledObject.ObjectName] = pooledObject.PooledObject; // Save Pooled Object as soon as created
+            }
         }
 
         private void Setup()
@@ -51,20 +69,20 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             if (poolObjectList.Count == 0) return;
 
             pooledObjectDict = new Dictionary<string, Stack<PooledObject>>();
-            foreach (var pooledObect in poolObjectList)
+            foreach (var pooledObject in poolObjectList)
             {
-                var pooleds = new Stack<PooledObject>();
-                var parent = parentsObject.Find(temp => temp.name.Substring(0, temp.name.Length - 5).Contains(pooledObect.ObjectName)).transform;
+                var poolStack = new Stack<PooledObject>();
+                var parent = parentByNameDict[pooledObject.ObjectName];
 
-                for (int i = 0; i < pooledObect.Quantity; i++)
+                for (int i = 0; i < pooledObject.Quantity; i++)
                 {
-                    var newObject = Instantiate(pooledObect.PooledObject);
-                    newObject.name = pooledObect.ObjectName;
+                    var newObject = Instantiate(pooledObject.PooledObject);
+                    newObject.name = pooledObject.ObjectName;
                     newObject.gameObject.transform.SetParent(parent);
                     newObject.gameObject.SetActive(false);
-                    pooleds.Push(newObject);
+                    poolStack.Push(newObject);
                 }
-                pooledObjectDict.Add(pooledObect.ObjectName, pooleds);
+                pooledObjectDict.Add(pooledObject.ObjectName, poolStack);
             }
         }
 
@@ -72,18 +90,17 @@ namespace ConquerTheStars.Pattern.Object_Pooling
         {
             if (String.IsNullOrEmpty(objectName) || !pooledObjectDict.ContainsKey(objectName))
             {
-                Debug.Log($"Don't have object {objectName}");
+                Debug.LogWarning($"Don't have object {objectName}");
                 return null;
             }
 
             if (pooledObjectDict[objectName].Count == 0)
             {
-                var newObject = Instantiate(poolObjectList.Find(itemPool => itemPool.ObjectName.Contains(objectName)).PooledObject);
+                var newObject = Instantiate(objectByNameDict[objectName]);
                 newObject.name = objectName;
                 newObject.transform.position = pos;
-                newObject.transform.SetParent(parentsObject.Find(temp => temp.name.Substring(0, temp.name.Length - 5).Contains(objectName)).transform);
+                newObject.transform.SetParent(parentByNameDict[objectName]);
                 newObject.gameObject.SetActive(true);
-                // pooledObjectDict[objectName].Push(newObject);
                 return newObject;
             }
 
@@ -95,18 +112,15 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             return existedObject;
         }
 
-
-
         public void Release(PooledObject pooledObject)
         {
             if (String.IsNullOrEmpty(pooledObject.name) || !pooledObjectDict.ContainsKey(pooledObject.name))
             {
-                Debug.Log("Don't have object");
+                Debug.LogWarning("Don't have object");
                 return;
             }
-            var parrentObject = pooledObject.name + "_Pool";
             pooledObject.gameObject.SetActive(false);
-            pooledObject.gameObject.transform.SetParent(parentsObject.Find(parrentName => parrentName.name == parrentObject).transform);
+            pooledObject.transform.SetParent(parentByNameDict[pooledObject.name]);
             pooledObjectDict[pooledObject.name].Push(pooledObject);
         }
     }

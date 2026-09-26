@@ -9,7 +9,7 @@ namespace ConquerTheStars.Fight.Enemy
     [RequireComponent(typeof(CharacterStatsManagers))]
     public class EnemyEvaluation : MonoBehaviour
     {
-        [SerializeField] private StrategyEvaluation strategyEvaluation;
+        [SerializeField] private StrategyEvaluation _strategyEvaluation;
 
         public List<float> Evaluate(List<CharacterStatsManagers> targets)
         {
@@ -19,16 +19,12 @@ namespace ConquerTheStars.Fight.Enemy
             {
                 if (targets[i].IsDeath)
                 {
-                    Debug.Log($"Death: {targets[i]}");
                     listCharacterScore.Add(0f);
                     continue;
                 }
-                var finalScore = EvaluateHP(targets[i]) * strategyEvaluation.hpWeight +
-                                EvaluateThreat(targets[i]) * strategyEvaluation.threatWeight +
-                                EvaluateDefense(targets[i]) * strategyEvaluation.defenseWeight +
-                                EvaluateStatus(targets[i]) * strategyEvaluation.statusWeight;
-
-                Debug.Log($"Valid: {targets[i]}");
+                var finalScore = EvaluateHP(targets[i]) * _strategyEvaluation.hpWeight +
+                                EvaluateThreat(targets[i]) * _strategyEvaluation.threatWeight +
+                                EvaluateDefense(targets[i]) * _strategyEvaluation.defenseWeight;
 
                 listCharacterScore.Add(finalScore);
             }
@@ -51,10 +47,6 @@ namespace ConquerTheStars.Fight.Enemy
         {
             var defenseNomalized = 1 - (target.defense.GetFinalValue() / 100f);
             return defenseNomalized;
-        }
-        private float EvaluateStatus(CharacterStatsManagers target)
-        {
-            return 0;
         }
 
         public CharacterStatsManagers GetBestTarget(List<CharacterStatsManagers> targets)

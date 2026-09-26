@@ -748,14 +748,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e20b7cdac21ede40ad2ab0ba6d70223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTeam
-  itemDatas:
+  _itemDatas:
   - ItemData: {fileID: 11400000, guid: 8d7a6c8b895d81b41a57ea8df0f4a7c7, type: 2}
     Quantity: 2
   - ItemData: {fileID: 11400000, guid: db97d639bc4a4a94ca03b73ea412fc6b, type: 2}
     Quantity: 2
-  - ItemData: {fileID: 11400000, guid: b168b497e8b2ea44198d16d93518ce4d, type: 2}
-    Quantity: 2
   - ItemData: {fileID: 11400000, guid: b5eb578fad41629448631575b4ee3b1a, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: b168b497e8b2ea44198d16d93518ce4d, type: 2}
     Quantity: 2
 --- !u!4 &871645449
 Transform:
@@ -1416,15 +1416,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f2fd7a9ad4feb4c854115140d1dc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleInformationManagers
-  battleInforTransform:
+  BattleInforTransformList:
   - {fileID: 8707248337652120244}
   - {fileID: 2018780540795229945}
   - {fileID: 2018780541209365013}
   - {fileID: 2018780540151317342}
   - {fileID: 2018780540494143410}
   - {fileID: 2018780540580206533}
-  enemyTeams:
-  - {fileID: 11400000, guid: 5e9abe9003bf46644a8520607d9852fd, type: 2}
+  EnemyTeams:
+  - {fileID: 11400000, guid: 65afedf583338d64e92faecd643eb893, type: 2}
   - {fileID: 11400000, guid: 0c93d13741352f0438e0670959ec886e, type: 2}
   - {fileID: 11400000, guid: 42fecde5117270b4f93e8105d1123bc0, type: 2}
   - {fileID: 11400000, guid: d74d14314ede83a4ebe7398d0644238f, type: 2}

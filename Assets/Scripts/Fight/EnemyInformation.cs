@@ -7,17 +7,17 @@ using UnityEngine.AI;
 [RequireComponent(typeof(PooledObject))]
 public class EnemyInformation : MonoBehaviour
 {
-    private EnemyTeam enemyTeam;
-    private PooledObject pooledObject;
+    private EnemyTeam _enemyTeam;
+    private PooledObject _pooledObject;
 
     private void Start()
     {
-        pooledObject = GetComponent<PooledObject>();
+        _pooledObject = GetComponent<PooledObject>();
     }
 
     public void SetEnemyTeam(EnemyTeam enemyTeam)
     {
-        this.enemyTeam = enemyTeam;
+        this._enemyTeam = enemyTeam;
     }
 
     void OnTriggerEnter(Collider other)
@@ -28,11 +28,11 @@ public class EnemyInformation : MonoBehaviour
             GameManager.Instance.SetCheckpoint(transform.position);
             GameManager.Instance.AutoSaveGame();
 
-            BattleInformationManagers.Instance.SetArea(enemyTeam);
+            BattleInformationManagers.Instance.SetArea(_enemyTeam);
 
             if (BattleInformationManagers.Instance.AreaInformation != null)
             {
-                pooledObject.Release();
+                _pooledObject.Release();
                 GameManager.Instance.AutoSaveGame();
                 GameManager.Instance.LoadBattleScene();
             }

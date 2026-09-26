@@ -11,9 +11,9 @@ namespace ConquerTheStars.Fight.Match
 
         public PlayerTeam PlayerTeam { get; set; }
 
-        public List<Transform> battleInforTransform;
+        public List<Transform> BattleInforTransformList;
 
-        public List<EnemyTeam> enemyTeams;
+        public List<EnemyTeam> EnemyTeams;
 
         private void Awake()
         {
@@ -25,7 +25,6 @@ namespace ConquerTheStars.Fight.Match
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
         }
 
         private void Start()
@@ -33,14 +32,12 @@ namespace ConquerTheStars.Fight.Match
             Setup();
         }
 
-
         private void Setup()
         {
-            for (int i = 0; i < battleInforTransform.Count; i++)
+            for (int i = 0; i < BattleInforTransformList.Count; i++)
             {
-                var enemy = ObjectPoolingManagers.Instance.GetPooledObject("Battle_Infor", battleInforTransform[i].position).GetComponent<EnemyInformation>();
-                enemy.SetEnemyTeam(enemyTeams[i]);
-
+                var enemy = ObjectPoolingManagers.Instance.GetPooledObject("Battle_Infor", BattleInforTransformList[i].position).GetComponent<EnemyInformation>();
+                enemy.SetEnemyTeam(EnemyTeams[i]);
             }
         }
 

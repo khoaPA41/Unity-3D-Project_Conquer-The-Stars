@@ -306,11 +306,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507c0128afd83da408346fe41c6b3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillElement
-  icon: {fileID: 1245129695894130819}
-  skillName: {fileID: 8715651860277664231}
-  information: {fileID: 8313154530686952174}
+  _icon: {fileID: 1245129695894130819}
+  _skillName: {fileID: 8715651860277664231}
+  _information: {fileID: 8313154530686952174}
   <Button>k__BackingField: {fileID: 2726604529518693450}
-  index: 0
+  Index: 0
 --- !u!114 &8369440765979022269
 MonoBehaviour:
   m_ObjectHideFlags: 0

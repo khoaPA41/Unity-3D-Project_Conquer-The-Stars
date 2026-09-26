@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUI
   _healthImage: {fileID: 3570289399911346639}
-  _healthUpdate: 0
+  _healthUpdate: 0.15
   characterStatsManagers: {fileID: 5605771835838259731}
 --- !u!114 &5084206831313819289
 MonoBehaviour:
@@ -1030,7 +1030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c7f29154d2a0441a3ae52056cd0e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEvaluation
-  strategyEvaluation: {fileID: 11400000, guid: 82dc4e4ecbdd48746aa1bdca3b749e3c, type: 2}
+  _strategyEvaluation: {fileID: 11400000, guid: 82dc4e4ecbdd48746aa1bdca3b749e3c, type: 2}
 --- !u!1 &2761769427226085316
 GameObject:
   m_ObjectHideFlags: 0

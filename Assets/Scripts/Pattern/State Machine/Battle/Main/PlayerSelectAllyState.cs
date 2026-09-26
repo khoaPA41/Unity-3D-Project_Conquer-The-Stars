@@ -44,7 +44,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private IEnumerator WaitToEndAnimation()
         {
-            var targetAlly = battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>();
+            var targetAlly = battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
             battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
             targetAlly.IsFinished = false;
             targetAlly.BuffManager.SetItemToUse(battleStateMachine.PlayerCombatStateMachine.ItemData);
@@ -74,21 +74,21 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void HighlightNextTarget()
         {
-            battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
+            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
             battleStateMachine.AllyTargeter.ChooseNextTarget();
-            battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
         }
 
         private void HighlightPrevTarget()
         {
-            battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
+            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
             battleStateMachine.AllyTargeter.ChoosePrevTarget();
-            battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
         }
 
         private void Highlight()
         {
-            battleStateMachine.AllyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
         }
     }
 }

@@ -8,6 +8,10 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class BattleResultState : BattleBaseState
     {
+        private static readonly WaitForSecondsRealtime _waitToChangeVictory = new(2f);
+
+        private static readonly WaitForSecondsRealtime _waitToChangeDefeat = new(2f);
+
         public BattleResultState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
@@ -33,11 +37,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
         }
 
-
-
         private IEnumerator WaitToChangeVictory()
         {
-            yield return new WaitForSecondsRealtime(2f);
+            yield return _waitToChangeVictory;
             ChangeVictoryState();
             CalculateResultInformation();
             battleStateMachine.VictoryCamera.gameObject.SetActive(true);
@@ -45,7 +47,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         }
         private IEnumerator WaitToChangeDefeat()
         {
-            yield return new WaitForSecondsRealtime(2f);
+            yield return _waitToChangeDefeat;
             CalculateResultInformation();
             SetupResultBoard();
         }
@@ -79,6 +81,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                             Mathf.RoundToInt(battleStateMachine.SuccessfulParryTimes).ToString(),
                             Mathf.RoundToInt(battleStateMachine.SuccessfulDodgeTimes).ToString()
                         );
+
             foreach (var enemy in battleStateMachine.TeamController.EnemyTeam)
             {
                 UICombatManagers.Instance.SpawnKillElement(enemy.icon);

@@ -23,8 +23,8 @@ namespace ConquerTheStars.Managers
         private readonly string EndScene = "End";
         public static GameManager Instance { get; private set; }
 
-        private ReasonLoadScene currentLoadReason = ReasonLoadScene.New;
-        private Vector3 checkpointPos;
+        private ReasonLoadScene _currentLoadReason = ReasonLoadScene.New;
+        private Vector3 _checkpointPos;
 
         private void Awake()
         {
@@ -49,10 +49,10 @@ namespace ConquerTheStars.Managers
             var player = GameObject.FindGameObjectWithTag("Player");
             if (player == null) return;
 
-            switch (currentLoadReason)
+            switch (_currentLoadReason)
             {
                 case ReasonLoadScene.New:
-                    checkpointPos = player.transform.position;
+                    _checkpointPos = player.transform.position;
                     break;
 
                 case ReasonLoadScene.Reload:
@@ -78,7 +78,7 @@ namespace ConquerTheStars.Managers
         public void StartNewGame()
         {
             SaveManagers.Instance.CreateNewSaveData();
-            currentLoadReason = ReasonLoadScene.New;
+            _currentLoadReason = ReasonLoadScene.New;
 
             SceneManager.LoadScene(MainScene);
         }
@@ -93,8 +93,8 @@ namespace ConquerTheStars.Managers
                 return;
             }
 
-            currentLoadReason = ReasonLoadScene.Reload;
-            checkpointPos = new Vector3(saveData.xPosition, saveData.yPosition, saveData.zPosition);
+            _currentLoadReason = ReasonLoadScene.Reload;
+            _checkpointPos = new Vector3(saveData.xPosition, saveData.yPosition, saveData.zPosition);
 
             SceneManager.LoadScene(MainScene);
         }
@@ -110,28 +110,25 @@ namespace ConquerTheStars.Managers
 
         public void ExitToTitle()
         {
-            currentLoadReason = ReasonLoadScene.Exit;
+            _currentLoadReason = ReasonLoadScene.Exit;
             SceneManager.LoadScene(StartMenuScene);
         }
 
         public void LoadBattleScene()
         {
-            Debug.Log("Load combat scene");
-            currentLoadReason = ReasonLoadScene.ReloadCombat;
+            _currentLoadReason = ReasonLoadScene.ReloadCombat;
             SceneManager.LoadScene(CommbatScene);
         }
 
         public void BackToMainScene()
         {
-            Debug.Log("Load Main scene");
-            currentLoadReason = ReasonLoadScene.BackToMain;
+            _currentLoadReason = ReasonLoadScene.BackToMain;
             SceneManager.LoadScene(MainScene);
         }
 
         public void LoadEndScene()
         {
-            Debug.Log("Load Main scene");
-            currentLoadReason = ReasonLoadScene.Exit;
+            _currentLoadReason = ReasonLoadScene.Exit;
             SceneManager.LoadScene(EndScene);
         }
 
@@ -139,7 +136,7 @@ namespace ConquerTheStars.Managers
 
         public void SetCheckpoint(Vector3 checkpointPosition)
         {
-            checkpointPos = checkpointPosition;
+            _checkpointPos = checkpointPosition;
         }
 
         private void ApplySaveData(GameObject player)
@@ -165,9 +162,9 @@ namespace ConquerTheStars.Managers
             var saveData = new SaveData
             {
                 sceneName = MainScene,
-                xPosition = checkpointPos.x,
-                yPosition = checkpointPos.y,
-                zPosition = checkpointPos.z,
+                xPosition = _checkpointPos.x,
+                yPosition = _checkpointPos.y,
+                zPosition = _checkpointPos.z,
 
                 teamLevel = PlayerTeam.Instance.TeamLevel
             };

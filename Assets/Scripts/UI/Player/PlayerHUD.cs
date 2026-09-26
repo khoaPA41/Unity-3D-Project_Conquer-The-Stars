@@ -1,3 +1,4 @@
+using ConquerTheStars.Pattern.Object_Pooling;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,5 +14,6 @@ namespace ConquerTheStars.UI.Player
         [field: SerializeField] public TextMeshProUGUI HealthText { get; set; }
         [field: SerializeField] public TextMeshProUGUI ManaText { get; set; }
         [field: SerializeField] public GameObject Buff;
+        [field: SerializeField] public PooledObject PooledObject;
     }
 }

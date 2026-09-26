@@ -16290,7 +16290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c7f29154d2a0441a3ae52056cd0e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Fight.Enemy.EnemyEvaluation
-  strategyEvaluation: {fileID: 11400000, guid: 9749df2ad5e20e64fb61993909637bd8, type: 2}
+  _strategyEvaluation: {fileID: 11400000, guid: 9749df2ad5e20e64fb61993909637bd8, type: 2}
 --- !u!114 &6485009032817984335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16332,11 +16332,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossPhase
   <Attacks>k__BackingField:
   - EnemyAttack: {fileID: 11400000, guid: 2d51fd0539233d642a79e2178f52e570, type: 2}
-    healthThreshold: 1
+    HealthThreshold: 1
   - EnemyAttack: {fileID: 11400000, guid: ebaf678a16973b04dbfcc25a29529271, type: 2}
-    healthThreshold: 0.5
-  bossStatsManagers: {fileID: 7041562865203575106}
-  enemyStateMachine: {fileID: 3213133964373519049}
+    HealthThreshold: 0.5
+  _bossStatsManagers: {fileID: 7041562865203575106}
+  _enemyStateMachine: {fileID: 3213133964373519049}
   EnemyAttack: {fileID: 0}
 --- !u!1 &4204735547274476026
 GameObject:

@@ -5172,8 +5172,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -5211,8 +5211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UiManagers
   settingsPanel: {fileID: 249905440}
-  _soundSettings: {fileID: 2144794218}
-  _exitChoose: {fileID: 1007776495}
+  soundSettings: {fileID: 2144794218}
+  exitChoose: {fileID: 1007776495}
 --- !u!1 &1290139421
 GameObject:
   m_ObjectHideFlags: 0
@@ -8913,10 +8913,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSettings
   mixer: {fileID: 24100000, guid: fa2b2bb5bebf5364ca37f0972a755350, type: 2}
-  _masterVolumeSlider: {fileID: 1682664631}
-  _bgmVolumeSlider: {fileID: 1596417234}
-  _sfxVolumeSlider: {fileID: 726174901}
-  _uiVolumeSlider: {fileID: 759749191}
+  masterVolumeSlider: {fileID: 1682664631}
+  bgmVolumeSlider: {fileID: 1596417234}
+  sfxVolumeSlider: {fileID: 726174901}
+  uiVolumeSlider: {fileID: 759749191}
 --- !u!1001 &4734964874002113652
 PrefabInstance:
   m_ObjectHideFlags: 0

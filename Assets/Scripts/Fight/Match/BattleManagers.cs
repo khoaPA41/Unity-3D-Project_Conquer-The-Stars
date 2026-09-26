@@ -17,18 +17,18 @@ namespace ConquerTheStars.Fight.Match
 
     public class BattleManagers : MonoBehaviour
     {
-        private BattleState battleState;
-        private StartMatch startMatch;
+        private BattleState _battleState;
+        private StartMatch _startMatch;
 
         private void Start()
         {
-            battleState = BattleState.BattleStart;
-            startMatch = GameObject.FindGameObjectWithTag("StartMatch").GetComponent<StartMatch>();
+            _battleState = BattleState.BattleStart;
+            _startMatch = GameObject.FindGameObjectWithTag("StartMatch").GetComponent<StartMatch>();
         }
 
         public IEnumerator BattleCircle()
         {
-            while (battleState != BattleState.BattleEnd)
+            while (_battleState != BattleState.BattleEnd)
             {
 
 

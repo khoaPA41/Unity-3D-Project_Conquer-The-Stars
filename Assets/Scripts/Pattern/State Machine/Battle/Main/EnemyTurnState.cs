@@ -12,10 +12,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            // Chuyen camera ve binh thuong
-            // Logic xac dinh muc tieu
-
-            // GetTarget();
             // Xuat hien hieu ung
             battleStateMachine.StartCoroutine(Wait());
         }
@@ -34,9 +30,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             GetTarget();
             battleStateMachine.EnemyStateMachine.HighlightCurrentTurn.Highlight();
-            battleStateMachine.EnemyStateMachine.Target = battleStateMachine.EnemyTargeter.currentTarget; // Get Current Target form select Target state
+            battleStateMachine.EnemyStateMachine.Target = battleStateMachine.EnemyTargeter.CurrentTarget; // Get Current Target form select Target state
             battleStateMachine.EnemyStateMachine.SwitchIdle();
-            battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().ReturnDefenseIdle();
+            battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().ReturnDefenseIdle();
 
             yield return new WaitForSecondsRealtime(3f);
             battleStateMachine.SwitchState(battleStateMachine.EnemyExecuted);
@@ -44,7 +40,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void GetTarget()
         {
-            battleStateMachine.EnemyTargeter.currentTarget = battleStateMachine.EnemyStateMachine.EnemyEvaluation.GetBestTarget(battleStateMachine.TeamController.PlayerTeam).GetComponent<Target>();
+            battleStateMachine.EnemyTargeter.CurrentTarget = battleStateMachine.EnemyStateMachine.EnemyEvaluation.GetBestTarget(battleStateMachine.TeamController.PlayerTeam).GetComponent<Target>();
         }
     }
 }

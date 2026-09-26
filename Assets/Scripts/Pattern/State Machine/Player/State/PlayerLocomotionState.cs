@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayerLocomotionState : PlayerBaseState
 {
-    private readonly int LomocotionBlendTreeHash = Animator.StringToHash("Locomotion");
-    private readonly int MovementParam = Animator.StringToHash("Movement");
+    private readonly int _lomocotionBlendTreeHash = Animator.StringToHash("Locomotion");
+    private readonly int _movementParam = Animator.StringToHash("Movement");
 
     public PlayerLocomotionState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
@@ -12,7 +12,7 @@ public class PlayerLocomotionState : PlayerBaseState
 
     public override void Enter()
     {
-        playerStateMachine.Animator.CrossFadeInFixedTime(LomocotionBlendTreeHash, playerStateMachine.AnimationCrossFade);
+        playerStateMachine.Animator.CrossFadeInFixedTime(_lomocotionBlendTreeHash, playerStateMachine.AnimationCrossFade);
     }
 
     public override void Tick(float deltaTime)
@@ -33,15 +33,15 @@ public class PlayerLocomotionState : PlayerBaseState
     {
         if (playerStateMachine.InputReader.Movement == Vector2.zero)
         {
-            playerStateMachine.Animator.SetFloat(MovementParam, 0, playerStateMachine.AnimationCrossFade, deltaTime);
-            if (playerStateMachine.Animator.GetFloat(MovementParam) <= 0.001f)
+            playerStateMachine.Animator.SetFloat(_movementParam, 0, playerStateMachine.AnimationCrossFade, deltaTime);
+            if (playerStateMachine.Animator.GetFloat(_movementParam) <= 0.001f)
             {
-                playerStateMachine.Animator.SetFloat(MovementParam, 0);
+                playerStateMachine.Animator.SetFloat(_movementParam, 0);
             }
             return;
         }
 
-        playerStateMachine.Animator.SetFloat(MovementParam, 1, playerStateMachine.AnimationCrossFade, deltaTime);
+        playerStateMachine.Animator.SetFloat(_movementParam, 1, playerStateMachine.AnimationCrossFade, deltaTime);
     }
 
 

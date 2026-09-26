@@ -11,8 +11,8 @@ public class UiManagers : MonoBehaviour
 
     public static UiManagers Instance;
     [field: SerializeField] public GameObject settingsPanel;
-    [SerializeField] private GameObject soundSettings;
-    [SerializeField] private GameObject exitChoose;
+    [SerializeField] private GameObject _soundSettings;
+    [SerializeField] private GameObject _exitChoose;
 
 
     void Awake()
@@ -33,14 +33,14 @@ public class UiManagers : MonoBehaviour
 
     public void ActiveSoundSettings()
     {
-        exitChoose.SetActive(false);
-        soundSettings.SetActive(true);
+        _exitChoose.SetActive(false);
+        _soundSettings.SetActive(true);
     }
 
     public void ActiveExitChoose()
     {
-        soundSettings.SetActive(false);
-        exitChoose.SetActive(true);
+        _soundSettings.SetActive(false);
+        _exitChoose.SetActive(true);
     }
 
 

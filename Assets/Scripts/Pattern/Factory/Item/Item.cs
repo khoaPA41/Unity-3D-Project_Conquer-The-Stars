@@ -13,7 +13,6 @@ namespace ConquerTheStars.Factory.Item
             var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
             var healingAmount = value + (characterStatsManagers.maxHealth.GetFinalValue() - characterStatsManagers.CurrentHealth) * .5f;
             characterStatsManagers.Healing(healingAmount);
-            Debug.Log($"{character.CharacterUse().name}: Heal: {value}");
         }
     }
 
@@ -26,7 +25,6 @@ namespace ConquerTheStars.Factory.Item
             var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
             var manaIncreaseAmount = value + (characterStatsManagers.CurrentMana * .5f);
             characterStatsManagers.AddMana(manaIncreaseAmount);
-            Debug.Log($"{character.CharacterUse().name}: Mana: {value}");
         }
     }
 
@@ -46,8 +44,6 @@ namespace ConquerTheStars.Factory.Item
                 var buffManager = character.CharacterUse().GetComponent<BuffManager>();
                 buffManager.AddBuff(itemType, remainingTurn, value);
             }
-
-            Debug.Log($"{character.CharacterUse().name}: Defense: {value}");
         }
     }
     public class IncreaseDamage : IItem
@@ -65,8 +61,6 @@ namespace ConquerTheStars.Factory.Item
                 var buffManager = character.CharacterUse().GetComponent<BuffManager>();
                 buffManager.AddBuff(itemType, remainingTurn, value);
             }
-
-            Debug.Log($"{character.CharacterUse().name}: IncreaseDamage: {value}");
         }
     }
     public class IncreaseCritical : IItem
@@ -85,9 +79,9 @@ namespace ConquerTheStars.Factory.Item
                 var buffManager = character.CharacterUse().GetComponent<BuffManager>();
                 buffManager.AddBuff(itemType, remainingTurn, value);
             }
-            Debug.Log($"{character.CharacterUse().name}: IncreaseCritical: {value}");
         }
     }
+
     public class IncreaseSpeed : IItem
     {
         public ItemType ItemType => ItemType.IncreaseSpeed;
@@ -103,9 +97,9 @@ namespace ConquerTheStars.Factory.Item
                 var buffManager = character.CharacterUse().GetComponent<BuffManager>();
                 buffManager.AddBuff(itemType, remainingTurn, value);
             }
-            Debug.Log($"{character.CharacterUse().name}: IncreaseSpeed: {value}");
         }
     }
+
     public class Revive : IItem
     {
         public ItemType ItemType => ItemType.Revive;
@@ -122,9 +116,9 @@ namespace ConquerTheStars.Factory.Item
                 var buffManager = character.CharacterUse().GetComponent<BuffManager>();
                 buffManager.AddBuff(itemType, remainingTurn, value);
             }
-            Debug.Log($"{character.CharacterUse().name}: Revive: {value}");
         }
     }
+
     public class RemoveDisruption : IItem
     {
         public ItemType ItemType => ItemType.RemoveDisruption;
@@ -135,6 +129,7 @@ namespace ConquerTheStars.Factory.Item
             Debug.Log($"{character.CharacterUse().name}: RemoveDisruption: {value}");
         }
     }
+
     public class SummonTurret : IItem
     {
         public ItemType ItemType => ItemType.SummonTurret;
@@ -146,7 +141,6 @@ namespace ConquerTheStars.Factory.Item
                 var buffManager = character.CharacterUse().GetComponent<BuffManager>();
                 buffManager.AddBuff(itemType, remainingTurn, value);
             }
-            Debug.Log($"{character.CharacterUse().name}: SummonTurret: {value}");
         }
     }
 }

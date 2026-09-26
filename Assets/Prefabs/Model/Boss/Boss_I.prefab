@@ -7235,7 +7235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c7f29154d2a0441a3ae52056cd0e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Fight.Enemy.EnemyEvaluation
-  strategyEvaluation: {fileID: 11400000, guid: 9749df2ad5e20e64fb61993909637bd8, type: 2}
+  _strategyEvaluation: {fileID: 11400000, guid: 9749df2ad5e20e64fb61993909637bd8, type: 2}
 --- !u!114 &5053821259392672379
 MonoBehaviour:
   m_ObjectHideFlags: 0

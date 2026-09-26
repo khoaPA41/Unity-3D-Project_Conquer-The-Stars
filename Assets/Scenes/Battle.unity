@@ -3849,15 +3849,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad515c068ec11d4e879cb20a574ea3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMatch
-  <enemyTransformList>k__BackingField:
-  - enemyTransformList:
+  <EnemyTransformList>k__BackingField:
+  - EnemyTransforms:
     - {fileID: 96903714}
     - {fileID: 442573890}
     - {fileID: 1947585541}
-  <playerTransformList>k__BackingField:
-  - playerTransformList:
-    - {fileID: 437097297}
+  <PlayerTransformList>k__BackingField:
+  - PlayerTransforms:
     - {fileID: 1091914526}
+    - {fileID: 437097297}
     - {fileID: 1013783187}
 --- !u!4 &1067235457
 Transform:
@@ -5178,11 +5178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9757a987e945adb4e9af2583c93e783d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillActionFrame
-  perfectFrame: {fileID: 1437901242}
-  actionFrame: {fileID: 615414664}
-  timeToEnd: 0.8
-  actionFrameLocalScaleTarget: {x: 1.1, y: 1.1, z: 1.1}
-  actionFrameLocalScaleRoot: {x: 0.4, y: 0.4, z: 0.4}
+  _perfectFrame: {fileID: 1437901242}
+  _actionFrame: {fileID: 615414664}
+  _timeToEnd: 0.8
+  _actionFrameLocalScaleTarget: {x: 1.1, y: 1.1, z: 1.1}
+  _actionFrameLocalScaleRoot: {x: 0.4, y: 0.4, z: 0.4}
 --- !u!1 &1449631795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5468,7 +5468,6 @@ GameObject:
   - component: {fileID: 1476980626}
   - component: {fileID: 1476980628}
   - component: {fileID: 1476980627}
-  - component: {fileID: 1476980629}
   - component: {fileID: 1476980630}
   - component: {fileID: 1476980631}
   - component: {fileID: 1476980633}
@@ -5537,20 +5536,6 @@ MonoBehaviour:
   SuccessfulParryTimes: 0
   SuccessfulDodgeTimes: 0
   playerDealsHighestDamageLastTurn: {fileID: 0}
---- !u!114 &1476980629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476980624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad515c068ec11d4e879cb20a574ea3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StartMatch
-  <enemyTransformList>k__BackingField: []
-  <playerTransformList>k__BackingField: []
 --- !u!114 &1476980630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5563,9 +5548,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a4a4200796be74c9e739bda1d70e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Targeter
-  targetAvaiable: []
-  currentTarget: {fileID: 0}
-  currentIndex: 0
+  TargetAvaiable: []
+  CurrentTarget: {fileID: 0}
+  CurrentIndex: 0
 --- !u!114 &1476980631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5578,9 +5563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a4a4200796be74c9e739bda1d70e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Targeter
-  targetAvaiable: []
-  currentTarget: {fileID: 0}
-  currentIndex: 0
+  TargetAvaiable: []
+  CurrentTarget: {fileID: 0}
+  CurrentIndex: 0
 --- !u!114 &1476980632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5607,9 +5592,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a4a4200796be74c9e739bda1d70e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Fight.Target.Targeter
-  targetAvaiable: []
-  currentTarget: {fileID: 0}
-  currentIndex: 0
+  TargetAvaiable: []
+  CurrentTarget: {fileID: 0}
+  CurrentIndex: 0
 --- !u!114 &1476980634
 MonoBehaviour:
   m_ObjectHideFlags: 0

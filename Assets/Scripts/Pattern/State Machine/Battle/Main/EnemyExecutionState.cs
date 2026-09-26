@@ -55,8 +55,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         }
         private void EnemyDealDamage()
         {
-            var target = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>();
-            var playerStatsManager = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<CharacterStatsManagers>();
+            var target = battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
+            var playerStatsManager = battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<CharacterStatsManagers>();
             if (target == null) return;
 
             //  Calculate damage if critical
@@ -99,12 +99,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerDodge()
         {
-            battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
+            battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
         }
 
         private void PlayerBlock()
         {
-            battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
+            battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
         }
 
         private void SwitchAttackByType()

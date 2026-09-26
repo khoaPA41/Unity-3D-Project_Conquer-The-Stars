@@ -111,14 +111,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             PlayerStartPosition = transform.position;
             CharacterStatsManagers.DyingAction += SwitchDyingState;
+            CharacterStatsManagers.SetupHudAction += SetupHud;
             PlayerExecuteAction += GetAttackIndex;
-
-            if (UICombatManagers.Instance != null)
-            {
-                PlayerSetupUI.SpawnCharacterHUD();
-                PlayerSetupUI.SetupStatusUI(CharacterStatsManagers.CurrentHealth / CharacterStatsManagers.maxHealth.GetFinalValue(),
-                CharacterStatsManagers.CurrentMana / CharacterStatsManagers.mana.GetFinalValue());
-            }
 
             // Listen camera blend finish
             CinemachineCore.BlendFinishedEvent.AddListener(OnBlendFinished);
@@ -127,15 +121,23 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private void OnDisable()
         {
             CharacterStatsManagers.DyingAction -= SwitchDyingState;
+            CharacterStatsManagers.SetupHudAction -= SetupHud;
             PlayerExecuteAction -= GetAttackIndex;
             CinemachineCore.BlendFinishedEvent.RemoveListener(OnBlendFinished);
         }
 
+        public void SetupHud()
+        {
+            if (UICombatManagers.Instance != null)
+            {
+                PlayerSetupUI.SpawnCharacterHUD();
+                PlayerSetupUI.SetupStatusUI(CharacterStatsManagers.CurrentHealth / CharacterStatsManagers.maxHealth.GetFinalValue(),
+                CharacterStatsManagers.CurrentMana / CharacterStatsManagers.mana.GetFinalValue());
+            }
+        }
+
         public void OnBlendFinished(ICinemachineMixer camera, ICinemachineCamera cinemachineCamera)
         {
-            // var activeChild = CinemachineStateDrivenCamera.LiveChild;
-
-            // Debug.Log($"Current Child Camera: {activeChild?.Name}");
             IsWatingCameraBlendFinished = true;
         }
 
@@ -274,25 +276,21 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public void PlaySlashSound()
         {
-            Debug.Log("Slash");
             AudioManagers.Instance.PlaySound(AttackTransform, AttackSfx);
         }
 
         public void PlayHitSound()
         {
-            Debug.Log("Hit");
             AudioManagers.Instance.PlaySound(AttackTransform, HitSfx);
         }
 
         public void PlayDodgeSound()
         {
-            Debug.Log("Dodge");
             AudioManagers.Instance.PlaySound(AttackTransform, DodgeSfx);
         }
 
         public void PlayParrySound()
         {
-            Debug.Log("Parry");
             AudioManagers.Instance.PlaySound(AttackTransform, ParrySfx);
         }
     }

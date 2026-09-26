@@ -16,7 +16,7 @@ namespace ConquerTheStars.Fight
     {
         public static PlayerTeam Instance { get; set; }
 
-        [SerializeField] private List<ItemQuantity> itemDatas;
+        [SerializeField] private List<ItemQuantity> _itemDatas;
         public List<string> TeamNameList { get; set; } = new();
 
         public Vector3 CurrentPosition { get; private set; } = new Vector3(36f, 0f, 62f);
@@ -38,7 +38,6 @@ namespace ConquerTheStars.Fight
             AddTeamMate("Player_III");
         }
 
-
         public void AddTeamMate(string name)
         {
             TeamNameList.Add(name);
@@ -51,7 +50,7 @@ namespace ConquerTheStars.Fight
 
         public List<ItemQuantity> GetItemList()
         {
-            return itemDatas;
+            return _itemDatas;
         }
 
         // public ItemData GetItemData(int index)
@@ -61,7 +60,7 @@ namespace ConquerTheStars.Fight
 
         public void AddQuantity()
         {
-            for (int i = 0; i < itemDatas.Count; i++)
+            for (int i = 0; i < _itemDatas.Count; i++)
             {
 
             }

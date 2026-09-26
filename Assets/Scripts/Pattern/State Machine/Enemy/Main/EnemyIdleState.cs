@@ -4,14 +4,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 {
     public class EnemyIdleState : EnemyBaseState
     {
-        private readonly int IdleAnimationHash = Animator.StringToHash("Idle");
+        private readonly int _idleAnimationHash = Animator.StringToHash("Idle");
         public EnemyIdleState(EnemyStateMachine enemyStateMachine) : base(enemyStateMachine)
         {
         }
 
         public override void Enter()
         {
-            enemyStateMachine.Animator.CrossFadeInFixedTime(IdleAnimationHash, enemyStateMachine.AnimationCrossFade);
+            enemyStateMachine.Animator.CrossFadeInFixedTime(_idleAnimationHash, enemyStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
