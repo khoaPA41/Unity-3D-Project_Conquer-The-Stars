@@ -59,7 +59,9 @@ namespace ConquerTheStars.Stats
 
         private void Awake()
         {
+            characterType = baseStatsData.Type;
             SetupLevelByType();
+
             // Initialize stats from ScriptableObject + level scaling
             maxHealth = new StatsManagers(baseStatsData.Health, level);
             attack = new StatsManagers(baseStatsData.AttackPower, level);
@@ -70,19 +72,19 @@ namespace ConquerTheStars.Stats
             luck = new StatsManagers(baseStatsData.Luck, level);
 
             icon = baseStatsData.Icon;
-            characterType = baseStatsData.Type;
-
         }
 
         public void Init()
         {
             CurrentHealth = maxHealth.GetFinalValue();
-            CurrentMana = 10;
+            CurrentMana = mana.GetFinalValue();
             CurrentAttackDamage = attack.GetFinalValue();
             CurrentSpeed = speed.GetFinalValue();
             CurrentDefense = defense.GetFinalValue();
             CurrentCritical = critical.GetFinalValue();
             CurrentLuck = luck.GetFinalValue();
+            IsDodge = false;
+            IsBlock = false;
             IsDeath = false;
             SetupHudAction?.Invoke();
         }
@@ -97,31 +99,13 @@ namespace ConquerTheStars.Stats
 
         /// <summary>
         /// Applies damage to this character
-        /// Return turn false if the damage was fully avoided (Block / Dogge)
+        /// Return turn false if the damage was fully avoided (Block / Dodge)
         /// </summary>
 
         public bool TakeDamage(float damage, bool isCrit, string hitVfxName)
         {
-            if (IsDodge)
-            {
-                SpawnText("DODGE");
-                StartCoroutine(SlowTime());
-                return false;
-            }
-
-            if (IsBlock)
-            {
-                // Recover mana if block succesfully
-                CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
-                ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
-
-                ObjectPoolingManagers.Instance.GetPooledObject("BlockVFX",
-                new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z))
-                .transform.Rotate(0f, 0f, -90f);
-                StartCoroutine(PauseTime());
-                SpawnText("BLOCK");
-                return false;
-            }
+            if (TryDodge()) return false;
+            if (TryBlock()) return false;
 
             if (isCrit)
             {
@@ -143,6 +127,57 @@ namespace ConquerTheStars.Stats
             return true;
         }
 
+        // Dodge / Block
+        private bool TryDodge()
+        {
+            if (!IsDodge) return false;
+
+            SpawnText("DODGE");
+            StartCoroutine(SlowTime());
+            return true;
+        }
+
+        private bool TryBlock()
+        {
+            if (!IsBlock) return false;
+
+            // Recover mana if block succesfully
+            CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
+            ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
+
+            ObjectPoolingManagers.Instance.GetPooledObject("BlockVFX",
+            new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z))
+            .transform.Rotate(0f, 0f, -90f);
+            StartCoroutine(PauseTime());
+            SpawnText("BLOCK");
+            return true;
+        }
+
+        public void SetIsDodge(bool state)
+        {
+            IsDodge = state;
+        }
+
+        public void SetIsBlock(bool state)
+        {
+            IsBlock = state;
+        }
+
+        private IEnumerator SlowTime()
+        {
+            Time.timeScale = .3f;
+            yield return new WaitForSecondsRealtime(1f);
+            Time.timeScale = 1f;
+        }
+
+        private IEnumerator PauseTime()
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(.1f);
+            Time.timeScale = 1f;
+        }
+
+        // Dmg
         public bool RandomCritical()
         {
             currentChance = luck.GetFinalValue();
@@ -187,30 +222,8 @@ namespace ConquerTheStars.Stats
             ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
         }
 
-        public void SetIsDodge(bool state)
-        {
-            IsDodge = state;
-        }
 
-        public void SetIsBlock(bool state)
-        {
-            IsBlock = state;
-        }
-
-        private IEnumerator SlowTime()
-        {
-            Time.timeScale = .3f;
-            yield return new WaitForSecondsRealtime(1f);
-            Time.timeScale = 1f;
-        }
-
-        private IEnumerator PauseTime()
-        {
-            Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(.1f);
-            Time.timeScale = 1f;
-        }
-
+        // Increase Stats
         public void IncreaseDefense(float amount)
         {
             CurrentDefense += amount;
@@ -241,7 +254,6 @@ namespace ConquerTheStars.Stats
 
             DynamicTextManager.CreateText(destination, text, textData);
         }
-
 
         public void AddExp(int exp)
         {
