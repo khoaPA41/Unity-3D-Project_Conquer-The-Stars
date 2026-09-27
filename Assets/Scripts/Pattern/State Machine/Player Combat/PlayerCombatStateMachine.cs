@@ -30,7 +30,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: SerializeField] public Transform AttackTransform { get; private set; }
         [field: SerializeField] public BuffManager BuffManager { get; private set; }
 
-
         [field: Header("Status")]
         [field: SerializeField] public CharacterStatsManagers CharacterStatsManagers { get; private set; }
         [field: SerializeField] public BattleStatistics BattleStatistics { get; private set; }
@@ -50,7 +49,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: SerializeField] public HighlightVfx HighlightCurrentTurn { get; private set; }
         [field: SerializeField] public HighlightVfx HighlightSelectedByAlly { get; private set; }
         [field: SerializeField] public string SlashVfxName { get; private set; }
-
 
         [field: Header("SFX")]
         [field: SerializeField] public AudioResource AttackSfx { get; private set; }
@@ -92,6 +90,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public CinemachineBrain CinemachineBrain { get; set; }
 
         public bool IsWatingCameraBlendFinished { get; set; }
+
         private void Awake()
         {
             CinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
@@ -109,6 +108,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         private void OnEnable()
         {
+            BattleStatistics.Reset();
             PlayerStartPosition = transform.position;
             CharacterStatsManagers.DyingAction += SwitchDyingState;
             CharacterStatsManagers.SetupHudAction += SetupHud;
