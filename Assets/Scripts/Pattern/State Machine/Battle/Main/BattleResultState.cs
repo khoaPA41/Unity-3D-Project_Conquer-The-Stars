@@ -41,15 +41,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             yield return _waitToChangeVictory;
             ChangeVictoryState();
-            CalculateResultInformation();
+            CalculateAndActiveResultInformation();
             battleStateMachine.VictoryCamera.gameObject.SetActive(true);
-            SetupResultBoard();
         }
+
         private IEnumerator WaitToChangeDefeat()
         {
             yield return _waitToChangeDefeat;
-            CalculateResultInformation();
-            SetupResultBoard();
+            CalculateAndActiveResultInformation();
         }
 
         private void ChangeVictoryState()
@@ -59,28 +58,28 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 characters.GetComponent<PlayerCombatStateMachine>().SwitchVictoryState();
             }
         }
-        private void CalculateResultInformation()
+
+        private void CalculateAndActiveResultInformation()
         {
-
+            var highestDamage = battleStateMachine.TeamController.PlayerTeam.Max(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.GetHighestDamage());
+            var damageDeals = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.DamageDeals());
             var damageReceived = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.DamageReceived);
-            var succesfulDodge = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.SuccessfulDodgeTimes);
             var succesfulParry = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.SuccessfulParryTimes);
+            var succesfulDodge = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.SuccessfulDodgeTimes);
 
-            battleStateMachine.DamageReceived = damageReceived;
-            battleStateMachine.SuccessfulDodgeTimes = succesfulDodge;
-            battleStateMachine.SuccessfulParryTimes = succesfulParry;
+            SetupResultBoard(highestDamage, damageDeals, damageReceived, succesfulParry, succesfulDodge);
         }
 
-        private void SetupResultBoard()
+        private void SetupResultBoard(float highestDmg, float dmgDeals, float dmgReceiver, float parryTime, float dodgeTime)
         {
             UICombatManagers.Instance.SetResultText(
-                            Mathf.RoundToInt(battleStateMachine.HighestDamage).ToString(),
-                            Mathf.RoundToInt(battleStateMachine.DamageDealt).ToString(),
-                            Mathf.RoundToInt(battleStateMachine.DamageReceived).ToString(),
-                            FormatBattleTime(Time.time - battleStateMachine.BattleTime),
-                            Mathf.RoundToInt(battleStateMachine.SuccessfulParryTimes).ToString(),
-                            Mathf.RoundToInt(battleStateMachine.SuccessfulDodgeTimes).ToString()
-                        );
+                Mathf.RoundToInt(highestDmg).ToString(),
+                Mathf.RoundToInt(dmgDeals).ToString(),
+                Mathf.RoundToInt(dmgReceiver).ToString(),
+                FormatBattleTime(Time.time - battleStateMachine.BattleTime),
+                Mathf.RoundToInt(parryTime).ToString(),
+                Mathf.RoundToInt(dodgeTime).ToString()
+            );
 
             foreach (var enemy in battleStateMachine.TeamController.EnemyTeam)
             {

@@ -76,13 +76,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (enemyStatsManager.TakeDamage(finalDamage, isCrit, battleStateMachine.CurrentTurn.HitVFXName))
             {
                 // Track battle statistics for result screen
-                battleStateMachine.HighestDamage = Mathf.Max(battleStateMachine.HighestDamage, finalDamage);
                 battleStateMachine.PlayerCombatStateMachine.BattleStatistics.DamageHistories.Add(finalDamage);
 
                 // Play hit sound if player deal dmg succes
                 battleStateMachine.PlayerCombatStateMachine.PlayHitSound();
 
-                battleStateMachine.DamageDealt += finalDamage;
                 target.HighlightTarget.InactiveHighlight();
                 target.SwitchState(target.GethitState);
             }

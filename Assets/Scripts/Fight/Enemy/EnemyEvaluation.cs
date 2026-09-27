@@ -36,6 +36,7 @@ namespace ConquerTheStars.Fight.Enemy
             var healthNomalized = 1 - (target.CurrentHealth / target.maxHealth.GetFinalValue());
             return healthNomalized;
         }
+
         private float EvaluateThreat(CharacterStatsManagers targets)
         {
             BattleStatistics battleStatistics = targets.GetComponent<PlayerCombatStateMachine>().BattleStatistics;
@@ -43,6 +44,7 @@ namespace ConquerTheStars.Fight.Enemy
             var damageNomalized = battleStatistics.DamageHistories.Average() / targets.attack.GetFinalValue();
             return damageNomalized;
         }
+
         private float EvaluateDefense(CharacterStatsManagers target)
         {
             var defenseNomalized = 1 - (target.defense.GetFinalValue() / 100f);

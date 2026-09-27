@@ -53,6 +53,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.EnemyStateMachine.AttackDealDamage -= EnemyDealDamage;
             battleStateMachine.SwitchResolve();
         }
+
         private void EnemyDealDamage()
         {
             var target = battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
@@ -76,6 +77,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
                 // Track battle statistics for result screen
                 target.BattleStatistics.DamageReceived += damage;
+                Debug.Log($"DAMGE RECEIVER: {damage}");
+
             }
             else
             {
@@ -87,6 +90,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
                     target.BattleStatistics.SuccessfulDodgeTimes++;
                 }
+
                 if (playerStatsManager.IsBlock)
                 {
                     // Play parry sound if player dodge succes

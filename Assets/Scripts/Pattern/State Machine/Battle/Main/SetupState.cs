@@ -13,7 +13,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class SetupState : BattleBaseState
     {
-        private static readonly WaitForSecondsRealtime _waitToSetup = new WaitForSecondsRealtime(3f);
+        private static readonly WaitForSecondsRealtime _waitToSetup = new(3f);
 
         // List of characters who will be in the match
         private List<CharacterStatsManagers> _characterInMatch = new();
@@ -27,6 +27,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             battleStateMachine.StartCoroutine(WaitToSetup());
+            battleStateMachine.BattleTime = Time.time;
         }
 
         public override void Tick(float deltaTime)
@@ -66,7 +67,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 // Spawn player at target position
                 var player = ObjectPoolingManagers.Instance.GetPooledObject(_playerTeam[i], battleStateMachine.Area.PlayerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].PlayerTransforms[i].position);
-
                 player.transform.Rotate(new Vector3(0f, -90f, 0f));
 
                 // Add to characterInMatch list - prepare for queue
@@ -79,7 +79,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void AddCharacterToBattleList()
         {
-            battleStateMachine.CharacterStats = _characterInMatch;
+            battleStateMachine.TurnOrderService.BuildInitial(_characterInMatch);
         }
 
         private void SetupPlayerTarget()
@@ -115,18 +115,16 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             SetupEnemyPosition();
             SetupPlayerPosition();
 
-            // Sort the match list in descending speed order
-            _characterInMatch.Sort((a, b) => b.CurrentSpeed.CompareTo(a.CurrentSpeed));
-
             AddCharacterToBattleList();
 
             SetupPlayerTarget();
             SetupEnemyTarget();
             SetupAllyTarget();
 
-            battleStateMachine.SpeedAverage = _characterInMatch.Average(character => character.CurrentSpeed);
+            // battleStateMachine.SpeedAverage = _characterInMatch.Average(character => character.CurrentSpeed);
 
-            UICombatManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
+            UICombatManagers.Instance.SetTurnOrder(battleStateMachine.TurnOrderService.CharacterList);
+
             yield return _waitToSetup;
             battleStateMachine.SwitchState(battleStateMachine.StartTurn);
         }

@@ -5529,13 +5529,7 @@ MonoBehaviour:
   <AllyTargeter>k__BackingField: {fileID: 1476980633}
   <TeamController>k__BackingField: {fileID: 1476980632}
   <VictoryCamera>k__BackingField: {fileID: 1874340207}
-  HighestDamage: 0
-  DamageDealt: 0
-  DamageReceived: 0
   BattleTime: 0
-  SuccessfulParryTimes: 0
-  SuccessfulDodgeTimes: 0
-  playerDealsHighestDamageLastTurn: {fileID: 0}
 --- !u!114 &1476980630
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private async void Selected()
         {
             await WaitForConfirm();
-            battleStateMachine.SwitchState(battleStateMachine.Playerexecuted);
+            battleStateMachine.SwitchState(battleStateMachine.PlayerExecuted);
         }
 
         private Task WaitForConfirm()

@@ -2,6 +2,7 @@ using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using ConquerTheStars.UI.Player;
+using UnityEngine;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
@@ -19,8 +20,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (battleStateMachine.IsTurnOrderChange)
             {
                 UICombatManagers.Instance.ResetTurnOrder();
-                UICombatManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
+                UICombatManagers.Instance.SetTurnOrder(battleStateMachine.TurnOrderService.CharacterList);
             }
+
             UICombatManagers.Instance.ActiveTurnOrderHighlight();
             battleStateMachine.IsTurnOrderChange = false;
             SwitchTurnByType();
@@ -36,18 +38,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void SwitchTurnByType()
         {
-            // Get next character and remove if next character death
-            foreach (var next in battleStateMachine.CharacterStats)
-            {
-                if (next == null) continue;
-
-                if (!next.IsDeath)
-                {
-                    battleStateMachine.CurrentTurn = next;
-                    battleStateMachine.CharacterStats.Remove(next);
-                    break;
-                }
-            }
+            battleStateMachine.CurrentTurn = battleStateMachine.TurnOrderService.DequeueNextAlive();
 
             if (battleStateMachine.CurrentTurn == null)
             {
