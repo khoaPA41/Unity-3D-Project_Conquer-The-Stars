@@ -1948,7 +1948,7 @@ MonoBehaviour:
   <CameraGroup>k__BackingField: {fileID: 3714282290553325519}
   <HighlightCurrentTurn>k__BackingField: {fileID: 17140753756152478}
   <HighlightSelectedByAlly>k__BackingField: {fileID: 4421880761381017044}
-  <SlashVfxName>k__BackingField: Snow_Slash
+  <SlashVfxName>k__BackingField: 17
   <AttackSfx>k__BackingField: {fileID: 8300000, guid: 0981da728c2b7ad4fbaf4724e0ae4b7a, type: 3}
   <DodgeSfx>k__BackingField: {fileID: 8300000, guid: cda15ad211165fd42a22595d25d28971, type: 3}
   <ParrySfx>k__BackingField: {fileID: 8300000, guid: 1e5f465cace945547a12119eabf7cb5c, type: 3}
@@ -2027,7 +2027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: 1d78dd15835c4344fa95e2d053e3c615, type: 2}
   textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
-  <HitVFXName>k__BackingField: Snow_Hit
+  <HitVFXName>k__BackingField: 21
   maxHealth:
     baseValue: 0
   mana:

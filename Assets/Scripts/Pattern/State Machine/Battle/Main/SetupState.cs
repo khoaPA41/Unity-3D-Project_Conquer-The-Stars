@@ -18,8 +18,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         // List of characters who will be in the match
         private List<CharacterStatsManagers> _characterInMatch = new();
 
-        private List<string> _enemyTeam = new();
-        private List<string> _playerTeam = new();
+        private List<PooledObjectId> _enemyTeam = new();
+        private List<PooledObjectId> _playerTeam = new();
         public SetupState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }

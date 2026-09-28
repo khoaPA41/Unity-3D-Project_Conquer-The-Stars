@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1559166bdc0344f9848e43a6159af2, type: 3}
-  m_Name: Boss_II-Phase_I
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  AttackNameList:
-  - Attack_I
-  - Attack_II
-  SlashVfxName: 18
+  m_Script: {fileID: 11500000, guid: 140b1699764f4904cac96efcf780b80c, type: 3}
+  m_Name: EnemyTeam_VI 1
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyTeam
+  enemyTeam: 060000000500000004000000
+  AreaIndex: 0

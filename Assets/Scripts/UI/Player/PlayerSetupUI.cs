@@ -4,13 +4,11 @@ using ConquerTheStars.Stats;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+//PooledObject ID = Character_HUD;
 namespace ConquerTheStars.UI.Player
 {
     public class PlayerSetupUI : MonoBehaviour
     {
-        private readonly string UiName = "Character_HUD";
-
         [Header("Character Stats Manager")]
         [SerializeField]
         private CharacterStatsManagers characterStatsManagers;
@@ -45,7 +43,7 @@ namespace ConquerTheStars.UI.Player
         public void SpawnCharacterHUD()
         {
             // Spawn character HUD ui
-            _characterHud = ObjectPoolingManagers.Instance.GetPooledObject(UiName, Vector3.zero).GetComponent<PlayerHUD>();
+            _characterHud = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.Character_HUD, Vector3.zero).GetComponent<PlayerHUD>();
 
             UICombatManagers.Instance.AddUiPooledObjectList(_characterHud.GetComponent<PooledObject>());
 

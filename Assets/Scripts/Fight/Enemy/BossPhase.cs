@@ -32,13 +32,13 @@ public class BossPhase : MonoBehaviour
         _bossStatsManagers.HealthUpdateAction -= GetAttackByPhase;
     }
 
-    public void GetAttackByPhase(float healthThreshold)
+    public void GetAttackByPhase(float currentHealthRatio)
     {
         BossPhaseInformation bestPhase = null;
 
         foreach (var phase in Attacks)
         {
-            if (healthThreshold <= phase.HealthThreshold)
+            if (currentHealthRatio <= phase.HealthThreshold)
             {
                 if (bestPhase == null || phase.HealthThreshold < bestPhase.HealthThreshold)
                 {

@@ -6,6 +6,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class EnemyTurnState : BattleBaseState
     {
+        private static WaitForSecondsRealtime _waitToEnemySetup = new WaitForSecondsRealtime(3f);
+
         public EnemyTurnState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
@@ -13,7 +15,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public override void Enter()
         {
             // Xuat hien hieu ung
-            battleStateMachine.StartCoroutine(Wait());
+            battleStateMachine.StartCoroutine(WaitToEnemySetup());
         }
 
         public override void Tick(float deltaTime)
@@ -26,7 +28,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         }
 
-        private IEnumerator Wait()
+        private IEnumerator WaitToEnemySetup()
         {
             GetTarget();
             battleStateMachine.EnemyStateMachine.HighlightCurrentTurn.Highlight();
@@ -34,7 +36,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.EnemyStateMachine.SwitchIdle();
             battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().ReturnDefenseIdle();
 
-            yield return new WaitForSecondsRealtime(3f);
+            yield return _waitToEnemySetup;
             battleStateMachine.SwitchState(battleStateMachine.EnemyExecuted);
         }
 

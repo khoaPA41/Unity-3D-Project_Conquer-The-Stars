@@ -17,7 +17,7 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 object1 = ObjectPoolingManagers.Instance.GetPooledObject(
-                    "Enemy_I",
+                    PooledObjectId.Enemy_I,
                     new Vector3(0, 0, 0)
                 );
                 pooledObject_I.Push(object1);
@@ -27,21 +27,21 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 object2 = ObjectPoolingManagers.Instance.GetPooledObject(
-                    "Enemy_II",
+                    PooledObjectId.Enemy_II,
                     new Vector3(2, 0, 0)
                 );
                 pooledObject_II.Push(object2);
-                Debug.Log($"Spawn: {object2.name} | ID: {object1.GetInstanceID()}");
+                Debug.Log($"Spawn: {object2.name} | ID: {object2.GetInstanceID()}");
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 object3 = ObjectPoolingManagers.Instance.GetPooledObject(
-                    "Enemy_III",
+                    PooledObjectId.Enemy_III,
                     new Vector3(4, 0, 0)
                 );
                 pooledObject_III.Push(object3);
-                Debug.Log($"Spawn: {object3.name} | ID: {object1.GetInstanceID()}");
+                Debug.Log($"Spawn: {object3.name} | ID: {object3.GetInstanceID()}");
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha4) && object1 != null)
@@ -55,14 +55,14 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             {
                 pooledObject_II.Pop().Release();
                 Debug.Log("Release Enemy 2");
-                Debug.Log($"Release: {object2.name} | ID: {object1.GetInstanceID()}");
+                Debug.Log($"Release: {object2.name} | ID: {object2.GetInstanceID()}");
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha6) && object3 != null)
             {
                 pooledObject_III.Pop().Release();
                 Debug.Log("Release Enemy 3");
-                Debug.Log($"Release: {object3.name} | ID: {object1.GetInstanceID()}");
+                Debug.Log($"Release: {object3.name} | ID: {object3.GetInstanceID()}");
             }
         }
 

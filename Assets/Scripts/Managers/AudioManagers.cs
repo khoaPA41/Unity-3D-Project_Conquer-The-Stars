@@ -3,6 +3,7 @@ using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
 using UnityEngine.Audio;
 
+// PlaySound: PooledObject ID = Audio
 public class AudioManagers : MonoBehaviour
 {
     public static AudioManagers Instance;
@@ -20,7 +21,7 @@ public class AudioManagers : MonoBehaviour
 
     public void PlaySound(Transform pos, AudioResource resource)
     {
-        var audioPool = ObjectPoolingManagers.Instance.GetPooledObject("Audio", pos.position);
+        var audioPool = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.Audio, pos.position);
         var audioSource = audioPool.GetComponent<AudioSource>();
         audioSource.resource = resource;
         audioSource.Play();

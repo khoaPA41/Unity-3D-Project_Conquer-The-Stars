@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
 
+// Setup: PooledObject ID = Battle_Infor
 namespace ConquerTheStars.Fight.Match
 {
     public class BattleInformationManagers : MonoBehaviour
@@ -36,7 +37,7 @@ namespace ConquerTheStars.Fight.Match
         {
             for (int i = 0; i < BattleInforTransformList.Count; i++)
             {
-                var enemy = ObjectPoolingManagers.Instance.GetPooledObject("Battle_Infor", BattleInforTransformList[i].position).GetComponent<EnemyInformation>();
+                var enemy = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.Battle_Infor, BattleInforTransformList[i].position).GetComponent<EnemyInformation>();
                 enemy.SetEnemyTeam(EnemyTeams[i]);
             }
         }

@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140b1699764f4904cac96efcf780b80c, type: 3}
   m_Name: EnemyTeam_VI
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTeam
-  enemyTeam:
-  - Final_Boss
+  enemyTeam: 06000000
   AreaIndex: 0

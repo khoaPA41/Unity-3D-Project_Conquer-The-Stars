@@ -12,8 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140b1699764f4904cac96efcf780b80c, type: 3}
   m_Name: EnemyTeam_II
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTeam
-  enemyTeam:
-  - Enemy_II
-  - Enemy_II
-  - Enemy_II
+  enemyTeam: 010000000200000002000000
   AreaIndex: 0

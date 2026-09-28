@@ -7,7 +7,7 @@ namespace ConquerTheStars.Fight.Target
 {
     public class Targeter : MonoBehaviour
     {
-        public List<Target> TargetAvaiable = new();
+        public List<Target> TargetAvailable = new();
 
         public Target CurrentTarget;
 
@@ -15,31 +15,31 @@ namespace ConquerTheStars.Fight.Target
 
         public void SetupTargetList(Target target)
         {
-            TargetAvaiable.Add(target);
+            TargetAvailable.Add(target);
         }
 
         public void FirstSelected()
         {
-            CurrentTarget = TargetAvaiable[CurrentIndex];
+            CurrentTarget = TargetAvailable[CurrentIndex];
         }
 
         public void ChooseNextTarget()
         {
             CurrentIndex++;
-            CurrentIndex = Mathf.Clamp(CurrentIndex, 0, TargetAvaiable.Count - 1);
+            CurrentIndex = Mathf.Clamp(CurrentIndex, 0, TargetAvailable.Count - 1);
             GetTarget();
         }
 
         public void ChoosePrevTarget()
         {
             CurrentIndex--;
-            CurrentIndex = Mathf.Clamp(CurrentIndex, 0, TargetAvaiable.Count - 1);
+            CurrentIndex = Mathf.Clamp(CurrentIndex, 0, TargetAvailable.Count - 1);
             GetTarget();
         }
 
         public void GetTarget()
         {
-            CurrentTarget = TargetAvaiable[CurrentIndex];
+            CurrentTarget = TargetAvailable[CurrentIndex];
         }
 
         public void ResetTarget()
@@ -50,7 +50,7 @@ namespace ConquerTheStars.Fight.Target
 
         public void RemoveTarget()
         {
-            TargetAvaiable.Remove(CurrentTarget);
+            TargetAvailable.Remove(CurrentTarget);
         }
     }
 }

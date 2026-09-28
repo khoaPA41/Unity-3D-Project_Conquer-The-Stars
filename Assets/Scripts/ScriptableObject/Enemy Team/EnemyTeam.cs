@@ -4,6 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyTeam", menuName = "Scriptable Objects/EnemyTeam")]
 public class EnemyTeam : ScriptableObject
 {
-    public List<string> enemyTeam;
+    public List<PooledObjectId> enemyTeam;
     public int AreaIndex;
 }

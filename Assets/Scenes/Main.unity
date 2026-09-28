@@ -1424,7 +1424,7 @@ MonoBehaviour:
   - {fileID: 2018780540494143410}
   - {fileID: 2018780540580206533}
   EnemyTeams:
-  - {fileID: 11400000, guid: 65afedf583338d64e92faecd643eb893, type: 2}
+  - {fileID: 11400000, guid: 138fef567b7b5854db007f466796fc4a, type: 2}
   - {fileID: 11400000, guid: 0c93d13741352f0438e0670959ec886e, type: 2}
   - {fileID: 11400000, guid: 42fecde5117270b4f93e8105d1123bc0, type: 2}
   - {fileID: 11400000, guid: d74d14314ede83a4ebe7398d0644238f, type: 2}
@@ -1521,76 +1521,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.Object_Pooling.ObjectPoolingManagers
   poolObjectList:
   - PooledObject: {fileID: 4100300716556319957, guid: 42a37e6b405d1714bab2f5ddcf6003fc, type: 3}
-    ObjectName: Enemy_I
+    ObjectId: 1
     Quantity: 5
   - PooledObject: {fileID: 5885340852337738895, guid: ffbb1f8a9309f7c4bb967978b5a83d66, type: 3}
-    ObjectName: Enemy_II
+    ObjectId: 2
     Quantity: 5
   - PooledObject: {fileID: 4003114059721682024, guid: f90ffcee6779a594681674ea6a66d9fa, type: 3}
-    ObjectName: Enemy_III
+    ObjectId: 3
     Quantity: 5
   - PooledObject: {fileID: 3730210697709678520, guid: 6bb4fc8cf4b626749a1a0a7c8e99ec82, type: 3}
-    ObjectName: Enemy_IV
+    ObjectId: 4
     Quantity: 5
   - PooledObject: {fileID: 6687563998601776287, guid: 9fa5d9ba4d7d4174b895abd90cdae057, type: 3}
-    ObjectName: Boss_I
+    ObjectId: 5
     Quantity: 1
   - PooledObject: {fileID: 4703387100525572960, guid: 1724ebc75eb64824f8a260e3e803e726, type: 3}
-    ObjectName: Final_Boss
+    ObjectId: 6
     Quantity: 1
   - PooledObject: {fileID: 4132723855554449903, guid: 33f12580bdbdb644d8cce2b641e4cca1, type: 3}
-    ObjectName: Player_I
+    ObjectId: 7
     Quantity: 1
   - PooledObject: {fileID: 3158385293569201347, guid: 64f03fe3542752744a87c32406ce6646, type: 3}
-    ObjectName: Player_II
+    ObjectId: 8
     Quantity: 1
   - PooledObject: {fileID: 110656989515154985, guid: 9a8b93c9238303c40be1f566c2f940bc, type: 3}
-    ObjectName: Player_III
+    ObjectId: 9
     Quantity: 1
   - PooledObject: {fileID: 7576702072547911793, guid: 570ba05ed214bb54092a8233cda56d57, type: 3}
-    ObjectName: BlockVFX
+    ObjectId: 10
     Quantity: 10
   - PooledObject: {fileID: -3133378582491506990, guid: cef053cd3c4c89145acc429b5c0cf5e3, type: 3}
-    ObjectName: Character_HUD
+    ObjectId: 11
     Quantity: 3
   - PooledObject: {fileID: 8369440765979022269, guid: 59d277f7464c8c840977da8bd0d272f8, type: 3}
-    ObjectName: Skill_Board_Element
+    ObjectId: 12
     Quantity: 10
   - PooledObject: {fileID: 7896747997660631332, guid: 2ff9300dd95cbd4488e1ee40d7ad79a7, type: 3}
-    ObjectName: KillElement
+    ObjectId: 13
     Quantity: 10
   - PooledObject: {fileID: 7865295376392538669, guid: 90f90cc58c3346d4686a6793321c1beb, type: 3}
-    ObjectName: TurnOrder
+    ObjectId: 14
     Quantity: 6
   - PooledObject: {fileID: 3563973085531924967, guid: 7657c56b4c0b7594e91127eba0d7ca5e, type: 3}
-    ObjectName: Electro_Slash
+    ObjectId: 15
     Quantity: 5
   - PooledObject: {fileID: 2927523748142283241, guid: 093e2e72e23e7b341bbb2d5a4c1d7046, type: 3}
-    ObjectName: Green_Slash
+    ObjectId: 16
     Quantity: 5
   - PooledObject: {fileID: 6927242797269047777, guid: 7e42ad9d7316a3148b77e6047644f467, type: 3}
-    ObjectName: Snow_Slash
+    ObjectId: 17
     Quantity: 5
   - PooledObject: {fileID: 1820728017703974402, guid: 1e57db6d641406949a89ec5b6f4ce0d4, type: 3}
-    ObjectName: Boss_Slash_I
+    ObjectId: 18
     Quantity: 5
   - PooledObject: {fileID: 4688528962561571221, guid: 6e7e085889019f94da70091ac0c56c44, type: 3}
-    ObjectName: Electro_Hit
+    ObjectId: 19
     Quantity: 5
   - PooledObject: {fileID: 8458576101682043831, guid: 5754b42dd8613874fb7e1bc9a378ae32, type: 3}
-    ObjectName: Green_Hit
+    ObjectId: 20
     Quantity: 5
   - PooledObject: {fileID: 7683881951084746556, guid: e0e74ca3e22d0dd4bae388650ad3d5e7, type: 3}
-    ObjectName: Snow_Hit
+    ObjectId: 21
     Quantity: 5
   - PooledObject: {fileID: 977352887439050048, guid: 7fdb6c55b34726e4691eee6b94aa19de, type: 3}
-    ObjectName: Enemy_Hit
+    ObjectId: 22
     Quantity: 5
   - PooledObject: {fileID: 8131631414806152944, guid: 3727fd5819e4b474386283abb4974043, type: 3}
-    ObjectName: Battle_Infor
+    ObjectId: 23
     Quantity: 10
   - PooledObject: {fileID: 1986412661605579865, guid: 7faef5c00350bd94db82c31cf3bb8ed3, type: 3}
-    ObjectName: Audio
+    ObjectId: 24
     Quantity: 10
 --- !u!1001 &989267714279016956
 PrefabInstance:

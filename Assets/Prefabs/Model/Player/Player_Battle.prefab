@@ -1650,7 +1650,7 @@ MonoBehaviour:
   <CameraGroup>k__BackingField: {fileID: 1375053711465466975}
   <HighlightCurrentTurn>k__BackingField: {fileID: 3363747570549386320}
   <HighlightSelectedByAlly>k__BackingField: {fileID: 4019989597042190789}
-  <SlashVfxName>k__BackingField: Electro_Slash
+  <SlashVfxName>k__BackingField: 15
   <AttackSfx>k__BackingField: {fileID: 6418180475301049370, guid: 4d2ccf93ae36d9e489965960074fd6b0, type: 2}
   <DodgeSfx>k__BackingField: {fileID: 8300000, guid: cda15ad211165fd42a22595d25d28971, type: 3}
   <ParrySfx>k__BackingField: {fileID: 8300000, guid: ec787d5ed4a652b438f2acc12b5d0e57, type: 3}
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: 40d81aaf9ca89e04193df84d35fae1d0, type: 2}
   textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
-  <HitVFXName>k__BackingField: Electro_Hit
+  <HitVFXName>k__BackingField: 19
   maxHealth:
     baseValue: 0
   mana:

@@ -48,7 +48,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: Header("VFX")]
         [field: SerializeField] public HighlightVfx HighlightCurrentTurn { get; private set; }
         [field: SerializeField] public HighlightVfx HighlightSelectedByAlly { get; private set; }
-        [field: SerializeField] public string SlashVfxName { get; private set; }
+        [field: SerializeField] public PooledObjectId SlashVfxName { get; private set; }
 
         [field: Header("SFX")]
         [field: SerializeField] public AudioResource AttackSfx { get; private set; }

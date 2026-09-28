@@ -77,8 +77,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
                 // Track battle statistics for result screen
                 target.BattleStatistics.DamageReceived += damage;
-                Debug.Log($"DAMGE RECEIVER: {damage}");
-
             }
             else
             {

@@ -19,7 +19,7 @@ namespace ConquerTheStars.Managers
     {
         private readonly string StartMenuScene = "Start";
         private readonly string MainScene = "Main";
-        private readonly string CommbatScene = "Battle";
+        private readonly string CombatScene = "Battle";
         private readonly string EndScene = "End";
         public static GameManager Instance { get; private set; }
 
@@ -88,7 +88,7 @@ namespace ConquerTheStars.Managers
             var saveData = SaveManagers.Instance.LoadSaveData();
             if (saveData == null)
             {
-                Debug.LogWarning("[SaveManagers] Don't have save data]");
+                Debug.LogWarning("[SaveManagers] Don't have save data");
                 StartNewGame();
                 return;
             }
@@ -104,7 +104,7 @@ namespace ConquerTheStars.Managers
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-                    Application.Quit();
+            Application.Quit();
 #endif
         }
 
@@ -117,7 +117,7 @@ namespace ConquerTheStars.Managers
         public void LoadBattleScene()
         {
             _currentLoadReason = ReasonLoadScene.ReloadCombat;
-            SceneManager.LoadScene(CommbatScene);
+            SceneManager.LoadScene(CombatScene);
         }
 
         public void BackToMainScene()

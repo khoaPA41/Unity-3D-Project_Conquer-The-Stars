@@ -54,7 +54,7 @@ public class SaveManagers : MonoBehaviour
     {
         if (!HasSaveData())
         {
-            Debug.LogWarning("[SaveManagers] Don't have save data]");
+            Debug.LogWarning("[SaveManagers] Don't have save data");
             return null;
         }
         var dataJson = File.ReadAllText(savePath);

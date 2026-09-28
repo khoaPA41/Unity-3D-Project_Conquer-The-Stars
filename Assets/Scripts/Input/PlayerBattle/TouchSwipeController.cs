@@ -20,7 +20,7 @@ public class TouchSwipeController : MonoBehaviour
 
     private readonly Dictionary<int, Vector2> activeTouchStarts = new();
 
-    private readonly HashSet<int> firedTouchs = new();
+    private readonly HashSet<int> firedTouches = new();
 
 
     public event Action DodgeAction = delegate { };
@@ -44,7 +44,7 @@ public class TouchSwipeController : MonoBehaviour
         EnhancedTouchSupport.Disable();
 
         activeTouchStarts.Clear();
-        firedTouchs.Clear();
+        firedTouches.Clear();
     }
 
     private void HandleFingerDown(Finger finger)
@@ -54,7 +54,7 @@ public class TouchSwipeController : MonoBehaviour
     }
     private void HandleFingerMove(Finger finger)
     {
-        if (firedTouchs.Contains(finger.index)) return; // if already active
+        if (firedTouches.Contains(finger.index)) return; // if already active
         if (!activeTouchStarts.TryGetValue(finger.index, out Vector2 startPos)) return; // if don't have value
 
         var delta = finger.screenPosition - startPos;
@@ -63,7 +63,7 @@ public class TouchSwipeController : MonoBehaviour
         if (Mathf.Abs(delta.y) < Mathf.Abs(delta.x) * verticalDominanceRatio) return; // Not vertical enough
 
         // Qualified -> Active
-        firedTouchs.Add(finger.index);
+        firedTouches.Add(finger.index);
 
         bool isRightSide = startPos.x > Screen.width * .5f;
 
@@ -79,6 +79,6 @@ public class TouchSwipeController : MonoBehaviour
     private void HandleFingerUp(Finger finger)
     {
         activeTouchStarts.Remove(finger.index);
-        firedTouchs.Remove(finger.index);
+        firedTouches.Remove(finger.index);
     }
 }

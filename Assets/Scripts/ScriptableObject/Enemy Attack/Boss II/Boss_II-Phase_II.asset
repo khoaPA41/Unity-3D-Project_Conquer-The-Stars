@@ -15,4 +15,4 @@ MonoBehaviour:
   AttackNameList:
   - Attack_III
   - Attack_IV
-  SlashVfxName: Boss_Slash_I
+  SlashVfxName: 18

@@ -55,6 +55,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             foreach (var characters in battleStateMachine.TeamController.PlayerTeam)
             {
+                if (characters.IsDeath) continue;
                 characters.GetComponent<PlayerCombatStateMachine>().SwitchVictoryState();
             }
         }

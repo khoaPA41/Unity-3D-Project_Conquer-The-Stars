@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Stats.CharacterStatsManagers
   baseStatsData: {fileID: 11400000, guid: e20c7908a42b07b45adb5e65a9b6c658, type: 2}
   textData: {fileID: 11400000, guid: 7b78e326a655a354883eb6f3a36070e7, type: 2}
-  <HitVFXName>k__BackingField: Enemy_Hit
+  <HitVFXName>k__BackingField: 22
   maxHealth:
     baseValue: 0
   mana:

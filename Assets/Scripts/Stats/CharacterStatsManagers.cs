@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Fight;
+// TryBlock: PooledObject ID = BlockVFX
 
 namespace ConquerTheStars.Stats
 {
@@ -20,10 +21,9 @@ namespace ConquerTheStars.Stats
         [SerializeField] private DynamicTextData textData;
 
         [field: Header("VFX Name")]
-        [field: SerializeField] public string HitVFXName { get; private set; }
+        [field: SerializeField] public PooledObjectId HitVFXName { get; private set; }
 
-
-        [Header("Stats Infor")]
+        [Header("Stats Info")]
         public StatsManagers maxHealth;
         public StatsManagers mana;
         public StatsManagers attack;
@@ -102,7 +102,7 @@ namespace ConquerTheStars.Stats
         /// Return turn false if the damage was fully avoided (Block / Dodge)
         /// </summary>
 
-        public bool TakeDamage(float damage, bool isCrit, string hitVfxName)
+        public bool TakeDamage(float damage, bool isCrit, PooledObjectId hitVfxName)
         {
             if (TryDodge()) return false;
             if (TryBlock()) return false;
@@ -145,7 +145,7 @@ namespace ConquerTheStars.Stats
             CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
             ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
 
-            ObjectPoolingManagers.Instance.GetPooledObject("BlockVFX",
+            ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.BlockVFX,
             new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z))
             .transform.Rotate(0f, 0f, -90f);
             StartCoroutine(PauseTime());

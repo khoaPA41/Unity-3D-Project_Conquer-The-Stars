@@ -17,7 +17,7 @@ namespace ConquerTheStars.Fight
         public static PlayerTeam Instance { get; set; }
 
         [SerializeField] private List<ItemQuantity> _itemDatas;
-        public List<string> TeamNameList { get; set; } = new();
+        public List<PooledObjectId> TeamNameList { get; set; } = new();
 
         public Vector3 CurrentPosition { get; private set; } = new Vector3(36f, 0f, 62f);
 
@@ -33,12 +33,12 @@ namespace ConquerTheStars.Fight
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            AddTeamMate("Player_I");
-            AddTeamMate("Player_II");
-            AddTeamMate("Player_III");
+            AddTeamMate(PooledObjectId.Player_I);
+            AddTeamMate(PooledObjectId.Player_II);
+            AddTeamMate(PooledObjectId.Player_III);
         }
 
-        public void AddTeamMate(string name)
+        public void AddTeamMate(PooledObjectId name)
         {
             TeamNameList.Add(name);
         }
