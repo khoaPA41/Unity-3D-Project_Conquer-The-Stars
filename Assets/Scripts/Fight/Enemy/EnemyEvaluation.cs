@@ -6,11 +6,36 @@ using UnityEngine;
 
 namespace ConquerTheStars.Fight.Enemy
 {
+    public readonly struct TargetScoreBreakdown
+    {
+        public readonly CharacterStatsManagers Target;
+        public readonly float Hp;
+        public readonly float Threat;
+        public readonly float Defense;
+        public readonly float Total;
+
+        public TargetScoreBreakdown(
+            CharacterStatsManagers target, float hp, float threat, float defense, float total)
+        {
+            Target = target;
+            Hp = hp;
+            Threat = threat;
+            Defense = defense;
+            Total = total;
+        }
+    }
+
+
     [RequireComponent(typeof(CharacterStatsManagers))]
     public class EnemyEvaluation : MonoBehaviour
     {
         [SerializeField] private StrategyEvaluation _strategyEvaluation;
         private readonly Dictionary<CharacterStatsManagers, float> _targetByScore = new();
+
+        public void Initialize(StrategyEvaluation strategyEvaluation)
+        {
+            _strategyEvaluation = strategyEvaluation;
+        }
 
         public Dictionary<CharacterStatsManagers, float> Evaluate(List<CharacterStatsManagers> targets)
         {
@@ -39,7 +64,14 @@ namespace ConquerTheStars.Fight.Enemy
 
         private float EvaluateThreat(CharacterStatsManagers targets)
         {
-            BattleStatistics battleStatistics = targets.GetComponent<PlayerCombatStateMachine>().BattleStatistics;
+            var player = targets.GetComponent<PlayerCombatStateMachine>();
+
+            if (player == null) return 0f;
+
+            BattleStatistics battleStatistics = player.BattleStatistics;
+            if (battleStatistics == null) return 0f;
+
+
             if (battleStatistics.DamageHistories.Count == 0) return 0f;
             var damageNormalized = battleStatistics.DamageHistories.Average() / targets.attack.GetFinalValue();
             return damageNormalized;
@@ -60,6 +92,29 @@ namespace ConquerTheStars.Fight.Enemy
 
             _targetByScore.Clear();
             return highest.Key;
+        }
+
+
+        public List<TargetScoreBreakdown> EvaluateDetailed(List<CharacterStatsManagers> targets)
+        {
+            var list = new List<TargetScoreBreakdown>();
+            if (targets == null || targets.Count == 0) return list;
+
+            for (int i = 0; i < targets.Count; i++)
+            {
+                var t = targets[i];
+                if (t == null || t.IsDeath) continue;
+
+                float hp = EvaluateHP(t);
+                float threat = EvaluateThreat(t);
+                float def = EvaluateDefense(t);
+                float total = hp * _strategyEvaluation.hpWeight
+                            + threat * _strategyEvaluation.threatWeight
+                            + def * _strategyEvaluation.defenseWeight;
+
+                list.Add(new TargetScoreBreakdown(t, hp, threat, def, total));
+            }
+            return list;
         }
     }
 }

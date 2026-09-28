@@ -42,7 +42,19 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void GetTarget()
         {
-            battleStateMachine.EnemyTargeter.CurrentTarget = battleStateMachine.EnemyStateMachine.EnemyEvaluation.GetBestTarget(battleStateMachine.TeamController.PlayerTeam).GetComponent<Target>();
+            var selected = battleStateMachine.EnemyStateMachine.EnemyEvaluation.GetBestTarget(battleStateMachine.TeamController.PlayerTeam);
+            battleStateMachine.EnemyTargeter.CurrentTarget = selected.GetComponent<Target>();
+
+            // var selected = evaluation.GetBestTarget(playerTeam);
+
+#if UNITY_EDITOR
+var details = battleStateMachine.EnemyStateMachine.EnemyEvaluation.EvaluateDetailed(battleStateMachine.TeamController.PlayerTeam);
+foreach (var d in details)
+{
+    string mark = (d.Target == selected) ? " << SELECTED" : "";
+    Debug.Log($"[AI] {d.Target.name}  HP:{d.Hp:F2} Thr:{d.Threat:F2} Def:{d.Defense:F2} Total:{d.Total:F2}{mark}");
+}
+#endif
         }
     }
 }

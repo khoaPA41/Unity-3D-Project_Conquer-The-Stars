@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Fight;
+using System.ComponentModel;
 // TryBlock: PooledObject ID = BlockVFX
 
 namespace ConquerTheStars.Stats
@@ -125,6 +126,11 @@ namespace ConquerTheStars.Stats
 
             HealthUpdateAction?.Invoke(CurrentHealth / maxHealth.GetFinalValue());
             return true;
+        }
+
+        public void SetDead(bool status)
+        {
+            IsDeath = status;
         }
 
         // Dodge / Block
