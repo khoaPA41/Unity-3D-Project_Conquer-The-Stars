@@ -10,62 +10,56 @@ namespace ConquerTheStars.Fight.Enemy
     public class EnemyEvaluation : MonoBehaviour
     {
         [SerializeField] private StrategyEvaluation _strategyEvaluation;
+        private readonly Dictionary<CharacterStatsManagers, float> _targetByScore = new();
 
-        public List<float> Evaluate(List<CharacterStatsManagers> targets)
+        public Dictionary<CharacterStatsManagers, float> Evaluate(List<CharacterStatsManagers> targets)
         {
-            var listCharacterScore = new List<float>();
+            _targetByScore.Clear();
+            if (targets == null || targets.Count == 0) return null;
 
             for (int i = 0; i < targets.Count; i++)
             {
-                if (targets[i].IsDeath)
-                {
-                    listCharacterScore.Add(0f);
-                    continue;
-                }
+                if (targets[i].IsDeath) continue;
                 var finalScore = EvaluateHP(targets[i]) * _strategyEvaluation.hpWeight +
                                 EvaluateThreat(targets[i]) * _strategyEvaluation.threatWeight +
                                 EvaluateDefense(targets[i]) * _strategyEvaluation.defenseWeight;
 
-                listCharacterScore.Add(finalScore);
+                _targetByScore.Add(targets[i], finalScore);
             }
-            return listCharacterScore;
+            return _targetByScore;
         }
 
         private float EvaluateHP(CharacterStatsManagers target)
         {
-            var healthNomalized = 1 - (target.CurrentHealth / target.maxHealth.GetFinalValue());
-            return healthNomalized;
+            var maxHp = target.maxHealth.GetFinalValue();
+            if (maxHp <= 0) return 0f;
+            var healthNormalized = 1 - (target.CurrentHealth / maxHp);
+            return healthNormalized;
         }
 
         private float EvaluateThreat(CharacterStatsManagers targets)
         {
             BattleStatistics battleStatistics = targets.GetComponent<PlayerCombatStateMachine>().BattleStatistics;
             if (battleStatistics.DamageHistories.Count == 0) return 0f;
-            var damageNomalized = battleStatistics.DamageHistories.Average() / targets.attack.GetFinalValue();
-            return damageNomalized;
+            var damageNormalized = battleStatistics.DamageHistories.Average() / targets.attack.GetFinalValue();
+            return damageNormalized;
         }
 
         private float EvaluateDefense(CharacterStatsManagers target)
         {
-            var defenseNomalized = 1 - (target.defense.GetFinalValue() / 100f);
-            return defenseNomalized;
+            var defenseNormalized = 1 - (target.defense.GetFinalValue() / 100f);
+            return Mathf.Clamp01(defenseNormalized);
         }
 
         public CharacterStatsManagers GetBestTarget(List<CharacterStatsManagers> targets)
         {
             var scoredList = Evaluate(targets);
+            if (scoredList == null || scoredList.Count == 0) return null;
 
-            int bestIndex = 0;
+            var highest = scoredList.OrderByDescending(target => target.Value).First();
 
-            for (int i = 0; i < scoredList.Count; i++)
-            {
-                if (scoredList[i] > scoredList[bestIndex])
-                {
-                    bestIndex = i;
-                }
-            }
-
-            return targets[bestIndex];
+            _targetByScore.Clear();
+            return highest.Key;
         }
     }
 }
