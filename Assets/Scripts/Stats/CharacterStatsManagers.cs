@@ -113,7 +113,8 @@ namespace ConquerTheStars.Stats
                 SpawnText("CRIT");
             }
 
-            var finalDamage = Mathf.Max(damage - CurrentDefense, 0f);
+            // var finalDamage = Mathf.Max(damage - CurrentDefense, 0f);
+            var finalDamage = CalculateFinalDamage(damage);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
             ObjectPoolingManagers.Instance.GetPooledObject(hitVfxName, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
 
@@ -126,6 +127,11 @@ namespace ConquerTheStars.Stats
 
             HealthUpdateAction?.Invoke(CurrentHealth / maxHealth.GetFinalValue());
             return true;
+        }
+
+        public float CalculateFinalDamage(float damage)
+        {
+            return Mathf.Max(damage - CurrentDefense, 0f);
         }
 
         public void SetDead(bool status)
