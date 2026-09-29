@@ -1,6 +1,4 @@
 using System;
-using UnityEngine;
-
 
 /// <summary>
 /// This all data need to save in once playing

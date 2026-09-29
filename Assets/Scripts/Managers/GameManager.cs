@@ -72,7 +72,6 @@ namespace ConquerTheStars.Managers
             }
         }
 
-
         // ----- New Game / Continue / Exit -----
 
         public void StartNewGame()
