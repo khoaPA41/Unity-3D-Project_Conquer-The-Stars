@@ -17,11 +17,13 @@ namespace ConquerTheStars.Managers
 
     public class GameManager : MonoBehaviour
     {
+        private const int _androidTargetFrameRate = 30;
         private readonly string StartMenuScene = "Start";
         private readonly string MainScene = "Main";
         private readonly string CombatScene = "Battle";
         private readonly string EndScene = "End";
         public static GameManager Instance { get; private set; }
+
 
         private ReasonLoadScene _currentLoadReason = ReasonLoadScene.New;
         private Vector3 _checkpointPos;
@@ -35,6 +37,11 @@ namespace ConquerTheStars.Managers
             }
 
             Instance = this;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            Application.targetFrameRate = _androidTargetFrameRate;
+#endif
+
             DontDestroyOnLoad(gameObject);
         }
 
