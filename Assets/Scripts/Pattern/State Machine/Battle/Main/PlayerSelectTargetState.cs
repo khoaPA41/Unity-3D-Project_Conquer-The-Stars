@@ -38,9 +38,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.InputReader.NextTargetAction -= HighlightNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction -= HighlightPrevTarget;
-            // battleStateMachine.SelectUi.SetActive(false);
             battleStateMachine.ActiveSelectUI(false, true);
-
         }
 
         private async void Selected()
@@ -56,11 +54,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 taskCompletionSource.TrySetResult(true);
                 battleStateMachine.InputReader.EnterTargetAction -= OnConfirm;
-                // battleStateMachine.TouchSwipeController.AttackAction -= OnConfirm;
             }
 
             battleStateMachine.InputReader.EnterTargetAction += OnConfirm;
-            // battleStateMachine.TouchSwipeController.AttackAction += OnConfirm;
 
             return taskCompletionSource.Task;
         }

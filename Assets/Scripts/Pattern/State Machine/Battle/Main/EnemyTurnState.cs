@@ -45,7 +45,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             var selected = battleStateMachine.EnemyStateMachine.EnemyEvaluation.GetBestTarget(battleStateMachine.TeamController.PlayerTeam);
             battleStateMachine.EnemyTargeter.CurrentTarget = selected.GetComponent<Target>();
 
-            // var selected = evaluation.GetBestTarget(playerTeam);
 
 #if UNITY_EDITOR
 var details = battleStateMachine.EnemyStateMachine.EnemyEvaluation.EvaluateDetailed(battleStateMachine.TeamController.PlayerTeam);

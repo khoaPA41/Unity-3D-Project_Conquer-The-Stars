@@ -96,6 +96,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             CinemachineCore.BlendFinishedEvent.RemoveListener(OnBlendFinished);
             InputReader.SettingUiAction -= ActiveSettingUI;
+            ReleaseAllTeam();
         }
 
         private void ActiveSettingUI()
@@ -132,6 +133,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public void ReleaseAllTeam()
         {
+            SwitchState(null);
+            StopAllCoroutines();
+
             foreach (var player in TeamController.PlayerTeam)
             {
                 player.GetComponent<PooledObject>().Release();
