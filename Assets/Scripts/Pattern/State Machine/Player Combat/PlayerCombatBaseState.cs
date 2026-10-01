@@ -39,19 +39,17 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             var currentPos = playerCombatStateMachine.transform.position;
             var offset = targetPos - currentPos;
             offset.y = 0f;
-            if (offset.sqrMagnitude <= 0.01f)
-            {
-                return;
-            }
-            var dirToTarget = offset.normalized;
-            playerCombatStateMachine.CharacterController.Move(deltaTime * playerCombatStateMachine.Speed * dirToTarget);
+
+            var distacne = offset.magnitude;
+            if (distacne <= 0.1f) return;
+
+            var step = Mathf.Min(playerCombatStateMachine.Speed * deltaTime, distacne);
+
+            playerCombatStateMachine.CharacterController.Move(offset / distacne * step);
         }
 
         protected void RotateRoot()
         {
-            // playerCombatStateMachine.transform.Rotate(new Vector3(0f, 0f, 0f));
-
-            // playerCombatStateMachine.transform.Rotate(new Vector3(0f, -90f, 0f));
             playerCombatStateMachine.transform.eulerAngles = new Vector3(0f, -90f, 0f);
         }
     }
