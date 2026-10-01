@@ -93,8 +93,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public static string FormatBattleTime(float seconds)
         {
             var totalSeconds = Mathf.FloorToInt(seconds);
-            var minutes = totalSeconds / 60f;
-            var secs = totalSeconds % 60f;
+            var minutes = totalSeconds / 60;
+            var secs = totalSeconds % 60;
             return $"{minutes:00}:{secs:00}";
         }
     }
