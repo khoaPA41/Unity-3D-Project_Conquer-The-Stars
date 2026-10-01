@@ -9,9 +9,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private readonly string _attackAnimationTag = "Attack";
         private bool _isActiveAnimation;
         private float _normalizedTime;
-        private float _prevTime;
         private string _animationName;
-
+        private bool _hasCompleted;
         public PlayerCombatAttackState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
@@ -19,7 +18,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public override void Enter()
         {
             _isActiveAnimation = false;
-            _prevTime = 0f;
+            _hasCompleted = false;
             _normalizedTime = 0f;
             playerCombatStateMachine.IsWatingCameraBlendFinished = false;
 
@@ -37,12 +36,12 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             {
                 _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, _attackAnimationTag);
 
-                if (_normalizedTime > _prevTime && _normalizedTime >= .9f && _normalizedTime <= 1f)
+                if (!_hasCompleted && _normalizedTime >= .9f)
                 {
+                    _hasCompleted = true;
                     playerCombatStateMachine.IsFinished = true;
                     playerCombatStateMachine.ReturnCombatIdle();
                 }
-                _prevTime = _normalizedTime;
                 return;
             }
 
