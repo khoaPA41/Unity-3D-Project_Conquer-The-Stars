@@ -20,6 +20,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         [field: Header("UI")]
         [field: SerializeField] public GameObject SelectUi { get; private set; }
+        [field: SerializeField] public GameObject AcceptAttack { get; private set; }
+        [field: SerializeField] public GameObject AcceptUseItem { get; private set; }
 
         [field: Header("Area")]
         [field: SerializeField] public StartMatch Area { get; private set; }
@@ -139,6 +141,20 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 enemy.GetComponent<PooledObject>().Release();
             }
+        }
+
+        public void ActiveSelectUI(bool isActive, bool isAttack)
+        {
+            if (!isActive)
+            {
+                SelectUi.SetActive(isActive);
+                return;
+            }
+
+            SelectUi.SetActive(isActive);
+
+            AcceptAttack.SetActive(isAttack);
+            AcceptUseItem.SetActive(!isAttack);
         }
     }
 }

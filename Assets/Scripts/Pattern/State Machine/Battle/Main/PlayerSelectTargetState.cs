@@ -11,7 +11,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
-            battleStateMachine.SelectUi.SetActive(true);
+            // battleStateMachine.SelectUi.SetActive(true);
+            battleStateMachine.ActiveSelectUI(true, true);
             /*Change Combat Idle State*/
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerCombatIdleState);
 
@@ -37,7 +38,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.InputReader.NextTargetAction -= HighlightNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction -= HighlightPrevTarget;
-            battleStateMachine.SelectUi.SetActive(false);
+            // battleStateMachine.SelectUi.SetActive(false);
+            battleStateMachine.ActiveSelectUI(false, true);
+
         }
 
         private async void Selected()

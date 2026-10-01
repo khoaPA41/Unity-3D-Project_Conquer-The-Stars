@@ -12,8 +12,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Enter()
         {
+            battleStateMachine.ActiveSelectUI(true, false);
+
             battleStateMachine.PlayerCombatStateMachine.HighlightCurrentTurn.InactiveHighlight();
             battleStateMachine.PlayerCombatStateMachine.IsFinished = false;
+
             /*Select default ally target*/
             battleStateMachine.AllyTargeter.FirstSelected();
             battleStateMachine.AllyTargeter.GetTarget();
@@ -34,6 +37,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             battleStateMachine.InputReader.NextTargetAction -= HighlightNextTarget;
             battleStateMachine.InputReader.PreviousTargetAction -= HighlightPrevTarget;
+            battleStateMachine.ActiveSelectUI(false, false);
         }
 
         private async void Selected()
@@ -65,6 +69,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             void OnConfirm()
             {
                 taskCompletionSource.TrySetResult(true);
+                battleStateMachine.ActiveSelectUI(false, false);
                 battleStateMachine.InputReader.EnterTargetAction -= OnConfirm;
             }
 

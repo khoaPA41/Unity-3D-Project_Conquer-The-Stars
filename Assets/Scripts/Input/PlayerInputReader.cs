@@ -60,6 +60,11 @@ namespace ConquerTheStars.InputController
                 SettingUiAction?.Invoke();
             }
         }
+
+        public void OnTab()
+        {
+            SettingUiAction?.Invoke();
+        }
     }
 
 }

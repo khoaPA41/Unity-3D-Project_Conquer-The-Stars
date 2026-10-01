@@ -81,6 +81,11 @@ namespace ConquerTheStars.InputController
             }
         }
 
+        public void OnTab()
+        {
+            SettingUiAction?.Invoke();
+        }
+
         public void OnNextButton()
         {
             NextTargetAction?.Invoke();
