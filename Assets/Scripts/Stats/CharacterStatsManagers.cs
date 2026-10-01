@@ -78,7 +78,7 @@ namespace ConquerTheStars.Stats
         public void Init()
         {
             CurrentHealth = maxHealth.GetFinalValue();
-            CurrentMana = mana.GetFinalValue();
+            CurrentMana = 10f;
             CurrentAttackDamage = attack.GetFinalValue();
             CurrentSpeed = speed.GetFinalValue();
             CurrentDefense = defense.GetFinalValue();
