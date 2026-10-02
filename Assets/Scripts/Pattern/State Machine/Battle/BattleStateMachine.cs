@@ -135,7 +135,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         {
             SwitchState(null);
             StopAllCoroutines();
-
+            Time.timeScale = 1;
             foreach (var player in TeamController.PlayerTeam)
             {
                 player.GetComponent<PlayerCombatStateMachine>().RevieSuccessAction -= TurnOrderService.EnqueueBack;

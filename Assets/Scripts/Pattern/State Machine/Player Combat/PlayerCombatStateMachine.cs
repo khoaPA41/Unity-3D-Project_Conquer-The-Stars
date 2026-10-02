@@ -95,8 +95,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public bool IsWatingCameraBlendFinished { get; set; }
 
-
-
         private void Awake()
         {
             CinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
@@ -157,6 +155,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             SwitchState(PlayerIdleState);
         }
+
         public void ReturnCombatIdle()
         {
             SwitchState(PlayerCombatIdleState);
@@ -172,6 +171,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             SwitchState(PlayerUseItemState);
         }
+
         public void SwitchAttackState()
         {
             SwitchState(PlayerAttackState);
@@ -223,7 +223,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             Animator.SetFloat(attackSpeedParams, .1f);
         }
 
-
         // Item
         public void GetIndexAction(string attackListName, int actionIndex)
         {
@@ -242,7 +241,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             AttackIndexSelected = index;
         }
 
-
         // Damage
         public float GetAttackDameScale()
         {
@@ -256,6 +254,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             CameraGroup.SetActive(true);
         }
+
         public void InactiveCamera()
         {
             CameraGroup.SetActive(false);
@@ -288,7 +287,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             }
             return 0;
         }
-
 
         // Sound
         public void PlaySlashSound()
