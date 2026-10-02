@@ -37,6 +37,16 @@ public class BuffManager : MonoBehaviour
         _playerCombatStateMachine = GetComponent<PlayerCombatStateMachine>();
     }
 
+    private void OnDisable()
+    {
+        RemoveAllBuff();
+    }
+
+    public void RemoveAllBuff()
+    {
+        _activeBuffList.Clear();
+    }
+
     public void SetItemToUse(ItemData itemData)
     {
         _itemToUse = itemData;

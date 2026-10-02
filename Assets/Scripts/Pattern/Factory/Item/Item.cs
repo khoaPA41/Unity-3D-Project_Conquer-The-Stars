@@ -115,6 +115,7 @@ namespace ConquerTheStars.Factory.Item
             {
                 // var buffManager = character.CharacterUse().GetComponent<BuffManager>();
                 // buffManager.AddBuff(itemType, remainingTurn, value);
+                player.BuffManager.RemoveAllBuff();
                 player.CharacterStatsManagers.Init();
                 player.Model.SetActive(true);
                 player.CallRevieSuccesEvent();
