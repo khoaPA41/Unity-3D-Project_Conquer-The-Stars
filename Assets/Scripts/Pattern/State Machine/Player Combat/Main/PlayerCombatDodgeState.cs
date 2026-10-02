@@ -40,6 +40,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Exit()
         {
+            playerCombatStateMachine.CharacterStatsManagers.SetIsDodge(false);
         }
     }
 }
