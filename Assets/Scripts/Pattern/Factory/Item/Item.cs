@@ -107,14 +107,17 @@ namespace ConquerTheStars.Factory.Item
         public void Use(ICaster character, ItemType itemType, int remainingTurn, float value)
         {
             var player = character.CharacterUse().GetComponent<PlayerCombatStateMachine>();
-
+            Debug.Log("Reive");
 
             player.CallUseReviveItemEvent();
 
             if (value > 0)
             {
-                var buffManager = character.CharacterUse().GetComponent<BuffManager>();
-                buffManager.AddBuff(itemType, remainingTurn, value);
+                // var buffManager = character.CharacterUse().GetComponent<BuffManager>();
+                // buffManager.AddBuff(itemType, remainingTurn, value);
+                player.CharacterStatsManagers.Init();
+                player.Model.SetActive(true);
+                player.CallRevieSuccesEvent();
             }
         }
     }

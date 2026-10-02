@@ -50,6 +50,14 @@ namespace ConquerTheStars.Fight.Match
             return PlayerTeam.FindAll(ally => ally.IsDeath);
         }
 
+        public bool IsSomeOneInPlayerDead()
+        {
+            return PlayerTeam.Find(ally => ally.IsDeath);
+        }
 
+        public bool IsSomeOneInEnemyDead()
+        {
+            return EnemyTeam.Find(enemy => enemy.IsDeath);
+        }
     }
 }

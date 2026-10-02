@@ -43,20 +43,10 @@ namespace ConquerTheStars.Fight
             TeamNameList.Add(name);
         }
 
-        // public void SavePos(Vector3 position)
-        // {
-        //     CurrentPosition = position;
-        // }
-
         public List<ItemQuantity> GetItemList()
         {
             return _itemDatas;
         }
-
-        // public ItemData GetItemData(int index)
-        // {
-        //     return itemDatas[index].ItemData;
-        // }
 
         public void AddQuantity()
         {

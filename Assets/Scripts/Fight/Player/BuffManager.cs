@@ -21,6 +21,7 @@ public class ItemInUse
         Value = value;
     }
 }
+[RequireComponent(typeof(PlayerCombatStateMachine))]
 public class BuffManager : MonoBehaviour
 {
     private List<ItemInUse> _activeBuffList = new();
@@ -48,6 +49,8 @@ public class BuffManager : MonoBehaviour
 
     public void ApplyBuff()
     {
+        if (_itemToUse.ItemType == ItemType.Revive && !_playerCombatStateMachine.CharacterStatsManagers.IsDeath) return;
+
         IItem item = ItemFactory.CreateItem(_itemToUse.ItemType);
         item.Use(_playerCombatStateMachine, _itemToUse.ItemType, _itemToUse.RemainingTurn, _itemToUse.Value);
     }
@@ -75,8 +78,6 @@ public class BuffManager : MonoBehaviour
             return false;
         });
     }
-
-
 
     public void CallSetupBuffUi(Sprite sprite)
     {

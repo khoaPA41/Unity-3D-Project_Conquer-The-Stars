@@ -138,6 +138,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             foreach (var player in TeamController.PlayerTeam)
             {
+                player.GetComponent<PlayerCombatStateMachine>().RevieSuccessAction -= TurnOrderService.EnqueueBack;
                 player.GetComponent<PooledObject>().Release();
             }
 
