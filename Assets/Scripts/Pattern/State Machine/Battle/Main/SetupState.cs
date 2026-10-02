@@ -5,6 +5,7 @@ using ConquerTheStars.Fight;
 using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Pattern.Object_Pooling;
+using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using ConquerTheStars.UI.Player;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             _playerTeam = PlayerTeam.Instance.TeamNameList;
         }
 
-        private void SetupEnemyPosition()
+        private void SetupEnemy()
         {
             for (int i = 0; i < _enemyTeam.Count; i++)
             {
@@ -61,7 +62,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             }
         }
 
-        private void SetupPlayerPosition() // Spawn player at target position - add to player team list and queue
+        private void SetupPlayer() // Spawn player at target position - add to player team list and queue
         {
             for (int i = 0; i < _playerTeam.Count; i++)
             {
@@ -74,6 +75,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
                 // Add to the team list used to manage status throughout the match
                 battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>());
+
+                player.GetComponent<PlayerCombatStateMachine>().RevieSuccessAction += battleStateMachine.TurnOrderService.EnqueueBack;
             }
         }
 
@@ -112,8 +115,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private IEnumerator WaitToSetup()
         {
             Initialize();
-            SetupEnemyPosition();
-            SetupPlayerPosition();
+            SetupEnemy();
+            SetupPlayer();
 
             AddCharacterToBattleList();
 

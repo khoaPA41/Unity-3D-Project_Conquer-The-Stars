@@ -9,9 +9,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
     {
         private readonly int _useItemAnimationHash = Animator.StringToHash("UseItem");
         private readonly string _useItemAnimationTag = "UseItem";
-
         private float _normalizedTime;
-        // private float _prevTime;
         private bool isUseItem;
         public PlayerCombatUseItemState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
@@ -19,9 +17,11 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
-            // _prevTime = 0f;
             _normalizedTime = 0f;
             isUseItem = false;
+
+            // if(playerCombatStateMachine.CharacterStatsManagers.IsDeath)
+
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(_useItemAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 

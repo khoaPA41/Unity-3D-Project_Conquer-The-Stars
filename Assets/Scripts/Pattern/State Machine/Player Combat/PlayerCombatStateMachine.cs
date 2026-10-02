@@ -19,6 +19,9 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         [field: SerializeField] public CharacterController CharacterController { get; private set; }
         [field: SerializeField] public float Speed { get; private set; }
 
+        [field: Header("Model")]
+        [field: SerializeField] public GameObject Model { get; private set; }
+
         [field: Header("Animator")]
         [field: SerializeField] public Animator Animator { get; private set; }
         [field: SerializeField] public float AnimationCrossFade { get; private set; }
@@ -83,6 +86,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public event Action<string, int> PlayerExecuteAction = delegate { }; // Event for active attack
         public event Action PlayerUseItem = delegate { }; // Event for use item
         public event Action UseReviveItem = delegate { }; // Event for use revive item
+        public event Action<CharacterStatsManagers> RevieSuccessAction = delegate { }; // Event atend this player is revie => add to turn order.
         public int AttackIndexSelected { get; set; }
         public string AttackNameList { get; set; }
         public ItemData ItemData { get; set; }
@@ -90,6 +94,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public CinemachineBrain CinemachineBrain { get; set; }
 
         public bool IsWatingCameraBlendFinished { get; set; }
+
+
 
         private void Awake()
         {
@@ -120,6 +126,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         private void OnDisable()
         {
+            Model.SetActive(true);
             CharacterStatsManagers.DyingAction -= SwitchDyingState;
             CharacterStatsManagers.SetupHudAction -= SetupHud;
             PlayerExecuteAction -= GetAttackIndex;
@@ -190,9 +197,13 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             SwitchState(PlayerVictoryState);
         }
 
+        public void CallRevieSuccesEvent()
+        {
+            RevieSuccessAction?.Invoke(CharacterStatsManagers);
+        }
+
         public void CallDealDamageEvent()
         {
-
             AttackDealDamage?.Invoke();
         }
 
@@ -212,6 +223,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             Animator.SetFloat(attackSpeedParams, .1f);
         }
 
+
+        // Item
         public void GetIndexAction(string attackListName, int actionIndex)
         {
             PlayerExecuteAction?.Invoke(attackListName, actionIndex);
@@ -229,6 +242,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             AttackIndexSelected = index;
         }
 
+
+        // Damage
         public float GetAttackDameScale()
         {
             var damageScale = AttackNameList == "Attack" ?
@@ -274,6 +289,8 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             return 0;
         }
 
+
+        // Sound
         public void PlaySlashSound()
         {
             AudioManagers.Instance.PlaySound(AttackTransform, AttackSfx);

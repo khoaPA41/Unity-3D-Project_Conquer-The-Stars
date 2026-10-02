@@ -1,32 +1,44 @@
 using System.Collections;
-using System.Threading.Tasks;
+using ConquerTheStars.Fight.Target;
+using ConquerTheStars.InputController;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using UnityEngine;
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class PlayerSelectAllyState : BattleBaseState
     {
+        private PlayerCombatStateMachine _usingItemPlayer;
+        private Targeter _allyTargeterList;
+        private BattleInputReader _inputReader;
+        private PlayerCombatStateMachine _targetAlly;
+
         public PlayerSelectAllyState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
+            _usingItemPlayer = battleStateMachine.PlayerCombatStateMachine;
+            _allyTargeterList = battleStateMachine.AllyTargeter;
+            _inputReader = battleStateMachine.InputReader;
+
             battleStateMachine.ActiveSelectUI(true, false);
 
-            battleStateMachine.PlayerCombatStateMachine.HighlightCurrentTurn.InactiveHighlight();
-            battleStateMachine.PlayerCombatStateMachine.IsFinished = false;
+            _usingItemPlayer.HighlightCurrentTurn.InactiveHighlight();
+            _usingItemPlayer.IsFinished = false;
 
             /*Select default ally target*/
-            battleStateMachine.AllyTargeter.FirstSelected();
-            battleStateMachine.AllyTargeter.GetTarget();
+            _allyTargeterList.FirstSelected();
+            _allyTargeterList.GetTarget();
             Highlight();
-
-            Selected();
+            _targetAlly = _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
 
             /*Listen input event to choose target*/
-            battleStateMachine.InputReader.NextTargetAction += HighlightNextTarget;
-            battleStateMachine.InputReader.PreviousTargetAction += HighlightPrevTarget;
+            _inputReader.NextTargetAction += HighlightNextTarget;
+            _inputReader.PreviousTargetAction += HighlightPrevTarget;
+
+            // Selected
+            _inputReader.EnterTargetAction += OnConfirm;
         }
 
         public override void Tick(float deltaTime)
@@ -35,65 +47,71 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-            battleStateMachine.InputReader.NextTargetAction -= HighlightNextTarget;
-            battleStateMachine.InputReader.PreviousTargetAction -= HighlightPrevTarget;
-            battleStateMachine.ActiveSelectUI(false, false);
-        }
+            if (_inputReader != null)
+            {
+                _inputReader.EnterTargetAction -= OnConfirm;
+                _inputReader.NextTargetAction -= HighlightNextTarget;
+                _inputReader.PreviousTargetAction -= HighlightPrevTarget;
+            }
 
-        private async void Selected()
-        {
-            await WaitForConfirm();
-            battleStateMachine.StartCoroutine(WaitToEndAnimation());
+            battleStateMachine.ActiveSelectUI(false, false);
+
+            _allyTargeterList = null;
+            _usingItemPlayer = null;
+            _inputReader = null;
         }
 
         private IEnumerator WaitToEndAnimation()
         {
-            var targetAlly = battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
-            battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
-            targetAlly.IsFinished = false;
-            targetAlly.BuffManager.SetItemToUse(battleStateMachine.PlayerCombatStateMachine.ItemData);
+            var target = _targetAlly;
+            _usingItemPlayer.PlayerSetupSkillUI.DisappearSkillUI();
+            target.IsFinished = false;
 
-            targetAlly.HighlightSelectedByAlly.InactiveHighlight();
-            targetAlly.SwitchUseItem();
+            target.BuffManager.SetItemToUse(_usingItemPlayer.ItemData);
+
+            target.HighlightSelectedByAlly.InactiveHighlight();
+            target.SwitchUseItem();
 
             //Wait until player use item animation done
-            yield return new WaitUntil(() => targetAlly.IsFinished == true);
+            yield return new WaitUntil(() => target.IsFinished == true);
 
-            battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
+            _usingItemPlayer.InactiveCamera();
             battleStateMachine.SwitchResolve();
         }
 
-        private Task WaitForConfirm()
+        private void OnConfirm()
         {
-            var taskCompletionSource = new TaskCompletionSource<bool>();
-            void OnConfirm()
-            {
-                taskCompletionSource.TrySetResult(true);
-                battleStateMachine.ActiveSelectUI(false, false);
-                battleStateMachine.InputReader.EnterTargetAction -= OnConfirm;
-            }
+            if (_targetAlly.CharacterStatsManagers.IsDeath && _usingItemPlayer.ItemData.ItemType != Factory.Item.ItemType.Revive) return;
+            if (!_targetAlly.CharacterStatsManagers.IsDeath && _usingItemPlayer.ItemData.ItemType == Factory.Item.ItemType.Revive) return;
 
-            battleStateMachine.InputReader.EnterTargetAction += OnConfirm;
-            return taskCompletionSource.Task;
+            _inputReader.EnterTargetAction -= OnConfirm;
+
+            _inputReader.NextTargetAction -= HighlightNextTarget;
+            _inputReader.PreviousTargetAction -= HighlightPrevTarget;
+
+            battleStateMachine.ActiveSelectUI(false, false);
+            battleStateMachine.StartCoroutine(WaitToEndAnimation());
         }
 
         private void HighlightNextTarget()
         {
-            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
-            battleStateMachine.AllyTargeter.ChooseNextTarget();
-            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
+            _allyTargeterList.ChooseNextTarget();
+            _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            _targetAlly = _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
         }
 
         private void HighlightPrevTarget()
         {
-            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
-            battleStateMachine.AllyTargeter.ChoosePrevTarget();
-            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.InactiveHighlight();
+            _allyTargeterList.ChoosePrevTarget();
+            _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            _targetAlly = _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
         }
 
         private void Highlight()
         {
-            battleStateMachine.AllyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
+            _allyTargeterList.CurrentTarget.GetComponent<PlayerCombatStateMachine>().HighlightSelectedByAlly.Highlight();
         }
     }
 }

@@ -2,7 +2,6 @@ using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(PooledObject))]
 public class EnemyInformation : MonoBehaviour

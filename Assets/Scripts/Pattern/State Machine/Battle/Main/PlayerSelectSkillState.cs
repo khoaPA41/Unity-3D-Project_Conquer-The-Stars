@@ -1,25 +1,28 @@
 using System.Collections;
 using ConquerTheStars.Factory.Item;
+using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using UnityEngine;
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class PlayerSelectSkillState : BattleBaseState
     {
+        private PlayerCombatStateMachine _selectPlayer;
         public PlayerSelectSkillState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
+            _selectPlayer = battleStateMachine.PlayerCombatStateMachine;
             battleStateMachine.IsWaitingCameraBlend = false;
 
 
             // Listen attack and use item event
-            battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction += PlayerExecutedAction;
-            battleStateMachine.PlayerCombatStateMachine.PlayerUseItem += PlayerUseItem;
+            _selectPlayer.PlayerExecuteAction += PlayerExecutedAction;
+            _selectPlayer.PlayerUseItem += PlayerUseItem;
 
             /*Show Skill Selection UI*/
-            battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.AppearSkillUI();
+            _selectPlayer.PlayerSetupSkillUI.AppearSkillUI();
         }
 
         public override void Tick(float deltaTime)
@@ -28,8 +31,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-            battleStateMachine.PlayerCombatStateMachine.PlayerExecuteAction -= PlayerExecutedAction;
-            battleStateMachine.PlayerCombatStateMachine.PlayerUseItem -= PlayerUseItem;
+            if (_selectPlayer != null)
+            {
+                _selectPlayer.PlayerExecuteAction -= PlayerExecutedAction;
+                _selectPlayer.PlayerUseItem -= PlayerUseItem;
+            }
+
+            _selectPlayer = null;
         }
 
         private void PlayerExecutedAction(string listName, int index)
@@ -37,7 +45,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (listName == "Skill")
             {
                 var currentMana = battleStateMachine.CurrentTurn.CurrentMana;
-                var manaRequired = battleStateMachine.PlayerCombatStateMachine.GetManaRequired(listName, index);
+                var manaRequired = _selectPlayer.GetManaRequired(listName, index);
 
                 if (currentMana < manaRequired)
                 {
@@ -50,13 +58,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerUseItem()
         {
+            if (_selectPlayer.ItemData.ItemType == ItemType.Revive && !battleStateMachine.TeamController.IsSomeOneInPlayerDead()) return;
             battleStateMachine.StartCoroutine(WaitForCameraBlendFinishedForSelectAlly());
+            //Will appear UI warning for player know no one die, can't use rivie item
         }
 
         private IEnumerator WaitForCameraBlendFinishedForSelectAlly()
         {
-            battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
-            battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
+            _selectPlayer.PlayerSetupSkillUI.DisappearSkillUI();
+            _selectPlayer.InactiveCamera();
 
             yield return new WaitUntil(() => battleStateMachine.IsWaitingCameraBlend == true);
 
@@ -65,8 +75,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private IEnumerator WaitForCameraBlendFinishedForSelectTarget()
         {
-            battleStateMachine.PlayerCombatStateMachine.PlayerSetupSkillUI.DisappearSkillUI();
-            battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
+            _selectPlayer.PlayerSetupSkillUI.DisappearSkillUI();
+            _selectPlayer.InactiveCamera();
 
             yield return new WaitUntil(() => battleStateMachine.IsWaitingCameraBlend == true);
 

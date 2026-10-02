@@ -1,0 +1,79 @@
+[33m302c6d0[m Assets: add new image assets
+ Assets/Animation/UI/Selection/Appear.anim          |   36 [32m+[m
+ Assets/Animation/UI/Selection/Disappear.anim       |    8 [32m+[m[31m-[m
+ Assets/Animation/UI/Skill Select/Appear.anim       |   24 [32m+[m[31m-[m
+ Assets/Animation/UI/Skill Select/Disappear.anim    |    4 [32m+[m[31m-[m
+ Assets/Prefabs/Map.prefab                          | 1954 [32m+++[m[31m-[m
+ Assets/Prefabs/Model/Boss/Boss_II.prefab           |    2 [32m+[m[31m-[m
+ Assets/Prefabs/Model/Player/Player_Battle.prefab   |   34 [32m+[m[31m-[m
+ .../Prefabs/Model/Player/Player_Battle_II.prefab   |   38 [32m+[m[31m-[m
+ .../Prefabs/Model/Player/Player_Battle_III.prefab  |   38 [32m+[m[31m-[m
+ Assets/Prefabs/UI/Character Panel.prefab           |   60 [32m+[m[31m-[m
+ Assets/Prefabs/UI/Selected.prefab                  |   44 [32m+[m[31m-[m
+ Assets/Prefabs/UI/Skill Board Element.prefab       |   22 [32m+[m[31m-[m
+ Assets/Scenes/Battle.unity                         | 1895 [32m++[m[31m--[m
+ Assets/Scenes/Main.unity                           |  155 [32m+[m[31m-[m
+ Assets/Scenes/Start.unity                          |    2 [32m+[m[31m-[m
+ .../ScriptableObject/Stats/Enemy/Enemy_I.asset     |    2 [32m+[m[31m-[m
+ .../ScriptableObject/Stats/Enemy/Enemy_II.asset    |    2 [32m+[m[31m-[m
+ .../ScriptableObject/Stats/Enemy/Enemy_IIII.asset  |    2 [32m+[m[31m-[m
+ .../ScriptableObject/Stats/Enemy/Enemy_IV.asset    |    2 [32m+[m[31m-[m
+ .../ScriptableObject/Stats/Player/Player_I.asset   |    2 [32m+[m[31m-[m
+ .../ScriptableObject/Stats/Player/Player_II.asset  |    2 [32m+[m[31m-[m
+ .../ScriptableObject/Stats/Player/Player_III.asset |    2 [32m+[m[31m-[m
+ Assets/Scripts/Stats/CharacterStatsManagers.cs     |    2 [32m+[m[31m-[m
+ Assets/Settings/Mobile/MobileSceneProfile.asset    |  401 [32m+[m[31m-[m
+ Assets/Settings/Mobile/Mobile_RPAsset.asset        |   14 [32m+[m[31m-[m
+ .../UniversalRenderPipelineGlobalSettings.asset    |    2 [32m+[m[31m-[m
+ .../UI/ChatGPT.meta}                               |    3 [32m+[m[31m-[m
+ .../UI/ChatGPT/Accept_Attack.png                   |    3 [32m+[m
+ .../UI/ChatGPT/Accept_Attack.png.meta              |  156 [32m+[m
+ .../UI/ChatGPT/Accept_Use_Item.png                 |    3 [32m+[m
+ .../UI/ChatGPT/Accept_Use_Item.png.meta            |  156 [32m+[m
+ Assets/Third_party Assets/UI/ChatGPT/Button.png    |    3 [32m+[m
+ .../Third_party Assets/UI/ChatGPT/Button.png.meta  |  156 [32m+[m
+ .../UI/ChatGPT/Button_ChooseSkill.png              |    3 [32m+[m
+ .../UI/ChatGPT/Button_ChooseSkill.png.meta         |  156 [32m+[m
+ .../Third_party Assets/UI/ChatGPT/HealthMask.png   |    3 [32m+[m
+ .../UI/ChatGPT/HealthMask.png.meta                 |  156 [32m+[m
+ Assets/Third_party Assets/UI/ChatGPT/ManaMask.png  |    3 [32m+[m
+ .../UI/ChatGPT/ManaMask.png.meta                   |  156 [32m+[m
+ .../UI/ChatGPT/Panel_Skill_Info.png                |    3 [32m+[m
+ .../UI/ChatGPT/Panel_Skill_Info.png.meta           |  156 [32m+[m
+ Assets/Third_party Assets/UI/ChatGPT/PlayerHud.png |    3 [32m+[m
+ .../UI/ChatGPT/PlayerHud.png.meta                  |  156 [32m+[m
+ .../Third_party Assets/UI/ChatGPT/Select_Next.png  |    3 [32m+[m
+ .../UI/ChatGPT/Select_Next.png.meta                |  156 [32m+[m
+ .../Third_party Assets/UI/ChatGPT/Select_Prev.png  |    3 [32m+[m
+ .../UI/ChatGPT/Select_Prev.png.meta                |  156 [32m+[m
+ Assets/Third_party Assets/UI/ChatGPT/Selection.png |    3 [32m+[m
+ .../UI/ChatGPT/Selection.png.meta                  |  156 [32m+[m
+ Assets/Third_party Assets/UI/ChatGPT/Tab.png       |    3 [32m+[m
+ Assets/Third_party Assets/UI/ChatGPT/Tab.png.meta  |  156 [32m+[m
+ Assets/_Recovery.meta                              |    2 [32m+[m[31m-[m
+ Assets/_Recovery/0 (1).unity                       | 9625 [32m+++++++++++++++++[m[31m---[m
+ Assets/_Recovery/0 (1).unity.meta                  |    2 [32m+[m[31m-[m
+ Assets/_Recovery/0 (2).unity                       | 1608 [31m----[m
+ Assets/_Recovery/0 (2).unity.meta                  |    7 [31m-[m
+ Assets/_Recovery/0 (3).unity                       | 4892 [31m----------[m
+ Assets/_Recovery/0 (3).unity.meta                  |    7 [31m-[m
+ Assets/_Recovery/0 (4).unity                       | 9093 [31m------------------[m
+ Assets/_Recovery/0 (5).unity                       | 1489 [31m---[m
+ Assets/_Recovery/0 (5).unity.meta                  |    7 [31m-[m
+ Assets/_Recovery/0 (6).unity                       | 9060 [31m------------------[m
+ Assets/_Recovery/0 (6).unity.meta                  |    7 [31m-[m
+ Assets/_Recovery/0 (7).unity                       | 9060 [31m------------------[m
+ Assets/_Recovery/0 (7).unity.meta                  |    7 [31m-[m
+ Assets/_Recovery/0.unity                           | 9625 [32m+++++++++++++++++[m[31m---[m
+ Assets/_Recovery/0.unity.meta                      |    2 [32m+[m[31m-[m
+ Packages/manifest.json                             |    1 [32m+[m
+ Packages/packages-lock.json                        |   37 [32m+[m[31m-[m
+ .../ConquerTheStars_2026-09-30_17-52-01.data       |  Bin [31m0[m -> [32m189222564[m bytes
+ .../ConquerTheStars_2026-09-30_17-52-01.highlights |  Bin [31m0[m -> [32m16198[m bytes
+ ProfilerCaptures/ConquerTheStars_Baseline.data     |  Bin [31m0[m -> [32m180404776[m bytes
+ .../ConquerTheStars_Baseline.highlights            |  Bin [31m0[m -> [32m16198[m bytes
+ ProfilerCaptures/ConquerTheStars_Bloom_Off.data    |  Bin [31m0[m -> [32m179428380[m bytes
+ .../ConquerTheStars_Bloom_Off.highlights           |  Bin [31m0[m -> [32m16198[m bytes
+ .../ConquerTheStars_ShadowCasters_Drecrease.data   |  Bin [31m0[m -> [32m199474872[m bytes
+ ...querTheStars_ShadowCasters_Drecrease.highlights |  Bin [31m0[m -> [32m16198[m bytes
+ 77 files changed, 22292 insertions(+), 38899 deletions(-)
