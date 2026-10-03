@@ -1,16 +1,18 @@
-using System.Threading.Tasks;
+using ConquerTheStars.InputController;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class PlayerSelectTargetState : BattleBaseState
     {
+        private BattleInputReader _inputReader;
         public PlayerSelectTargetState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
+            _inputReader = battleStateMachine.InputReader;
             // battleStateMachine.SelectUi.SetActive(true);
             battleStateMachine.ActiveSelectUI(true, true);
             /*Change Combat Idle State*/
@@ -21,13 +23,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.PlayerTargeter.GetTarget();
             Highlight();
 
-            Selected();
             // battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
 
             /*Listen input event to choose target*/
-            battleStateMachine.InputReader.NextTargetAction += HighlightNextTarget;
-            battleStateMachine.InputReader.PreviousTargetAction += HighlightPrevTarget;
-
+            _inputReader.NextTargetAction += HighlightNextTarget;
+            _inputReader.PreviousTargetAction += HighlightPrevTarget;
+            _inputReader.EnterTargetAction += OnConfirm;
         }
 
         public override void Tick(float deltaTime)
@@ -36,29 +37,24 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-            battleStateMachine.InputReader.NextTargetAction -= HighlightNextTarget;
-            battleStateMachine.InputReader.PreviousTargetAction -= HighlightPrevTarget;
+            if (_inputReader != null)
+            {
+                _inputReader.EnterTargetAction -= OnConfirm;
+                _inputReader.NextTargetAction -= HighlightNextTarget;
+                _inputReader.PreviousTargetAction -= HighlightPrevTarget;
+            }
+
             battleStateMachine.ActiveSelectUI(false, true);
         }
 
-        private async void Selected()
+        private void OnConfirm()
         {
-            await WaitForConfirm();
+            _inputReader.EnterTargetAction -= OnConfirm;
+
+            _inputReader.NextTargetAction -= HighlightNextTarget;
+            _inputReader.PreviousTargetAction -= HighlightPrevTarget;
+
             battleStateMachine.SwitchState(battleStateMachine.PlayerExecuted);
-        }
-
-        private Task WaitForConfirm()
-        {
-            var taskCompletionSource = new TaskCompletionSource<bool>();
-            void OnConfirm()
-            {
-                taskCompletionSource.TrySetResult(true);
-                battleStateMachine.InputReader.EnterTargetAction -= OnConfirm;
-            }
-
-            battleStateMachine.InputReader.EnterTargetAction += OnConfirm;
-
-            return taskCompletionSource.Task;
         }
 
         private void HighlightNextTarget()
