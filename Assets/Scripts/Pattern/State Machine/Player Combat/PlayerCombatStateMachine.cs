@@ -97,7 +97,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         private void Awake()
         {
-            CinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
+
             PlayerIdleState = new PlayerCombatIdleState(this);
             PlayerCombatIdleState = new PlayerCombatIdleCombatState(this);
             PlayerDefenseState = new PlayerCombatDefenseState(this);
@@ -116,7 +116,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             ItemData = null;
             IsFinished = false;
             IsWatingCameraBlendFinished = false;
-
+            CinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
 
             InactiveCamera();
             HighlightCurrentTurn.InactiveHighlight();
