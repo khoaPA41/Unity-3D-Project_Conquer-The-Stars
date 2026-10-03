@@ -1,6 +1,7 @@
 using System;
 using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.StateMachine.Battle;
+using ConquerTheStars.UI.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -56,6 +57,9 @@ public class UiManagers : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("BattleStateMachine").TryGetComponent<BattleStateMachine>(out var battle))
                 battle.ReleaseAllTeam();
+            UICombatManagers.Instance.ReleaseAllUiPooledObject();
+            UICombatManagers.Instance.ResetTurnOrder();
+
         }
 
         if (SceneManager.GetActiveScene().name == StartMenuScene)
