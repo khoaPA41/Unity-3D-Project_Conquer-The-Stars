@@ -112,6 +112,16 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         private void OnEnable()
         {
+            Target = null;
+            ItemData = null;
+            IsFinished = false;
+            IsWatingCameraBlendFinished = false;
+
+
+            InactiveCamera();
+            HighlightCurrentTurn.InactiveHighlight();
+            HighlightSelectedByAlly.InactiveHighlight();
+
             BattleStatistics.Reset();
             PlayerStartPosition = transform.position;
             CharacterStatsManagers.DyingAction += SwitchDyingState;
@@ -129,6 +139,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             CharacterStatsManagers.SetupHudAction -= SetupHud;
             PlayerExecuteAction -= GetAttackIndex;
             CinemachineCore.BlendFinishedEvent.RemoveListener(OnBlendFinished);
+            SwitchState(null);
         }
 
         public void SetupHud()

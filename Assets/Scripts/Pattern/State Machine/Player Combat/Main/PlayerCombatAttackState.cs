@@ -11,18 +11,21 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         private float _normalizedTime;
         private string _animationName;
         private bool _hasCompleted;
+        private SkillActionFrame _subscribedFrame;
         public PlayerCombatAttackState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
 
         public override void Enter()
         {
+            _subscribedFrame = UICombatManagers.Instance.SkillActionFrame;
             _isActiveAnimation = false;
             _hasCompleted = false;
             _normalizedTime = 0f;
             playerCombatStateMachine.IsWatingCameraBlendFinished = false;
 
-            UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
+            // UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
+            _subscribedFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
             _animationName = playerCombatStateMachine.AttackNameList == "Attack" ?
             playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
             playerCombatStateMachine.AttackData.SkillName[playerCombatStateMachine.AttackIndexSelected];
@@ -45,7 +48,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
                 return;
             }
 
-
             if (MoveToTarget(deltaTime))
             {
                 playerCombatStateMachine.ActiveCamera();
@@ -65,7 +67,13 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Exit()
         {
-            UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
+            if (_subscribedFrame != null)
+            {
+                _subscribedFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
+            }
+            _subscribedFrame = null;
+
+            // UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
             RotateRoot();
             playerCombatStateMachine.InactiveCamera();
         }
