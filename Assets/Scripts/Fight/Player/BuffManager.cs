@@ -27,7 +27,6 @@ public class BuffManager : MonoBehaviour
     private List<ItemInUse> _activeBuffList = new();
     private PlayerCombatStateMachine _playerCombatStateMachine;
 
-
     private ItemData _itemToUse;
 
     public event Action<Sprite> OnBuffSuccess;
@@ -60,8 +59,9 @@ public class BuffManager : MonoBehaviour
     public void ApplyBuff()
     {
         if (_itemToUse.ItemType == ItemType.Revive && !_playerCombatStateMachine.CharacterStatsManagers.IsDeath) return;
-
         IItem item = ItemFactory.CreateItem(_itemToUse.ItemType);
+        if (item == null) return;
+        if (!PlayerTeam.Instance.TryConsumeItem(_itemToUse.ItemType)) return;
         item.Use(_playerCombatStateMachine, _itemToUse.ItemType, _itemToUse.RemainingTurn, _itemToUse.Value);
     }
 
