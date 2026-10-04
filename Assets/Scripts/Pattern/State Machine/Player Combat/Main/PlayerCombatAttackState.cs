@@ -24,7 +24,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             _normalizedTime = 0f;
             playerCombatStateMachine.IsWatingCameraBlendFinished = false;
 
-            // UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
             _subscribedFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
             _animationName = playerCombatStateMachine.AttackNameList == "Attack" ?
             playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
@@ -73,9 +72,9 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             }
             _subscribedFrame = null;
 
-            // UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
             RotateRoot();
             playerCombatStateMachine.InactiveCamera();
         }
     }
 }
+

@@ -1,3 +1,4 @@
+using ConquerTheStars.Fight;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,12 +15,18 @@ namespace ConquerTheStars.UI.Player
         [field: SerializeField] public Button Button { get; set; }
         public int Index;
 
-
         public void SetupSkillElement(Sprite icon, string skillName, string information)
         {
             this._icon.sprite = icon;
             this._skillName.SetText(skillName);
             this._information.SetText(information);
+        }
+
+
+        // Use for item
+        public void UpdateItemQuantity(string quantity)
+        {
+            _skillName.SetText(quantity);
         }
     }
 }

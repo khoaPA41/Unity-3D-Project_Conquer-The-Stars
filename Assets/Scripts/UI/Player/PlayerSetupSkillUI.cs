@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ConquerTheStars.Factory.Item;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.UI.Player;
 using UnityEngine;
@@ -37,11 +38,13 @@ namespace ConquerTheStars.Fight.Player
         private Camera _mainCamera;
 
         private bool _isInitialized;
+        private PlayerTeam _subscribedTeam;
 
         private void OnEnable()
         {
             _mainCamera = Camera.main;
-            if (_playerCombatStateMachine != null && PlayerTeam.Instance != null)
+            _subscribedTeam = PlayerTeam.Instance;
+            if (_playerCombatStateMachine != null && _subscribedTeam != null)
             {
                 if (!_isInitialized)
                 {
@@ -56,8 +59,18 @@ namespace ConquerTheStars.Fight.Player
                     SetupCamera();
                 }
             }
+
+            if (_subscribedTeam != null)
+                _subscribedTeam.UpdateItemQuantityAction += UpdateItemQuantity;
         }
 
+        private void OnDisable()
+        {
+            if (_subscribedTeam != null)
+                _subscribedTeam.UpdateItemQuantityAction -= UpdateItemQuantity;
+
+            _subscribedTeam = null;
+        }
 
         private void SetupAttackUI()
         {
@@ -78,13 +91,11 @@ namespace ConquerTheStars.Fight.Player
             }
         }
 
-
         private void SetupSkillUI()
         {
             for (int i = 0; i < _playerCombatStateMachine.AttackData.SkillIcon.Count; i++)
             {
                 // Setup skill element base AttackData
-
                 _skillElement[i].SetupSkillElement(_playerCombatStateMachine.AttackData.SkillIcon[i],
                 _playerCombatStateMachine.AttackData.Skill[i],
                 _playerCombatStateMachine.AttackData.SkillInformation[i]);
@@ -100,7 +111,7 @@ namespace ConquerTheStars.Fight.Player
 
         private void SetupItemUI()
         {
-            var itemList = PlayerTeam.Instance.GetItemList();
+            var itemList = _subscribedTeam.GetItemList();
             for (int i = 0; i < itemList.Count; i++)
             {
                 // Setup item element base Item List
@@ -115,6 +126,17 @@ namespace ConquerTheStars.Fight.Player
             }
         }
 
+        public void UpdateItemQuantity(ItemType itemType, string quantity)
+        {
+            var itemList = _subscribedTeam.GetItemList();
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                if (itemList[i].ItemData.ItemType != itemType) continue;
+                _itemElement[i].UpdateItemQuantity(quantity);
+                break;
+            }
+        }
+
         private void SetupCamera()
         {
             _playerCanvas.worldCamera = _mainCamera;
@@ -125,6 +147,7 @@ namespace ConquerTheStars.Fight.Player
             _playerCanvas.gameObject.SetActive(true);
             _skillAnimator.SetTrigger(_skillSelectionAppearAnimationHash);
         }
+
         public void DisappearSkillUI()
         {
             _skillAnimator.SetTrigger(_skillSelectionDisappearAnimationHash);

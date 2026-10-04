@@ -19,9 +19,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         {
             _normalizedTime = 0f;
             isUseItem = false;
-
-            // if(playerCombatStateMachine.CharacterStatsManagers.IsDeath)
-
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(_useItemAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 

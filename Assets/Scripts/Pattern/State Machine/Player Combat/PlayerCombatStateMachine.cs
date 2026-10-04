@@ -85,7 +85,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public event Action<string, int> PlayerExecuteAction = delegate { }; // Event for active attack
         public event Action PlayerUseItem = delegate { }; // Event for use item
-        public event Action UseReviveItem = delegate { }; // Event for use revive item
         public event Action<CharacterStatsManagers> RevieSuccessAction = delegate { }; // Event atend this player is revie => add to turn order.
         public int AttackIndexSelected { get; set; }
         public string AttackNameList { get; set; }
@@ -269,11 +268,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public void InactiveCamera()
         {
             CameraGroup.SetActive(false);
-        }
-
-        public void CallUseReviveItemEvent()
-        {
-            UseReviveItem?.Invoke();
         }
 
         public void RotateToEnemy(Transform target)

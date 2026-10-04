@@ -15,7 +15,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
         public override void Enter()
         {
             playerCombatStateMachine.PlayerSetupUI.ReturnToPool();
-            // playerCombatStateMachine.PlayerSetupUI.InactiveCharacterHUD();
             playerCombatStateMachine.Animator.CrossFadeInFixedTime(_dyingAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 
@@ -25,7 +24,6 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
             if (_normalizedTime > _prevTime && _normalizedTime >= .9 && _normalizedTime <= 1f)
             {
                 playerCombatStateMachine.IsFinished = true;
-                // playerCombatStateMachine.PooledObject.Release();
                 playerCombatStateMachine.Model.SetActive(false);
             }
 

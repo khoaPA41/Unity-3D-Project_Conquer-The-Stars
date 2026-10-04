@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ConquerTheStars.Factory.Item
 {
     public interface IItem

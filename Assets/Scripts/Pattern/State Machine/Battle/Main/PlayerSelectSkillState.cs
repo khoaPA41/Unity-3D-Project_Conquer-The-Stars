@@ -1,5 +1,6 @@
 using System.Collections;
 using ConquerTheStars.Factory.Item;
+using ConquerTheStars.Fight;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using UnityEngine;
 namespace ConquerTheStars.Pattern.StateMachine.Battle
@@ -58,6 +59,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerUseItem()
         {
+            if (PlayerTeam.Instance.GetItem(_selectPlayer.ItemData.ItemType).Quantity <= 0) return;
             if (_selectPlayer.ItemData.ItemType == ItemType.Revive && !battleStateMachine.TeamController.IsSomeOneInPlayerDead()) return;
             battleStateMachine.StartCoroutine(WaitForCameraBlendFinishedForSelectAlly());
             //Will appear UI warning for player know no one die, can't use rivie item

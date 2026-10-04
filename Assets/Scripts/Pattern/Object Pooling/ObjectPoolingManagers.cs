@@ -98,9 +98,11 @@ namespace ConquerTheStars.Pattern.Object_Pooling
             if (pooledObjectDict[objectName].Count == 0)
             {
                 var newObject = Instantiate(objectByNameDict[objectName]);
+                newObject.gameObject.SetActive(false);
                 newObject.name = objectName.ToString();
                 newObject.ObjectId = objectName;
                 newObject.transform.position = pos;
+                newObject.transform.rotation = Quaternion.identity;
                 newObject.transform.SetParent(parentByNameDict[objectName]);
                 newObject.gameObject.SetActive(true);
                 return newObject;
