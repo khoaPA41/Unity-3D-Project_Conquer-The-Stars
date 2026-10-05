@@ -1,7 +1,3 @@
-using UnityEngine;
-
-
-
 namespace ConquerTheStars.Factory.Item
 {
     public enum ItemType
@@ -13,8 +9,8 @@ namespace ConquerTheStars.Factory.Item
         IncreaseSpeed,
         IncreaseDamage,
         IncreaseCritical,
-        RemoveDisruption,
-        SummonTurret
+        // RemoveDisruption,
+        // SummonTurret
     }
 
     public static class ItemFactory
@@ -30,8 +26,8 @@ namespace ConquerTheStars.Factory.Item
                 ItemType.IncreaseSpeed => new IncreaseSpeed(),
                 ItemType.IncreaseDamage => new IncreaseDamage(),
                 ItemType.IncreaseCritical => new IncreaseCritical(),
-                ItemType.RemoveDisruption => new RemoveDisruption(),
-                ItemType.SummonTurret => new SummonTurret(),
+                // ItemType.RemoveDisruption => new RemoveDisruption(),
+                // ItemType.SummonTurret => new SummonTurret(),
                 _ => null
             };
         }

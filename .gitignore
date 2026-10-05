@@ -24,6 +24,9 @@
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
 
+# Profiler captures can get excessively large
+/[Pp]rofilerCaptures/
+
 # Recordings can get excessive in size
 /[Rr]ecordings/
 

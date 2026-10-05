@@ -1,17 +1,20 @@
-using System.Threading.Tasks;
+using ConquerTheStars.InputController;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class PlayerSelectTargetState : BattleBaseState
     {
+        private BattleInputReader _inputReader;
         public PlayerSelectTargetState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
-            battleStateMachine.SelectUi.SetActive(true);
+            _inputReader = battleStateMachine.InputReader;
+            // battleStateMachine.SelectUi.SetActive(true);
+            battleStateMachine.ActiveSelectUI(true, true);
             /*Change Combat Idle State*/
             battleStateMachine.PlayerCombatStateMachine.SwitchState(battleStateMachine.PlayerCombatStateMachine.PlayerCombatIdleState);
 
@@ -20,13 +23,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             battleStateMachine.PlayerTargeter.GetTarget();
             Highlight();
 
-            Selected();
             // battleStateMachine.PlayerCombatStateMachine.InactiveCamera();
 
             /*Listen input event to choose target*/
-            battleStateMachine.InputReader.NextTargetAction += HighlightNextTarget;
-            battleStateMachine.InputReader.PreviousTargetAction += HighlightPrevTarget;
-
+            _inputReader.NextTargetAction += HighlightNextTarget;
+            _inputReader.PreviousTargetAction += HighlightPrevTarget;
+            _inputReader.EnterTargetAction += OnConfirm;
         }
 
         public override void Tick(float deltaTime)
@@ -35,50 +37,43 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
-            battleStateMachine.InputReader.NextTargetAction -= HighlightNextTarget;
-            battleStateMachine.InputReader.PreviousTargetAction -= HighlightPrevTarget;
-            battleStateMachine.SelectUi.SetActive(false);
-        }
-
-        private async void Selected()
-        {
-            await WaitForConfirm();
-            battleStateMachine.SwitchState(battleStateMachine.Playerexecuted);
-        }
-
-        private Task WaitForConfirm()
-        {
-            var taskCompletionSource = new TaskCompletionSource<bool>();
-            void OnConfirm()
+            if (_inputReader != null)
             {
-                taskCompletionSource.TrySetResult(true);
-                battleStateMachine.InputReader.EnterTargetAction -= OnConfirm;
-                // battleStateMachine.TouchSwipeController.AttackAction -= OnConfirm;
+                _inputReader.EnterTargetAction -= OnConfirm;
+                _inputReader.NextTargetAction -= HighlightNextTarget;
+                _inputReader.PreviousTargetAction -= HighlightPrevTarget;
             }
 
-            battleStateMachine.InputReader.EnterTargetAction += OnConfirm;
-            // battleStateMachine.TouchSwipeController.AttackAction += OnConfirm;
+            battleStateMachine.ActiveSelectUI(false, true);
+        }
 
-            return taskCompletionSource.Task;
+        private void OnConfirm()
+        {
+            _inputReader.EnterTargetAction -= OnConfirm;
+
+            _inputReader.NextTargetAction -= HighlightNextTarget;
+            _inputReader.PreviousTargetAction -= HighlightPrevTarget;
+
+            battleStateMachine.SwitchState(battleStateMachine.PlayerExecuted);
         }
 
         private void HighlightNextTarget()
         {
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
             battleStateMachine.PlayerTargeter.ChooseNextTarget();
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
         }
 
         private void HighlightPrevTarget()
         {
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.InactiveHighlight();
             battleStateMachine.PlayerTargeter.ChoosePrevTarget();
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
         }
 
         private void Highlight()
         {
-            battleStateMachine.PlayerTargeter.currentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
+            battleStateMachine.PlayerTargeter.CurrentTarget.GetComponent<EnemyStateMachine>().HighlightTarget.Highlight();
         }
     }
 }

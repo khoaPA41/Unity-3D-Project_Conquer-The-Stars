@@ -7,11 +7,11 @@ namespace ConquerTheStars.UI.Player
     public class SkillActionFrame : MonoBehaviour
     {
         [Header("Skill Frame Action")]
-        [SerializeField] private Image perfectFrame;
-        [SerializeField] private Image actionFrame;
-        [SerializeField] private float timeToEnd;
-        [SerializeField] private Vector3 actionFrameLocalScaleTarget;
-        [SerializeField] private Vector3 actionFrameLocalScaleRoot;
+        [SerializeField] private Image _perfectFrame;
+        [SerializeField] private Image _actionFrame;
+        [SerializeField] private float _timeToEnd;
+        [SerializeField] private Vector3 _actionFrameLocalScaleTarget;
+        [SerializeField] private Vector3 _actionFrameLocalScaleRoot;
 
         private bool isPaused;
         public float ActionFrameValue { get; set; }
@@ -26,22 +26,22 @@ namespace ConquerTheStars.UI.Player
         public IEnumerator ActionFrameMovement()
         {
             var elapsed = 0f;
-            while (elapsed < timeToEnd && !isPaused)
+            while (elapsed < _timeToEnd && !isPaused)
             {
                 elapsed += Time.deltaTime;
 
-                var percentage = Mathf.Clamp01(elapsed / timeToEnd);
+                var percentage = Mathf.Clamp01(elapsed / _timeToEnd);
 
-                actionFrame.rectTransform.localScale = Vector3.Lerp(actionFrameLocalScaleRoot, actionFrameLocalScaleTarget, percentage);
+                _actionFrame.rectTransform.localScale = Vector3.Lerp(_actionFrameLocalScaleRoot, _actionFrameLocalScaleTarget, percentage);
 
                 yield return null;
             }
 
-            var value = actionFrame.rectTransform.localScale.x;
+            var value = _actionFrame.rectTransform.localScale.x;
             ActionFrameValue = value >= 1.01f ? 0f : value;
 
-            actionFrame.rectTransform.localScale = actionFrameLocalScaleRoot;
-            perfectFrame.gameObject.SetActive(false);
+            _actionFrame.rectTransform.localScale = _actionFrameLocalScaleRoot;
+            _perfectFrame.gameObject.SetActive(false);
 
             CallPausedAction();
         }

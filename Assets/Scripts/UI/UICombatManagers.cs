@@ -10,6 +10,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// SetTurnOrder: PooledObject ID = TurnOrder
+//SpawnKillElement: PooledObject ID = KillElement
 namespace ConquerTheStars.UI.Player
 {
     [RequireComponent(typeof(Canvas))]
@@ -17,7 +19,6 @@ namespace ConquerTheStars.UI.Player
     {
         private readonly string battleSceneName = "Battle";
 
-        private readonly string killElementName = "KillElement";
         public static UICombatManagers Instance;
 
         [Header("Skill UI")]
@@ -48,10 +49,11 @@ namespace ConquerTheStars.UI.Player
 
         [Header("Turn Order")]
         [SerializeField] private GameObject turnOrderBoard;
-        public GameObject turnOrderRootParent;
         public List<TurnOrderElement> turnOrders = new();
         public TurnOrderElement curentTurnOrder;
-        private List<PooledObject> uiPooledObject { get; set; } = new();
+        private readonly List<PooledObject> _uiPooledObject = new();
+
+
 
         void Awake()
         {
@@ -65,7 +67,7 @@ namespace ConquerTheStars.UI.Player
 
         public void AddUiPooledObjectList(PooledObject ui)
         {
-            uiPooledObject.Add(ui);
+            _uiPooledObject.Add(ui);
         }
 
         // Action Frame 
@@ -81,7 +83,6 @@ namespace ConquerTheStars.UI.Player
         }
 
         public float GetActionFrameValue() => SkillActionFrame.ActionFrameValue;
-
 
         // Result Board 
         public void ActiveResultBoard(bool isVictory, bool isFinalBoss)
@@ -116,7 +117,7 @@ namespace ConquerTheStars.UI.Player
 
         public void SpawnKillElement(Sprite enemyIcon)
         {
-            var killElement = ObjectPoolingManagers.Instance.GetPooledObject(killElementName, Vector3.zero);
+            var killElement = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.KillElement, Vector3.zero);
             AddUiPooledObjectList(killElement);
             killElement.GetComponent<RectTransform>().SetParent(Kills);
             killElement.GetComponent<EnemyKillElement>().SetIcon(enemyIcon);
@@ -124,37 +125,41 @@ namespace ConquerTheStars.UI.Player
 
         public void ReturnMainScene()
         {
+            ReleaseAllUiPooledObject();
             GameManager.Instance.BackToMainScene();
         }
 
         public void EndScene()
         {
+            ReleaseAllUiPooledObject();
             GameManager.Instance.LoadEndScene();
         }
 
         public void ReloadBattle()
         {
+            ReleaseAllUiPooledObject();
             SceneManager.LoadScene(battleSceneName);
         }
 
         // Release All UI Pooled
         public void ReleaseAllUiPooledObject()
         {
-            foreach (var ui in uiPooledObject)
+            foreach (var ui in _uiPooledObject)
             {
                 ui.Release();
             }
+            _uiPooledObject.Clear();
         }
 
-        public void SetTurnOrder(List<CharacterStatsManagers> characters)
+        public void SetTurnOrder(IReadOnlyList<CharacterStatsManagers> characters)
         {
             foreach (var character in characters)
             {
-                var turnOrderObject = ObjectPoolingManagers.Instance.GetPooledObject("TurnOrder", Vector3.zero);
+                var turnOrderObject = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.TurnOrder, Vector3.zero);
                 var turnOrderElement = turnOrderObject.GetComponent<TurnOrderElement>();
                 turnOrderElement.InactiveHighlight();
 
-                turnOrderRootParent = turnOrderObject.gameObject.transform.parent.gameObject;
+                // turnOrderRootParent = turnOrderObject.gameObject.transform.parent.gameObject;
                 turnOrderObject.transform.SetParent(turnOrderBoard.transform);
 
                 turnOrderElement.SetIcon(character.icon);
@@ -183,7 +188,7 @@ namespace ConquerTheStars.UI.Player
         {
             foreach (var character in turnOrders)
             {
-                character.transform.SetParent(turnOrderRootParent.transform);
+                // character.transform.SetParent(turnOrderRootParent.transform);
                 character.GetComponent<PooledObject>().Release();
             }
             turnOrders.Clear();

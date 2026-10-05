@@ -2,37 +2,31 @@ using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(PooledObject))]
 public class EnemyInformation : MonoBehaviour
 {
-    private EnemyTeam enemyTeam;
-    private PooledObject pooledObject;
+    // private EnemyTeam _enemyTeam;
+    private BattleSpawn _battleInfo;
+    private PooledObject _pooledObject;
 
     private void Start()
     {
-        pooledObject = GetComponent<PooledObject>();
+        _pooledObject = GetComponent<PooledObject>();
     }
 
-    public void SetEnemyTeam(EnemyTeam enemyTeam)
+    public void SetEnemyTeam(BattleSpawn infor)
     {
-        this.enemyTeam = enemyTeam;
+        _battleInfo = infor;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // Auto Save
-            GameManager.Instance.SetCheckpoint(transform.position);
-            GameManager.Instance.AutoSaveGame();
-
-            BattleInformationManagers.Instance.SetArea(enemyTeam);
-
-            if (BattleInformationManagers.Instance.AreaInformation != null)
+            BattleInformationManagers.Instance.SetArea(_battleInfo, _pooledObject);
+            if (BattleInformationManagers.Instance != null)
             {
-                pooledObject.Release();
                 GameManager.Instance.AutoSaveGame();
                 GameManager.Instance.LoadBattleScene();
             }

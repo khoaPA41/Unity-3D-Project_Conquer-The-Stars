@@ -34,12 +34,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
             var currentPos = enemyStateMachine.transform.position;
             var offset = targetPos - currentPos;
             offset.y = 0f;
-            if (offset.sqrMagnitude <= 0.01f)
-            {
-                return;
-            }
-            var dirToTarget = offset.normalized;
-            enemyStateMachine.CharacterController.Move(deltaTime * enemyStateMachine.Speed * dirToTarget);
+
+            var distance = offset.magnitude;
+            if (distance <= 0.1f) return;
+
+
+            var step = Mathf.Min(enemyStateMachine.Speed * deltaTime, distance);
+            enemyStateMachine.CharacterController.Move(offset / distance * step);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class SaveManagers : MonoBehaviour
     public SaveData CurrentSaveData;
 
     private string savePath => Path.Combine(Application.persistentDataPath, "CTS.json");
+    private string savePathBackup => Path.Combine(Application.persistentDataPath, "CTS_Backup.json");
 
     private void Awake()
     {
@@ -43,22 +45,51 @@ public class SaveManagers : MonoBehaviour
 
     public void SaveGame(SaveData saveData)
     {
-        var dataJson = JsonUtility.ToJson(saveData, true);
-        File.WriteAllText(savePath, dataJson);
+        try
+        {
+            var dataJson = JsonUtility.ToJson(saveData, true);
+            if (HasSaveData())
+            {
+                File.Copy(savePath, savePathBackup, true);
+            }
+            File.WriteAllText(savePath, dataJson);
 
-        CurrentSaveData = saveData;
-        Debug.Log("[SaveManagers] Saved Game" + savePath);
+            CurrentSaveData = saveData;
+            Debug.Log("[SaveManagers] Saved Game" + savePath);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"[SaveManagers] Failed to save: {exception.Message}");
+        }
+
     }
 
     public SaveData LoadSaveData()
     {
         if (!HasSaveData())
         {
-            Debug.LogWarning("[SaveManagers] Don't have save data]");
+            Debug.LogWarning("[SaveManagers] Don't have save data");
             return null;
         }
-        var dataJson = File.ReadAllText(savePath);
-        CurrentSaveData = JsonUtility.FromJson<SaveData>(dataJson);
-        return CurrentSaveData;
+
+        try
+        {
+            var dataJson = File.ReadAllText(savePath);
+            var readingSaveData = JsonUtility.FromJson<SaveData>(dataJson);
+            if (readingSaveData == null)
+            {
+                Debug.LogWarning("[SaveManagers] Invalid save data");
+                return null;
+            }
+
+            CurrentSaveData = readingSaveData;
+            return CurrentSaveData;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"[SaveManagers] Failed to load save: {exception.Message}");
+            return null;
+        }
+
     }
 }

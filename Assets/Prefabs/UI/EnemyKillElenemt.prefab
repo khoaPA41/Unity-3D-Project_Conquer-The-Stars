@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f5bdd36a59e2448ab65a60204c0326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyKillElement
-  icon: {fileID: 1881313184324210858}
+  _icon: {fileID: 1881313184324210858}
 --- !u!1 &2293064320942198122
 GameObject:
   m_ObjectHideFlags: 0

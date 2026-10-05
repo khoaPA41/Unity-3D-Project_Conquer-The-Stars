@@ -4,48 +4,48 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatAttackState : PlayerCombatBaseState
     {
-        private readonly int JumpAnimationHash = Animator.StringToHash("Jump");
+        private readonly int _jumpAnimationHash = Animator.StringToHash("Jump");
 
-        private readonly string AttackAnimationTag = "Attack";
-
+        private readonly string _attackAnimationTag = "Attack";
         private bool _isActiveAnimation;
         private float _normalizedTime;
-        private float _prevTime;
-        string _animationName;
+        private string _animationName;
+        private bool _hasCompleted;
+        private SkillActionFrame _subscribedFrame;
         public PlayerCombatAttackState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
         }
 
         public override void Enter()
         {
+            _subscribedFrame = UICombatManagers.Instance.SkillActionFrame;
             _isActiveAnimation = false;
-            _prevTime = 0f;
+            _hasCompleted = false;
             _normalizedTime = 0f;
             playerCombatStateMachine.IsWatingCameraBlendFinished = false;
 
-            UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
+            _subscribedFrame.PauseSkillActionFrame += playerCombatStateMachine.ReturnAttackSpeed;
             _animationName = playerCombatStateMachine.AttackNameList == "Attack" ?
             playerCombatStateMachine.AttackData.AttackName[playerCombatStateMachine.AttackIndexSelected] :
             playerCombatStateMachine.AttackData.SkillName[playerCombatStateMachine.AttackIndexSelected];
 
-            playerCombatStateMachine.Animator.CrossFadeInFixedTime(JumpAnimationHash, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(_jumpAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)
         {
             if (_isActiveAnimation)
             {
-                _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, AttackAnimationTag);
+                _normalizedTime = NormalizedTime(playerCombatStateMachine.Animator, _attackAnimationTag);
 
-                if (_normalizedTime > _prevTime && _normalizedTime >= .9f && _normalizedTime <= 1f)
+                if (!_hasCompleted && _normalizedTime >= .9f)
                 {
+                    _hasCompleted = true;
                     playerCombatStateMachine.IsFinished = true;
                     playerCombatStateMachine.ReturnCombatIdle();
                 }
-                _prevTime = _normalizedTime;
                 return;
             }
-
 
             if (MoveToTarget(deltaTime))
             {
@@ -66,9 +66,15 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Exit()
         {
-            UICombatManagers.Instance.SkillActionFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
+            if (_subscribedFrame != null)
+            {
+                _subscribedFrame.PauseSkillActionFrame -= playerCombatStateMachine.ReturnAttackSpeed;
+            }
+            _subscribedFrame = null;
+
             RotateRoot();
             playerCombatStateMachine.InactiveCamera();
         }
     }
 }
+

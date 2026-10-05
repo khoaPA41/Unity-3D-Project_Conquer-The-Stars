@@ -4,7 +4,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 {
     public class PlayerCombatIdleState : PlayerCombatBaseState
     {
-        private readonly int IdleAnimationHash = Animator.StringToHash("Idle");
+        private readonly int _idleAnimationHash = Animator.StringToHash("Idle");
 
         public PlayerCombatIdleState(PlayerCombatStateMachine playerCombatStateMachine) : base(playerCombatStateMachine)
         {
@@ -12,7 +12,7 @@ namespace ConquerTheStars.Pattern.StateMachine.PlayerCombat
 
         public override void Enter()
         {
-            playerCombatStateMachine.Animator.CrossFadeInFixedTime(IdleAnimationHash, playerCombatStateMachine.AnimationCrossFade);
+            playerCombatStateMachine.Animator.CrossFadeInFixedTime(_idleAnimationHash, playerCombatStateMachine.AnimationCrossFade);
         }
 
         public override void Tick(float deltaTime)

@@ -62,7 +62,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
         [field: SerializeField] public AudioResource AttackSfx { get; private set; }
         [field: SerializeField] public AudioResource HitSfx { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             IdleState = new EnemyIdleState(this);
             AttackState = new EnemyAttackState(this);
@@ -73,6 +73,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         private void OnEnable()
         {
+            HighlightCurrentTurn.InactiveHighlight();
+            HighlightTarget.InactiveHighlight();
             SwitchState(IdleState);
             EnemyStartPosition = transform.position;
             CharacterStatsManagers.DyingAction += SwitchDyingState;
@@ -80,8 +82,12 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         private void OnDisable()
         {
+            Target = null;
+            IsFinished = false;
+
             EnemyStartPosition = transform.position;
             CharacterStatsManagers.DyingAction -= SwitchDyingState;
+            SwitchState(null);
         }
 
         public void SwitchIdle()
@@ -127,13 +133,11 @@ namespace ConquerTheStars.Pattern.StateMachine.Enemy
 
         public void PlaySlashSound()
         {
-            Debug.Log("Slash");
             AudioManagers.Instance.PlaySound(AttackTransform, AttackSfx);
         }
 
         public void PlayHitSound()
         {
-            Debug.Log("Hit");
             AudioManagers.Instance.PlaySound(AttackTransform, HitSfx);
         }
     }

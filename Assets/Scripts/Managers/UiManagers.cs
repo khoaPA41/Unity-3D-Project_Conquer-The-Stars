@@ -1,6 +1,7 @@
 using System;
 using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.StateMachine.Battle;
+using ConquerTheStars.UI.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,8 +12,8 @@ public class UiManagers : MonoBehaviour
 
     public static UiManagers Instance;
     [field: SerializeField] public GameObject settingsPanel;
-    [SerializeField] private GameObject soundSettings;
-    [SerializeField] private GameObject exitChoose;
+    [SerializeField] private GameObject _soundSettings;
+    [SerializeField] private GameObject _exitChoose;
 
 
     void Awake()
@@ -33,14 +34,14 @@ public class UiManagers : MonoBehaviour
 
     public void ActiveSoundSettings()
     {
-        exitChoose.SetActive(false);
-        soundSettings.SetActive(true);
+        _exitChoose.SetActive(false);
+        _soundSettings.SetActive(true);
     }
 
     public void ActiveExitChoose()
     {
-        soundSettings.SetActive(false);
-        exitChoose.SetActive(true);
+        _soundSettings.SetActive(false);
+        _exitChoose.SetActive(true);
     }
 
 
@@ -56,6 +57,9 @@ public class UiManagers : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("BattleStateMachine").TryGetComponent<BattleStateMachine>(out var battle))
                 battle.ReleaseAllTeam();
+            UICombatManagers.Instance.ReleaseAllUiPooledObject();
+            UICombatManagers.Instance.ResetTurnOrder();
+
         }
 
         if (SceneManager.GetActiveScene().name == StartMenuScene)
@@ -65,5 +69,6 @@ public class UiManagers : MonoBehaviour
         }
         ActiveSettingsPanel(false);
         GameManager.Instance.ExitToTitle();
+        GameManager.Instance.AutoSaveGame();
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Fight;
+using System.ComponentModel;
+// TryBlock: PooledObject ID = BlockVFX
 
 namespace ConquerTheStars.Stats
 {
@@ -20,10 +22,9 @@ namespace ConquerTheStars.Stats
         [SerializeField] private DynamicTextData textData;
 
         [field: Header("VFX Name")]
-        [field: SerializeField] public string HitVFXName { get; private set; }
+        [field: SerializeField] public PooledObjectId HitVFXName { get; private set; }
 
-
-        [Header("Stats Infor")]
+        [Header("Stats Info")]
         public StatsManagers maxHealth;
         public StatsManagers mana;
         public StatsManagers attack;
@@ -31,6 +32,7 @@ namespace ConquerTheStars.Stats
         public StatsManagers defense;
         public StatsManagers critical;
         public StatsManagers luck;
+
 
         public int level;
 
@@ -49,16 +51,18 @@ namespace ConquerTheStars.Stats
         public event Action DyingAction = delegate { };
         public event Action<float> HealthUpdateAction = delegate { };
         public event Action<float> ManaUpdateAction = delegate { };
+        public event Action SetupHudAction = delegate { };
 
         public bool IsDodge { get; set; }
         public bool IsBlock { get; set; }
 
 
         private float currentChance;
-        private void OnEnable()
+        private PlayerTeam playerTeam;
+        private void Awake()
         {
-            SetupLevelByType();
-
+            characterType = baseStatsData.Type;
+            SetupLevelByType(1);
             // Initialize stats from ScriptableObject + level scaling
             maxHealth = new StatsManagers(baseStatsData.Health, level);
             attack = new StatsManagers(baseStatsData.AttackPower, level);
@@ -69,61 +73,58 @@ namespace ConquerTheStars.Stats
             luck = new StatsManagers(baseStatsData.Luck, level);
 
             icon = baseStatsData.Icon;
-            characterType = baseStatsData.Type;
+        }
 
+        private void OnEnable()
+        {
+            PlayerTeam.Instance.LevelUp += UpdateLevel;
+        }
+
+        private void OnDisable()
+        {
+            PlayerTeam.Instance.LevelUp -= UpdateLevel;
+        }
+
+        public void Init()
+        {
             CurrentHealth = maxHealth.GetFinalValue();
-            CurrentMana = 10;
+            CurrentMana = 10f;
             CurrentAttackDamage = attack.GetFinalValue();
             CurrentSpeed = speed.GetFinalValue();
             CurrentDefense = defense.GetFinalValue();
             CurrentCritical = critical.GetFinalValue();
             CurrentLuck = luck.GetFinalValue();
-
+            IsDodge = false;
+            IsBlock = false;
             IsDeath = false;
+            SetupHudAction?.Invoke();
         }
 
-        private void SetupLevelByType()
+        private void SetupLevelByType(int levelValue)
         {
             if (characterType == CharacterType.Player)
             {
-                level = PlayerTeam.Instance.TeamLevel;
+                level = levelValue;
             }
         }
 
         /// <summary>
         /// Applies damage to this character
-        /// Return turn false if the damage was fully avoided (Block / Dogge)
+        /// Return turn false if the damage was fully avoided (Block / Dodge)
         /// </summary>
 
-        public bool TakeDamage(float damage, bool isCrit, string hitVfxName)
+        public bool TakeDamage(float damage, bool isCrit, PooledObjectId hitVfxName)
         {
-            if (IsDodge)
-            {
-                SpawnText("DODGE");
-                StartCoroutine(SlowTime());
-                return false;
-            }
-
-            if (IsBlock)
-            {
-                // Recover mana if block succesfully
-                CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
-                ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
-
-                ObjectPoolingManagers.Instance.GetPooledObject("BlockVFX",
-                new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z))
-                .transform.Rotate(0f, 0f, -90f);
-                StartCoroutine(PauseTime());
-                SpawnText("BLOCK");
-                return false;
-            }
+            if (TryDodge()) return false;
+            if (TryBlock()) return false;
 
             if (isCrit)
             {
                 SpawnText("CRIT");
             }
 
-            var finalDamage = Mathf.Max(damage - CurrentDefense, 0f);
+            // var finalDamage = Mathf.Max(damage - CurrentDefense, 0f);
+            var finalDamage = CalculateFinalDamage(damage);
             CurrentHealth = Mathf.Max(CurrentHealth - finalDamage, 0f);
             ObjectPoolingManagers.Instance.GetPooledObject(hitVfxName, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
 
@@ -138,6 +139,67 @@ namespace ConquerTheStars.Stats
             return true;
         }
 
+        public float CalculateFinalDamage(float damage)
+        {
+            return Mathf.Max(damage - CurrentDefense, 0f);
+        }
+
+        public void SetDead(bool status)
+        {
+            IsDeath = status;
+        }
+
+        // Dodge / Block
+        private bool TryDodge()
+        {
+            if (!IsDodge) return false;
+
+            SpawnText("DODGE");
+            StartCoroutine(SlowTime());
+            return true;
+        }
+
+        private bool TryBlock()
+        {
+            if (!IsBlock) return false;
+
+            // Recover mana if block succesfully
+            CurrentMana = Mathf.Min(CurrentMana + 10f, mana.GetFinalValue());
+            ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
+
+            ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.BlockVFX,
+            new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z))
+            .transform.Rotate(0f, 0f, -90f);
+            StartCoroutine(PauseTime());
+            SpawnText("BLOCK");
+            return true;
+        }
+
+        public void SetIsDodge(bool state)
+        {
+            IsDodge = state;
+        }
+
+        public void SetIsBlock(bool state)
+        {
+            IsBlock = state;
+        }
+
+        private IEnumerator SlowTime()
+        {
+            Time.timeScale = .3f;
+            yield return new WaitForSecondsRealtime(1f);
+            Time.timeScale = 1f;
+        }
+
+        private IEnumerator PauseTime()
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(.1f);
+            Time.timeScale = 1f;
+        }
+
+        // Dmg
         public bool RandomCritical()
         {
             currentChance = luck.GetFinalValue();
@@ -182,30 +244,8 @@ namespace ConquerTheStars.Stats
             ManaUpdateAction?.Invoke(CurrentMana / mana.GetFinalValue());
         }
 
-        public void SetIsDodge(bool state)
-        {
-            IsDodge = state;
-        }
 
-        public void SetIsBlock(bool state)
-        {
-            IsBlock = state;
-        }
-
-        private IEnumerator SlowTime()
-        {
-            Time.timeScale = .3f;
-            yield return new WaitForSecondsRealtime(1f);
-            Time.timeScale = 1f;
-        }
-
-        private IEnumerator PauseTime()
-        {
-            Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(.1f);
-            Time.timeScale = 1f;
-        }
-
+        // Increase Stats
         public void IncreaseDefense(float amount)
         {
             CurrentDefense += amount;
@@ -237,10 +277,17 @@ namespace ConquerTheStars.Stats
             DynamicTextManager.CreateText(destination, text, textData);
         }
 
-
-        public void AddExp(int exp)
+        public void UpdateLevel(int value)
         {
-            // TODO: Implement experience and level up logic
+            Debug.Log("LevelUp");
+            SetupLevelByType(value);
+            maxHealth.LevelUp(level);
+            mana.LevelUp(level);
+            attack.LevelUp(level);
+            speed.LevelUp(level);
+            defense.LevelUp(level);
+            critical.LevelUp(level);
+            luck.LevelUp(level);
         }
     }
 }

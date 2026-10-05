@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -50}
-  m_SizeDelta: {x: 50, y: 25}
+  m_SizeDelta: {x: 60, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2977142865051327172
 CanvasRenderer:
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -444834795, guid: b9e44409689396443976ea7dac94177c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e71bb6dca9cff324a9ce1241d18bacab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -146,10 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f719c7ceac2e8bc45a408cfe9d154ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectionBar
-  skillBoardRoot: {fileID: 0}
-  skillBoardOther_I: {fileID: 0}
-  skillBoardOthe_II: {fileID: 0}
-  animator: {fileID: 0}
+  _skillBoardRoot: {fileID: 4386935745673588731}
+  _skillBoardOther_I: {fileID: 5638557277278409427}
+  _skillBoardOthe_II: {fileID: 7064302080195211515}
+  _animator: {fileID: 2524201034974685518}
 --- !u!1 &1562383567804545194
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,11 +590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507c0128afd83da408346fe41c6b3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillElement
-  icon: {fileID: 0}
-  skillName: {fileID: 0}
-  information: {fileID: 0}
+  _icon: {fileID: 0}
+  _skillName: {fileID: 0}
+  _information: {fileID: 0}
   <Button>k__BackingField: {fileID: 0}
-  index: 0
+  Index: 0
 --- !u!1 &5523578873559316884
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +633,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -75}
-  m_SizeDelta: {x: 50, y: 25}
+  m_SizeDelta: {x: 60, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8626671648952141252
 CanvasRenderer:
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -444834795, guid: b9e44409689396443976ea7dac94177c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e71bb6dca9cff324a9ce1241d18bacab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -741,10 +741,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f719c7ceac2e8bc45a408cfe9d154ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectionBar
-  skillBoardRoot: {fileID: 0}
-  skillBoardOther_I: {fileID: 0}
-  skillBoardOthe_II: {fileID: 0}
-  animator: {fileID: 0}
+  _skillBoardRoot: {fileID: 7064302080195211515}
+  _skillBoardOther_I: {fileID: 5638557277278409427}
+  _skillBoardOthe_II: {fileID: 4386935745673588731}
+  _animator: {fileID: 2524201034974685518}
 --- !u!1 &5638557277278409427
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +845,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -25}
-  m_SizeDelta: {x: 50, y: 25}
+  m_SizeDelta: {x: 60, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6625151847486253036
 CanvasRenderer:
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -444834795, guid: b9e44409689396443976ea7dac94177c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e71bb6dca9cff324a9ce1241d18bacab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -953,10 +953,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f719c7ceac2e8bc45a408cfe9d154ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectionBar
-  skillBoardRoot: {fileID: 0}
-  skillBoardOther_I: {fileID: 0}
-  skillBoardOthe_II: {fileID: 0}
-  animator: {fileID: 0}
+  _skillBoardRoot: {fileID: 5638557277278409427}
+  _skillBoardOther_I: {fileID: 4386935745673588731}
+  _skillBoardOthe_II: {fileID: 7064302080195211515}
+  _animator: {fileID: 2524201034974685518}
 --- !u!1 &7064302080195211515
 GameObject:
   m_ObjectHideFlags: 0

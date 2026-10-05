@@ -20,13 +20,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         [field: Header("UI")]
         [field: SerializeField] public GameObject SelectUi { get; private set; }
+        [field: SerializeField] public GameObject AcceptAttack { get; private set; }
+        [field: SerializeField] public GameObject AcceptUseItem { get; private set; }
 
         [field: Header("Area")]
         [field: SerializeField] public StartMatch Area { get; private set; }
-        // public Queue<CharacterStatsManagers> CharacterStats { get; set; } = new();
-        public List<CharacterStatsManagers> CharacterStats = new();
-
         public CharacterStatsManagers CurrentTurn { get; set; }
+        public TurnOrderService TurnOrderService { get; set; } = new();
 
         [field: Header("Target")]
         [field: SerializeField] public Targeter PlayerTargeter { get; private set; }
@@ -46,7 +46,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public State PlayerTurn { get; private set; }
         public State PlayerSelectSkillTurn { get; private set; }
         public State PlayerSelectTargetTurn { get; private set; }
-        public State Playerexecuted { get; private set; }
+        public State PlayerExecuted { get; private set; }
         public State PlayerSelectAlly { get; private set; }
         public State EnemyTurn { get; private set; }
         public State EnemyExecuted { get; private set; }
@@ -58,24 +58,19 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         public EnemyStateMachine EnemyStateMachine { get; set; }
 
         // Battle Statistics
-        public float HighestDamage;
-        public float DamageDealt;
-        public float DamageReceived;
+        [field: Header("Battle Time")]
         public float BattleTime;
-        public int SuccessfulParryTimes;
-        public int SuccessfulDodgeTimes;
 
         // 
-        public float SpeedAverage { get; set; }
         public bool IsTurnOrderChange { get; set; }
-        public CharacterStatsManagers playerDealsHighestDamageLastTurn;
         public bool IsWaitingCameraBlend { get; set; }
 
         public bool IsFinalBoss { get; set; }
 
+        public Reward BattleReward { get; set; }
+
         void Start()
         {
-
             Cursor.lockState = CursorLockMode.None;
             BattleSetup = new SetupState(this);
             StartTurn = new StartTurnState(this);
@@ -83,7 +78,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             PlayerSelectAlly = new PlayerSelectAllyState(this);
             PlayerSelectSkillTurn = new PlayerSelectSkillState(this);
             PlayerSelectTargetTurn = new PlayerSelectTargetState(this);
-            Playerexecuted = new PlayerExecutionState(this);
+            PlayerExecuted = new PlayerExecutionState(this);
             EnemyTurn = new EnemyTurnState(this);
             EnemyExecuted = new EnemyExecutionState(this);
             Resolve = new ResolveState(this);
@@ -97,13 +92,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private void OnEnable()
         {
             CinemachineCore.BlendFinishedEvent.AddListener(OnBlendFinished);
-            BattleTime = Time.time;
         }
 
         private void OnDisable()
         {
             CinemachineCore.BlendFinishedEvent.RemoveListener(OnBlendFinished);
             InputReader.SettingUiAction -= ActiveSettingUI;
+            ReleaseAllTeam();
         }
 
         private void ActiveSettingUI()
@@ -120,7 +115,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public void SwitchPlayerExecuted()
         {
-            SwitchState(Playerexecuted);
+            SwitchState(PlayerExecuted);
         }
 
         public void SwitchResolve()
@@ -138,25 +133,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             SwitchState(PlayerSelectAlly);
         }
 
-        public void CalculateDamageReceived(float damage)
-        {
-            DamageReceived += damage;
-        }
-
-        public void CalculateSuccessfulParryTimes()
-        {
-            SuccessfulParryTimes++;
-        }
-
-        public void CalculateSuccessfulDodgeTimes()
-        {
-            SuccessfulDodgeTimes++;
-        }
-
         public void ReleaseAllTeam()
         {
+            SwitchState(null);
+            StopAllCoroutines();
+            Time.timeScale = 1;
             foreach (var player in TeamController.PlayerTeam)
             {
+                player.GetComponent<PlayerCombatStateMachine>().RevieSuccessAction -= TurnOrderService.EnqueueBack;
                 player.GetComponent<PooledObject>().Release();
             }
 
@@ -164,6 +148,20 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             {
                 enemy.GetComponent<PooledObject>().Release();
             }
+        }
+
+        public void ActiveSelectUI(bool isActive, bool isAttack)
+        {
+            if (!isActive)
+            {
+                SelectUi.SetActive(isActive);
+                return;
+            }
+
+            SelectUi.SetActive(isActive);
+
+            AcceptAttack.SetActive(isAttack);
+            AcceptUseItem.SetActive(!isAttack);
         }
     }
 }

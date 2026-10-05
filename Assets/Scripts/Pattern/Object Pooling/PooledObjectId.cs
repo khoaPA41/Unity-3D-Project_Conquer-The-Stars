@@ -1,0 +1,29 @@
+
+public enum PooledObjectId
+{
+    None = 0,
+    Enemy_I,
+    Enemy_II,
+    Enemy_III,
+    Enemy_IV,
+    Boss_I,
+    Final_Boss,
+    Player_I,
+    Player_II,
+    Player_III,
+    BlockVFX,
+    Character_HUD,
+    Skill_Board_Element,
+    KillElement,
+    TurnOrder,
+    Electro_Slash,
+    Green_Slash,
+    Snow_Slash,
+    Boss_Slash_I,
+    Electro_Hit,
+    Green_Hit,
+    Snow_Hit,
+    Enemy_Hit,
+    Battle_Infor,
+    Audio
+}

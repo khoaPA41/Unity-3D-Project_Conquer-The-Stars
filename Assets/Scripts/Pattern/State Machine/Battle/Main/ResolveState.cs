@@ -1,26 +1,24 @@
 
-using System.Linq;
-using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Stats;
-using UnityEngine;
+using ConquerTheStars.UI.Player;
 
 namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class ResolveState : BattleBaseState
     {
-        private bool isFinished;
+        private bool _isFinished;
         public ResolveState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
-            isFinished = false;
+            _isFinished = false;
 
             CheckBuffRemaining();
             InactiveCamera();
-            CheckCurrentCharacter();
-            CheckCurrentTurnList();
+            battleStateMachine.TurnOrderService.EnqueueBack(battleStateMachine.CurrentTurn); // Put Current Character Back To List
+            ResolveDeaths();
             StealTurn();
 
             // Check if either one team list is dead, end battle
@@ -30,14 +28,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 return;
             }
 
-            isFinished = true;
+            _isFinished = true;
         }
 
         public override void Tick(float deltaTime)
         {
-            if (isFinished)
+            if (_isFinished)
             {
-                isFinished = false;
+                _isFinished = false;
                 battleStateMachine.SwitchStartTurn();
             }
         }
@@ -51,20 +49,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void CheckBuffRemaining()
         {
-            if (battleStateMachine.PlayerCombatStateMachine != null)
-                battleStateMachine.PlayerCombatStateMachine.BuffManager.CheckRemainingBuff();
+            battleStateMachine.PlayerCombatStateMachine?.BuffManager?.CheckRemainingBuff();
         }
 
-        private void CheckCurrentCharacter()
-        {
-            battleStateMachine.CharacterStats.Add(battleStateMachine.CurrentTurn);
-        }
-
-
-        private void CheckCurrentTurnList()
+        private void ResolveDeaths()
         {
             //Call Death event if character isDeath
-            foreach (var character in battleStateMachine.CharacterStats)
+            foreach (var character in battleStateMachine.TurnOrderService.CharacterList)
             {
                 if (!character.IsDeath) continue;
 
@@ -78,13 +69,13 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                     battleStateMachine.EnemyTargeter.RemoveTarget();
                 }
 
-                battleStateMachine.IsTurnOrderChange = true; // Update Turn Order UI if character die
-
                 character.CallDyingEvent();
             }
 
             // Remove all character isDeath 
-            battleStateMachine.CharacterStats.RemoveAll(character => character.IsDeath);
+            battleStateMachine.TurnOrderService.RemoveDead();
+            UICombatManagers.Instance.ResetTurnOrder();
+            UICombatManagers.Instance.SetTurnOrder(battleStateMachine.TurnOrderService.CharacterList);
         }
 
         private void InactiveCamera()
@@ -94,26 +85,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void StealTurn()
         {
-            var candidates = battleStateMachine.CharacterStats.ToList();
-
-            foreach (var character in candidates)
-            {
-                if (character.CurrentSpeed <= battleStateMachine.SpeedAverage) continue;
-
-                var stealTurnRate = Mathf.Clamp(character.CurrentLuck * (character.CurrentSpeed - battleStateMachine.SpeedAverage) / 100f, 0f, .95f);
-                if (!IsStealSuccess(stealTurnRate)) continue;
-
-                battleStateMachine.IsTurnOrderChange = true;
-
-                battleStateMachine.CharacterStats.Remove(character);
-
-                battleStateMachine.CharacterStats.Insert(0, character);
-            }
-        }
-
-        private bool IsStealSuccess(float rate)
-        {
-            return Random.value < rate;
+            battleStateMachine.IsTurnOrderChange = battleStateMachine.TurnOrderService.StealTurn();
         }
     }
 }

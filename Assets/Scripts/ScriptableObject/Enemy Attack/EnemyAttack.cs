@@ -5,5 +5,5 @@ using UnityEngine;
 public class EnemyAttack : ScriptableObject
 {
     public List<string> AttackNameList;
-    public string SlashVfxName;
+    public PooledObjectId SlashVfxName;
 }

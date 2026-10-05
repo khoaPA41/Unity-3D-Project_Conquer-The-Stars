@@ -21,53 +21,64 @@ public class ItemInUse
         Value = value;
     }
 }
+[RequireComponent(typeof(PlayerCombatStateMachine))]
 public class BuffManager : MonoBehaviour
 {
-    private List<ItemInUse> activeBuffList = new();
-    private PlayerCombatStateMachine playerCombatStateMachine;
+    private List<ItemInUse> _activeBuffList = new();
+    private PlayerCombatStateMachine _playerCombatStateMachine;
 
-
-    private ItemData itemToUse;
+    private ItemData _itemToUse;
 
     public event Action<Sprite> OnBuffSuccess;
 
     private void Start()
     {
-        playerCombatStateMachine = GetComponent<PlayerCombatStateMachine>();
+        _playerCombatStateMachine = GetComponent<PlayerCombatStateMachine>();
+    }
+
+    private void OnDisable()
+    {
+        RemoveAllBuff();
+    }
+
+    public void RemoveAllBuff()
+    {
+        _activeBuffList.Clear();
     }
 
     public void SetItemToUse(ItemData itemData)
     {
-        itemToUse = itemData;
+        _itemToUse = itemData;
     }
 
     public void AddBuff(ItemType itemType, int remainingTurn, float value)
     {
-        activeBuffList.Add(new ItemInUse(itemType, remainingTurn, value));
+        _activeBuffList.Add(new ItemInUse(itemType, remainingTurn, value));
     }
 
     public void ApplyBuff()
     {
-        Debug.Log("Add");
-        IItem item = ItemFactory.CreateItem(itemToUse.ItemType);
-        item.Use(playerCombatStateMachine, itemToUse.ItemType, itemToUse.RemainingTurn, itemToUse.Value);
+        if (_itemToUse.ItemType == ItemType.Revive && !_playerCombatStateMachine.CharacterStatsManagers.IsDeath) return;
+        IItem item = ItemFactory.CreateItem(_itemToUse.ItemType);
+        if (item == null) return;
+        if (!PlayerTeam.Instance.TryConsumeItem(_itemToUse.ItemType)) return;
+        item.Use(_playerCombatStateMachine, _itemToUse.ItemType, _itemToUse.RemainingTurn, _itemToUse.Value);
     }
 
     private void RemoveBuff(ItemType itemType, int remainingTurn, float value)
     {
-        Debug.Log("Remove");
         IItem item = ItemFactory.CreateItem(itemType);
-        item.Use(playerCombatStateMachine, itemType, remainingTurn, -value);
+        item.Use(_playerCombatStateMachine, itemType, remainingTurn, -value);
     }
 
     public void CheckRemainingBuff()
     {
-        foreach (var item in activeBuffList)
+        foreach (var item in _activeBuffList)
         {
             item.RemainingTurn--;
         }
 
-        activeBuffList.RemoveAll(buff =>
+        _activeBuffList.RemoveAll(buff =>
         {
             if (buff.RemainingTurn <= 0)
             {
@@ -77,8 +88,6 @@ public class BuffManager : MonoBehaviour
             return false;
         });
     }
-
-
 
     public void CallSetupBuffUi(Sprite sprite)
     {

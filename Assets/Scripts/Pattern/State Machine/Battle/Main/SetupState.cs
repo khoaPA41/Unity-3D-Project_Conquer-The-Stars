@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using ConquerTheStars.Fight;
 using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Fight.Target;
 using ConquerTheStars.Pattern.Object_Pooling;
+using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using ConquerTheStars.UI.Player;
 using UnityEngine;
@@ -13,20 +13,24 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class SetupState : BattleBaseState
     {
-        private static WaitForSecondsRealtime _waitForSecondsRealtime3 = new WaitForSecondsRealtime(3f);
+        private static readonly WaitForSecondsRealtime _waitToSetup = new(3f);
 
         // List of characters who will be in the match
-        private List<CharacterStatsManagers> characterInMatch = new();
+        private List<CharacterStatsManagers> _characterInMatch = new();
 
-        private List<string> enemyTeam = new();
-        private List<string> playerTeam = new();
+        private List<PooledObjectId> _enemyTeam = new();
+        private List<PooledObjectId> _playerTeam = new();
+
+        private BattleInformationManagers _battleInformationManagers;
         public SetupState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
+            _battleInformationManagers = BattleInformationManagers.Instance;
             battleStateMachine.StartCoroutine(WaitToSetup());
+            battleStateMachine.BattleTime = Time.time;
         }
 
         public override void Tick(float deltaTime)
@@ -35,50 +39,54 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
+            if (_battleInformationManagers != null) _battleInformationManagers = null;
         }
 
         public void Initialize()
         {
             // Get enemy & player list
-            enemyTeam = BattleInformationManagers.Instance.AreaInformation.enemyTeam;
-            playerTeam = PlayerTeam.Instance.TeamNameList;
+            _enemyTeam = _battleInformationManagers.CurrentBattleInformation.EnemyTeam.enemyTeam;
+            battleStateMachine.BattleReward = _battleInformationManagers.CurrentBattleInformation.EnemyTeam.Reward;
+            _playerTeam = PlayerTeam.Instance.TeamNameList;
         }
 
-        private void SetupEnemyPosition()
+        private void SetupEnemy()
         {
-            for (int i = 0; i < enemyTeam.Count; i++)
+            for (int i = 0; i < _enemyTeam.Count; i++)
             {
                 // Spawn enemy at target position
-                var enemy = ObjectPoolingManagers.Instance.GetPooledObject(enemyTeam[i], battleStateMachine.Area.enemyTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].enemyTransformList[i].position);
+                var enemy = ObjectPoolingManagers.Instance.GetPooledObject(_enemyTeam[i], battleStateMachine.Area.EnemyTransformList[_battleInformationManagers.CurrentBattleInformation.EnemyTeam.AreaIndex].EnemyTransforms[i].position);
                 enemy.transform.Rotate(new Vector3(0f, 90f, 0f));
                 battleStateMachine.IsFinalBoss = enemy.name == "Final_Boss";
                 // Add to characterInMatch list - prepare for queue
-                characterInMatch.Add(enemy.GetComponent<CharacterStatsManagers>());
+                _characterInMatch.Add(enemy.GetComponent<CharacterStatsManagers>());
 
                 // Add to the team list used to manage status throughout the match
                 battleStateMachine.TeamController.AddEnemyTeam(enemy.GetComponent<CharacterStatsManagers>());
             }
         }
 
-        private void SetupPlayerPosition() // Spawn player at target position - add to player team list and queue
+        private void SetupPlayer() // Spawn player at target position - add to player team list and queue
         {
-            for (int i = 0; i < playerTeam.Count; i++)
+            for (int i = 0; i < _playerTeam.Count; i++)
             {
                 // Spawn player at target position
-                var player = ObjectPoolingManagers.Instance.GetPooledObject(playerTeam[i], battleStateMachine.Area.playerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].playerTransformList[i].position);
+                var player = ObjectPoolingManagers.Instance.GetPooledObject(_playerTeam[i], battleStateMachine.Area.PlayerTransformList[_battleInformationManagers.CurrentBattleInformation.EnemyTeam.AreaIndex].PlayerTransforms[i].position);
                 player.transform.Rotate(new Vector3(0f, -90f, 0f));
 
                 // Add to characterInMatch list - prepare for queue
-                characterInMatch.Add(player.GetComponent<CharacterStatsManagers>());
+                _characterInMatch.Add(player.GetComponent<CharacterStatsManagers>());
 
                 // Add to the team list used to manage status throughout the match
                 battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>());
+
+                player.GetComponent<PlayerCombatStateMachine>().RevieSuccessAction += battleStateMachine.TurnOrderService.EnqueueBack;
             }
         }
 
         private void AddCharacterToBattleList()
         {
-            battleStateMachine.CharacterStats = characterInMatch;
+            battleStateMachine.TurnOrderService.BuildInitial(_characterInMatch);
         }
 
         private void SetupPlayerTarget()
@@ -111,11 +119,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
         private IEnumerator WaitToSetup()
         {
             Initialize();
-            SetupEnemyPosition();
-            SetupPlayerPosition();
-
-            // Sort the match list in descending speed order
-            characterInMatch.Sort((a, b) => b.CurrentSpeed.CompareTo(a.CurrentSpeed));
+            SetupEnemy();
+            SetupPlayer();
 
             AddCharacterToBattleList();
 
@@ -123,10 +128,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             SetupEnemyTarget();
             SetupAllyTarget();
 
-            battleStateMachine.SpeedAverage = characterInMatch.Average(character => character.CurrentSpeed);
+            UICombatManagers.Instance.SetTurnOrder(battleStateMachine.TurnOrderService.CharacterList);
 
-            UICombatManagers.Instance.SetTurnOrder(battleStateMachine.CharacterStats);
-            yield return _waitForSecondsRealtime3;
+            yield return _waitToSetup;
             battleStateMachine.SwitchState(battleStateMachine.StartTurn);
         }
     }

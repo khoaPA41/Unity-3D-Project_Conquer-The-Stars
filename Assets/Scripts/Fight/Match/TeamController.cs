@@ -35,11 +35,14 @@ namespace ConquerTheStars.Fight.Match
 
         public void AddPlayerTeam(CharacterStatsManagers player)
         {
+            player.UpdateLevel(Fight.PlayerTeam.Instance.TeamLevel);
+            player.Init(); // Setup Stats before add to list
             PlayerTeam.Add(player);
         }
 
         public void AddEnemyTeam(CharacterStatsManagers enemy)
         {
+            enemy.Init(); // Setup Stats before add to list
             EnemyTeam.Add(enemy);
         }
 
@@ -48,6 +51,14 @@ namespace ConquerTheStars.Fight.Match
             return PlayerTeam.FindAll(ally => ally.IsDeath);
         }
 
+        public bool IsSomeOneInPlayerDead()
+        {
+            return PlayerTeam.Find(ally => ally.IsDeath);
+        }
 
+        public bool IsSomeOneInEnemyDead()
+        {
+            return EnemyTeam.Find(enemy => enemy.IsDeath);
+        }
     }
 }

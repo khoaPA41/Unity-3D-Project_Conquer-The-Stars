@@ -1,4 +1,5 @@
 using System.Collections;
+using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.Stats;
 using UnityEngine;
@@ -7,70 +8,69 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 {
     public class EnemyExecutionState : BattleBaseState
     {
+
+        private EnemyStateMachine _attackingEnemy;
+        private TouchSwipeController _touchSwipeController;
+
         public EnemyExecutionState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
-            battleStateMachine.EnemyStateMachine.HighlightCurrentTurn.InactiveHighlight();
+            _attackingEnemy = battleStateMachine.EnemyStateMachine;
+            _touchSwipeController = battleStateMachine.TouchSwipeController;
 
-            // battleStateMachine.InputReader.EnterTargetAction += PlayerDodge;
-            // battleStateMachine.InputReader.BlockAction += PlayerBlock;
+            _attackingEnemy.HighlightCurrentTurn.InactiveHighlight();
+            _attackingEnemy.AttackDealDamage += EnemyDealDamage;
+            _touchSwipeController.DodgeAction += PlayerDodge;
+            _touchSwipeController.ParryAction += PlayerBlock;
 
-            battleStateMachine.TouchSwipeController.DodgeAction += PlayerDodge;
-            battleStateMachine.TouchSwipeController.ParryAction += PlayerBlock;
+            _attackingEnemy.IsFinished = false;
 
-            battleStateMachine.EnemyStateMachine.IsFinished = false;
 
-            battleStateMachine.StartCoroutine(WaitToEndAttack());
+            SwitchAttackByType();
         }
 
         public override void Tick(float deltaTime)
         {
+            if (_attackingEnemy == null || !_attackingEnemy.IsFinished) return;
+            battleStateMachine.SwitchResolve();
         }
 
         public override void Exit()
         {
-            // battleStateMachine.InputReader.EnterTargetAction -= PlayerDodge;
-            // battleStateMachine.InputReader.BlockAction -= PlayerBlock;
-            battleStateMachine.TouchSwipeController.DodgeAction -= PlayerDodge;
-            battleStateMachine.TouchSwipeController.ParryAction -= PlayerBlock;
+            if (_touchSwipeController != null)
+            {
+                _touchSwipeController.DodgeAction -= PlayerDodge;
+                _touchSwipeController.ParryAction -= PlayerBlock;
+            }
+
+            if (_attackingEnemy != null)
+                _attackingEnemy.AttackDealDamage -= EnemyDealDamage;
+
+            _attackingEnemy = null;
+            _touchSwipeController = null;
         }
 
-        private IEnumerator WaitToEndAttack()
-        {
-            //Prepare attack
-            SwitchAttackByType();
-
-            // Listen event for exact the frame attack deals damage
-            battleStateMachine.EnemyStateMachine.AttackDealDamage += EnemyDealDamage;
-
-            //Wait until player attack animation done
-            yield return new WaitUntil(() => battleStateMachine.EnemyStateMachine.IsFinished == true);
-
-            // Clear event to avoid double call / memory leak
-            battleStateMachine.EnemyStateMachine.AttackDealDamage -= EnemyDealDamage;
-            battleStateMachine.SwitchResolve();
-        }
         private void EnemyDealDamage()
         {
-            var target = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>();
-            var playerStatsManager = battleStateMachine.EnemyTargeter.currentTarget.GetComponent<CharacterStatsManagers>();
+            var target = battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
+            var playerStatsManager = battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<CharacterStatsManagers>();
             if (target == null) return;
 
             //  Calculate damage if critical
-            var isCrit = battleStateMachine.EnemyStateMachine.CharacterStatsManagers.RandomCritical();
+            var isCrit = _attackingEnemy.CharacterStatsManagers.RandomCritical();
             var damage = isCrit ?
-                        battleStateMachine.EnemyStateMachine.CharacterStatsManagers.CalculateCriticalDamage() :
-                        battleStateMachine.EnemyStateMachine.CharacterStatsManagers.CurrentAttackDamage;
+                        _attackingEnemy.CharacterStatsManagers.CalculateCriticalDamage() :
+                        _attackingEnemy.CharacterStatsManagers.CurrentAttackDamage;
 
 
             // TakeDamage will return false if player block / dodge
             if (playerStatsManager.TakeDamage(damage, isCrit, battleStateMachine.CurrentTurn.HitVFXName))
             {
                 // Play hit sound if player take dmg
-                battleStateMachine.EnemyStateMachine.PlayHitSound();
+                _attackingEnemy.PlayHitSound();
 
                 target.SwitchState(target.PlayerGetHitState);
 
@@ -87,6 +87,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
                     target.BattleStatistics.SuccessfulDodgeTimes++;
                 }
+
                 if (playerStatsManager.IsBlock)
                 {
                     // Play parry sound if player dodge succes
@@ -99,23 +100,22 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerDodge()
         {
-            battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
+            battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
         }
 
         private void PlayerBlock()
         {
-            battleStateMachine.EnemyTargeter.currentTarget.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
+            battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
         }
 
         private void SwitchAttackByType()
         {
-            if (battleStateMachine.EnemyStateMachine.IsBoss)
+            if (_attackingEnemy.IsBoss)
             {
-                battleStateMachine.EnemyStateMachine.SwitchBossAttackState();
+                _attackingEnemy.SwitchBossAttackState();
                 return;
             }
-            battleStateMachine.EnemyStateMachine.SwitchAttackState();
-
+            _attackingEnemy.SwitchAttackState();
         }
     }
 }

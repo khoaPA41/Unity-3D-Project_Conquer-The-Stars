@@ -616,12 +616,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -644,8 +644,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -663,6 +663,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2049965924}
+  - {fileID: 1351881698}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -748,15 +749,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e20b7cdac21ede40ad2ab0ba6d70223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTeam
-  itemDatas:
+  _itemDatas:
   - ItemData: {fileID: 11400000, guid: 8d7a6c8b895d81b41a57ea8df0f4a7c7, type: 2}
     Quantity: 2
   - ItemData: {fileID: 11400000, guid: db97d639bc4a4a94ca03b73ea412fc6b, type: 2}
     Quantity: 2
-  - ItemData: {fileID: 11400000, guid: b168b497e8b2ea44198d16d93518ce4d, type: 2}
-    Quantity: 2
   - ItemData: {fileID: 11400000, guid: b5eb578fad41629448631575b4ee3b1a, type: 2}
     Quantity: 2
+  - ItemData: {fileID: 11400000, guid: b168b497e8b2ea44198d16d93518ce4d, type: 2}
+    Quantity: 2
+  - ItemData: {fileID: 11400000, guid: f23baaad043b73c42a2aeb1b5a7e2927, type: 2}
+    Quantity: 1
+  _expMultipler: 2
+  _originExp: 100
+  _levelStartStep: 10
+  TeamLevel: 1
+  Exp: 0
+  CurrentNeededExp: 0
 --- !u!4 &871645449
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,6 +1042,139 @@ Transform:
   - {fileID: 1897056719}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1351881697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351881698}
+  - component: {fileID: 1351881701}
+  - component: {fileID: 1351881700}
+  - component: {fileID: 1351881699}
+  m_Layer: 5
+  m_Name: Tab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1351881698
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351881697}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 529590382}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -112.9, y: -104.3}
+  m_SizeDelta: {x: 160, y: 160}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1351881699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351881697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1351881700}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 989267714279016957}
+        m_TargetAssemblyTypeName: ConquerTheStars.InputController.PlayerInputReader,
+          Assembly-CSharp
+        m_MethodName: OnTab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1351881700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351881697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: caa101d26f2257c4899e95f9149364ed, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1351881701
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351881697}
+  m_CullTransparentMesh: 1
 --- !u!1 &1563385960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,20 +1558,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f2fd7a9ad4feb4c854115140d1dc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleInformationManagers
-  battleInforTransform:
-  - {fileID: 8707248337652120244}
-  - {fileID: 2018780540795229945}
-  - {fileID: 2018780541209365013}
-  - {fileID: 2018780540151317342}
-  - {fileID: 2018780540494143410}
-  - {fileID: 2018780540580206533}
-  enemyTeams:
-  - {fileID: 11400000, guid: 65afedf583338d64e92faecd643eb893, type: 2}
-  - {fileID: 11400000, guid: 0c93d13741352f0438e0670959ec886e, type: 2}
-  - {fileID: 11400000, guid: 42fecde5117270b4f93e8105d1123bc0, type: 2}
-  - {fileID: 11400000, guid: d74d14314ede83a4ebe7398d0644238f, type: 2}
-  - {fileID: 11400000, guid: 5ec963bcc2a913d43b3bd79f8850f496, type: 2}
-  - {fileID: 11400000, guid: 5e9abe9003bf46644a8520607d9852fd, type: 2}
+  BattleInforList:
+  - BattleId: Battle_I
+    BattleInforTransformList: {fileID: 8707248337652120244}
+    EnemyTeam: {fileID: 11400000, guid: 65afedf583338d64e92faecd643eb893, type: 2}
+  - BattleId: Battle_II
+    BattleInforTransformList: {fileID: 2018780541209365013}
+    EnemyTeam: {fileID: 11400000, guid: 0c93d13741352f0438e0670959ec886e, type: 2}
+  - BattleId: Battle_III
+    BattleInforTransformList: {fileID: 2018780540795229945}
+    EnemyTeam: {fileID: 11400000, guid: 42fecde5117270b4f93e8105d1123bc0, type: 2}
+  - BattleId: Battle_IV
+    BattleInforTransformList: {fileID: 2018780540151317342}
+    EnemyTeam: {fileID: 11400000, guid: d74d14314ede83a4ebe7398d0644238f, type: 2}
+  - BattleId: BossFight_I
+    BattleInforTransformList: {fileID: 2018780540494143410}
+    EnemyTeam: {fileID: 11400000, guid: 5ec963bcc2a913d43b3bd79f8850f496, type: 2}
+  - BattleId: BossFight_II
+    BattleInforTransformList: {fileID: 2018780540580206533}
+    EnemyTeam: {fileID: 11400000, guid: 5e9abe9003bf46644a8520607d9852fd, type: 2}
+  BattleCompleted: []
 --- !u!1 &2049965923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,76 +1669,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Pattern.Object_Pooling.ObjectPoolingManagers
   poolObjectList:
   - PooledObject: {fileID: 4100300716556319957, guid: 42a37e6b405d1714bab2f5ddcf6003fc, type: 3}
-    ObjectName: Enemy_I
+    ObjectId: 1
     Quantity: 5
   - PooledObject: {fileID: 5885340852337738895, guid: ffbb1f8a9309f7c4bb967978b5a83d66, type: 3}
-    ObjectName: Enemy_II
+    ObjectId: 2
     Quantity: 5
   - PooledObject: {fileID: 4003114059721682024, guid: f90ffcee6779a594681674ea6a66d9fa, type: 3}
-    ObjectName: Enemy_III
+    ObjectId: 3
     Quantity: 5
   - PooledObject: {fileID: 3730210697709678520, guid: 6bb4fc8cf4b626749a1a0a7c8e99ec82, type: 3}
-    ObjectName: Enemy_IV
+    ObjectId: 4
     Quantity: 5
   - PooledObject: {fileID: 6687563998601776287, guid: 9fa5d9ba4d7d4174b895abd90cdae057, type: 3}
-    ObjectName: Boss_I
+    ObjectId: 5
     Quantity: 1
   - PooledObject: {fileID: 4703387100525572960, guid: 1724ebc75eb64824f8a260e3e803e726, type: 3}
-    ObjectName: Final_Boss
+    ObjectId: 6
     Quantity: 1
   - PooledObject: {fileID: 4132723855554449903, guid: 33f12580bdbdb644d8cce2b641e4cca1, type: 3}
-    ObjectName: Player_I
+    ObjectId: 7
     Quantity: 1
   - PooledObject: {fileID: 3158385293569201347, guid: 64f03fe3542752744a87c32406ce6646, type: 3}
-    ObjectName: Player_II
+    ObjectId: 8
     Quantity: 1
   - PooledObject: {fileID: 110656989515154985, guid: 9a8b93c9238303c40be1f566c2f940bc, type: 3}
-    ObjectName: Player_III
+    ObjectId: 9
     Quantity: 1
   - PooledObject: {fileID: 7576702072547911793, guid: 570ba05ed214bb54092a8233cda56d57, type: 3}
-    ObjectName: BlockVFX
+    ObjectId: 10
     Quantity: 10
   - PooledObject: {fileID: -3133378582491506990, guid: cef053cd3c4c89145acc429b5c0cf5e3, type: 3}
-    ObjectName: Character_HUD
+    ObjectId: 11
     Quantity: 3
   - PooledObject: {fileID: 8369440765979022269, guid: 59d277f7464c8c840977da8bd0d272f8, type: 3}
-    ObjectName: Skill_Board_Element
+    ObjectId: 12
     Quantity: 10
   - PooledObject: {fileID: 7896747997660631332, guid: 2ff9300dd95cbd4488e1ee40d7ad79a7, type: 3}
-    ObjectName: KillElement
+    ObjectId: 13
     Quantity: 10
   - PooledObject: {fileID: 7865295376392538669, guid: 90f90cc58c3346d4686a6793321c1beb, type: 3}
-    ObjectName: TurnOrder
+    ObjectId: 14
     Quantity: 6
   - PooledObject: {fileID: 3563973085531924967, guid: 7657c56b4c0b7594e91127eba0d7ca5e, type: 3}
-    ObjectName: Electro_Slash
+    ObjectId: 15
     Quantity: 5
   - PooledObject: {fileID: 2927523748142283241, guid: 093e2e72e23e7b341bbb2d5a4c1d7046, type: 3}
-    ObjectName: Green_Slash
+    ObjectId: 16
     Quantity: 5
   - PooledObject: {fileID: 6927242797269047777, guid: 7e42ad9d7316a3148b77e6047644f467, type: 3}
-    ObjectName: Snow_Slash
+    ObjectId: 17
     Quantity: 5
   - PooledObject: {fileID: 1820728017703974402, guid: 1e57db6d641406949a89ec5b6f4ce0d4, type: 3}
-    ObjectName: Boss_Slash_I
+    ObjectId: 18
     Quantity: 5
   - PooledObject: {fileID: 4688528962561571221, guid: 6e7e085889019f94da70091ac0c56c44, type: 3}
-    ObjectName: Electro_Hit
+    ObjectId: 19
     Quantity: 5
   - PooledObject: {fileID: 8458576101682043831, guid: 5754b42dd8613874fb7e1bc9a378ae32, type: 3}
-    ObjectName: Green_Hit
+    ObjectId: 20
     Quantity: 5
   - PooledObject: {fileID: 7683881951084746556, guid: e0e74ca3e22d0dd4bae388650ad3d5e7, type: 3}
-    ObjectName: Snow_Hit
+    ObjectId: 21
     Quantity: 5
   - PooledObject: {fileID: 977352887439050048, guid: 7fdb6c55b34726e4691eee6b94aa19de, type: 3}
-    ObjectName: Enemy_Hit
+    ObjectId: 22
     Quantity: 5
   - PooledObject: {fileID: 8131631414806152944, guid: 3727fd5819e4b474386283abb4974043, type: 3}
-    ObjectName: Battle_Infor
+    ObjectId: 23
     Quantity: 10
   - PooledObject: {fileID: 1986412661605579865, guid: 7faef5c00350bd94db82c31cf3bb8ed3, type: 3}
-    ObjectName: Audio
+    ObjectId: 24
     Quantity: 10
 --- !u!1001 &989267714279016956
 PrefabInstance:
@@ -1657,6 +1805,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96fbb8389f4a6bb4a8e4b0f6ba6e6183, type: 3}
+--- !u!114 &989267714279016957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 997781023861160437, guid: 96fbb8389f4a6bb4a8e4b0f6ba6e6183, type: 3}
+  m_PrefabInstance: {fileID: 989267714279016956}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459633e294c55ed46bc38812cc25a7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConquerTheStars.Input.PlayerInputReader
 --- !u!4 &2018780540151317342
 Transform:
   m_ObjectHideFlags: 0
@@ -1774,7 +1933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018780540795229945}
   m_Layer: 0
-  m_Name: Battle_Infor_II
+  m_Name: Battle_Infor_III
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1806,7 +1965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018780541209365013}
   m_Layer: 0
-  m_Name: Battle_Infor_III
+  m_Name: Battle_Infor_II
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1862,8 +2021,8 @@ SceneRoots:
   - {fileID: 989267714279016956}
   - {fileID: 453286759}
   - {fileID: 8707248337652120244}
-  - {fileID: 2018780540795229945}
   - {fileID: 2018780541209365013}
+  - {fileID: 2018780540795229945}
   - {fileID: 2018780540151317342}
   - {fileID: 2018780540494143410}
   - {fileID: 2018780540580206533}

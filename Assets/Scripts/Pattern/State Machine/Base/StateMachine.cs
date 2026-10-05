@@ -4,18 +4,18 @@ namespace ConquerTheStars.Pattern.StateMachine.Base
 {
     public class StateMachine : MonoBehaviour
     {
-        private State currentState;
+        private State _currentState;
 
         public void SwitchState(State newState)
         {
-            currentState?.Exit();
-            currentState = newState;
-            currentState?.Enter();
+            _currentState?.Exit();
+            _currentState = newState;
+            _currentState?.Enter();
         }
 
         private void Update()
         {
-            currentState?.Tick(Time.deltaTime);
+            _currentState?.Tick(Time.deltaTime);
         }
     }
 }

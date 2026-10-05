@@ -3,47 +3,54 @@ using System.Collections.Generic;
 using ConquerTheStars.Pattern.StateMachine.Enemy;
 using ConquerTheStars.Stats;
 using UnityEngine;
-[Serializable]
 
+[Serializable]
 public class BossPhaseInformation
 {
     public EnemyAttack EnemyAttack;
-    public float healthThreshold;
+    public float HealthThreshold;
 }
+
 public class BossPhase : MonoBehaviour
 {
-    [field: SerializeField] public List<BossPhaseInformation> Attacks;
+    [field: SerializeField] public List<BossPhaseInformation> Attacks { get; private set; }
 
-    [SerializeField] private CharacterStatsManagers bossStatsManagers;
+    [SerializeField] private CharacterStatsManagers _bossStatsManagers;
 
-    [SerializeField] private EnemyStateMachine enemyStateMachine;
+    [SerializeField] private EnemyStateMachine _enemyStateMachine;
 
     public EnemyAttack EnemyAttack;
-
 
 
     private void OnEnable()
     {
-        bossStatsManagers.HealthUpdateAction += GetAttackByPhase;
+        _bossStatsManagers.HealthUpdateAction += GetAttackByPhase;
     }
-
 
     private void OnDisable()
     {
-        bossStatsManagers.HealthUpdateAction -= GetAttackByPhase;
+        _bossStatsManagers.HealthUpdateAction -= GetAttackByPhase;
     }
 
-    public void GetAttackByPhase(float healthThreshold)
+    public void GetAttackByPhase(float currentHealthRatio)
     {
+        BossPhaseInformation bestPhase = null;
+
         foreach (var phase in Attacks)
         {
-            Debug.Log(healthThreshold);
-            if (healthThreshold <= phase.healthThreshold)
+            if (currentHealthRatio <= phase.HealthThreshold)
             {
-                enemyStateMachine.EnemyAttack = phase.EnemyAttack;
-                Debug.Log(enemyStateMachine.EnemyAttack);
-                EnemyAttack = phase.EnemyAttack;
+                if (bestPhase == null || phase.HealthThreshold < bestPhase.HealthThreshold)
+                {
+                    bestPhase = phase;
+                }
             }
+        }
+
+        if (bestPhase != null)
+        {
+            _enemyStateMachine.EnemyAttack = bestPhase.EnemyAttack;
+            EnemyAttack = bestPhase.EnemyAttack;
         }
     }
 }

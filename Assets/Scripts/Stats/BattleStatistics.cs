@@ -11,10 +11,22 @@ namespace ConquerTheStars.Stats
         public int SuccessfulParryTimes { get; set; }
         public int SuccessfulDodgeTimes { get; set; }
 
+        public void Reset()
+        {
+            DamageReceived = 0f;
+            DamageHistories.Clear();
+            SuccessfulParryTimes = 0;
+            SuccessfulDodgeTimes = 0;
+        }
 
         public float GetHighestDamage()
         {
-            return DamageHistories.Max();
+            return DamageHistories.Count == 0 ? 0 : DamageHistories.Max();
+        }
+
+        public float DamageDeals()
+        {
+            return DamageHistories.Sum();
         }
     }
 }
