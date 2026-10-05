@@ -67,6 +67,8 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public bool IsFinalBoss { get; set; }
 
+        public Reward BattleReward { get; set; }
+
         void Start()
         {
             Cursor.lockState = CursorLockMode.None;

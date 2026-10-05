@@ -28,7 +28,6 @@ public class PlayerLocomotionState : PlayerBaseState
 
     }
 
-
     private void UpdateAnimation(float deltaTime)
     {
         if (playerStateMachine.InputReader.Movement == Vector2.zero)

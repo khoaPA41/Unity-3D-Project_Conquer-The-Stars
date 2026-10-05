@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using ConquerTheStars.Fight;
 
 /// <summary>
 /// This all data need to save in once playing
@@ -8,11 +10,19 @@ using System;
 public class SaveData
 {
     // Checkpoint
-    public string sceneName;
-    public float xPosition;
-    public float yPosition;
-    public float zPosition;
+    public string SceneName;
+    public float XPosition;
+    public float YPosition;
+    public float ZPosition;
 
-    // Stats
-    public int teamLevel;
+    // Level
+    public int TeamLevel;
+    public int Exp;
+    public int CurrentNeededExp;
+
+    //Battle
+    public List<string> BattleCompletedIds = new();
+
+    //Item
+    public List<ItemInfoForSave> ItemInfo = new();
 }

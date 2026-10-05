@@ -33,6 +33,7 @@ namespace ConquerTheStars.Stats
         public StatsManagers critical;
         public StatsManagers luck;
 
+
         public int level;
 
         public CharacterType characterType;
@@ -57,12 +58,11 @@ namespace ConquerTheStars.Stats
 
 
         private float currentChance;
-
+        private PlayerTeam playerTeam;
         private void Awake()
         {
             characterType = baseStatsData.Type;
-            SetupLevelByType();
-
+            SetupLevelByType(1);
             // Initialize stats from ScriptableObject + level scaling
             maxHealth = new StatsManagers(baseStatsData.Health, level);
             attack = new StatsManagers(baseStatsData.AttackPower, level);
@@ -73,6 +73,16 @@ namespace ConquerTheStars.Stats
             luck = new StatsManagers(baseStatsData.Luck, level);
 
             icon = baseStatsData.Icon;
+        }
+
+        private void OnEnable()
+        {
+            PlayerTeam.Instance.LevelUp += UpdateLevel;
+        }
+
+        private void OnDisable()
+        {
+            PlayerTeam.Instance.LevelUp -= UpdateLevel;
         }
 
         public void Init()
@@ -90,11 +100,11 @@ namespace ConquerTheStars.Stats
             SetupHudAction?.Invoke();
         }
 
-        private void SetupLevelByType()
+        private void SetupLevelByType(int levelValue)
         {
             if (characterType == CharacterType.Player)
             {
-                level = PlayerTeam.Instance.TeamLevel;
+                level = levelValue;
             }
         }
 
@@ -267,9 +277,17 @@ namespace ConquerTheStars.Stats
             DynamicTextManager.CreateText(destination, text, textData);
         }
 
-        public void AddExp(int exp)
+        public void UpdateLevel(int value)
         {
-            // TODO: Implement experience and level up logic
+            Debug.Log("LevelUp");
+            SetupLevelByType(value);
+            maxHealth.LevelUp(level);
+            mana.LevelUp(level);
+            attack.LevelUp(level);
+            speed.LevelUp(level);
+            defense.LevelUp(level);
+            critical.LevelUp(level);
+            luck.LevelUp(level);
         }
     }
 }

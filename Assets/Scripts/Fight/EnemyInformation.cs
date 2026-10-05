@@ -6,7 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(PooledObject))]
 public class EnemyInformation : MonoBehaviour
 {
-    private EnemyTeam _enemyTeam;
+    // private EnemyTeam _enemyTeam;
+    private BattleSpawn _battleInfo;
     private PooledObject _pooledObject;
 
     private void Start()
@@ -14,24 +15,18 @@ public class EnemyInformation : MonoBehaviour
         _pooledObject = GetComponent<PooledObject>();
     }
 
-    public void SetEnemyTeam(EnemyTeam enemyTeam)
+    public void SetEnemyTeam(BattleSpawn infor)
     {
-        this._enemyTeam = enemyTeam;
+        _battleInfo = infor;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // Auto Save
-            GameManager.Instance.SetCheckpoint(transform.position);
-            GameManager.Instance.AutoSaveGame();
-
-            BattleInformationManagers.Instance.SetArea(_enemyTeam);
-
-            if (BattleInformationManagers.Instance.AreaInformation != null)
+            BattleInformationManagers.Instance.SetArea(_battleInfo, _pooledObject);
+            if (BattleInformationManagers.Instance != null)
             {
-                _pooledObject.Release();
                 GameManager.Instance.AutoSaveGame();
                 GameManager.Instance.LoadBattleScene();
             }

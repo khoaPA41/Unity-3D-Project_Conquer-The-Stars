@@ -20,22 +20,22 @@ public class SaveManagersTests
     {
         var saveData = new SaveData
         {
-            sceneName = "Main",
-            xPosition = 10f,
-            yPosition = 0f,
-            zPosition = 20f,
-            teamLevel = 5
+            SceneName = "Main",
+            XPosition = 10f,
+            YPosition = 0f,
+            ZPosition = 20f,
+            TeamLevel = 5
         };
 
         _saveManagers.SaveGame(saveData);
         var loadedData = _saveManagers.LoadSaveData();
 
         Assert.IsNotNull(loadedData);
-        Assert.AreEqual(saveData.sceneName, loadedData.sceneName);
-        Assert.AreEqual(saveData.xPosition, loadedData.xPosition, 0.001f);
-        Assert.AreEqual(saveData.yPosition, loadedData.yPosition, 0.001f);
-        Assert.AreEqual(saveData.zPosition, loadedData.zPosition, 0.001f);
-        Assert.AreEqual(saveData.teamLevel, loadedData.teamLevel);
+        Assert.AreEqual(saveData.SceneName, loadedData.SceneName);
+        Assert.AreEqual(saveData.XPosition, loadedData.XPosition, 0.001f);
+        Assert.AreEqual(saveData.YPosition, loadedData.YPosition, 0.001f);
+        Assert.AreEqual(saveData.ZPosition, loadedData.ZPosition, 0.001f);
+        Assert.AreEqual(saveData.TeamLevel, loadedData.TeamLevel);
     }
 
     [Test]
@@ -66,20 +66,20 @@ public class SaveManagersTests
     {
         var firstSaveData = new SaveData
         {
-            sceneName = "Main",
-            xPosition = 10f,
-            yPosition = 0f,
-            zPosition = 20f,
-            teamLevel = 5
+            SceneName = "Main",
+            XPosition = 10f,
+            YPosition = 0f,
+            ZPosition = 20f,
+            TeamLevel = 5
         };
 
         var secondSaveData = new SaveData
         {
-            sceneName = "Main",
-            xPosition = 100f,
-            yPosition = 7f,
-            zPosition = 200f,
-            teamLevel = 3
+            SceneName = "Main",
+            XPosition = 100f,
+            YPosition = 7f,
+            ZPosition = 200f,
+            TeamLevel = 3
         };
 
         _saveManagers.SaveGame(firstSaveData);
@@ -91,11 +91,11 @@ public class SaveManagersTests
         var backupJson = File.ReadAllText(savePathBackup);
         var backupData = JsonUtility.FromJson<SaveData>(backupJson);
 
-        Assert.AreEqual(firstSaveData.sceneName, backupData.sceneName);
-        Assert.AreEqual(firstSaveData.xPosition, backupData.xPosition, 0.001f);
-        Assert.AreEqual(firstSaveData.yPosition, backupData.yPosition, 0.001f);
-        Assert.AreEqual(firstSaveData.zPosition, backupData.zPosition, 0.001f);
-        Assert.AreEqual(firstSaveData.teamLevel, backupData.teamLevel);
+        Assert.AreEqual(firstSaveData.SceneName, backupData.SceneName);
+        Assert.AreEqual(firstSaveData.XPosition, backupData.XPosition, 0.001f);
+        Assert.AreEqual(firstSaveData.YPosition, backupData.YPosition, 0.001f);
+        Assert.AreEqual(firstSaveData.ZPosition, backupData.ZPosition, 0.001f);
+        Assert.AreEqual(firstSaveData.TeamLevel, backupData.TeamLevel);
     }
 
     [TearDown]

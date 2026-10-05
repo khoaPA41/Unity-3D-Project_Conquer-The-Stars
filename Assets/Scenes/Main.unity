@@ -760,6 +760,12 @@ MonoBehaviour:
     Quantity: 2
   - ItemData: {fileID: 11400000, guid: f23baaad043b73c42a2aeb1b5a7e2927, type: 2}
     Quantity: 1
+  _expMultipler: 2
+  _originExp: 100
+  _levelStartStep: 10
+  TeamLevel: 1
+  Exp: 0
+  CurrentNeededExp: 0
 --- !u!4 &871645449
 Transform:
   m_ObjectHideFlags: 0
@@ -1552,20 +1558,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f2fd7a9ad4feb4c854115140d1dc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleInformationManagers
-  BattleInforTransformList:
-  - {fileID: 8707248337652120244}
-  - {fileID: 2018780540795229945}
-  - {fileID: 2018780541209365013}
-  - {fileID: 2018780540151317342}
-  - {fileID: 2018780540494143410}
-  - {fileID: 2018780540580206533}
-  EnemyTeams:
-  - {fileID: 11400000, guid: 138fef567b7b5854db007f466796fc4a, type: 2}
-  - {fileID: 11400000, guid: 0c93d13741352f0438e0670959ec886e, type: 2}
-  - {fileID: 11400000, guid: 42fecde5117270b4f93e8105d1123bc0, type: 2}
-  - {fileID: 11400000, guid: d74d14314ede83a4ebe7398d0644238f, type: 2}
-  - {fileID: 11400000, guid: 5ec963bcc2a913d43b3bd79f8850f496, type: 2}
-  - {fileID: 11400000, guid: 5e9abe9003bf46644a8520607d9852fd, type: 2}
+  BattleInforList:
+  - BattleId: Battle_I
+    BattleInforTransformList: {fileID: 8707248337652120244}
+    EnemyTeam: {fileID: 11400000, guid: 65afedf583338d64e92faecd643eb893, type: 2}
+  - BattleId: Battle_II
+    BattleInforTransformList: {fileID: 2018780541209365013}
+    EnemyTeam: {fileID: 11400000, guid: 0c93d13741352f0438e0670959ec886e, type: 2}
+  - BattleId: Battle_III
+    BattleInforTransformList: {fileID: 2018780540795229945}
+    EnemyTeam: {fileID: 11400000, guid: 42fecde5117270b4f93e8105d1123bc0, type: 2}
+  - BattleId: Battle_IV
+    BattleInforTransformList: {fileID: 2018780540151317342}
+    EnemyTeam: {fileID: 11400000, guid: d74d14314ede83a4ebe7398d0644238f, type: 2}
+  - BattleId: BossFight_I
+    BattleInforTransformList: {fileID: 2018780540494143410}
+    EnemyTeam: {fileID: 11400000, guid: 5ec963bcc2a913d43b3bd79f8850f496, type: 2}
+  - BattleId: BossFight_II
+    BattleInforTransformList: {fileID: 2018780540580206533}
+    EnemyTeam: {fileID: 11400000, guid: 5e9abe9003bf46644a8520607d9852fd, type: 2}
+  BattleCompleted: []
 --- !u!1 &2049965923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,7 +1933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018780540795229945}
   m_Layer: 0
-  m_Name: Battle_Infor_II
+  m_Name: Battle_Infor_III
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1953,7 +1965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018780541209365013}
   m_Layer: 0
-  m_Name: Battle_Infor_III
+  m_Name: Battle_Infor_II
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2009,8 +2021,8 @@ SceneRoots:
   - {fileID: 989267714279016956}
   - {fileID: 453286759}
   - {fileID: 8707248337652120244}
-  - {fileID: 2018780540795229945}
   - {fileID: 2018780541209365013}
+  - {fileID: 2018780540795229945}
   - {fileID: 2018780540151317342}
   - {fileID: 2018780540494143410}
   - {fileID: 2018780540580206533}

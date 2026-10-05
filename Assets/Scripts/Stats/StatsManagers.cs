@@ -8,7 +8,7 @@ namespace ConquerTheStars.Stats
     public class StatsManagers
     {
         [SerializeField] private float baseValue;
-
+        private float bonusLevel;
         private readonly List<float> buffList = new();
 
         private int level;
@@ -27,8 +27,7 @@ namespace ConquerTheStars.Stats
 
         private void SetupBaseLevel()
         {
-            var valueBaseLevel = baseValue * (level / 10f);
-            AddBuff(valueBaseLevel);
+            bonusLevel = baseValue * (level / 10f);
         }
 
         public float GetFinalValue()
@@ -38,7 +37,7 @@ namespace ConquerTheStars.Stats
             {
                 finalValue += value;
             }
-            return finalValue;
+            return finalValue + bonusLevel;
         }
 
         public void AddBuff(float buff)

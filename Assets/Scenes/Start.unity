@@ -4602,11 +4602,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManagers
   CurrentSaveData:
-    sceneName: 
-    xPosition: 0
-    yPosition: 0
-    zPosition: 0
-    teamLevel: 0
+    SceneName: 
+    XPosition: 0
+    YPosition: 0
+    ZPosition: 0
+    TeamLevel: 0
+    Exp: 0
+    CurrenNeedExp: 0
+    InfoForSaves: []
 --- !u!4 &1206863687
 Transform:
   m_ObjectHideFlags: 0
@@ -5173,7 +5176,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

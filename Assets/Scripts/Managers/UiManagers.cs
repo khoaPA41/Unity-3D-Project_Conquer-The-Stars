@@ -69,5 +69,6 @@ public class UiManagers : MonoBehaviour
         }
         ActiveSettingsPanel(false);
         GameManager.Instance.ExitToTitle();
+        GameManager.Instance.AutoSaveGame();
     }
 }

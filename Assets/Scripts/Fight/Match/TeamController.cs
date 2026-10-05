@@ -35,6 +35,7 @@ namespace ConquerTheStars.Fight.Match
 
         public void AddPlayerTeam(CharacterStatsManagers player)
         {
+            player.UpdateLevel(Fight.PlayerTeam.Instance.TeamLevel);
             player.Init(); // Setup Stats before add to list
             PlayerTeam.Add(player);
         }

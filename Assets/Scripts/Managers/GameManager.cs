@@ -1,8 +1,10 @@
 using ConquerTheStars.Fight;
+using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Stats;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace ConquerTheStars.Managers
 {
@@ -60,9 +62,12 @@ namespace ConquerTheStars.Managers
             {
                 case ReasonLoadScene.New:
                     _checkpointPos = player.transform.position;
+                    PlayerTeam.Instance.FirstTime();
+                    BattleInformationManagers.Instance.RefreshProgress();
                     break;
 
                 case ReasonLoadScene.Reload:
+                    BattleInformationManagers.Instance.BattleCompleted = new List<string>(SaveManagers.Instance.CurrentSaveData.BattleCompletedIds);
                     ApplySaveData(player);
                     break;
 
@@ -72,7 +77,8 @@ namespace ConquerTheStars.Managers
                 case ReasonLoadScene.ReloadCombat:
                     break;
                 case ReasonLoadScene.BackToMain:
-                    ApplySaveData(player);
+                    // ApplySaveData(player);
+                    player.transform.position = _checkpointPos;
                     break;
                 default:
                     break;
@@ -100,7 +106,7 @@ namespace ConquerTheStars.Managers
             }
 
             _currentLoadReason = ReasonLoadScene.Reload;
-            _checkpointPos = new Vector3(saveData.xPosition, saveData.yPosition, saveData.zPosition);
+            _checkpointPos = new Vector3(saveData.XPosition, saveData.YPosition, saveData.ZPosition);
 
             SceneManager.LoadScene(MainScene);
         }
@@ -150,29 +156,38 @@ namespace ConquerTheStars.Managers
             var saveData = SaveManagers.Instance.CurrentSaveData;
             if (saveData is null) return;
 
-            player.transform.position = new Vector3(saveData.xPosition, saveData.yPosition, saveData.zPosition);
+            player.transform.position = new Vector3(saveData.XPosition, saveData.YPosition, saveData.ZPosition);
+            PlayerTeam playerTeam = PlayerTeam.Instance;
 
             // Stats
-            PlayerTeam.Instance.TeamLevel = saveData.teamLevel;
-
+            playerTeam.TeamLevel = saveData.TeamLevel;
+            playerTeam.Exp = saveData.Exp;
+            playerTeam.CurrentNeededExp = saveData.CurrentNeededExp;
+            playerTeam.SetupItemQuantity(saveData.ItemInfo);
+            BattleInformationManagers.Instance.BattleCompleted = new List<string>(saveData.BattleCompletedIds);
         }
 
         public void AutoSaveGame()
         {
             var player = GameObject.FindGameObjectWithTag("Player");
-
+            PlayerTeam playerTeam = PlayerTeam.Instance;
             if (player == null) return;
 
             // Stats
 
             var saveData = new SaveData
             {
-                sceneName = MainScene,
-                xPosition = _checkpointPos.x,
-                yPosition = _checkpointPos.y,
-                zPosition = _checkpointPos.z,
+                SceneName = MainScene,
+                XPosition = _checkpointPos.x,
+                YPosition = _checkpointPos.y,
+                ZPosition = _checkpointPos.z,
 
-                teamLevel = PlayerTeam.Instance.TeamLevel
+                TeamLevel = playerTeam.TeamLevel,
+                Exp = playerTeam.Exp,
+                CurrentNeededExp = PlayerTeam.Instance.CurrentNeededExp,
+
+                ItemInfo = playerTeam.SaveItemInfor(),
+                BattleCompletedIds = new List<string>(BattleInformationManagers.Instance.BattleCompleted)
             };
             SaveManagers.Instance.SaveGame(saveData);
         }

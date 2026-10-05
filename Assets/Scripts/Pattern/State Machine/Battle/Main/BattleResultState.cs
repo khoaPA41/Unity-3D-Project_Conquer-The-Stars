@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Linq;
+using ConquerTheStars.Fight;
+using ConquerTheStars.Fight.Match;
+using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.StateMachine.PlayerCombat;
 using ConquerTheStars.UI.Player;
 using UnityEngine;
@@ -21,6 +24,9 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             UICombatManagers.Instance.ResetTurnOrder();
             if (battleStateMachine.TeamController.IsVictory)
             {
+                PlayerTeam.Instance.AddExp(battleStateMachine.BattleReward.ExpReward); // Get Reward
+                BattleInformationManagers.Instance.Win(); // Save battle id
+                GameManager.Instance.AutoSaveGame();
                 battleStateMachine.StartCoroutine(WaitToChangeVictory());
             }
             else

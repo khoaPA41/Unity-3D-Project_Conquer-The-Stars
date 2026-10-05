@@ -137,6 +137,17 @@ namespace ConquerTheStars.Fight.Player
             }
         }
 
+        public void RefreshItemQuanity()
+        {
+            if (_subscribedTeam == null) return;
+
+            var itemList = _subscribedTeam.GetItemList();
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                _itemElement[i].UpdateItemQuantity(itemList[i].Quantity.ToString());
+            }
+        }
+
         private void SetupCamera()
         {
             _playerCanvas.worldCamera = _mainCamera;
@@ -144,6 +155,7 @@ namespace ConquerTheStars.Fight.Player
 
         public void AppearSkillUI()
         {
+            RefreshItemQuanity();
             _playerCanvas.gameObject.SetActive(true);
             _skillAnimator.SetTrigger(_skillSelectionAppearAnimationHash);
         }

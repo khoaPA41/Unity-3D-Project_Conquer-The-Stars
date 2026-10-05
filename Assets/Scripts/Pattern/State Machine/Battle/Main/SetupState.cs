@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using ConquerTheStars.Fight;
 using ConquerTheStars.Fight.Match;
 using ConquerTheStars.Fight.Target;
@@ -21,12 +20,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private List<PooledObjectId> _enemyTeam = new();
         private List<PooledObjectId> _playerTeam = new();
+
+        private BattleInformationManagers _battleInformationManagers;
         public SetupState(BattleStateMachine battleStateMachine) : base(battleStateMachine)
         {
         }
 
         public override void Enter()
         {
+            _battleInformationManagers = BattleInformationManagers.Instance;
             battleStateMachine.StartCoroutine(WaitToSetup());
             battleStateMachine.BattleTime = Time.time;
         }
@@ -37,12 +39,14 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public override void Exit()
         {
+            if (_battleInformationManagers != null) _battleInformationManagers = null;
         }
 
         public void Initialize()
         {
             // Get enemy & player list
-            _enemyTeam = BattleInformationManagers.Instance.AreaInformation.enemyTeam;
+            _enemyTeam = _battleInformationManagers.CurrentBattleInformation.EnemyTeam.enemyTeam;
+            battleStateMachine.BattleReward = _battleInformationManagers.CurrentBattleInformation.EnemyTeam.Reward;
             _playerTeam = PlayerTeam.Instance.TeamNameList;
         }
 
@@ -51,7 +55,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             for (int i = 0; i < _enemyTeam.Count; i++)
             {
                 // Spawn enemy at target position
-                var enemy = ObjectPoolingManagers.Instance.GetPooledObject(_enemyTeam[i], battleStateMachine.Area.EnemyTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].EnemyTransforms[i].position);
+                var enemy = ObjectPoolingManagers.Instance.GetPooledObject(_enemyTeam[i], battleStateMachine.Area.EnemyTransformList[_battleInformationManagers.CurrentBattleInformation.EnemyTeam.AreaIndex].EnemyTransforms[i].position);
                 enemy.transform.Rotate(new Vector3(0f, 90f, 0f));
                 battleStateMachine.IsFinalBoss = enemy.name == "Final_Boss";
                 // Add to characterInMatch list - prepare for queue
@@ -67,7 +71,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             for (int i = 0; i < _playerTeam.Count; i++)
             {
                 // Spawn player at target position
-                var player = ObjectPoolingManagers.Instance.GetPooledObject(_playerTeam[i], battleStateMachine.Area.PlayerTransformList[BattleInformationManagers.Instance.AreaInformation.AreaIndex].PlayerTransforms[i].position);
+                var player = ObjectPoolingManagers.Instance.GetPooledObject(_playerTeam[i], battleStateMachine.Area.PlayerTransformList[_battleInformationManagers.CurrentBattleInformation.EnemyTeam.AreaIndex].PlayerTransforms[i].position);
                 player.transform.Rotate(new Vector3(0f, -90f, 0f));
 
                 // Add to characterInMatch list - prepare for queue
@@ -123,8 +127,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             SetupPlayerTarget();
             SetupEnemyTarget();
             SetupAllyTarget();
-
-            // battleStateMachine.SpeedAverage = _characterInMatch.Average(character => character.CurrentSpeed);
 
             UICombatManagers.Instance.SetTurnOrder(battleStateMachine.TurnOrderService.CharacterList);
 

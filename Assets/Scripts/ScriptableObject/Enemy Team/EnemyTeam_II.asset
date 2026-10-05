@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTeam
   enemyTeam: 010000000200000002000000
   AreaIndex: 0
+  Reward:
+    ExpReward: 50
