@@ -78,7 +78,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
                 _characterInMatch.Add(player.GetComponent<CharacterStatsManagers>());
 
                 // Add to the team list used to manage status throughout the match
-                battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>());
+                battleStateMachine.TeamController.AddPlayerTeam(player.GetComponent<CharacterStatsManagers>(), _playerTeam[i]);
 
                 player.GetComponent<PlayerCombatStateMachine>().RevieSuccessAction += battleStateMachine.TurnOrderService.EnqueueBack;
             }

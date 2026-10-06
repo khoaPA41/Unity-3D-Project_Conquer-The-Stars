@@ -33,9 +33,14 @@ namespace ConquerTheStars.Fight.Match
             return false;
         }
 
-        public void AddPlayerTeam(CharacterStatsManagers player)
+        public void AddPlayerTeam(CharacterStatsManagers player, PooledObjectId playerId)
         {
+            var team = Fight.PlayerTeam.Instance;
+
+            var slot = team.PlayerSlotList.Find(player => player.PlayerId == playerId);
+
             player.UpdateLevel(Fight.PlayerTeam.Instance.TeamLevel);
+            player.ApplyEquiment(slot);
             player.Init(); // Setup Stats before add to list
             PlayerTeam.Add(player);
         }

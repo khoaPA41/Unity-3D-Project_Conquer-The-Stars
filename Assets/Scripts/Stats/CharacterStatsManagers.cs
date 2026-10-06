@@ -3,9 +3,10 @@ using UnityEngine;
 using System.Collections;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Fight;
-using System.ComponentModel;
-// TryBlock: PooledObject ID = BlockVFX
+using System.Collections.Generic;
+using ConquerTheStars.Factory.Item;
 
+// TryBlock: PooledObject ID = BlockVFX
 namespace ConquerTheStars.Stats
 {
     public enum CharacterType
@@ -13,6 +14,7 @@ namespace ConquerTheStars.Stats
         Player,
         Enemy
     }
+
     public class CharacterStatsManagers : MonoBehaviour
     {
         [Header("Stats Data")]
@@ -33,7 +35,6 @@ namespace ConquerTheStars.Stats
         public StatsManagers critical;
         public StatsManagers luck;
 
-
         public int level;
 
         public CharacterType characterType;
@@ -46,7 +47,6 @@ namespace ConquerTheStars.Stats
         public float CurrentCritical;
         public float CurrentLuck;
 
-
         public bool IsDeath { get; private set; }
         public event Action DyingAction = delegate { };
         public event Action<float> HealthUpdateAction = delegate { };
@@ -55,10 +55,10 @@ namespace ConquerTheStars.Stats
 
         public bool IsDodge { get; set; }
         public bool IsBlock { get; set; }
-
-
         private float currentChance;
-        private PlayerTeam playerTeam;
+
+        private List<ItemAttachData> itemAttachDatas;
+
         private void Awake()
         {
             characterType = baseStatsData.Type;
@@ -279,7 +279,6 @@ namespace ConquerTheStars.Stats
 
         public void UpdateLevel(int value)
         {
-            Debug.Log("LevelUp");
             SetupLevelByType(value);
             maxHealth.LevelUp(level);
             mana.LevelUp(level);
@@ -288,6 +287,15 @@ namespace ConquerTheStars.Stats
             defense.LevelUp(level);
             critical.LevelUp(level);
             luck.LevelUp(level);
+        }
+
+        // Apply Item Attach
+        public void ApplyEquiment(PlayerSlot slots)
+        {
+            maxHealth.SetEquipItemValue(slots?.GetEquipmentBonus(ItemAttachType.Health) ?? 0f);
+            attack.SetEquipItemValue(slots?.GetEquipmentBonus(ItemAttachType.Damage) ?? 0f);
+            speed.SetEquipItemValue(slots?.GetEquipmentBonus(ItemAttachType.Speed) ?? 0f);
+            defense.SetEquipItemValue(slots?.GetEquipmentBonus(ItemAttachType.Defense) ?? 0f);
         }
     }
 }

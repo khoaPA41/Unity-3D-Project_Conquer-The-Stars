@@ -13,6 +13,14 @@ namespace ConquerTheStars.Factory.Item
         // SummonTurret
     }
 
+    public enum ItemAttachType
+    {
+        Damage,
+        Speed,
+        Defense,
+        Health
+    }
+
     public static class ItemFactory
     {
         public static IItem CreateItem(ItemType itemType)
@@ -26,8 +34,6 @@ namespace ConquerTheStars.Factory.Item
                 ItemType.IncreaseSpeed => new IncreaseSpeed(),
                 ItemType.IncreaseDamage => new IncreaseDamage(),
                 ItemType.IncreaseCritical => new IncreaseCritical(),
-                // ItemType.RemoveDisruption => new RemoveDisruption(),
-                // ItemType.SummonTurret => new SummonTurret(),
                 _ => null
             };
         }

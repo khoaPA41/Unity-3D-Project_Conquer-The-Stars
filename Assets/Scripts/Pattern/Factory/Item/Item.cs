@@ -107,42 +107,11 @@ namespace ConquerTheStars.Factory.Item
         public void Use(ICaster character, ItemType itemType, int remainingTurn, float value)
         {
             var player = character.CharacterUse().GetComponent<PlayerCombatStateMachine>();
-            Debug.Log("Reive");
 
-            // player.CallUseReviveItemEvent();
-
-            // if (value > 0)
-            // {
             player.BuffManager.RemoveAllBuff();
             player.CharacterStatsManagers.Init();
             player.Model.SetActive(true);
             player.CallRevieSuccesEvent();
-            // }
         }
     }
-
-    // public class RemoveDisruption : IItem
-    // {
-    //     public ItemType ItemType => ItemType.RemoveDisruption;
-
-    //     public void Use(ICaster character, ItemType itemType, int remainingTurn, float value)
-    //     {
-
-    //         Debug.Log($"{character.CharacterUse().name}: RemoveDisruption: {value}");
-    //     }
-    // }
-
-    // public class SummonTurret : IItem
-    // {
-    //     public ItemType ItemType => ItemType.SummonTurret;
-
-    //     public void Use(ICaster character, ItemType itemType, int remainingTurn, float value)
-    //     {
-    //         if (value > 0)
-    //         {
-    //             var buffManager = character.CharacterUse().GetComponent<BuffManager>();
-    //             buffManager.AddBuff(itemType, remainingTurn, value);
-    //         }
-    //     }
-    // }
 }

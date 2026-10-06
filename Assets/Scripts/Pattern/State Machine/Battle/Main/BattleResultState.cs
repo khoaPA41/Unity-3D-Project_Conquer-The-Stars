@@ -25,6 +25,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             if (battleStateMachine.TeamController.IsVictory)
             {
                 PlayerTeam.Instance.AddExp(battleStateMachine.BattleReward.ExpReward); // Get Reward
+                PlayerTeam.Instance.AddItemAttach(battleStateMachine.BattleReward.ItemAttachReward);
                 BattleInformationManagers.Instance.Win(); // Save battle id
                 GameManager.Instance.AutoSaveGame();
                 battleStateMachine.StartCoroutine(WaitToChangeVictory());

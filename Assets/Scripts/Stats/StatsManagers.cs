@@ -9,8 +9,8 @@ namespace ConquerTheStars.Stats
     {
         [SerializeField] private float baseValue;
         private float bonusLevel;
+        private float bonusItem;
         private readonly List<float> buffList = new();
-
         private int level;
         public StatsManagers(float baseValue, int level)
         {
@@ -37,17 +37,21 @@ namespace ConquerTheStars.Stats
             {
                 finalValue += value;
             }
-            return finalValue + bonusLevel;
+            return finalValue + bonusLevel + bonusItem;
         }
 
-        public void AddBuff(float buff)
-        {
-            if (buff != 0f) buffList.Add(buff);
-        }
+        // public void AddBuff(float buff)
+        // {
+        //     if (buff != 0f) buffList.Add(buff);
+        // }
 
-        public void RemoveBuff(float buff)
+        // public void RemoveBuff(float buff)
+        // {
+        //     if (buff != 0f) buffList.Remove(buff);
+        // }
+        public void SetEquipItemValue(float value)
         {
-            if (buff != 0f) buffList.Remove(buff);
+            bonusItem = value;
         }
 
         public float AddValue(float value)

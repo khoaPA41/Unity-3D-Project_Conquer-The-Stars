@@ -6,6 +6,7 @@ using UnityEngine;
 public class Reward
 {
     public int ExpReward;
+    public ItemAttachData ItemAttachReward;
 }
 [CreateAssetMenu(fileName = "EnemyTeam", menuName = "Scriptable Objects/EnemyTeam")]
 
