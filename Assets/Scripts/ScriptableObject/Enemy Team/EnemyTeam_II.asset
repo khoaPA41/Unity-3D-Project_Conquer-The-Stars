@@ -16,3 +16,4 @@ MonoBehaviour:
   AreaIndex: 0
   Reward:
     ExpReward: 50
+    ItemAttachReward: {fileID: 11400000, guid: c0becb8e0d27a284a8092ed7fe2d8617, type: 2}

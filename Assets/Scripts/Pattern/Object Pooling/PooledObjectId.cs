@@ -25,5 +25,6 @@ public enum PooledObjectId
     Snow_Hit,
     Enemy_Hit,
     Battle_Infor,
-    Audio
+    Audio,
+    ItemInventory
 }
