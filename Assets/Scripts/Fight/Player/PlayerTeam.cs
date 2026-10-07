@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace ConquerTheStars.Fight
 {
+    // Item
     [Serializable]
     public class ItemQuantity
     {
@@ -19,6 +20,7 @@ namespace ConquerTheStars.Fight
         public int Quantity;
     }
 
+    // Item Attach
     [Serializable]
     public class ItemAttachQuantity
     {
@@ -26,6 +28,14 @@ namespace ConquerTheStars.Fight
         public int Quantity;
     }
 
+    [Serializable]
+    public class ItemAttachForSave
+    {
+        public ItemAttachType ItemAttachType;
+        public int Quantity;
+    }
+
+    //Slot
     [Serializable]
     public class PlayerSlot
     {
@@ -47,6 +57,14 @@ namespace ConquerTheStars.Fight
         }
     }
 
+    [Serializable]
+    public class PlayerSlotForSave
+    {
+        public PooledObjectId PlayerId;
+        public ItemAttachType Slot_I;
+        public ItemAttachType Slot_II;
+    }
+
     public class PlayerTeam : MonoBehaviour
     {
         public static PlayerTeam Instance { get; set; }
@@ -59,6 +77,16 @@ namespace ConquerTheStars.Fight
         // Item using
         [SerializeField] private List<ItemQuantity> _itemDatas;
         public List<ItemQuantity> ItemDatas => _itemDatas;
+        private List<ItemInfoForSave> _initialItem = new(); // This list cap the Base item List for new game
+
+        // Player Slot
+        public List<PlayerSlot> PlayerSlotList = new();
+        private List<PlayerSlotForSave> _initialPlayerSlotList = new();
+
+        // Item Attach List
+        [SerializeField] private List<ItemAttachData> _itemAttachDict = new();
+        public List<ItemAttachQuantity> ItemAttachInventories = new();
+        private List<ItemAttachForSave> _initialItemAttach = new();
 
         // Level
         [SerializeField] private int _expMultipler = 2;
@@ -67,11 +95,7 @@ namespace ConquerTheStars.Fight
 
         public List<PooledObjectId> TeamNameList { get; set; } = new();
         public Vector3 CurrentPosition { get; private set; } = new Vector3(36f, 0f, 62f);
-        private List<ItemInfoForSave> _initialItem = new();
 
-        // Item Attach List
-        public List<PlayerSlot> PlayerSlotList = new();
-        public List<ItemAttachQuantity> ItemAttachInventories = new();
 
         public int TeamLevel { get; set; }
         public int Exp { get; set; }
@@ -100,28 +124,8 @@ namespace ConquerTheStars.Fight
             TryEquip(PooledObjectId.Player_III, 0, ItemAttachInventories[0].ItemAttachData);
 
             _initialItem = SaveItemInfor();
-        }
-
-        public void FirstTime()
-        {
-            TeamLevel = 1;
-            Exp = 0;
-            CurrentNeededExp = _originExp;
-
-            SetupItemQuantity(_initialItem);
-        }
-
-        public void SetupItemQuantity(List<ItemInfoForSave> itemInfos)
-        {
-            if (itemInfos == null || itemInfos.Count == 0) return;
-            foreach (var itemInfo in itemInfos)
-            {
-                var item = GetItem(itemInfo.ItemType);
-                if (item == null) continue;
-                item.Quantity = Mathf.Max(0, itemInfo.Quantity);
-
-                UpdateItemQuantityAction?.Invoke(itemInfo.ItemType, item.Quantity.ToString());
-            }
+            _initialItemAttach = SaveItemAttach();
+            _initialPlayerSlotList = SavePlayerSlot();
         }
 
         public void AddTeamMate(PooledObjectId name, StatsData statsData)
@@ -134,6 +138,32 @@ namespace ConquerTheStars.Fight
                 Slot_II = null,
                 Stats = statsData
             });
+        }
+
+        public void FirstTime()
+        {
+            TeamLevel = 1;
+            Exp = 0;
+            CurrentNeededExp = _originExp;
+
+            SetupItemQuantity(_initialItem);
+            SetupItemAttachQuantity(_initialItemAttach);
+            SetupPlayerSlot(_initialPlayerSlotList);
+        }
+
+
+        // Item
+        public void SetupItemQuantity(List<ItemInfoForSave> itemInfos)
+        {
+            if (itemInfos == null || itemInfos.Count == 0) return;
+            foreach (var itemInfo in itemInfos)
+            {
+                var item = GetItem(itemInfo.ItemType);
+                if (item == null) continue;
+                item.Quantity = Mathf.Max(0, itemInfo.Quantity);
+
+                UpdateItemQuantityAction?.Invoke(itemInfo.ItemType, item.Quantity.ToString());
+            }
         }
 
         public List<ItemQuantity> GetItemList()
@@ -173,15 +203,8 @@ namespace ConquerTheStars.Fight
             return result;
         }
 
-        public void AddQuantity()
-        {
-            for (int i = 0; i < _itemDatas.Count; i++)
-            {
 
-            }
-        }
-
-        //Equip Item Attach
+        // Item Attach
         public bool TryEquip(PooledObjectId playerId, int slotIndex, ItemAttachData itemAttachData)
         {
             if (itemAttachData == null || slotIndex < 0 || slotIndex > 1) return false;
@@ -211,17 +234,92 @@ namespace ConquerTheStars.Fight
 
         // }
 
-        public ItemAttachQuantity GetItemAttachQuantity(ItemAttachData itemAttachData)
+        private ItemAttachData GetItemAttachData(ItemAttachType itemAttachType)
         {
-            return ItemAttachInventories.Find(item => item.ItemAttachData == itemAttachData);
+            if (itemAttachType == ItemAttachType.None) return null;
+            return _itemAttachDict.Find(data => data != null && data.ItemAttachType == itemAttachType);
+        }
+
+        public ItemAttachQuantity GetItemAttachQuantity(ItemAttachType itemAttachType)
+        {
+            return ItemAttachInventories.Find(item => item.ItemAttachData.ItemAttachType == itemAttachType);
+        }
+
+        public List<ItemAttachForSave> SaveItemAttach()
+        {
+            var result = new List<ItemAttachForSave>();
+            foreach (var item in ItemAttachInventories)
+            {
+                result.Add(new ItemAttachForSave
+                {
+                    ItemAttachType = item.ItemAttachData.ItemAttachType,
+                    Quantity = item.Quantity
+                });
+            }
+            return result;
+        }
+
+        public void SetupItemAttachQuantity(List<ItemAttachForSave> itemInfos)
+        {
+            if (itemInfos == null) return;
+            var restored = new List<ItemAttachQuantity>();
+            foreach (var itemInfo in itemInfos)
+            {
+                if (itemInfo.ItemAttachType == ItemAttachType.None) continue;
+
+                var itemAttach = GetItemAttachQuantity(itemInfo.ItemAttachType);
+                if (itemAttach == null) continue;
+
+                restored.Add(new ItemAttachQuantity
+                {
+                    ItemAttachData = itemAttach.ItemAttachData,
+                    Quantity = Mathf.Max(0, itemInfo.Quantity)
+                });
+            }
+            ItemAttachInventories = restored;
         }
 
 
-        // Reward
+        // Player Slot
+        public PlayerSlot GetSlot(PooledObjectId playerId)
+        {
+            return PlayerSlotList.Find(slot => slot.PlayerId == playerId);
+        }
 
+        public List<PlayerSlotForSave> SavePlayerSlot()
+        {
+            var result = new List<PlayerSlotForSave>();
+            foreach (var slot in PlayerSlotList)
+            {
+                result.Add(new PlayerSlotForSave
+                {
+                    PlayerId = slot.PlayerId,
+                    Slot_I = slot.Slot_I != null ? slot.Slot_I.ItemAttachType : ItemAttachType.None,
+                    Slot_II = slot.Slot_II != null ? slot.Slot_II.ItemAttachType : ItemAttachType.None,
+                });
+            }
+            return result;
+        }
+
+        public void SetupPlayerSlot(List<PlayerSlotForSave> slotInfos)
+        {
+            if (slotInfos == null || slotInfos.Count == 0) return;
+            foreach (var slot in slotInfos)
+            {
+                var playerSlot = GetSlot(slot.PlayerId);
+                if (playerSlot == null) continue;
+
+                // if(slot.Slot_I == null)
+                playerSlot.Slot_I = GetItemAttachData(slot.Slot_I);
+                playerSlot.Slot_II = GetItemAttachData(slot.Slot_II);
+            }
+        }
+
+        // Reward
         public void AddExp(int value)
         {
             if (value <= 0) return;
+            if (CurrentNeededExp <= 0 || _levelStartStep <= 0 || _expMultipler <= 0) return;
 
             Exp += value;
             bool isLevelUp = false;
@@ -255,6 +353,14 @@ namespace ConquerTheStars.Fight
             else
             {
                 ItemAttachInventories.Add(new ItemAttachQuantity { ItemAttachData = itemAttachData, Quantity = 1 });
+            }
+        }
+
+        public void AddQuantity()
+        {
+            for (int i = 0; i < _itemDatas.Count; i++)
+            {
+
             }
         }
     }

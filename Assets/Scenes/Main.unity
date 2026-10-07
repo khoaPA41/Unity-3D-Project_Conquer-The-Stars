@@ -1825,7 +1825,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -3017,10 +3017,12 @@ MonoBehaviour:
     Quantity: 2
   - ItemData: {fileID: 11400000, guid: f23baaad043b73c42a2aeb1b5a7e2927, type: 2}
     Quantity: 1
-  _expMultipler: 2
-  _originExp: 100
-  _levelStartStep: 10
   PlayerSlotList: []
+  _itemAttachDict:
+  - {fileID: 11400000, guid: 5093387cef12ddc4487f8142efc30c44, type: 2}
+  - {fileID: 11400000, guid: c0becb8e0d27a284a8092ed7fe2d8617, type: 2}
+  - {fileID: 11400000, guid: 79dd87df9f08edf4ca38b5ee9658605b, type: 2}
+  - {fileID: 11400000, guid: ae6e4ec2de06b6f458e8a811271ff27a, type: 2}
   ItemAttachInventories:
   - ItemAttachData: {fileID: 11400000, guid: 79dd87df9f08edf4ca38b5ee9658605b, type: 2}
     Quantity: 2
@@ -3030,6 +3032,9 @@ MonoBehaviour:
     Quantity: 2
   - ItemAttachData: {fileID: 11400000, guid: ae6e4ec2de06b6f458e8a811271ff27a, type: 2}
     Quantity: 2
+  _expMultipler: 2
+  _originExp: 100
+  _levelStartStep: 10
 --- !u!4 &871645449
 Transform:
   m_ObjectHideFlags: 0

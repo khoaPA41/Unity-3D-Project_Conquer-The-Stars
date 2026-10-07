@@ -50,9 +50,10 @@ public class ItemAttachElement : MonoBehaviour, IBeginDragHandler, IDragHandler,
         var team = PlayerTeam.Instance;
         if (team == null) return;
 
-        var itemAttach = team.GetItemAttachQuantity(_itemAttachData); // Get Item Attach Data
+        if (_itemAttachData == null) return;
+        var itemAttach = team.GetItemAttachQuantity(_itemAttachData.ItemAttachType); // Get Item Attach Data
 
-        if (_itemAttachData == null || itemAttach == null || itemAttach.Quantity <= 0) return;
+        if (itemAttach == null || itemAttach.Quantity <= 0) return;
 
         // Only get drag rights if the item is valid
         _activeDrag = this;

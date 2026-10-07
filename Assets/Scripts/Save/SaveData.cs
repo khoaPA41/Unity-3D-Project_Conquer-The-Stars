@@ -25,7 +25,10 @@ public class SaveData
 
     //Item
     public List<ItemInfoForSave> ItemInfo = new(); // Use
-    // public List<ItemInfoForSave> ItemInfo = new(); // Use
+    public List<ItemAttachForSave> ItemAttach = new();
+    public List<PlayerSlotForSave> PlayerSlots = new(); // Current equipment 
+
+    // public List<
 
 
 }

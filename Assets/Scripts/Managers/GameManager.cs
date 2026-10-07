@@ -164,6 +164,8 @@ namespace ConquerTheStars.Managers
             playerTeam.Exp = saveData.Exp;
             playerTeam.CurrentNeededExp = saveData.CurrentNeededExp;
             playerTeam.SetupItemQuantity(saveData.ItemInfo);
+            playerTeam.SetupItemAttachQuantity(saveData.ItemAttach);
+            playerTeam.SetupPlayerSlot(saveData.PlayerSlots);
             BattleInformationManagers.Instance.BattleCompleted = new List<string>(saveData.BattleCompletedIds);
         }
 
@@ -187,6 +189,8 @@ namespace ConquerTheStars.Managers
                 CurrentNeededExp = PlayerTeam.Instance.CurrentNeededExp,
 
                 ItemInfo = playerTeam.SaveItemInfor(),
+                PlayerSlots = playerTeam.SavePlayerSlot(),
+                ItemAttach = playerTeam.SaveItemAttach(),
                 BattleCompletedIds = new List<string>(BattleInformationManagers.Instance.BattleCompleted)
             };
             SaveManagers.Instance.SaveGame(saveData);

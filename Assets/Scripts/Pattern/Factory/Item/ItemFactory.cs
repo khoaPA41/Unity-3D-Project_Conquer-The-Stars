@@ -2,6 +2,7 @@ namespace ConquerTheStars.Factory.Item
 {
     public enum ItemType
     {
+        None,
         Healing,
         RecoveryMana,
         IncreaseDefense,
@@ -15,6 +16,7 @@ namespace ConquerTheStars.Factory.Item
 
     public enum ItemAttachType
     {
+        None,
         Damage,
         Speed,
         Defense,

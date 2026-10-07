@@ -24,7 +24,7 @@ public class EquipmentSlotUI : MonoBehaviour, IDropHandler
 
         if (!dragItem.OwnsDrag(eventData.pointerId)) return;
 
-        var itemAttach = _team.GetItemAttachQuantity(dragItem.ItemAttachData); // Get Item Attach Data
+        var itemAttach = _team.GetItemAttachQuantity(dragItem.ItemAttachData.ItemAttachType); // Get Item Attach Data
         if (itemAttach == null || itemAttach.Quantity <= 0) return;
 
         if (!_team.TryEquip(_team.PlayerSlotList[_playerAttachItem.SelectIndex].PlayerId, slotIndex, dragItem.ItemAttachData)) return;

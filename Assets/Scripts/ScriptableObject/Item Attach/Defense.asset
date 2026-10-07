@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5830f57dc49ef4ab24469ccda3e7be, type: 3}
   m_Name: Defense
   m_EditorClassIdentifier: Assembly-CSharp::ItemAttachData
-  ItemAttachType: 2
+  ItemAttachType: 3
   Value: 20
   Icon: {fileID: -11985833, guid: dec1fa9e066907d46ac6d2c0c614282f, type: 3}
