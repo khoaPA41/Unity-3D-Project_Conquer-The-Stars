@@ -7,9 +7,9 @@
 [Download](https://pakbot4124.itch.io/conquer-the-stars) · [Gameplay Video](https://youtu.be/g3vkVFKuGm8) · [Developer Logs](https://app.notion.com/p/3-Week-Engineering-Polish-Sprint-25-09-15-10-2026-3e5fa5c6075a8168aa4ec2b897999959?source=copy_link)
 
 <p align="center">
-  <img src="Assets/Third_party%20Assets/UI/Demo/Player_I.gif" width="32%" alt="First character gameplay" />
-  <img src="Assets/Third_party%20Assets/UI/Demo/Player_II.gif" width="32%" alt="Second character gameplay" />
-  <img src="Assets/Third_party%20Assets/UI/Demo/Player_III.gif" width="32%" alt="Third character gameplay" />
+  <img src="Assets/Media/Demo/Player_I.gif" width="32%" alt="First character gameplay" />
+  <img src="Assets/Media/Demo/Player_II.gif" width="32%" alt="Second character gameplay" />
+  <img src="Assets/Media/Demo/Player_III.gif" width="32%" alt="Third character gameplay" />
 </p>
 
 ## 📖 Overview
