@@ -204,9 +204,16 @@ namespace ConquerTheStars.Fight
             return true;
         }
 
-        public void Unequip()
-        {
+        // public bool TryUnequip(PooledObjectId playerId, int slotIndex, ItemAttachData itemAttachData)
+        // {
+        //     if (itemAttachData == null || slotIndex < 0 || slotIndex > 1) return false;
 
+
+        // }
+
+        public ItemAttachQuantity GetItemAttachQuantity(ItemAttachData itemAttachData)
+        {
+            return ItemAttachInventories.Find(item => item.ItemAttachData == itemAttachData);
         }
 
 

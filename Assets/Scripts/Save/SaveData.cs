@@ -24,5 +24,8 @@ public class SaveData
     public List<string> BattleCompletedIds = new();
 
     //Item
-    public List<ItemInfoForSave> ItemInfo = new();
+    public List<ItemInfoForSave> ItemInfo = new(); // Use
+    // public List<ItemInfoForSave> ItemInfo = new(); // Use
+
+
 }

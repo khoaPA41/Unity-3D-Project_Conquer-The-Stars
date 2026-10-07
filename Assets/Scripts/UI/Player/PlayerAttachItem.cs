@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ConquerTheStars.Fight;
+using ConquerTheStars.Pattern.Object_Pooling;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,49 +13,72 @@ public class ItemQuantityUI
     public GameObject Item;
     public Image Icon;
     public TextMeshProUGUI Quantity;
+    public ItemAttachData ItemAttachData;
 }
 
 public class PlayerAttachItem : MonoBehaviour
 {
-    [Header("Item Content")]
-    [SerializeField] private List<ItemQuantityUI> _itemQuantityList;
+    private readonly PooledObjectId _itemElementName = PooledObjectId.ItemAttach;
+
+    [Header("Canvas")]
+    [SerializeField] private Canvas _canvas;
 
     [Header("Item Equipment")]
     [SerializeField] private Image _item_I;
     [SerializeField] private Image _item_II;
 
+    [Header("Parent Object")]
+    [SerializeField] private GameObject _parentObject;
+
     [Header("Empty Icon")]
     [SerializeField] private Sprite _emptyIcon;
 
+    private List<PooledObject> _itemSpawnedList = new();
     private int _selectedIndex;
+    public int SelectIndex => _selectedIndex;
 
     private void Start()
     {
-        // _team = PlayerTeam.Instance;
-        RefreshInventory();
+        UpdateInventory();
         RefreshItemEquipment();
     }
 
     private void OnEnable()
     {
-        RefreshInventory();
+        UpdateInventory();
         RefreshItemEquipment();
     }
 
-    private void RefreshInventory()
+    public void UpdateInventory()
     {
+        RefreshItem();
         var team = PlayerTeam.Instance;
         if (team == null) return;
 
         var itemList = team.ItemAttachInventories;
         if (itemList == null || itemList.Count == 0) return;
 
-        for (int i = 0; i < itemList.Count; i++)
+        foreach (var itemAttach in itemList)
         {
-            _itemQuantityList[i].Icon.sprite = itemList[i].ItemAttachData.Icon;
-            _itemQuantityList[i].Quantity.SetText(itemList[i].Quantity.ToString());
-            _itemQuantityList[i].Item.SetActive(true);
+            var item = ObjectPoolingManagers.Instance.GetPooledObject(_itemElementName, Vector3.zero);
+            item.transform.SetParent(_parentObject.transform);
+
+            var itemElement = item.GetComponent<ItemAttachElement>();
+            itemElement.Initialize(itemAttach.ItemAttachData.Icon, itemAttach.Quantity.ToString(), itemAttach.ItemAttachData, _canvas);
+
+            _itemSpawnedList.Add(item);
         }
+    }
+
+    private void RefreshItem()
+    {
+        if (_itemSpawnedList == null || _itemSpawnedList.Count == 0) return;
+
+        foreach (var item in _itemSpawnedList)
+        {
+            item.Release();
+        }
+        _itemSpawnedList.Clear();
     }
 
     public void RefreshItemEquipment()
@@ -64,8 +88,6 @@ public class PlayerAttachItem : MonoBehaviour
 
         var playerSlotList = team.PlayerSlotList;
         if (playerSlotList == null || playerSlotList.Count == 0) return;
-
-        // if (index < 0 || index >= playerSlotList.Count) return;
 
         var playerSlot = playerSlotList[_selectedIndex];
         var icon_I = playerSlot.Slot_I;

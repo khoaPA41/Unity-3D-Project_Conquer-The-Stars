@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class PlayerInventoryUI : MonoBehaviour
 {
-    private readonly PooledObjectId itemElementName = PooledObjectId.ItemInventory;
+    private readonly PooledObjectId _itemElementName = PooledObjectId.ItemInventory;
 
     [Header("Parent Object")]
     [SerializeField] private GameObject _parentObject;
 
-    private List<PooledObject> itemSpawnedList = new();
+    private List<PooledObject> _itemSpawnedList = new();
 
     private void Start()
     {
@@ -39,9 +39,9 @@ public class PlayerInventoryUI : MonoBehaviour
 
         foreach (var item in itemList)
         {
-            var itemElement = objectPooling.GetPooledObject(itemElementName, Vector3.zero);
+            var itemElement = objectPooling.GetPooledObject(_itemElementName, Vector3.zero);
             itemElement.gameObject.transform.SetParent(_parentObject.transform);
-            itemSpawnedList.Add(itemElement);
+            _itemSpawnedList.Add(itemElement);
             var element = itemElement.GetComponent<ItemElementForInventory>();
             element.Icon.sprite = item.ItemData.ItemIcon;
             element.Quantity.SetText(item.Quantity.ToString());
@@ -50,12 +50,12 @@ public class PlayerInventoryUI : MonoBehaviour
 
     private void Refresh()
     {
-        if (itemSpawnedList == null || itemSpawnedList.Count == 0) return;
+        if (_itemSpawnedList == null || _itemSpawnedList.Count == 0) return;
 
-        foreach (var item in itemSpawnedList)
+        foreach (var item in _itemSpawnedList)
         {
             item.Release();
         }
-        itemSpawnedList.Clear();
+        _itemSpawnedList.Clear();
     }
 }

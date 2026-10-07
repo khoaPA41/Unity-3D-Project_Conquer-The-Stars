@@ -11,7 +11,6 @@ public class SquadUI : MonoBehaviour
     [SerializeField] private GameObject _squadEquipment;
     [SerializeField] private GameObject _squadInventory;
 
-
     private GameObject currentActive;
 
     private void Start()

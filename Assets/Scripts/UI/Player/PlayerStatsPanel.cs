@@ -3,12 +3,14 @@ using ConquerTheStars.Fight;
 using ConquerTheStars.Stats;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStatsPanel : MonoBehaviour
 {
     [Header("Team Stats")]
     [SerializeField] private TMP_Text _teamLevelText;
     [SerializeField] private TMP_Text _expText;
+    [SerializeField] private Image _expImage;
 
     [Header("Player Stats")]
     [SerializeField] TextMeshProUGUI _health_Text;
@@ -22,9 +24,7 @@ public class PlayerStatsPanel : MonoBehaviour
     [Header("Swap Animation")]
     [SerializeField] private Animator _animator;
     private readonly int _triggerSwapAnimation = Animator.StringToHash("Swap");
-
     private int _selectedIndex;
-
 
     private void Start()
     {
@@ -53,7 +53,6 @@ public class PlayerStatsPanel : MonoBehaviour
         Refresh();
     }
 
-
     private void Refresh()
     {
         var team = PlayerTeam.Instance;
@@ -61,6 +60,7 @@ public class PlayerStatsPanel : MonoBehaviour
 
         _teamLevelText.SetText(team.TeamLevel.ToString());
 
+        // Stats
         var player = team.PlayerSlotList[_selectedIndex];
         var statsData = player.Stats;
 
@@ -85,11 +85,16 @@ public class PlayerStatsPanel : MonoBehaviour
 
             return stat.GetFinalValue();
         }
+
+        // Level
+        var currentExp = team.Exp;
+        var expNeeded = team.CurrentNeededExp;
+        _expImage.fillAmount = (float)currentExp / expNeeded;
+        _expText.SetText($"{currentExp}/{expNeeded}");
     }
 
     private void PlayerAnimation()
     {
         _animator.SetTrigger(_triggerSwapAnimation);
     }
-
 }
