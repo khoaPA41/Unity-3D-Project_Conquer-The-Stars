@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ConquerTheStars.Factory.Item;
 using ConquerTheStars.Fight;
 using ConquerTheStars.Pattern.Object_Pooling;
 using TMPro;
@@ -8,12 +9,18 @@ using UnityEngine.UI;
 
 
 [Serializable]
-public class ItemQuantityUI
+// public class ItemQuantityUI
+// {
+//     public GameObject Item;
+//     public Image Icon;
+//     public TextMeshProUGUI Quantity;
+//     public ItemAttachData ItemAttachData;
+// }
+
+public class ItemEquipmentInfo
 {
-    public GameObject Item;
-    public Image Icon;
-    public TextMeshProUGUI Quantity;
-    public ItemAttachData ItemAttachData;
+    public int SlotIndex;
+    public ItemAttachType ItemAttachType;
 }
 
 public class PlayerAttachItem : MonoBehaviour
@@ -34,6 +41,8 @@ public class PlayerAttachItem : MonoBehaviour
     [SerializeField] private Sprite _emptyIcon;
 
     private List<PooledObject> _itemSpawnedList = new();
+    private List<ItemEquipmentInfo> _itemInfor = new();
+
     private int _selectedIndex;
     public int SelectIndex => _selectedIndex;
 
@@ -96,8 +105,30 @@ public class PlayerAttachItem : MonoBehaviour
         var icon_I = playerSlot.Slot_I;
         var icon_II = playerSlot.Slot_II;
 
+
+
         _item_I.sprite = icon_I != null ? icon_I.Icon : _emptyIcon;
         _item_II.sprite = icon_II != null ? icon_II.Icon : _emptyIcon;
+
+        _itemInfor.Clear();
+
+        if (icon_I != null)
+        {
+            _itemInfor.Add(new ItemEquipmentInfo
+            {
+                SlotIndex = 0,
+                ItemAttachType = playerSlot.Slot_I.ItemAttachType
+            });
+        }
+
+        if (icon_II != null)
+        {
+            _itemInfor.Add(new ItemEquipmentInfo
+            {
+                SlotIndex = 1,
+                ItemAttachType = playerSlot.Slot_II.ItemAttachType
+            });
+        }
     }
 
     public void SwapPlayer()
@@ -110,6 +141,22 @@ public class PlayerAttachItem : MonoBehaviour
             nextIndex = 0;
 
         _selectedIndex = nextIndex;
+        RefreshItemEquipment();
+    }
+
+    public void Remove(int itemEquipmentInfoIndex)
+    {
+        var team = PlayerTeam.Instance;
+        if (team == null) return;
+
+        var playerSlotList = team.PlayerSlotList;
+        if (playerSlotList == null || playerSlotList.Count == 0) return;
+        var playerSlot = playerSlotList[_selectedIndex];
+
+        var item = _itemInfor[itemEquipmentInfoIndex];
+        if (!team.TryUnequip(playerSlot.PlayerId, item.SlotIndex, team.GetItemAttachData(item.ItemAttachType))) return;
+
+        UpdateInventory();
         RefreshItemEquipment();
     }
 }

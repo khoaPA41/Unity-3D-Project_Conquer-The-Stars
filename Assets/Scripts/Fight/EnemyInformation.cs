@@ -6,7 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(PooledObject))]
 public class EnemyInformation : MonoBehaviour
 {
-    // private EnemyTeam _enemyTeam;
     private BattleSpawn _battleInfo;
     private PooledObject _pooledObject;
 
