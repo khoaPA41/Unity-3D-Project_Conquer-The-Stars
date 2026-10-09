@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ConquerTheStars.Fight;
 using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.Object_Pooling;
 using ConquerTheStars.Stats;
@@ -17,7 +18,8 @@ namespace ConquerTheStars.UI.Player
     [RequireComponent(typeof(Canvas))]
     public class UICombatManagers : MonoBehaviour
     {
-        private readonly string battleSceneName = "Battle";
+        private readonly PooledObjectId _itemReward = PooledObjectId.ItemRewardElement;
+        private readonly string _battleSceneName = "Battle";
 
         public static UICombatManagers Instance;
 
@@ -32,20 +34,28 @@ namespace ConquerTheStars.UI.Player
         [SerializeField] private float timeToFill;
 
         [Header("Result")]
-        [SerializeField] private GameObject resultBoard;
-        [SerializeField] private GameObject victoryText;
-        [SerializeField] private GameObject defeatText;
-        [SerializeField] private GameObject continueButton;
-        [SerializeField] private GameObject revengeButton;
-        [SerializeField] private GameObject endButton;
 
-        [SerializeField] private TextMeshProUGUI highestDamageText;
-        [SerializeField] private TextMeshProUGUI damageDealtText;
-        [SerializeField] private TextMeshProUGUI damageReceivedText;
-        [SerializeField] private TextMeshProUGUI timeText;
-        [SerializeField] private TextMeshProUGUI successfulPariesText;
-        [SerializeField] private TextMeshProUGUI successfulDodgesText;
-        [SerializeField] private RectTransform Kills;
+        [SerializeField] private GameObject _resultBoard;
+        [SerializeField] private GameObject _victoryText;
+        [SerializeField] private GameObject _defeatText;
+        [SerializeField] private GameObject _continueButton;
+        [SerializeField] private GameObject _revengeButton;
+        [SerializeField] private GameObject _endButton;
+
+        [Header("Battle Statistics")]
+        [SerializeField] private TextMeshProUGUI _highestDamageText;
+        [SerializeField] private TextMeshProUGUI _damageDealtText;
+        [SerializeField] private TextMeshProUGUI _damageReceivedText;
+        [SerializeField] private TextMeshProUGUI _timeText;
+        [SerializeField] private TextMeshProUGUI _successfulPariesText;
+        [SerializeField] private TextMeshProUGUI _successfulDodgesText;
+        [SerializeField] private RectTransform _kills;
+
+        [Header("Reward")]
+        [SerializeField] private TextMeshProUGUI _levelText;
+        [SerializeField] private RectTransform _itemParent;
+        [SerializeField] private RectTransform _itemAttachParent;
+
 
         [Header("Turn Order")]
         [SerializeField] private GameObject turnOrderBoard;
@@ -91,35 +101,35 @@ namespace ConquerTheStars.UI.Player
             {
                 if (isFinalBoss)
                 {
-                    continueButton.SetActive(false);
-                    endButton.SetActive(true);
+                    _continueButton.SetActive(false);
+                    _endButton.SetActive(true);
                 }
-                victoryText.SetActive(true);
+                _victoryText.SetActive(true);
             }
             else
             {
-                defeatText.SetActive(true);
-                revengeButton.SetActive(true);
+                _defeatText.SetActive(true);
+                _revengeButton.SetActive(true);
             }
-            resultBoard.SetActive(true);
+            _resultBoard.SetActive(true);
         }
 
-        public void SetResultText(string highestDamageText, string damageDealtText, string damageReceivedText,
-        string timeText, string successfulPariesText, string successfulDodgesText)
+        public void SetResultText(string _highestDamageText, string _damageDealtText, string _damageReceivedText,
+        string _timeText, string _successfulPariesText, string _successfulDodgesText)
         {
-            this.highestDamageText.SetText(highestDamageText);
-            this.damageDealtText.SetText(damageDealtText);
-            this.damageReceivedText.SetText(damageReceivedText);
-            this.timeText.SetText(timeText);
-            this.successfulPariesText.SetText(successfulPariesText);
-            this.successfulDodgesText.SetText(successfulDodgesText);
+            this._highestDamageText.SetText(_highestDamageText);
+            this._damageDealtText.SetText(_damageDealtText);
+            this._damageReceivedText.SetText(_damageReceivedText);
+            this._timeText.SetText(_timeText);
+            this._successfulPariesText.SetText(_successfulPariesText);
+            this._successfulDodgesText.SetText(_successfulDodgesText);
         }
 
         public void SpawnKillElement(Sprite enemyIcon)
         {
             var killElement = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.KillElement, Vector3.zero);
             AddUiPooledObjectList(killElement);
-            killElement.GetComponent<RectTransform>().SetParent(Kills);
+            killElement.GetComponent<RectTransform>().SetParent(_kills);
             killElement.GetComponent<EnemyKillElement>().SetIcon(enemyIcon);
         }
 
@@ -138,7 +148,7 @@ namespace ConquerTheStars.UI.Player
         public void ReloadBattle()
         {
             ReleaseAllUiPooledObject();
-            SceneManager.LoadScene(battleSceneName);
+            SceneManager.LoadScene(_battleSceneName);
         }
 
         // Release All UI Pooled
@@ -159,8 +169,10 @@ namespace ConquerTheStars.UI.Player
                 var turnOrderElement = turnOrderObject.GetComponent<TurnOrderElement>();
                 turnOrderElement.InactiveHighlight();
 
-                // turnOrderRootParent = turnOrderObject.gameObject.transform.parent.gameObject;
-                turnOrderObject.transform.SetParent(turnOrderBoard.transform);
+                var rect = turnOrderObject.GetComponent<RectTransform>();
+                rect.SetParent(turnOrderBoard.transform);
+                rect.localScale = Vector3.one;
+                rect.localRotation = Quaternion.identity;
 
                 turnOrderElement.SetIcon(character.icon);
 
@@ -188,10 +200,55 @@ namespace ConquerTheStars.UI.Player
         {
             foreach (var character in turnOrders)
             {
-                // character.transform.SetParent(turnOrderRootParent.transform);
                 character.GetComponent<PooledObject>().Release();
             }
             turnOrders.Clear();
+        }
+
+        // Reward
+        public void SpawnItemReward(List<ItemInfoForSave> itemRewardList)
+        {
+            var team = PlayerTeam.Instance;
+            if (team == null) return;
+
+            foreach (var item in itemRewardList)
+            {
+                var itemReward = ObjectPoolingManagers.Instance.GetPooledObject(_itemReward, Vector3.zero);
+                var rect = itemReward.GetComponent<RectTransform>();
+                rect.SetParent(_itemParent);
+                rect.localScale = Vector3.one;
+
+                var itemElement = itemReward.GetComponent<ItemElementForInventory>();
+                itemElement.Icon.sprite = team.GetItem(item.ItemType).ItemData.ItemIcon;
+                itemElement.Quantity.SetText(item.Quantity.ToString());
+
+                _uiPooledObject.Add(itemReward);
+            }
+        }
+
+        public void SpawnItemAttachReward(ItemAttachData itemAttach)
+        {
+            var team = PlayerTeam.Instance;
+            if (team == null) return;
+
+            var itemReward = ObjectPoolingManagers.Instance.GetPooledObject(_itemReward, Vector3.zero);
+            var rect = itemReward.GetComponent<RectTransform>();
+            rect.SetParent(_itemAttachParent);
+            rect.localScale = Vector3.one;
+
+            var itemElement = itemReward.GetComponent<ItemElementForInventory>();
+            itemElement.Icon.sprite = itemAttach.Icon;
+            itemElement.Quantity.SetText("1");
+
+            _uiPooledObject.Add(itemReward);
+        }
+
+        public void CurrentLevel()
+        {
+            var team = PlayerTeam.Instance;
+            if (team == null) return;
+
+            _levelText.SetText(team.TeamLevel.ToString());
         }
     }
 }

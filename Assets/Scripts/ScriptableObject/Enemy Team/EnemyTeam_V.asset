@@ -15,5 +15,14 @@ MonoBehaviour:
   enemyTeam: 050000000400000004000000
   AreaIndex: 0
   Reward:
-    ExpReward: 100
+    ExpReward: 500
     ItemAttachReward: {fileID: 11400000, guid: 5093387cef12ddc4487f8142efc30c44, type: 2}
+    ItemReward:
+    - ItemType: 4
+      Quantity: 1
+    - ItemType: 1
+      Quantity: 2
+    - ItemType: 3
+      Quantity: 2
+    - ItemType: 3
+      Quantity: 2

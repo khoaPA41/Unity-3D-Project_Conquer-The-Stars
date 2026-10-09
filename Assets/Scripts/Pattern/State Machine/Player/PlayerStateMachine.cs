@@ -27,7 +27,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Player
             MainCamera = Camera.main;
             SwitchState(new PlayerLocomotionState(this));
             InputReader.SettingUiAction += ActiveSettingUI;
-
         }
 
         private void OnDisable()

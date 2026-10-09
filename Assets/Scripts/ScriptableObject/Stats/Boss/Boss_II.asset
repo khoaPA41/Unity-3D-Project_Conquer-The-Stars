@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Boss_II
   m_EditorClassIdentifier: Assembly-CSharp::StatsData
   Type: 1
-  Icon: {fileID: 21300000, guid: 1e255565a1050e74ca3c1b726c8e9103, type: 3}
-  Health: 500
+  Icon: {fileID: 21300000, guid: d1391e0ea7f4eca43b3ef2f1ad7ec1ec, type: 3}
+  Health: 2000
   Mana: 0
-  AttackPower: 50
+  AttackPower: 400
   Speed: 50
   Defense: 50
   Critical: 1.5

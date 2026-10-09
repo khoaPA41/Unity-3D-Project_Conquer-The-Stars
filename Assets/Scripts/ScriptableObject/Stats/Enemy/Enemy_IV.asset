@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_IV
   m_EditorClassIdentifier: Assembly-CSharp::StatsData
   Type: 1
-  Icon: {fileID: 21300000, guid: 734e090194309f944a6424e94d0907fc, type: 3}
+  Icon: {fileID: 21300000, guid: 0d6f67771eaa27b47965503363c294a3, type: 3}
   Health: 250
   Mana: 0
   AttackPower: 300

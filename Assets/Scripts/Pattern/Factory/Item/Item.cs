@@ -63,42 +63,24 @@ namespace ConquerTheStars.Factory.Item
             }
         }
     }
-    public class IncreaseCritical : IItem
-    {
-        public ItemType ItemType => ItemType.IncreaseCritical;
 
-        public void Use(ICaster character, ItemType itemType, int remainingTurn, float value)
-        {
-            var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
+    // public class IncreaseSpeed : IItem
+    // {
+    //     public ItemType ItemType => ItemType.IncreaseSpeed;
 
+    //     public void Use(ICaster character, ItemType itemType, int remainingTurn, float value)
+    //     {
+    //         var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
 
-            characterStatsManagers.IncreaseCritical(value);
+    //         characterStatsManagers.IncreaseSpeed(value);
 
-            if (value > 0)
-            {
-                var buffManager = character.CharacterUse().GetComponent<BuffManager>();
-                buffManager.AddBuff(itemType, remainingTurn, value);
-            }
-        }
-    }
-
-    public class IncreaseSpeed : IItem
-    {
-        public ItemType ItemType => ItemType.IncreaseSpeed;
-
-        public void Use(ICaster character, ItemType itemType, int remainingTurn, float value)
-        {
-            var characterStatsManagers = character.CharacterUse().GetComponent<CharacterStatsManagers>();
-
-            characterStatsManagers.IncreaseSpeed(value);
-
-            if (value > 0)
-            {
-                var buffManager = character.CharacterUse().GetComponent<BuffManager>();
-                buffManager.AddBuff(itemType, remainingTurn, value);
-            }
-        }
-    }
+    //         if (value > 0)
+    //         {
+    //             var buffManager = character.CharacterUse().GetComponent<BuffManager>();
+    //             buffManager.AddBuff(itemType, remainingTurn, value);
+    //         }
+    //     }
+    // }
 
     public class Revive : IItem
     {

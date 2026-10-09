@@ -7,11 +7,7 @@ namespace ConquerTheStars.Factory.Item
         RecoveryMana,
         IncreaseDefense,
         Revive,
-        IncreaseSpeed,
         IncreaseDamage,
-        IncreaseCritical,
-        // RemoveDisruption,
-        // SummonTurret
     }
 
     public enum ItemAttachType
@@ -33,9 +29,7 @@ namespace ConquerTheStars.Factory.Item
                 ItemType.RecoveryMana => new RecoveryMana(),
                 ItemType.IncreaseDefense => new IncreaseDefense(),
                 ItemType.Revive => new Revive(),
-                ItemType.IncreaseSpeed => new IncreaseSpeed(),
                 ItemType.IncreaseDamage => new IncreaseDamage(),
-                ItemType.IncreaseCritical => new IncreaseCritical(),
                 _ => null
             };
         }

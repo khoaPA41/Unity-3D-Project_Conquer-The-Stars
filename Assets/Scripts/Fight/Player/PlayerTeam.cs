@@ -234,7 +234,7 @@ namespace ConquerTheStars.Fight
 
         // }
 
-        private ItemAttachData GetItemAttachData(ItemAttachType itemAttachType)
+        public ItemAttachData GetItemAttachData(ItemAttachType itemAttachType)
         {
             if (itemAttachType == ItemAttachType.None) return null;
             return _itemAttachDict.Find(data => data != null && data.ItemAttachType == itemAttachType);
@@ -356,11 +356,17 @@ namespace ConquerTheStars.Fight
             }
         }
 
-        public void AddQuantity()
+        public void AddItemQuantity(List<ItemInfoForSave> itemInfos)
         {
-            for (int i = 0; i < _itemDatas.Count; i++)
+            foreach (var itemInfo in itemInfos)
             {
+                if (itemInfo.Quantity <= 0) continue;
 
+                var item = GetItem(itemInfo.ItemType);
+
+                if (item == null) continue;
+
+                item.Quantity += itemInfo.Quantity;
             }
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player_III
   m_EditorClassIdentifier: Assembly-CSharp::StatsData
   Type: 0
-  Icon: {fileID: 21300000, guid: 9964aa3d2a8edec469df9cd51e6ee6be, type: 3}
+  Icon: {fileID: 21300000, guid: 230b0fe52ebd55d4b83668d4e5d612a8, type: 3}
   Health: 100
   Mana: 100
   AttackPower: 100

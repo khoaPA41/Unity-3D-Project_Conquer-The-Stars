@@ -47,7 +47,10 @@ namespace ConquerTheStars.UI.Player
 
             UICombatManagers.Instance.AddUiPooledObjectList(_characterHud.GetComponent<PooledObject>());
 
-            _characterHud.GetComponent<RectTransform>().SetParent(UICombatManagers.Instance?.StatusPanel);
+            var rect = _characterHud.GetComponent<RectTransform>();
+            rect.SetParent(UICombatManagers.Instance?.StatusPanel, false);
+            rect.localScale = Vector3.one;
+            rect.rotation = Quaternion.identity;
 
             //Setup hud base characterStatsManagers
             _characterHud.Icon.sprite = characterStatsManagers.icon;

@@ -22,8 +22,8 @@ MonoBehaviour:
   - 'One shot deals 80% dmg '
   - Call support drone deals 100% dmg
   AttackIcon:
-  - {fileID: 21300000, guid: 480b6fd098764e244bde8ee6274e6a45, type: 3}
-  - {fileID: 21300000, guid: d933067119a529448950545300f0d5c9, type: 3}
+  - {fileID: 1221173795, guid: c57a2b7b055e94341aa80f60f41af4e6, type: 3}
+  - {fileID: -1262798711, guid: c57a2b7b055e94341aa80f60f41af4e6, type: 3}
   ScaleAttackDamage:
   - 0.8
   - 1
@@ -40,8 +40,8 @@ MonoBehaviour:
   - Call more support drone deals 150% dmg (20 mana)
   - Call the big cannon with 200% dmg (30 mana))
   SkillIcon:
-  - {fileID: 21300000, guid: dbdddf77c1951e842a3df1fda4baab87, type: 3}
-  - {fileID: 21300000, guid: cb025973e7e3f114aa3db0378956aad8, type: 3}
+  - {fileID: -53373002, guid: c57a2b7b055e94341aa80f60f41af4e6, type: 3}
+  - {fileID: 372398154, guid: c57a2b7b055e94341aa80f60f41af4e6, type: 3}
   ScaleSkillDamage:
   - 1.5
   - 2

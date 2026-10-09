@@ -40,7 +40,12 @@ public class PlayerInventoryUI : MonoBehaviour
         foreach (var item in itemList)
         {
             var itemElement = objectPooling.GetPooledObject(_itemElementName, Vector3.zero);
-            itemElement.gameObject.transform.SetParent(_parentObject.transform);
+            var rect = itemElement.GetComponent<RectTransform>();
+            rect.SetParent(_parentObject.transform, false);
+            rect.localScale = Vector3.one;
+            rect.localRotation = Quaternion.identity;
+
+
             _itemSpawnedList.Add(itemElement);
             var element = itemElement.GetComponent<ItemElementForInventory>();
             element.Icon.sprite = item.ItemData.ItemIcon;

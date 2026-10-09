@@ -61,7 +61,10 @@ public class PlayerAttachItem : MonoBehaviour
         foreach (var itemAttach in itemList)
         {
             var item = ObjectPoolingManagers.Instance.GetPooledObject(_itemElementName, Vector3.zero);
-            item.transform.SetParent(_parentObject.transform);
+            var rect = item.GetComponent<RectTransform>();
+            rect.SetParent(_parentObject.transform, false);
+            rect.localScale = Vector3.one;
+            rect.localRotation = Quaternion.identity;
 
             var itemElement = item.GetComponent<ItemAttachElement>();
             itemElement.Initialize(itemAttach.ItemAttachData.Icon, itemAttach.Quantity.ToString(), itemAttach.ItemAttachData, _canvas);

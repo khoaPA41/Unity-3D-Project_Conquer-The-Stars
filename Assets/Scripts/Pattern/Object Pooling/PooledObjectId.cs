@@ -27,5 +27,6 @@ public enum PooledObjectId
     Battle_Infor,
     Audio,
     ItemInventory,
-    ItemAttach
+    ItemAttach,
+    ItemRewardElement
 }

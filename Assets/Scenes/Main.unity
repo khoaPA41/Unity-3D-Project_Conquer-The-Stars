@@ -1825,7 +1825,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -3008,13 +3008,13 @@ MonoBehaviour:
   _playerStats_III: {fileID: 11400000, guid: 1d78dd15835c4344fa95e2d053e3c615, type: 2}
   _itemDatas:
   - ItemData: {fileID: 11400000, guid: 8d7a6c8b895d81b41a57ea8df0f4a7c7, type: 2}
-    Quantity: 2
+    Quantity: 1
   - ItemData: {fileID: 11400000, guid: db97d639bc4a4a94ca03b73ea412fc6b, type: 2}
-    Quantity: 2
+    Quantity: 1
   - ItemData: {fileID: 11400000, guid: b5eb578fad41629448631575b4ee3b1a, type: 2}
-    Quantity: 2
+    Quantity: 1
   - ItemData: {fileID: 11400000, guid: b168b497e8b2ea44198d16d93518ce4d, type: 2}
-    Quantity: 2
+    Quantity: 1
   - ItemData: {fileID: 11400000, guid: f23baaad043b73c42a2aeb1b5a7e2927, type: 2}
     Quantity: 1
   PlayerSlotList: []
@@ -3433,7 +3433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 220, y: 131}
+  m_AnchoredPosition: {x: 220, y: -131}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &989982186
@@ -3902,7 +3902,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1531115317, guid: 28eecbe03d686674e9ea2e9772cb4f21, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6518,7 +6518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 220, y: -131}
+  m_AnchoredPosition: {x: 220, y: 131}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1859613791
@@ -7262,7 +7262,7 @@ MonoBehaviour:
   _item_I: {fileID: 1010701036}
   _item_II: {fileID: 1686066295}
   _parentObject: {fileID: 1912972422}
-  _emptyIcon: {fileID: 21300000, guid: 71aec5a2bb2b9b646a78ae76f17944da, type: 3}
+  _emptyIcon: {fileID: 21300000, guid: 01feaeca74841894d817fe073f25a771, type: 3}
 --- !u!1 &2005765429
 GameObject:
   m_ObjectHideFlags: 0
@@ -8085,6 +8085,9 @@ MonoBehaviour:
     Quantity: 10
   - PooledObject: {fileID: 9018364649843837401, guid: adf246f39f51c3b49830fbbd25b1f605, type: 3}
     ObjectId: 26
+    Quantity: 10
+  - PooledObject: {fileID: 4066385843017275483, guid: 800d73b45bfe4044e954871a7717435c, type: 3}
+    ObjectId: 27
     Quantity: 10
 --- !u!1 &2144644048
 GameObject:

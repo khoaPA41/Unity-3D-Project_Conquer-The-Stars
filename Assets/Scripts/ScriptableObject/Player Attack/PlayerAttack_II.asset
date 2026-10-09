@@ -22,8 +22,8 @@ MonoBehaviour:
   - Punch Enemy with 80% dmg
   - Kick Enemy with 90% dmg
   AttackIcon:
-  - {fileID: 21300000, guid: 4b902e61d2a35864b899daaebfc8ee8c, type: 3}
-  - {fileID: 21300000, guid: 9a437a3235866a242a57615119d40c78, type: 3}
+  - {fileID: 625598441, guid: d4adf812015bc9b498fc04a35ce72106, type: 3}
+  - {fileID: 1773170459, guid: d4adf812015bc9b498fc04a35ce72106, type: 3}
   ScaleAttackDamage:
   - 0.8
   - 0.9
@@ -31,8 +31,8 @@ MonoBehaviour:
   - Attack_Skill_I
   - Attack_Skill_II
   Skill:
-  - 'Bullet Storm (20 mana) '
-  - Lotus Nova (30 mana)
+  - Bullet Storm
+  - Lotus Nova
   ManaRequired:
   - 20
   - 30
@@ -40,8 +40,8 @@ MonoBehaviour:
   - 'Combo Punch with 80% dmg (20 mana) '
   - Combo Kick with 80% dmg (30 mana)
   SkillIcon:
-  - {fileID: 21300000, guid: 3d999f4125671fd41b3737d280b3e563, type: 3}
-  - {fileID: 21300000, guid: f24126fd673eeaf4789b71c88cf7c9f6, type: 3}
+  - {fileID: -1926633668, guid: d4adf812015bc9b498fc04a35ce72106, type: 3}
+  - {fileID: -735928774, guid: d4adf812015bc9b498fc04a35ce72106, type: 3}
   ScaleSkillDamage:
   - 0.8
   - 0.8
