@@ -52,6 +52,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             yield return _waitToChangeVictory;
             ChangeVictoryState();
             CalculateAndActiveResultInformation();
+            SetupBattleReward();
             battleStateMachine.VictoryCamera.gameObject.SetActive(true);
         }
 
@@ -79,7 +80,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
             var succesfulDodge = battleStateMachine.TeamController.PlayerTeam.Sum(player => player.GetComponent<PlayerCombatStateMachine>().BattleStatistics.SuccessfulDodgeTimes);
 
             SetupResultBoard(highestDamage, damageDeals, damageReceived, succesfulParry, succesfulDodge);
-            SetupBattleReward();
+            UICombatManagers.Instance.CurrentLevel();
         }
 
         private void SetupResultBoard(float highestDmg, float dmgDeals, float dmgReceiver, float parryTime, float dodgeTime)
@@ -111,7 +112,6 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         public void SetupBattleReward()
         {
-            UICombatManagers.Instance.CurrentLevel();
             UICombatManagers.Instance.SpawnItemReward(battleStateMachine.BattleReward.ItemReward);
             UICombatManagers.Instance.SpawnItemAttachReward(battleStateMachine.BattleReward.ItemAttachReward);
         }

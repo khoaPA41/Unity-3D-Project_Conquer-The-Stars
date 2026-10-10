@@ -984,7 +984,7 @@ MonoBehaviour:
   _damageReceivedText: {fileID: 1870405853}
   _timeText: {fileID: 715220083}
   _successfulPariesText: {fileID: 1627247599}
-  _successfulDodgesText: {fileID: 1797808985}
+  _successfulDodgesText: {fileID: 578882930}
   _kills: {fileID: 132821579}
   _levelText: {fileID: 1591257238}
   _itemParent: {fileID: 2999990821184463293}
@@ -2929,7 +2929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &744991124
 RectTransform:
   m_ObjectHideFlags: 0
