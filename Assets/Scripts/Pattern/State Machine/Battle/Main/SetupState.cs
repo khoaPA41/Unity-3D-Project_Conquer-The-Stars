@@ -52,18 +52,21 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void SetupEnemy()
         {
+            battleStateMachine.IsFinalBoss = _enemyTeam.Contains(PooledObjectId.Final_Boss);
             for (int i = 0; i < _enemyTeam.Count; i++)
             {
                 // Spawn enemy at target position
                 var enemy = ObjectPoolingManagers.Instance.GetPooledObject(_enemyTeam[i], battleStateMachine.Area.EnemyTransformList[_battleInformationManagers.CurrentBattleInformation.EnemyTeam.AreaIndex].EnemyTransforms[i].position);
                 enemy.transform.Rotate(new Vector3(0f, 90f, 0f));
-                battleStateMachine.IsFinalBoss = enemy.name == "Final_Boss";
+                // battleStateMachine.IsFinalBoss = enemy.name == "Final_Boss";
+
                 // Add to characterInMatch list - prepare for queue
                 _characterInMatch.Add(enemy.GetComponent<CharacterStatsManagers>());
 
                 // Add to the team list used to manage status throughout the match
                 battleStateMachine.TeamController.AddEnemyTeam(enemy.GetComponent<CharacterStatsManagers>());
             }
+
         }
 
         private void SetupPlayer() // Spawn player at target position - add to player team list and queue

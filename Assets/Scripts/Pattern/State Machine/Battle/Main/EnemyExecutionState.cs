@@ -55,9 +55,15 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void EnemyDealDamage()
         {
-            var target = battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>();
-            var playerStatsManager = battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<CharacterStatsManagers>();
-            if (target == null) return;
+            var currentTarget = battleStateMachine.EnemyTargeter.CurrentTarget;
+            if (currentTarget == null) return;
+
+            var target = currentTarget.GetComponent<PlayerCombatStateMachine>();
+            var playerStatsManager = currentTarget.GetComponent<CharacterStatsManagers>();
+            if (target == null || playerStatsManager == null) return;
+
+            // If player death in enemy combo, don't deal dmg
+            if (playerStatsManager.IsDeath) return;
 
             //  Calculate damage if critical
             var isCrit = _attackingEnemy.CharacterStatsManagers.RandomCritical();
@@ -100,12 +106,30 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
         private void PlayerDodge()
         {
-            battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().SwitchDodgeState();
+            var currentTarget = battleStateMachine.EnemyTargeter.CurrentTarget;
+            if (currentTarget == null) return;
+
+            var target = currentTarget.GetComponent<PlayerCombatStateMachine>();
+            var playerStatsManager = currentTarget.GetComponent<CharacterStatsManagers>();
+
+            if (target == null || playerStatsManager == null) return;
+            if (playerStatsManager.IsDeath) return;
+
+            target.SwitchDodgeState();
         }
 
         private void PlayerBlock()
         {
-            battleStateMachine.EnemyTargeter.CurrentTarget.GetComponent<PlayerCombatStateMachine>().SwitchBlockState();
+            var currentTarget = battleStateMachine.EnemyTargeter.CurrentTarget;
+            if (currentTarget == null) return;
+
+            var target = currentTarget.GetComponent<PlayerCombatStateMachine>();
+            var playerStatsManager = currentTarget.GetComponent<CharacterStatsManagers>();
+
+            if (target == null || playerStatsManager == null) return;
+            if (playerStatsManager.IsDeath) return;
+
+            target.SwitchBlockState();
         }
 
         private void SwitchAttackByType()

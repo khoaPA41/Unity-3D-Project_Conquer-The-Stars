@@ -25,6 +25,9 @@ public class BossPhase : MonoBehaviour
     private void OnEnable()
     {
         _bossStatsManagers.HealthUpdateAction += GetAttackByPhase;
+
+        // Reset attack data every time it spawns from ObjectPooling
+        GetAttackByPhase(1f);
     }
 
     private void OnDisable()
