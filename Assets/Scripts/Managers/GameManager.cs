@@ -20,15 +20,20 @@ namespace ConquerTheStars.Managers
     public class GameManager : MonoBehaviour
     {
         private const int _androidTargetFrameRate = 30;
-        private readonly string StartMenuScene = "Start";
-        private readonly string MainScene = "Main";
-        private readonly string CombatScene = "Battle";
-        private readonly string EndScene = "End";
+        private readonly string _startMenuScene = "Start";
+        private readonly string _mainScene = "Main";
+        private readonly string _combatScene = "Battle";
+        private readonly string _endScene = "End";
+        private readonly string _loadScene = "Loading";
+
         public static GameManager Instance { get; private set; }
 
 
         private ReasonLoadScene _currentLoadReason = ReasonLoadScene.New;
         private Vector3 _checkpointPos;
+
+        public string PendingSceneName { get; private set; }
+        public bool IsLoading { get; private set; }
 
         private void Awake()
         {
@@ -51,10 +56,15 @@ namespace ConquerTheStars.Managers
 
         private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
-
         private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
-            if (scene.name == StartMenuScene) return;
+            if (IsLoading && scene.name == PendingSceneName)
+            {
+                IsLoadingFinish();
+            }
+
+            if (scene.name == _loadScene) return;
+            if (scene.name == _startMenuScene) return;
             var player = GameObject.FindGameObjectWithTag("Player");
             if (player == null) return;
 
@@ -85,18 +95,41 @@ namespace ConquerTheStars.Managers
             }
         }
 
+
+        // Loading
+
+        private void LoadThroughLoading(string targetScene)
+        {
+            PendingSceneName = targetScene;
+            IsLoading = true;
+
+            SceneManager.LoadScene(_loadScene);
+        }
+
+        public void IsLoadingFinish()
+        {
+            PendingSceneName = null;
+            IsLoading = false;
+        }
+
         // ----- New Game / Continue / Exit -----
 
         public void StartNewGame()
         {
+            if (IsLoading) return;
+
             SaveManagers.Instance.CreateNewSaveData();
             _currentLoadReason = ReasonLoadScene.New;
 
-            SceneManager.LoadScene(MainScene);
+            // SceneManager.LoadScene(_mainScene);
+            LoadThroughLoading(_mainScene);
+
         }
 
         public void ContinueGame()
         {
+            if (IsLoading) return;
+
             var saveData = SaveManagers.Instance.LoadSaveData();
             if (saveData == null)
             {
@@ -108,7 +141,8 @@ namespace ConquerTheStars.Managers
             _currentLoadReason = ReasonLoadScene.Reload;
             _checkpointPos = new Vector3(saveData.XPosition, saveData.YPosition, saveData.ZPosition);
 
-            SceneManager.LoadScene(MainScene);
+            // SceneManager.LoadScene(_mainScene);
+            LoadThroughLoading(_mainScene);
         }
 
         public void Exit()
@@ -122,26 +156,35 @@ namespace ConquerTheStars.Managers
 
         public void ExitToTitle()
         {
+            if (IsLoading) return;
             _currentLoadReason = ReasonLoadScene.Exit;
-            SceneManager.LoadScene(StartMenuScene);
+            // SceneManager.LoadScene(_startMenuScene);
+            LoadThroughLoading(_startMenuScene);
         }
 
         public void LoadBattleScene()
         {
+            if (IsLoading) return;
             _currentLoadReason = ReasonLoadScene.ReloadCombat;
-            SceneManager.LoadScene(CombatScene);
+            // SceneManager.LoadScene(_combatScene);
+            LoadThroughLoading(_combatScene);
         }
 
         public void BackToMainScene()
         {
+            if (IsLoading) return;
+
             _currentLoadReason = ReasonLoadScene.BackToMain;
-            SceneManager.LoadScene(MainScene);
+            // SceneManager.LoadScene(_mainScene);
+            LoadThroughLoading(_mainScene);
         }
 
         public void LoadEndScene()
         {
+            if (IsLoading) return;
             _currentLoadReason = ReasonLoadScene.Exit;
-            SceneManager.LoadScene(EndScene);
+            // SceneManager.LoadScene(_endScene);
+            LoadThroughLoading(_endScene);
         }
 
         // Save
@@ -179,7 +222,7 @@ namespace ConquerTheStars.Managers
 
             var saveData = new SaveData
             {
-                SceneName = MainScene,
+                SceneName = _mainScene,
                 XPosition = _checkpointPos.x,
                 YPosition = _checkpointPos.y,
                 ZPosition = _checkpointPos.z,

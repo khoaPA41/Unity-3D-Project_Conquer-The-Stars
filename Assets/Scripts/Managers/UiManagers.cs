@@ -52,7 +52,6 @@ public class UiManagers : MonoBehaviour
 
     public void ExitTitle()
     {
-
         if (SceneManager.GetActiveScene().name == CommbatScene)
         {
             if (GameObject.FindGameObjectWithTag("BattleStateMachine").TryGetComponent<BattleStateMachine>(out var battle))
@@ -67,8 +66,10 @@ public class UiManagers : MonoBehaviour
             ActiveSettingsPanel(false);
             return;
         }
+
         ActiveSettingsPanel(false);
-        GameManager.Instance.ExitToTitle();
+
         GameManager.Instance.AutoSaveGame();
+        GameManager.Instance.ExitToTitle();
     }
 }

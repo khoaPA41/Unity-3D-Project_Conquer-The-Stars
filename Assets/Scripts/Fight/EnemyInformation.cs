@@ -21,14 +21,18 @@ public class EnemyInformation : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        var battle = BattleInformationManagers.Instance;
+        var gameManager = GameManager.Instance;
+
+        if (battle == null || gameManager == null) return;
+
+        if (gameManager.IsLoading) return;
+
         if (other.CompareTag("Player"))
         {
-            BattleInformationManagers.Instance.SetArea(_battleInfo, _pooledObject);
-            if (BattleInformationManagers.Instance != null)
-            {
-                GameManager.Instance.AutoSaveGame();
-                GameManager.Instance.LoadBattleScene();
-            }
+            battle.SetArea(_battleInfo, _pooledObject);
+            gameManager.AutoSaveGame();
+            gameManager.LoadBattleScene();
         }
     }
 }
