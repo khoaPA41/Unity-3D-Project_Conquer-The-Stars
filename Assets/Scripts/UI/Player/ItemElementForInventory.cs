@@ -2,8 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemElementForInventory : MonoBehaviour
+namespace ConquerTheStars.UI.Player
 {
-    public Image Icon;
-    public TextMeshProUGUI Quantity;
+    public class ItemElementForInventory : MonoBehaviour
+    {
+        public Image Icon;
+        public TextMeshProUGUI Quantity;
+    }
 }

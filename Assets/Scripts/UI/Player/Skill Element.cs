@@ -1,4 +1,3 @@
-using ConquerTheStars.Fight;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,9 +16,9 @@ namespace ConquerTheStars.UI.Player
 
         public void SetupSkillElement(Sprite icon, string skillName, string information)
         {
-            this._icon.sprite = icon;
-            this._skillName.SetText(skillName);
-            this._information.SetText(information);
+            _icon.sprite = icon;
+            _skillName.SetText(skillName);
+            _information.SetText(information);
         }
 
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
 namespace ConquerTheStars.UI.Player
 {
     public class SkillActionFrame : MonoBehaviour

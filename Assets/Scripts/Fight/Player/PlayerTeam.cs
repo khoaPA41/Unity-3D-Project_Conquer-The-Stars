@@ -227,33 +227,24 @@ namespace ConquerTheStars.Fight
             return true;
         }
 
-        public bool TryUnequip(PooledObjectId playerId, int slotIndex, ItemAttachData itemAttachData)
+        public bool TryUnequip(PooledObjectId playerId, int slotIndex)
         {
-            if (itemAttachData == null || slotIndex < 0 || slotIndex > 1) return false;
+            if (slotIndex < 0 || slotIndex > 1) return false;
 
             var player = PlayerSlotList.Find(target => target.PlayerId == playerId);
             if (player == null) return false;
 
-            var itemInventory = ItemAttachInventories.Find(has => has.ItemAttachData == itemAttachData);
-            if (itemInventory == null) return false;
+            var itemEquipped = slotIndex == 0 ? player.Slot_I : player.Slot_II;
 
-            itemInventory.Quantity++;
+            if (itemEquipped == null) return false;
 
-            if (slotIndex == 0)
-            {
-                player.Slot_I = null;
-            }
-            else
-            {
-                player.Slot_II = null;
-            }
+            AddItemAttach(itemEquipped);
+
+            if (slotIndex == 0) player.Slot_I = null;
+            if (slotIndex == 1) player.Slot_II = null;
+
             return true;
         }
-
-        // public void RemoveItemAttach()
-        // {
-
-        // }
 
         public ItemAttachData GetItemAttachData(ItemAttachType itemAttachType)
         {
@@ -336,7 +327,7 @@ namespace ConquerTheStars.Fight
             }
         }
 
-        // Reward
+        // Add
         public void AddExp(int value)
         {
             if (value <= 0) return;
