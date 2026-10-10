@@ -96,6 +96,7 @@ namespace ConquerTheStars.Pattern.StateMachine.Battle
 
             foreach (var enemy in battleStateMachine.TeamController.EnemyTeam)
             {
+                if (!enemy.IsDeath) continue;
                 UICombatManagers.Instance.SpawnKillElement(enemy.icon);
             }
 

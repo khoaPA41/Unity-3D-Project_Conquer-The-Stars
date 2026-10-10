@@ -1,3 +1,4 @@
+using ConquerTheStars.Managers;
 using UnityEngine;
 
 namespace ConquerTheStars.UI.Player
@@ -27,6 +28,7 @@ namespace ConquerTheStars.UI.Player
 
         public void InactiveSquadUI()
         {
+            GameManager.Instance.AutoSaveGame();
             _squadUI.SetActive(false);
         }
 

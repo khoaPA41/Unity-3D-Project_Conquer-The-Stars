@@ -151,7 +151,6 @@ namespace ConquerTheStars.Fight
             SetupPlayerSlot(_initialPlayerSlotList);
         }
 
-
         // Item
         public void SetupItemQuantity(List<ItemInfoForSave> itemInfos)
         {
@@ -274,20 +273,23 @@ namespace ConquerTheStars.Fight
         public void SetupItemAttachQuantity(List<ItemAttachForSave> itemInfos)
         {
             if (itemInfos == null) return;
+
             var restored = new List<ItemAttachQuantity>();
+
             foreach (var itemInfo in itemInfos)
             {
-                if (itemInfo.ItemAttachType == ItemAttachType.None) continue;
+                if (itemInfo == null || itemInfo.ItemAttachType == ItemAttachType.None) continue;
 
-                var itemAttach = GetItemAttachQuantity(itemInfo.ItemAttachType);
-                if (itemAttach == null) continue;
+                var itemAttachData = GetItemAttachData(itemInfo.ItemAttachType);
+                if (itemAttachData == null) continue;
 
                 restored.Add(new ItemAttachQuantity
                 {
-                    ItemAttachData = itemAttach.ItemAttachData,
+                    ItemAttachData = itemAttachData,
                     Quantity = Mathf.Max(0, itemInfo.Quantity)
                 });
             }
+
             ItemAttachInventories = restored;
         }
 
@@ -370,9 +372,11 @@ namespace ConquerTheStars.Fight
 
         public void AddItemQuantity(List<ItemInfoForSave> itemInfos)
         {
+            if (itemInfos == null) return;
+
             foreach (var itemInfo in itemInfos)
             {
-                if (itemInfo.Quantity <= 0) continue;
+                if (itemInfo == null || itemInfo.Quantity <= 0) continue;
 
                 var item = GetItem(itemInfo.ItemType);
 

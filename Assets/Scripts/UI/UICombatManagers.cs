@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using ConquerTheStars.Fight;
 using ConquerTheStars.Managers;
@@ -9,16 +7,16 @@ using ConquerTheStars.UI.Enemy;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-// SetTurnOrder: PooledObject ID = TurnOrder
-//SpawnKillElement: PooledObject ID = KillElement
 namespace ConquerTheStars.UI.Player
 {
     [RequireComponent(typeof(Canvas))]
     public class UICombatManagers : MonoBehaviour
     {
         private readonly PooledObjectId _itemReward = PooledObjectId.ItemRewardElement;
+        private readonly PooledObjectId _turnOrder = PooledObjectId.TurnOrder;
+        private readonly PooledObjectId _killElement = PooledObjectId.KillElement;
+
         private readonly string _battleSceneName = "Battle";
 
         public static UICombatManagers Instance;
@@ -62,8 +60,6 @@ namespace ConquerTheStars.UI.Player
         public List<TurnOrderElement> turnOrders = new();
         public TurnOrderElement curentTurnOrder;
         private readonly List<PooledObject> _uiPooledObject = new();
-
-
 
         void Awake()
         {
@@ -127,9 +123,12 @@ namespace ConquerTheStars.UI.Player
 
         public void SpawnKillElement(Sprite enemyIcon)
         {
-            var killElement = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.KillElement, Vector3.zero);
+            var killElement = ObjectPoolingManagers.Instance.GetPooledObject(_killElement, Vector3.zero);
             AddUiPooledObjectList(killElement);
-            killElement.GetComponent<RectTransform>().SetParent(_kills);
+
+            var rect = killElement.GetComponent<RectTransform>();
+            rect.SetParent(_kills, false);
+            rect.localScale = Vector3.one;
             killElement.GetComponent<EnemyKillElement>().SetIcon(enemyIcon);
         }
 
@@ -148,7 +147,9 @@ namespace ConquerTheStars.UI.Player
         public void ReloadBattle()
         {
             ReleaseAllUiPooledObject();
-            SceneManager.LoadScene(_battleSceneName);
+            // SceneManager.LoadScene(_battleSceneName);
+            // SceneManager.LoadScene();
+            GameManager.Instance.LoadBattleScene();
         }
 
         // Release All UI Pooled
@@ -165,12 +166,12 @@ namespace ConquerTheStars.UI.Player
         {
             foreach (var character in characters)
             {
-                var turnOrderObject = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.TurnOrder, Vector3.zero);
+                var turnOrderObject = ObjectPoolingManagers.Instance.GetPooledObject(_turnOrder, Vector3.zero);
                 var turnOrderElement = turnOrderObject.GetComponent<TurnOrderElement>();
                 turnOrderElement.InactiveHighlight();
 
                 var rect = turnOrderObject.GetComponent<RectTransform>();
-                rect.SetParent(turnOrderBoard.transform);
+                rect.SetParent(turnOrderBoard.transform, false);
                 rect.localScale = Vector3.one;
                 rect.localRotation = Quaternion.identity;
 
@@ -209,17 +210,23 @@ namespace ConquerTheStars.UI.Player
         public void SpawnItemReward(List<ItemInfoForSave> itemRewardList)
         {
             var team = PlayerTeam.Instance;
-            if (team == null) return;
+            if (team == null || itemRewardList == null) return;
 
             foreach (var item in itemRewardList)
             {
+                if (item == null || item.Quantity <= 0) continue;
+
+                var inventoryItem = team.GetItem(item.ItemType);
+                if (inventoryItem == null || inventoryItem.ItemData == null) continue;
+
                 var itemReward = ObjectPoolingManagers.Instance.GetPooledObject(_itemReward, Vector3.zero);
                 var rect = itemReward.GetComponent<RectTransform>();
-                rect.SetParent(_itemParent);
+                rect.SetParent(_itemParent, false);
                 rect.localScale = Vector3.one;
+                rect.rotation = Quaternion.identity;
 
                 var itemElement = itemReward.GetComponent<ItemElementForInventory>();
-                itemElement.Icon.sprite = team.GetItem(item.ItemType).ItemData.ItemIcon;
+                itemElement.Icon.sprite = inventoryItem.ItemData.ItemIcon;
                 itemElement.Quantity.SetText(item.Quantity.ToString());
 
                 _uiPooledObject.Add(itemReward);
@@ -228,13 +235,16 @@ namespace ConquerTheStars.UI.Player
 
         public void SpawnItemAttachReward(ItemAttachData itemAttach)
         {
+            if (itemAttach == null) return;
+
             var team = PlayerTeam.Instance;
             if (team == null) return;
 
             var itemReward = ObjectPoolingManagers.Instance.GetPooledObject(_itemReward, Vector3.zero);
             var rect = itemReward.GetComponent<RectTransform>();
-            rect.SetParent(_itemAttachParent);
+            rect.SetParent(_itemAttachParent, false);
             rect.localScale = Vector3.one;
+            rect.rotation = Quaternion.identity;
 
             var itemElement = itemReward.GetComponent<ItemElementForInventory>();
             itemElement.Icon.sprite = itemAttach.Icon;
