@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ConquerTheStars.Fight;
+using ConquerTheStars.Managers;
 using ConquerTheStars.Pattern.Object_Pooling;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +41,11 @@ namespace ConquerTheStars.UI.Player
             RefreshItemEquipment();
         }
 
+        private void OnDisable()
+        {
+            RefreshItem();
+        }
+
         public void UpdateInventory()
         {
             RefreshItem();
@@ -66,11 +72,10 @@ namespace ConquerTheStars.UI.Player
 
         private void RefreshItem()
         {
-            if (_itemSpawnedList == null || _itemSpawnedList.Count == 0) return;
-
             foreach (var item in _itemSpawnedList)
             {
-                item.Release();
+                if (item != null)
+                    item.Release();
             }
             _itemSpawnedList.Clear();
         }
@@ -121,6 +126,8 @@ namespace ConquerTheStars.UI.Player
 
             UpdateInventory();
             RefreshItemEquipment();
+
+            GameManager.Instance.AutoSaveGame();
         }
     }
 }

@@ -24,6 +24,10 @@ namespace ConquerTheStars.UI.Player
             UpdateInventory();
         }
 
+        private void OnDisable()
+        {
+            Refresh();
+        }
 
         private void UpdateInventory()
         {
@@ -57,11 +61,10 @@ namespace ConquerTheStars.UI.Player
 
         private void Refresh()
         {
-            if (_itemSpawnedList == null || _itemSpawnedList.Count == 0) return;
-
             foreach (var item in _itemSpawnedList)
             {
-                item.Release();
+                if (item != null)
+                    item.Release();
             }
             _itemSpawnedList.Clear();
         }

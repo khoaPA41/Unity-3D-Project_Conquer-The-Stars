@@ -17,8 +17,6 @@ namespace ConquerTheStars.UI.Player
         private ItemAttachData _itemAttachData;
         public ItemAttachData ItemAttachData => _itemAttachData;
 
-        // private int quantity;
-
         private RectTransform _dragIcon;
 
         private void OnDisable()

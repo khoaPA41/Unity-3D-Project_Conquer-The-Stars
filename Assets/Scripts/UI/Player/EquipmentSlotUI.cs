@@ -1,5 +1,5 @@
-using System;
 using ConquerTheStars.Fight;
+using ConquerTheStars.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -36,6 +36,8 @@ namespace ConquerTheStars.UI.Player
 
             _playerAttachItem.UpdateInventory();
             _playerAttachItem.RefreshItemEquipment();
+
+            GameManager.Instance.AutoSaveGame();
         }
     }
 }
