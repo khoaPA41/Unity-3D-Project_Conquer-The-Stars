@@ -53,10 +53,8 @@ namespace ConquerTheStars.Fight.Match
         {
             foreach (var battle in _battleSpawn)
             {
-                // if (SaveManagers.Instance.CurrentSaveData.BattleCompletedIds.Contains(battle.BattleId)) continue;
                 if (BattleCompleted.Contains(battle.BattleId)) continue;
 
-                Debug.Log("a");
                 var enemy = ObjectPoolingManagers.Instance.GetPooledObject(PooledObjectId.Battle_Infor, battle.SpawnPosition);
                 var enemyInfor = enemy.GetComponent<EnemyInformation>();
 

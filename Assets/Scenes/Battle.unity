@@ -2355,14 +2355,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.088679194, b: 0.088679194, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 151241378, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b758af4d70faa3b4598afdca4b0bb65b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5487,6 +5487,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8272512652635963899, guid: 430770ab2f34d8b44aaecfa2e6401fcb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8546531038120765375, guid: 430770ab2f34d8b44aaecfa2e6401fcb, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5738,6 +5742,7 @@ PrefabInstance:
     - {fileID: 4150352589871183760, guid: 430770ab2f34d8b44aaecfa2e6401fcb, type: 3}
     - {fileID: 7570094422964105946, guid: 430770ab2f34d8b44aaecfa2e6401fcb, type: 3}
     - {fileID: 276060575668392274, guid: 430770ab2f34d8b44aaecfa2e6401fcb, type: 3}
+    - {fileID: 8102886549271816663, guid: 430770ab2f34d8b44aaecfa2e6401fcb, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 430770ab2f34d8b44aaecfa2e6401fcb, type: 3}
@@ -6594,7 +6599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 566335295, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4cde70610f37a234db7b239e677df602, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
