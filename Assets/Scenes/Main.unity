@@ -3145,15 +3145,15 @@ MonoBehaviour:
   _playerStats_III: {fileID: 11400000, guid: 1d78dd15835c4344fa95e2d053e3c615, type: 2}
   _itemDatas:
   - ItemData: {fileID: 11400000, guid: 8d7a6c8b895d81b41a57ea8df0f4a7c7, type: 2}
-    Quantity: 1
+    Quantity: 2
   - ItemData: {fileID: 11400000, guid: db97d639bc4a4a94ca03b73ea412fc6b, type: 2}
-    Quantity: 1
+    Quantity: 2
   - ItemData: {fileID: 11400000, guid: b5eb578fad41629448631575b4ee3b1a, type: 2}
-    Quantity: 1
+    Quantity: 2
   - ItemData: {fileID: 11400000, guid: b168b497e8b2ea44198d16d93518ce4d, type: 2}
-    Quantity: 1
+    Quantity: 2
   - ItemData: {fileID: 11400000, guid: f23baaad043b73c42a2aeb1b5a7e2927, type: 2}
-    Quantity: 1
+    Quantity: 2
   PlayerSlotList: []
   _itemAttachDict:
   - {fileID: 11400000, guid: 5093387cef12ddc4487f8142efc30c44, type: 2}
