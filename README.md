@@ -4,7 +4,7 @@
 
 ## 🎮 Demo
 
-[Download](https://pakbot4124.itch.io/conquer-the-stars) · [Gameplay Video](https://youtu.be/o_B0CL_cYfI) · [Developer Logs](https://app.notion.com/p/3-Week-Engineering-Polish-Sprint-25-09-15-10-2026-3e5fa5c6075a8168aa4ec2b897999959?source=copy_link)
+[Download](https://pakbot4124.itch.io/conquer-the-stars) · [Gameplay Video](https://youtu.be/o_B0CL_cYfI) · [Developer Logs](https://app.notion.com/p/Conquer-The-Stars-3e3fa5c6075a8146b565d8ba530a15e4?source=copy_link)
 
 <p align="center">
   <img src="Assets/Media/Demo/Attack.gif" width="32%" alt="Timed attack gameplay" />
